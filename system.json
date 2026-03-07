@@ -1,20 +1,13 @@
-{
-  "id": "boilerplate",
-  "title": "Boilerplate",
-  "description": "The Boilerplate system for FoundryVTT!",
+ {
+  "id": "huyen-viet-vtt",
+  "title": "Huyền Việt Đại Lục System",
+  "description": "Huyền Việt Đại Lục system cho FoundryVTT!",
   "authors": [
     {
-      "name": "Asacolips",
-      "discord": "asacolips"
+      "name": "Wade"
     },
     {
-      "name": "Lee Talman",
-      "discord": ".pizzaWizard"
-    },
-    {
-      "name": "Joseph M.",
-      "url": "https://joseph-meehan.carrd.co/",
-      "discord": "chaosos"
+      "name": "Jase Ngo"
     }
   ],
   "documentTypes": {
@@ -56,7 +49,7 @@
       "thumbnail": "systems/boilerplate/assets/anvil-impact.png"
     }
   ],
-  "version": "3.0.0",
+  "version": "0.0.1",
   "compatibility": {
     "minimum": "13.339",
     "verified": "13.339"

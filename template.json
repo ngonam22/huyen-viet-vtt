@@ -1,0 +1,115 @@
+{
+  "Actor": {
+    "types": ["character", "npc"],
+    "templates": {
+      "common": {
+        "profile": {
+          "title": "",
+          "gioiTinh": "",
+          "giaToc": "",
+          "thiToc": "",
+          "boiCanh": "",
+          "giaCanh": "",
+          "thienTu": "",
+          "linhCan": false,
+          "ngheNghiep": "",
+          "bietHoa": "",
+          "tinhCach": "",
+          "tamNguyen": "",
+          "nghiaVu": ""
+        },
+        "social": {
+          "diaVi": 0,
+          "danhTieng": 0,
+          "nhanPham": 0
+        },
+        "nguHanh": {
+          "hoa":   { "label": "Hỏa",  "value": 1, "state": "healthy" },
+          "tho":   { "label": "Thổ",  "value": 1, "state": "healthy" },
+          "kim":   { "label": "Kim",  "value": 1, "state": "healthy" },
+          "thuy":  { "label": "Thủy", "value": 1, "state": "healthy" },
+          "moc":   { "label": "Mộc",  "value": 1, "state": "healthy" }
+        },
+        "resources": {
+          "sucLuc":  { "value": 0, "max": 0 },
+          "tamLuc":  { "value": 0, "max": 0 },
+          "nguHop":  { "value": 0, "max": 0 },
+          "canhGiac": { "value": 0, "manual": null },
+          "chuTam":   { "value": 0 },
+          "tocDo":    { "value": 0 }
+        },
+        "conditions": {
+          "loanTam": false,
+          "batTinh": false,
+          "matCanhGiac": false
+        },
+        "notes": {
+          "uuDiemText": "",
+          "khuyetDiemText": "",
+          "niemVuiText": "",
+          "noiSoText": "",
+          "moTa": ""
+        },
+        "currency": {
+          "dong": 0,
+          "tien": 0,
+          "quan": 0
+        }
+      }
+    },
+
+    "character": {
+      "templates": ["common"],
+      "monPhai": {
+        "name": "",
+        "role": "",
+        "rank": 1,
+        "curriculum": [],
+        "legacyUnlocked": false
+      },
+      "skills": {
+        "myThuat":      { "label": "Mỹ Thuật", "group": "ngheDao", "value": 0 },
+        "vanTu":        { "label": "Văn Tự", "group": "ngheDao", "value": 0 },
+        "thoiTrang":    { "label": "Thời Trang", "group": "ngheDao", "value": 0 },
+        "chienCu":      { "label": "Chiến Cụ", "group": "ngheDao", "value": 0 },
+        "yThuat":       { "label": "Y Thuật", "group": "ngheDao", "value": 0 },
+
+        "theThuat":     { "label": "Thể Thuật", "group": "voDao", "value": 0 },
+        "voThuat":      { "label": "Võ Thuật", "group": "voDao", "value": 0 },
+        "binhPhap":     { "label": "Binh Pháp", "group": "voDao", "value": 0 },
+        "thienDinh":    { "label": "Thiền Định", "group": "voDao", "value": 0 },
+
+        "lanhDao":      { "label": "Lãnh Đạo", "group": "tamDao", "value": 0 },
+        "leDao":        { "label": "Lễ Đạo", "group": "tamDao", "value": 0 },
+        "bieuDien":     { "label": "Biểu Diễn", "group": "tamDao", "value": 0 },
+        "tamY":         { "label": "Tâm Ý", "group": "tamDao", "value": 0 },
+
+        "thanHoc":      { "label": "Thần Học", "group": "hocDao", "value": 0 },
+        "chinhTri":     { "label": "Chính Trị Học", "group": "hocDao", "value": 0 },
+        "xaHoi":        { "label": "Xã Hội Học", "group": "hocDao", "value": 0 },
+        "khoaHoc":      { "label": "Khoa Học", "group": "hocDao", "value": 0 },
+
+        "laoDong":      { "label": "Lao Động", "group": "sinhDao", "value": 0 },
+        "thuongNghiep": { "label": "Thương Nghiệp", "group": "sinhDao", "value": 0 },
+        "haiNghiep":    { "label": "Hải Nghiệp", "group": "sinhDao", "value": 0 },
+        "sinhTon":      { "label": "Sinh Tồn", "group": "sinhDao", "value": 0 },
+        "hacNghiep":    { "label": "Hắc Nghiệp", "group": "sinhDao", "value": 0 }
+      }
+    },
+
+    "npc": {
+      "templates": ["common"],
+      "domains": {
+        "ngheDao": 0,
+        "tamDao": 0,
+        "hocDao": 0,
+        "voDao": 0,
+        "sinhDao": 0
+      },
+      "npcInfo": {
+        "abilitiesText": "",
+        "equipmentText": ""
+      }
+    }
+  }
+}

@@ -253,7 +253,7 @@
   height: 100%;
 }
 .boilerplate .tab {
-  max-height: 380px;
+  max-height: 400px;
 }
 .boilerplate .tab.biography {
   flex: 1;
@@ -489,4 +489,4 @@
 }
 .boilerplate .effects .item .effect-controls {
   border: none;
-}/*# sourceMappingURL=boilerplate.css.map */
+}

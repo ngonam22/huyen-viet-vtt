@@ -1,0 +1,137 @@
+{
+  "boiCanh": {
+    "thanhThi": {
+      "nguHanh": {
+        "kim": {
+          "modifier": 1
+        }
+      },
+      "kyNang": {
+        "thuongNghiep": {
+          "modifier": 1
+        }
+      }
+    },
+
+    "nongThon": {
+      "nguHanh": {
+        "tho": {
+          "modifier": 1
+        }
+      },
+      "kyNang": {
+        "laoDong": {
+          "modifier": 1
+        }
+      }
+    },
+
+    "rungSau": {
+      "nguHanh": {
+        "moc": {
+          "modifier": 1
+        }
+      },
+      "kyNang": {
+        "sinhTon": {
+          "modifier": 1
+        }
+      }
+    },
+
+    "songNuoc": {
+      "nguHanh": {
+        "thuy": {
+          "modifier": 1
+        }
+      },
+      "kyNang": {
+        "haiNghiep": {
+          "modifier": 1
+        }
+      }
+    },
+
+    "nuiDoi": {
+      "nguHanh": {
+        "tho": {
+          "modifier": 1
+        }
+      },
+      "kyNang": {
+        "theThuat": {
+          "modifier": 1
+        }
+      }
+    },
+
+    "namHai": {
+      "nguHanh": {
+        "thuy": {
+          "modifier": 1
+        }
+      },
+      "kyNang": {
+        "thuongNghiep": {
+          "modifier": 1
+        }
+      }
+    },
+
+    "yeuLam": {
+      "nguHanh": {
+        "moc": {
+          "modifier": 1
+        }
+      },
+      "kyNang": {
+        "leDao": {
+          "modifier": 1
+        }
+      }
+    },
+
+    "maVuc": {
+      "nguHanh": {
+        "hoa": {
+          "modifier": 1
+        }
+      },
+      "kyNang": {
+        "thanHoc": {
+          "modifier": 1
+        }
+      }
+    },
+
+    "tuyetVien": {
+      "nguHanh": {
+        "thuy": {
+          "modifier": 1
+        }
+      },
+      "kyNang": {
+        "sinhTon": {
+          "modifier": 1
+        }
+      }
+    },
+
+    "namLuc": {
+      "nguHanh": {
+        "kim": {
+          "modifier": 1
+        }
+      },
+      "kyNang": {
+        "haiNghiep": {
+          "modifier": 1
+        }
+      }
+    }
+  },
+
+  "giaCanh": {
+
+  }
+}

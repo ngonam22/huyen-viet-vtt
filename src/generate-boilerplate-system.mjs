@@ -16,10 +16,16 @@ class SystemGenerator {
 
   constructor(answers) {
     // Initialize our props.
-    this.packageName = answers.packageName.trim();
-    this.titleName = answers.titleName.trim();
-    this.className = answers.className.trim();
-    this.constantName = answers.constantName.trim();
+    // this.packageName = answers.packageName.trim();
+    // this.titleName = answers.titleName.trim();
+    // this.className = answers.className.trim();
+    // this.constantName = answers.constantName.trim();
+
+    this.packageName = 'huyen-viet-vtt';
+    this.titleName = 'Huyền Việt Vtt';
+    this.className = 'huyen-viet-vtt';
+    this.constantName = 'HUYEN_VIET_VTT';
+
     // Transform answers.
     this.packageName = this.transformPackageName();
     this.className = this.transformClassName();
@@ -193,65 +199,86 @@ class SystemGenerator {
 /**
  * Execute inquirer prompt for user input.
  */
-inquirer
-  // Initialize prompts.
-  .prompt([
-    {
-      type: 'input',
-      name: 'packageName',
-      message: 'Enter the package name of your system, such as "my-system" (alphanumeric characters and hyphens only):',
-      default: 'my-system'
-    },
-    {
-      type: 'input',
-      name: 'titleName',
-      message: 'Enter the formatted name of your system, such as "My System":',
-      default: 'My System'
-    },
-    {
-      type: 'input',
-      name: 'className',
-      message: 'Enter the name of your system for usage in JS classes, such as "MySystem" (alphanumeric characters only):',
-      default: 'MySystem'
-    },
-    {
-      type: 'input',
-      name: 'constantName',
-      message: 'Enter the name of your system for usage in constants, such as "MY_SYSTEM" (alphanumeric characters and underscores only):',
-      default: 'MY_SYSTEM'
-    }
-  ])
-  // Handle answers.
-  .then((answers) => {
-    // Validate for empty values.
-    for (let [question, answer] of Object.entries(answers)) {
-      if (!answer || !answer.length || answer.trim().length < 1) {
-        throw new Error(`${question} cannot be empty.`);
-      }
-    }
+// inquirer
+//   // Initialize prompts.
+//   .prompt([
+//     {
+//       type: 'input',
+//       name: 'packageName',
+//       message: 'Enter the package name of your system, such as "my-system" (alphanumeric characters and hyphens only):',
+//       default: 'my-system'
+//     },
+//     {
+//       type: 'input',
+//       name: 'titleName',
+//       message: 'Enter the formatted name of your system, such as "My System":',
+//       default: 'My System'
+//     },
+//     {
+//       type: 'input',
+//       name: 'className',
+//       message: 'Enter the name of your system for usage in JS classes, such as "MySystem" (alphanumeric characters only):',
+//       default: 'MySystem'
+//     },
+//     {
+//       type: 'input',
+//       name: 'constantName',
+//       message: 'Enter the name of your system for usage in constants, such as "MY_SYSTEM" (alphanumeric characters and underscores only):',
+//       default: 'MY_SYSTEM'
+//     }
+//   ])
+// Handle answers.
+// .then((answers) => {
+//   // Validate for empty values.
+//   for (let [question, answer] of Object.entries(answers)) {
+//     if (!answer || !answer.length || answer.trim().length < 1) {
+//       throw new Error(`${question} cannot be empty.`);
+//     }
+//   }
+//
+//   // Initialize our generator class.
+//   const generator = new SystemGenerator(answers);
+//
+//   // Clean out our build directory.
+//   generator.cleanBuildDir();
+//
+//   // Glob Boilerplate's files so that we can process them.
+//   glob('*', {ignore: ['node_modules/**'] }).then(files => {
+//     // Copy all files into the build dir.
+//     generator.copyFiles(files);
+//     // Replace boilerplate name mentions in files.
+//     generator.replaceFileContents();
+//     // Rename files that had boilerplate in their name.
+//     generator.renameFiles();
+//     // Remove generator files and update package.json.
+//     generator.cleanPackageJson();
+//   });
+//
+//   // Output a success message.
+//   console.log(`Success! Your system has been written to the ${generator.packageName}/ directory.`);
+// })
+// // Handle errors.
+// .catch((error) => {
+//   console.error(error);
+// });
 
-    // Initialize our generator class.
-    const generator = new SystemGenerator(answers);
+// Initialize our generator class.
+const generator = new SystemGenerator({});
 
-    // Clean out our build directory.
-    generator.cleanBuildDir();
+// Clean out our build directory.
+generator.cleanBuildDir();
 
-    // Glob Boilerplate's files so that we can process them.
-    glob('*', {ignore: ['node_modules/**'] }).then(files => {
-      // Copy all files into the build dir.
-      generator.copyFiles(files);
-      // Replace boilerplate name mentions in files.
-      generator.replaceFileContents();
-      // Rename files that had boilerplate in their name.
-      generator.renameFiles();
-      // Remove generator files and update package.json.
-      generator.cleanPackageJson();
-    });
+// Glob Boilerplate's files so that we can process them.
+glob('*', {ignore: ['node_modules/**'] }).then(files => {
+  // Copy all files into the build dir.
+  generator.copyFiles(files);
+  // Replace boilerplate name mentions in files.
+  generator.replaceFileContents();
+  // Rename files that had boilerplate in their name.
+  generator.renameFiles();
+  // Remove generator files and update package.json.
+  generator.cleanPackageJson();
+});
 
-    // Output a success message.
-    console.log(`Success! Your system has been written to the ${generator.packageName}/ directory.`);
-  })
-  // Handle errors.
-  .catch((error) => {
-    console.error(error);
-  });
+// Output a success message.
+console.log(`Success! Your system has been written to the ${generator.packageName}/ directory.`);

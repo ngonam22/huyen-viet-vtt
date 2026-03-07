@@ -41,23 +41,23 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
       template: 'templates/generic/tab-navigation.hbs',
     },
     features: {
-      template: 'systems/boilerplate/templates/actor/features.hbs',
+      template: 'systems/boilerplate/templates/actors/features.hbs',
       scrollable: [""],
     },
     biography: {
-      template: 'systems/boilerplate/templates/actor/biography.hbs',
+      template: 'systems/boilerplate/templates/actors/biography.hbs',
       scrollable: [""],
     },
     gear: {
-      template: 'systems/boilerplate/templates/actor/gear.hbs',
+      template: 'systems/boilerplate/templates/actors/gear.hbs',
       scrollable: [""],
     },
     spells: {
-      template: 'systems/boilerplate/templates/actor/spells.hbs',
+      template: 'systems/boilerplate/templates/actors/spells.hbs',
       scrollable: [""],
     },
     effects: {
-      template: 'systems/boilerplate/templates/actor/effects.hbs',
+      template: 'systems/boilerplate/templates/actors/effects.hbs',
       scrollable: [""],
     },
   };
@@ -90,9 +90,9 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
       editable: this.isEditable,
       owner: this.document.isOwner,
       limited: this.document.limited,
-      // Add the actor document.
+      // Add the actors document.
       actor: this.actor,
-      // Add the actor's data to context.data for easier access, as well as flags.
+      // Add the actors's data to context.data for easier access, as well as flags.
       system: this.actor.system,
       flags: this.actor.flags,
       // Adding a pointer to CONFIG.BOILERPLATE
@@ -137,7 +137,7 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
         context.tab = context.tabs[partId];
         // Prepare active effects
         context.effects = prepareActiveEffectCategories(
-          // A generator that returns all effects stored on the actor
+          // A generator that returns all effects stored on the actors
           // as well as any items
           this.actor.allApplicableEffects()
         );
@@ -329,7 +329,7 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
   }
 
   /**
-   * Handle creating a new Owned Item or ActiveEffect for the actor using initial data defined in the HTML dataset
+   * Handle creating a new Owned Item or ActiveEffect for the actors using initial data defined in the HTML dataset
    *
    * @this BoilerplateActorSheet
    * @param {PointerEvent} event   The originating click event
@@ -505,7 +505,7 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
         .updateEmbeddedDocuments('ActiveEffect', updates);
     }
 
-    // Update on the main actor
+    // Update on the main actors
     return this.actor.updateEmbeddedDocuments('ActiveEffect', directUpdates);
   }
 

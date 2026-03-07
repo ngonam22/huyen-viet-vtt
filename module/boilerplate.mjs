@@ -34,6 +34,7 @@ globalThis.boilerplate = {
 };
 
 Hooks.once('init', function () {
+  console.log('Huyền Việt | Initializing system');
   // Add custom constants for configuration.
   CONFIG.BOILERPLATE = BOILERPLATE;
 
@@ -50,7 +51,7 @@ Hooks.once('init', function () {
   CONFIG.Actor.documentClass = BoilerplateActor;
 
   // Note that you don't need to declare a DataModel
-  // for the base actor/item classes - they are included
+  // for the base actors/item classes - they are included
   // with the Character/NPC as part of super.defineSchema()
   CONFIG.Actor.dataModels = {
     character: models.BoilerplateCharacter,

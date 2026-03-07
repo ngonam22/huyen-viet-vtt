@@ -7,7 +7,7 @@ export class BoilerplateItem extends Item {
    * Augment the basic Item data model with additional dynamic data.
    */
   prepareData() {
-    // As with the actor class, items are documents that can have their data
+    // As with the actors class, items are documents that can have their data
     // preparation methods overridden (such as prepareBaseData()).
     super.prepareData();
   }
@@ -20,10 +20,10 @@ export class BoilerplateItem extends Item {
     // Starts off by populating the roll data with a shallow copy of `this.system`
     const rollData = { ...this.system };
 
-    // Quit early if there's no parent actor
+    // Quit early if there's no parent actors
     if (!this.actor) return rollData;
 
-    // If present, add the actor's roll data
+    // If present, add the actors's roll data
     rollData.actor = this.actor.getRollData();
 
     return rollData;

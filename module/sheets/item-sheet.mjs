@@ -276,7 +276,7 @@ export class BoilerplateItemSheet extends api.HandlebarsApplicationMixin(
   }
 
   /**
-   * Handle creating a new Owned Item or ActiveEffect for the actor using initial data defined in the HTML dataset
+   * Handle creating a new Owned Item or ActiveEffect for the actors using initial data defined in the HTML dataset
    *
    * @this BoilerplateItemSheet
    * @param {PointerEvent} event   The originating click event
