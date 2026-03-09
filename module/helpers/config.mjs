@@ -5,12 +5,11 @@ export const BOILERPLATE = {};
  * @type {Object}
  */
 BOILERPLATE.abilities = {
-  str: 'BOILERPLATE.Ability.Str.long',
-  dex: 'BOILERPLATE.Ability.Dex.long',
-  con: 'BOILERPLATE.Ability.Con.long',
-  int: 'BOILERPLATE.Ability.Int.long',
-  wis: 'BOILERPLATE.Ability.Wis.long',
-  cha: 'BOILERPLATE.Ability.Cha.long',
+  sucLuc: 'BOILERPLATE.Ability.sucLuc.long',
+  tamLuc: 'BOILERPLATE.Ability.tamLuc.long',
+  canhGiac: 'BOILERPLATE.Ability.canhGiac.long',
+  chuTam: 'BOILERPLATE.Ability.chuTam.long',
+  tocDo: 'BOILERPLATE.Ability.tocDo.long',
 };
 
 BOILERPLATE.abilityAbbreviations = {

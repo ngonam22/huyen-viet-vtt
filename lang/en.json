@@ -1,12 +1,21 @@
 {
   "BOILERPLATE": {
     "Ability": {
-      "Str": { "long": "Strength", "abbr": "str" },
-      "Con": { "long": "Constitution", "abbr": "con" },
-      "Dex": { "long": "Dexterity", "abbr": "dex" },
-      "Int": { "long": "Intelligence", "abbr": "int" },
-      "Wis": { "long": "Wisdom", "abbr": "wis" },
-      "Cha": { "long": "Charisma", "abbr": "cha" }
+      "sucLuc": {
+        "long": "Sức Lực", "abbr": "sl"
+      },
+      "tamLuc": {
+        "long": "Tâm Lực", "abbr": "tl"
+      },
+      "canhGiac": {
+        "long": "Cảnh Giác", "abbr": "cg"
+      },
+      "chuTam": {
+        "long": "Chú Tâm", "abbr": "ct"
+      },
+      "tocDo": {
+        "long": "Tốc Độ", "abbr": "td"
+      }
     },
     "SheetLabels": {
       "Actor": "Boilerplate Actor Sheet",
@@ -14,14 +23,36 @@
     },
     "Actor": {
       "Tabs": {
-        "Biography": "Biography",
-        "Features": "Features",
-        "Gear": "Gear",
+        "Biography": "Tiểu Sử",
+        "ThiToc": "Thị Tộc",
+        "Features": "Môn Phái",
+        "Gear": "Trang Bị",
         "Spells": "Spells",
         "Effects": "Effects"
       },
       "base": {
         "FIELDS": {
+          "nguHanh": {
+            "label": "Ngũ Hành",
+            "sucLuc": {
+              "label": "Sức Lực"
+            },
+            "tamLuc": {
+              "label": "Tâm Lực"
+            },
+            "canhGiac": {
+              "label": "Cảnh Giác"
+            },
+            "chuTam": {
+              "label": "Chú Tâm"
+            },
+            "tocDo": {
+              "label": "Tốc Độ"
+            },
+            "nguHop": {
+              "label": "Ngũ Hợp"
+            }
+          },
           "biography": {"label": "Biography"},
           "health": {
             "value": {"label": "Health"},
@@ -34,8 +65,11 @@
         }
       },
       "Character": {
+        "title": {
+          "label": "Thông Tin Nhân Vật"
+        },
         "FIELDS": {
-          "attributes.level.value": {"label": "Level"}
+          "attributes.level.value": {"label": "Cấp Bậc"}
         }
       },
       "NPC": {
