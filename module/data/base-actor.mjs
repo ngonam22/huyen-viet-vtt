@@ -19,6 +19,7 @@ export default class BoilerplateActorBase extends foundry.abstract
       value: new fields.NumberField({ ...requiredInteger, initial: 5, min: 0 }),
       max: new fields.NumberField({ ...requiredInteger, initial: 5 }),
     });
+    schema.thiToc = new fields.StringField({ initial: "" });
     schema.biography = new fields.HTMLField();
 
     return schema;

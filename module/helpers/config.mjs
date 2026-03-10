@@ -10,6 +10,7 @@ BOILERPLATE.abilities = {
   canhGiac: 'BOILERPLATE.Ability.canhGiac.long',
   chuTam: 'BOILERPLATE.Ability.chuTam.long',
   tocDo: 'BOILERPLATE.Ability.tocDo.long',
+  nguHop: 'BOILERPLATE.Ability.nguHop.long',
 };
 
 BOILERPLATE.abilityAbbreviations = {

@@ -31,33 +31,42 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
     },
   };
 
+
+  get title() {
+    return game.i18n.localize('BOILERPLATE.Actor.Character.title.label') + ': ' + this.actor.name;
+  }
+
   /** @override */
   static PARTS = {
     header: {
-      template: 'systems/boilerplate/templates/actor/header.hbs',
+      template: 'systems/huyen-viet-vtt/templates/actor/header.hbs',
     },
     tabs: {
       // Foundry-provided generic template
       template: 'templates/generic/tab-navigation.hbs',
     },
     features: {
-      template: 'systems/boilerplate/templates/actors/features.hbs',
+      template: 'systems/huyen-viet-vtt/templates/actor/features.hbs',
+      scrollable: [""],
+    },
+    thiToc: {
+      template: 'systems/huyen-viet-vtt/templates/actor/thiToc.hbs',
       scrollable: [""],
     },
     biography: {
-      template: 'systems/boilerplate/templates/actors/biography.hbs',
+      template: 'systems/huyen-viet-vtt/templates/actor/biography.hbs',
       scrollable: [""],
     },
     gear: {
-      template: 'systems/boilerplate/templates/actors/gear.hbs',
+      template: 'systems/huyen-viet-vtt/templates/actor/gear.hbs',
       scrollable: [""],
     },
     spells: {
-      template: 'systems/boilerplate/templates/actors/spells.hbs',
+      template: 'systems/huyen-viet-vtt/templates/actor/spells.hbs',
       scrollable: [""],
     },
     effects: {
-      template: 'systems/boilerplate/templates/actors/effects.hbs',
+      template: 'systems/huyen-viet-vtt/templates/actor/effects.hbs',
       scrollable: [""],
     },
   };
@@ -72,7 +81,7 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
     // Control which parts show based on document subtype
     switch (this.document.type) {
       case 'character':
-        options.parts.push('features', 'gear', 'spells', 'effects');
+        options.parts.push('features','thiToc', 'gear', 'spells', 'effects');
         break;
       case 'npc':
         options.parts.push('gear', 'effects');
@@ -175,6 +184,10 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
         case 'biography':
           tab.id = 'biography';
           tab.label += 'Biography';
+          break;
+        case 'thiToc':
+          tab.id = 'thiToc';
+          tab.label += 'ThiToc';
           break;
         case 'features':
           tab.id = 'features';
@@ -575,6 +588,16 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
   async _processSubmitData(event, form, submitData) {
     const overrides = foundry.utils.flattenObject(this.actor.overrides);
     for (let k of Object.keys(overrides)) delete submitData[k];
+
+
+    console.log('++++++', submitData);
+    // Convert numeric values to numbers.
+    for (const [k, v] of Object.entries(submitData)) {
+      if (typeof v === "string" && v.trim() !== "" && !isNaN(Number(v))) {
+        submitData[k] = Number(v);
+      }
+    }
+
     await this.document.update(submitData);
   }
 
