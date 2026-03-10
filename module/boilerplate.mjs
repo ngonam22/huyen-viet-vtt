@@ -1,5 +1,5 @@
 // Import document classes.
-import { BoilerplateActor } from './documents/actor.mjs';
+import { huyenvietvttActor } from './documents/actor.ts';
 import { BoilerplateItem } from './documents/item.mjs';
 // Import sheet classes.
 import { BoilerplateActorSheet } from './sheets/actor-sheet.mjs';
@@ -20,7 +20,7 @@ const sheets = foundry.appv1.sheets;
 // by downstream developers
 globalThis.boilerplate = {
   documents: {
-    BoilerplateActor,
+    huyenvietvttActor,
     BoilerplateItem,
   },
   applications: {
@@ -48,7 +48,7 @@ Hooks.once('init', function () {
   };
 
   // Define custom Document and DataModel classes
-  CONFIG.Actor.documentClass = BoilerplateActor;
+  CONFIG.Actor.documentClass = huyenvietvttActor;
 
   // Note that you don't need to declare a DataModel
   // for the base actors/item classes - they are included
