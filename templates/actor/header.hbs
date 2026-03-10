@@ -37,8 +37,12 @@
                     {{localize 'BOILERPLATE.Actor.base.FIELDS.nguHanh.sucLuc.label'}}
                 </label>
                 <div class='resource-content flexrow flex-center flex-between'>
-                    <input type='text' name='system.abilities.sucLuc.value' value='{{system.abilities.sucLuc.value}}'
-                        data-dtype='Number' />
+                    <input
+                            type='number'
+                            name='system.abilities.sucLuc.value'
+                            value='{{system.abilities.sucLuc.value}}'
+                            step='1'
+                    />
                 </div>
             </div>
 
@@ -47,8 +51,12 @@
                     {{localize 'BOILERPLATE.Actor.base.FIELDS.nguHanh.tamLuc.label'}}
                 </label>
                 <div class='resource-content flexrow flex-center flex-between'>
-                    <input type='text' name='system.abilities.tamLuc.value' value='{{system.abilities.tamLuc.value}}'
-                        data-dtype='Number' />
+                    <input
+                            type='number'
+                            name='system.abilities.tamLuc.value'
+                            value='{{system.abilities.tamLuc.value}}'
+                            step='1'
+                    />
                 </div>
             </div>
 
@@ -57,8 +65,12 @@
                     {{localize 'BOILERPLATE.Actor.base.FIELDS.nguHanh.canhGiac.label'}}
                 </label>
                 <div class='resource-content flexrow flex-center flex-between'>
-                    <input type='text' name='system.abilities.canhGiac.value'
-                        value='{{system.abilities.canhGiac.value}}' data-dtype='Number' />
+                    <input
+                            type='number'
+                            name='system.abilities.canhGiac.value'
+                            value='{{system.abilities.canhGiac.value}}'
+                            step='1'
+                    />
                 </div>
             </div>
         </div>
@@ -69,8 +81,12 @@
                     {{localize 'BOILERPLATE.Actor.base.FIELDS.nguHanh.chuTam.label'}}
                 </label>
                 <div class='resource-content flexrow flex-center flex-between'>
-                    <input type='text' name='system.abilities.chuTam.value' value='{{system.abilities.chuTam.value}}'
-                        data-dtype='Number' />
+                    <input
+                            type='number'
+                            name='system.abilities.chuTam.value'
+                            value='{{system.abilities.chuTam.value}}'
+                            step='1'
+                    />
                 </div>
             </div>
 
@@ -79,8 +95,12 @@
                     {{localize 'BOILERPLATE.Actor.base.FIELDS.nguHanh.tocDo.label'}}
                 </label>
                 <div class='resource-content flexrow flex-center flex-between'>
-                    <input type='text' name='system.abilities.tocDo.value' value='{{system.abilities.tocDo.value}}'
-                        data-dtype='Number' />
+                    <input
+                            type='number'
+                            name='system.abilities.tocDo.value'
+                            value='{{system.abilities.tocDo.value}}'
+                            step='1'
+                    />
                 </div>
             </div>
 
@@ -89,8 +109,12 @@
                     {{localize 'BOILERPLATE.Actor.base.FIELDS.nguHanh.nguHop.label'}}
                 </label>
                 <div class='resource-content flexrow flex-center flex-between'>
-                    <input type='text' name='system.abilities.nguHop.value' value='{{system.abilities.nguHop.value}}'
-                        data-dtype='Number' />
+                    <input
+                            type='number'
+                            name='system.abilities.nguHop.value'
+                            value='{{system.abilities.nguHop.value}}'
+                            step='1'
+                    />
                 </div>
             </div>
         </div>
@@ -104,8 +128,12 @@
                     {{localize 'BOILERPLATE.Actor.Character.FIELDS.attributes.level.value.label'}}
                 </label>
                 <div class='resource-content flexrow flex-center flex-between'>
-                    <input type='text' name='system.attributes.level.value' value='{{system.attributes.level.value}}'
-                        data-dtype='Number' />
+                    <input
+                            type='number'
+                            name='system.attributes.level.value'
+                            value='{{system.attributes.level.value}}'
+                            step='1'
+                    />
                 </div>
                 {{/if}}
                 {{#if (eq actor.type 'npc')}}
@@ -114,9 +142,20 @@
                     'BOILERPLATE.Actor.NPC.xp.label'}}
                 </label>
                 <div class='resource-content flexrow flex-center flex-between'>
-                    <input type='text' name='system.cr' value='{{system.cr}}' data-dtype='Number' />
+                    <input
+                            type='number'
+                            name='system.cr'
+                            value='{{system.cr}}'
+                            step='1'
+                    />
                     <span></span>
-                    <input type='text' disabled='true' name='system.xp' value='{{system.xp}}' data-dtype='Number' />
+                    <input
+                            type='number'
+                            disabled='true'
+                            name='system.xp'
+                            value='{{system.xp}}'
+                            step='1'
+                    />
                 </div>
                 {{/if}}
             </div>

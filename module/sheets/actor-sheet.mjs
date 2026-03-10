@@ -577,28 +577,34 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
    ********************/
 
   /**
-   * Submit a document update based on the processed form data.
+   * Prepare data used to update the Document upon form submission.
    * @param {SubmitEvent} event                   The originating form submission event
    * @param {HTMLFormElement} form                The form element that was submitted
-   * @param {object} submitData                   Processed and validated form data to be used for a document update
-   * @returns {Promise<void>}
+   * @param {FormDataExtended} formData           Processed data for the submitted form
+   * @returns {object}                            Processed data to be used for a document update
    * @protected
    * @override
    */
-  async _processSubmitData(event, form, submitData) {
+  _prepareSubmitData(event, form, formData) {
+    const submitData = formData.object;
     const overrides = foundry.utils.flattenObject(this.actor.overrides);
     for (let k of Object.keys(overrides)) delete submitData[k];
 
-
-    console.log('++++++', submitData);
-    // Convert numeric values to numbers.
-    for (const [k, v] of Object.entries(submitData)) {
-      if (typeof v === "string" && v.trim() !== "" && !isNaN(Number(v))) {
+    // Convert numeric values to integers and handle NaN.
+    for (let [k, v] of Object.entries(submitData)) {
+      // Force conversion for abilities and attributes which must be integers
+      if ( k.includes('abilities') || k.includes('value') || k.includes('level') || k.includes('cr') || k.includes('xp') ) {
+        const val = (typeof v === 'number') ? v : parseInt(v);
+        submitData[k] = isNaN(val) ? 0 : Math.floor(val);
+      } 
+      // General conversion for other potentially numeric fields
+      else if (typeof v === "string" && v.trim() !== "" && !isNaN(Number(v))) {
         submitData[k] = Number(v);
       }
     }
 
-    await this.document.update(submitData);
+    console.log('++++++ submitData processed:', submitData);
+    return submitData;
   }
 
   /**

@@ -1,4 +1,4 @@
- {
+{
   "id": "huyen-viet-vtt",
   "title": "Huyền Việt Đại Lục System",
   "description": "Huyền Việt Đại Lục system cho FoundryVTT!",
@@ -12,29 +12,48 @@
   ],
   "documentTypes": {
     "Actor": {
-        "character": {
-            "htmlFields": ["biography"]
-        },
-        "npc": {
-            "htmlFields": ["biography"]
-        }
+      "character": {
+        "htmlFields": [
+          "biography"
+        ]
+      },
+      "npc": {
+        "htmlFields": [
+          "biography"
+        ]
+      }
     },
     "Item": {
-        "feature": {
-            "htmlFields": ["description"]
-        },
-        "gear": {
-            "htmlFields": ["description"]
-        },
-        "spell": {
-            "htmlFields": ["description"]
-        }
+      "feature": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "gear": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "spell": {
+        "htmlFields": [
+          "description"
+        ]
+      }
     }
   },
   "flags": {
     "hotReload": {
-      "extensions": ["css", "html", "hbs", "json"],
-      "paths": ["css", "lang", "templates"]
+      "extensions": [
+        "css",
+        "html",
+        "hbs",
+        "json"
+      ],
+      "paths": [
+        "css",
+        "lang",
+        "templates"
+      ]
     }
   },
   "url": "Replace this with a link to your public repository",
@@ -54,8 +73,12 @@
     "minimum": "13.339",
     "verified": "13.339"
   },
-  "esmodules": ["module/boilerplate.mjs"],
-  "styles": ["css/boilerplate.css"],
+  "esmodules": [
+    "module/huyen-viet-vtt.mjs"
+  ],
+  "styles": [
+    "css/huyen-viet-vtt.css"
+  ],
   "languages": [
     {
       "lang": "en",
