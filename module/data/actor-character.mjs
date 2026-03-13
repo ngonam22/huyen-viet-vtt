@@ -1,5 +1,14 @@
 import BoilerplateActorBase from './base-actor.mjs';
 
+
+const intField = (initial = 0, min = 0, max = 999) => new foundry.data.fields.NumberField({
+  required: true,
+  integer: true,
+  initial,
+  min,
+  max
+})
+
 export default class BoilerplateCharacter extends BoilerplateActorBase {
   static LOCALIZATION_PREFIXES = [
     ...super.LOCALIZATION_PREFIXES,
@@ -31,7 +40,57 @@ export default class BoilerplateCharacter extends BoilerplateActorBase {
       }, {})
     );
 
-    return schema;
+    console.log(`GAME SCHEMA`)
+    console.log(schema)
+    // return schema;
+
+    return {
+
+      identity: new fields.SchemaField({
+        giaToc: new fields.StringField({ initial: "" }),
+        monPhai: new fields.StringField({ initial: "" }),
+        thiToc: new fields.StringField({ initial: "" }),
+        ngheNghiep: new fields.StringField({ initial: "" }),
+        tinhCach: new fields.StringField({ initial: "" })
+      }),
+
+      elements: new fields.SchemaField({
+        hoa: intField(1, 1, 6),
+        tho: intField(1, 1, 6),
+        kim: intField(1, 1, 6),
+        thuy: intField(1, 1, 6),
+        moc: intField(1, 1, 6)
+      }),
+
+      abilities: new fields.SchemaField({
+        sucLuc: new fields.SchemaField({
+          value: intField()
+        }),
+        tamLuc: new fields.SchemaField({
+          value: intField()
+        }),
+        canhGiac: new fields.SchemaField({
+          value: intField()
+        }),
+        chuTam: new fields.SchemaField({
+          value: intField()
+        }),
+        tocDo: new fields.SchemaField({
+          value: intField()
+        }),
+        nguHop: new fields.SchemaField({
+          value: intField()
+        }),
+      }),
+
+      attributes: new fields.SchemaField({
+        level: new fields.SchemaField({
+          value: intField(1)
+        })
+      }),
+
+
+    }
   }
 
   prepareDerivedData() {

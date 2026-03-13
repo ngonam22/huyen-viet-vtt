@@ -490,3 +490,7 @@
 .boilerplate .effects .item .effect-controls {
   border: none;
 }
+
+.character-sheet-window .window-content {
+  overflow: auto !important;
+}

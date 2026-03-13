@@ -2,32 +2,177 @@
 <header class='sheet-header'>
 
     <div class='header-fields'>
+        <div class="resources grid grid-3col">
+            <div>
+                <div class="ability-block grid" data-action="roll-skill">
+                    <div class="ability-title">
+                        Học Đạo
+                    </div>
 
+                    <div class="ability-child grid grid-2col">
+                        <span>Chính Trị</span>
+                        <div class="ability-level">+1</div>
+                    </div>
 
-        <div class='resources grid grid-2col'>
-            <img class='profile-img' src='{{actor.img}}' data-edit='img' data-action='onEditImage'
-                data-tooltip='{{actor.name}}' height='100' width='100' />
+                    <div class="ability-child grid grid-2col">
+                        <span>Khoa Hoc</span>
+                        <div class="ability-level">+1</div>
+                    </div>
 
-            <div class='resource'>
-                <div class="resource">
-                    <label for='name' class='resource-label'>
-                        Tên
-                    </label>
-                    <div class='resource-content flexrow flex-center flex-between'>
-                        <input name='name' type='text' value='{{actor.name}}' placeholder='Name' />
+                    <div class="ability-child grid grid-2col">
+                        <span>Thần Học</span>
+                        <div class="ability-level">+1</div>
+                    </div>
+
+                    <div class="ability-child grid grid-2col">
+                        <span>Xã Hội</span>
+                        <div class="ability-level">+1</div>
+                    </div>
+
+                    <div class="ability-child grid grid-2col">
+                        <span>Y Học</span>
+                        <div class="ability-level">+1</div>
                     </div>
                 </div>
 
+                <div class="ability-block grid" data-action="roll-skill">
+                    <div class="ability-title">
+                        Nghệ Đạo
+                    </div>
+
+                    <div class="ability-child grid grid-2col">
+                        <span>Mỹ Thuật</span>
+                        <div class="ability-level">+1</div>
+                    </div>
+
+                    <div class="ability-child grid grid-2col">
+                        <span>Văn Tự</span>
+                        <div class="ability-level">+1</div>
+                    </div>
+
+                    <div class="ability-child grid grid-2col">
+                        <span>Thời Trang</span>
+                        <div class="ability-level">+1</div>
+                    </div>
+
+                    <div class="ability-child grid grid-2col">
+                        <span>Chiến Cụ</span>
+                        <div class="ability-level">+1</div>
+                    </div>
+                </div>
+
+                <div class="ability-block grid" data-action="roll-skill">
+                    <div class="ability-title">
+                        Sinh Đạo
+                    </div>
+
+                    <div class="ability-child grid grid-2col">
+                        <span>Lao Động</span>
+                        <div class="ability-level">+1</div>
+                    </div>
+
+                    <div class="ability-child grid grid-2col">
+                        <span>Thương Nghiệp</span>
+                        <div class="ability-level">+1</div>
+                    </div>
+
+                    <div class="ability-child grid grid-2col">
+                        <span>Hải Nghiệp</span>
+                        <div class="ability-level">+1</div>
+                    </div>
+
+                    <div class="ability-child grid grid-2col">
+                        <span>Hắc Nghiệp</span>
+                        <div class="ability-level">+1</div>
+                    </div>
+
+                    <div class="ability-child grid grid-2col">
+                        <span>Sinh Tồn</span>
+                        <div class="ability-level">+1</div>
+                    </div>
+                </div>
+
+                <div class="ability-block grid" data-action="roll-skill">
+                    <div class="ability-title">
+                        Tâm Đạo
+                    </div>
+
+                    <div class="ability-child grid grid-2col">
+                        <span>Lãnh Đạo</span>
+                        <div class="ability-level">+1</div>
+                    </div>
+
+                    <div class="ability-child grid grid-2col">
+                        <span>Lễ Đạo</span>
+                        <div class="ability-level">+1</div>
+                    </div>
+
+                    <div class="ability-child grid grid-2col">
+                        <span>Biểu Diễn</span>
+                        <div class="ability-level">+1</div>
+                    </div>
+
+                    <div class="ability-child grid grid-2col">
+                        <span>Tâm Ý</span>
+                        <div class="ability-level">+1</div>
+                    </div>
+                </div>
+
+                <div class="ability-block grid" data-action="roll-skill">
+                    <div class="ability-title">
+                        Võ Đạo
+                    </div>
+
+                    <div class="ability-child grid grid-2col">
+                        <span>Thể Thuật</span>
+                        <div class="ability-level">+1</div>
+                    </div>
+
+                    <div class="ability-child grid grid-2col">
+                        <span>Võ Thuật</span>
+                        <div class="ability-level">+1</div>
+                    </div>
+
+                    <div class="ability-child grid grid-2col">
+                        <span>Binh Pháp</span>
+                        <div class="ability-level">+1</div>
+                    </div>
+
+                    <div class="ability-child grid grid-2col">
+                        <span>Thiền Định</span>
+                        <div class="ability-level">+1</div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class='resources grid grid-2col'>
+                <img class='profile-img' src='{{actor.img}}' data-edit='img' data-action='onEditImage'
+                     data-tooltip='{{actor.name}}' height='100' width='100' />
+
                 <div class='resource'>
-                    <label for='system.health.value' class='resource-label'>
-                        Thị Tộc
-                    </label>
-                    <div class='resource-content flexrow flex-center flex-between'>
-                        <input name='system.thiToc' type='text' value='{{system.thiToc}}' placeholder='Thị Tộc' />
+                    <div class="resource">
+                        <label for='name' class='resource-label'>
+                            Tên
+                        </label>
+                        <div class='resource-content flexrow flex-center flex-between'>
+                            <input name='name' type='text' value='{{actor.name}}' placeholder='Name' />
+                        </div>
+                    </div>
+
+                    <div class='resource'>
+                        <label for='system.health.value' class='resource-label'>
+                            Thị Tộc
+                        </label>
+                        <div class='resource-content flexrow flex-center flex-between'>
+                            <input name='system.thiToc' type='text' value='{{system.thiToc}}' placeholder='Thị Tộc' />
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
+
         {{! The grid classes are defined in scss/global/_grid.scss. To use,
         use both the "grid" and "grid-Ncol" class where "N" can be any number
         from 1 to 12 and will create that number of columns. }}
@@ -119,6 +264,16 @@
             </div>
         </div>
 
+        <button
+                type="button"
+                data-action="roll-skill"
+                data-skill="voThuat"
+                data-element="hoa"
+                data-dc="2"
+                data-label="Võ Thuật + Hỏa"
+        >
+            Roll
+        </button>
 
         <div class='resources grid grid-3col'>
 
