@@ -62,6 +62,42 @@ export default class BoilerplateCharacter extends BoilerplateActorBase {
         moc: intField(1, 1, 6)
       }),
 
+      skills: new fields.SchemaField({
+        // Hoc Dao Skills
+        chinhTri: intField(0, 0, 6),
+        khoaHoc: intField(0, 0, 6),
+        thanHoc: intField(0, 0, 6),
+        xaHoi: intField(0, 0, 6),
+        yHoc: intField(0, 0, 6),
+
+        // Nghe Dao Skills
+        myThuat: intField(0, 0, 6),
+        vanTu: intField(0, 0, 6),
+        thoiTrang: intField(0, 0, 6),
+        chienCu: intField(0, 0, 6),
+
+        // Sinh Dao Skills
+        laoDong: intField(0, 0, 6),
+        thuongNghiep: intField(0, 0, 6),
+        haiNghiep: intField(0, 0, 6),
+        hacNghiep: intField(0, 0, 6),
+        sinhTon: intField(0, 0, 6),
+
+
+        // Tam Dao Skills
+        lanhDao: intField(0, 0, 6),
+        leDao: intField(0, 0, 6),
+        bieuDien: intField(0, 0, 6),
+        tamY: intField(0, 0, 6),
+
+        // Vo Dao Skills
+        theThuat: intField(0, 0, 6),
+        voThuat: intField(0, 0, 6),
+        binhPhap: intField(0, 0, 6),
+        thienDinh: intField(0, 0, 6),
+
+      }),
+
       abilities: new fields.SchemaField({
         sucLuc: new fields.SchemaField({
           value: intField()

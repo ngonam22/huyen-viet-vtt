@@ -41,6 +41,8 @@ export class huyenvietvttActor extends Actor {
     prepareDerivedData() {
         const actorData = this;
         const flags = actorData.flags.huyenvietvtt || {};
+
+        console.log('____ recalculated')
     }
 
     /**
