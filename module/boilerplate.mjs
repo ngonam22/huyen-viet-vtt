@@ -87,9 +87,9 @@ Hooks.once('init', function () {
 /* -------------------------------------------- */
 
 Handlebars.registerHelper('scoreClass', function (score) {
-  if (score > 0) return 'ability-block__score-positive';
-  if (score < 0) return 'ability-block__score-negative';
-  return 'ability-block__score-neutral';
+  if (score > 0) return 'positive';
+  if (score < 0) return 'negative';
+  return 'neutral';
 });
 
 Handlebars.registerHelper('signedNumber', function (score) {
