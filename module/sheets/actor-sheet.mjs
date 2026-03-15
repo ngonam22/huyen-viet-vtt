@@ -1,4 +1,6 @@
 import { prepareActiveEffectCategories } from '../helpers/effects.mjs';
+import {upgrade} from "../helpers/upgrade";
+import {THI_TOC} from "../helpers/config";
 
 const { api, sheets } = foundry.applications;
 
@@ -82,10 +84,28 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
         const action = target.dataset.action;
 
         console.log("++++ _onClickAction");
+
         if (action === 'roll-skill') {
             console.log('BTN CLICKED+++++')
             const result = await this.actor.rollCheck({})
             console.log(result)
+            return;
+        } else if (action === 'toggle-hanh-the') {
+            const element = target.dataset.element;
+
+            const video = this.element.querySelector(`#video-${element}`);
+            if (!video) return;
+
+            const active = video.classList.toggle("active");
+
+            if (active) {
+                video.currentTime = 0;
+                video.play();
+            } else {
+                video.pause();
+            }
+
+            console.log("Ngũ hành clicked:", element);
             return;
         }
 
@@ -608,6 +628,8 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
      */
     _prepareSubmitData(event, form, formData) {
         const submitData = formData.object;
+        console.log('++++++ submitData processed:', submitData);
+
         const overrides = foundry.utils.flattenObject(this.actor.overrides);
         for (let k of Object.keys(overrides)) delete submitData[k];
 
@@ -625,6 +647,14 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
         }
 
         console.log('++++++ submitData processed:', submitData);
+
+        console.log(this.document.system)
+        const newData = upgrade(
+            THI_TOC[0].upgrade,
+            this.document.system
+        )
+        console.log(newData);
+        submitData['system.skills.yHoc'] = newData.skills.yHoc;
         return submitData;
     }
 

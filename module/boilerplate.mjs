@@ -5,7 +5,7 @@ import { BoilerplateItem } from './documents/item.mjs';
 import { BoilerplateActorSheet } from './sheets/actor-sheet.mjs';
 import { BoilerplateItemSheet } from './sheets/item-sheet.mjs';
 // Import helper/utility classes and constants.
-import { BOILERPLATE } from './helpers/config.mjs';
+import { BOILERPLATE } from './helpers/config.ts';
 // Import DataModel classes
 import * as models from './data/_module.mjs';
 
@@ -85,6 +85,17 @@ Hooks.once('init', function () {
 /* -------------------------------------------- */
 /*  Handlebars Helpers                          */
 /* -------------------------------------------- */
+
+Handlebars.registerHelper('scoreClass', function (score) {
+  if (score > 0) return 'ability-block__score-positive';
+  if (score < 0) return 'ability-block__score-negative';
+  return 'ability-block__score-neutral';
+});
+
+Handlebars.registerHelper('signedNumber', function (score) {
+  if (score > 0) return `+${score}`;
+  return `${score}`;
+});
 
 // If you need to add Handlebars helpers, here is a useful example:
 Handlebars.registerHelper('toLowerCase', function (str) {

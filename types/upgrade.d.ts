@@ -7,6 +7,15 @@ export interface Effect {
 
 // Rule để đưa vào he thong để tính toán các thay đổi thong so của nhân vật
 // ví dụ: chọn tộc này thì có benefit gì
+// @example:  them 1 diem ngu hanh
+// [
+//   type: element
+//   mode: add
+//   effects: [
+//      {name: 'thuy', value: 1}
+//   ]
+//   choose: 1
+// ]
 export interface UpgradeRule {
     target: "element" | "skill"
 

@@ -1,5 +1,6 @@
 import BoilerplateActorBase from './base-actor.mjs';
 
+/** @typedef {import("../../types/actor-character").CharacterSchema} CharacterSchema */
 
 const intField = (initial = 0, min = 0, max = 999) => new foundry.data.fields.NumberField({
   required: true,
@@ -15,6 +16,10 @@ export default class BoilerplateCharacter extends BoilerplateActorBase {
     'BOILERPLATE.Actor.Character',
   ];
 
+  /**
+   * @override
+   * @returns {CharacterSchema}
+   */
   static defineSchema() {
     const fields = foundry.data.fields;
     const requiredInteger = { required: true, nullable: false, integer: true };
@@ -55,11 +60,11 @@ export default class BoilerplateCharacter extends BoilerplateActorBase {
       }),
 
       elements: new fields.SchemaField({
-        hoa: intField(1, 1, 6),
-        tho: intField(1, 1, 6),
-        kim: intField(1, 1, 6),
-        thuy: intField(1, 1, 6),
-        moc: intField(1, 1, 6)
+        hoa: new fields.SchemaField({ value: intField(1, 1, 6) }),
+        tho: new fields.SchemaField({ value: intField(1, 1, 6) }),
+        kim: new fields.SchemaField({ value: intField(1, 1, 6) }),
+        thuy: new fields.SchemaField({ value: intField(1, 1, 6) }),
+        moc: new fields.SchemaField({ value: intField(1, 1, 6) })
       }),
 
       skills: new fields.SchemaField({
