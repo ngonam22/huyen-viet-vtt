@@ -1,4 +1,5 @@
 import { NguHanh } from "./nguHanh";
+import { AppliedUpgrade } from "./upgrade";
 
 export interface CharacterIdentity {
     giaToc: string;
@@ -61,4 +62,7 @@ export interface CharacterSchema {
     skills: CharacterSkills;
     abilities: CharacterAbilities;
     attributes: CharacterAttributes;
+    
+    /** Lịch sử các nâng cấp đã áp dụng */
+    upgrades: AppliedUpgrade[];
 }

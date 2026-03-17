@@ -1,6 +1,7 @@
 import { prepareActiveEffectCategories } from '../helpers/effects.mjs';
-import {upgrade} from "../helpers/upgrade";
-import {THI_TOC} from "../helpers/config";
+import { upgrade, applyUpgradeRule, removeUpgradeSource } from "../helpers/upgrade.ts";
+import { THI_TOC } from "../helpers/config.ts";
+import { ElementModal } from './element-modal.mjs'
 
 const { api, sheets } = foundry.applications;
 
@@ -89,7 +90,8 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
             console.log('BTN CLICKED+++++')
             const result = await this.actor.rollCheck({})
             console.log(result)
-            return;
+
+            return ElementModal.show(this.actor, target.dataset.element);
         } else if (action === 'toggle-hanh-the') {
             const element = target.dataset.element;
 
@@ -106,6 +108,20 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
             }
 
             console.log("Ngũ hành clicked:", element);
+
+            const [created] = await this.actor.createEmbeddedDocuments("ActiveEffect", [{
+                name: `${element} Hành Thế`,
+                disable: false,
+                transfer: false,
+                changes: [],
+                flags: {
+                    "huyen-viet-vtt": {
+                        hanhThe: element
+                    }
+                }
+            }])
+
+            console.log('======', created)
             return;
         }
 
@@ -134,6 +150,13 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
 
     /** @override */
     async _prepareContext(options) {
+
+        const effect = this.actor.effects.find(
+            e => e.flags["huyen-viet-vtt"]?.hanhThe
+        );
+
+        const hanhThe = effect?.flags["huyen-viet-vtt"]?.hanhThe;
+
         // Output initialization
         const context = {
             // Validates both permissions and compendium status
@@ -151,7 +174,13 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
             // Necessary for formInput and formFields helpers
             fields: this.document.schema.fields,
             systemFields: this.document.system.schema.fields,
+
+            hanhThe,
+            elements: ["kim", "thuy", "hoa", "moc", "tho"],
         };
+
+        console.log('====== context')
+        console.log(hanhThe)
 
         // Offloading context prep to a helper function
         this._prepareItems(context);
@@ -628,33 +657,49 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
      */
     _prepareSubmitData(event, form, formData) {
         const submitData = formData.object;
-        console.log('++++++ submitData processed:', submitData);
-
         const overrides = foundry.utils.flattenObject(this.actor.overrides);
         for (let k of Object.keys(overrides)) delete submitData[k];
 
-        // Convert numeric values to integers and handle NaN.
+        // 1. Ép kiểu dữ liệu (Integers/NaN handling)
         for (let [k, v] of Object.entries(submitData)) {
-            // Force conversion for abilities and attributes which must be integers
             if ( k.includes('abilities') || k.includes('value') || k.includes('level') || k.includes('cr') || k.includes('xp') ) {
                 const val = (typeof v === 'number') ? v : parseInt(v);
                 submitData[k] = isNaN(val) ? 0 : Math.floor(val);
             }
-            // General conversion for other potentially numeric fields
             else if (typeof v === "string" && v.trim() !== "" && !isNaN(Number(v))) {
                 submitData[k] = Number(v);
             }
         }
 
-        console.log('++++++ submitData processed:', submitData);
+        // 2. Xử lý logic thay đổi Thị Tộc (Clan Change)
+        // Nếu người dùng thay đổi Thị Tộc, ta cập nhật lại lịch sử nâng cấp (upgrades)
+        if (submitData['system.thiToc'] !== undefined) {
+            const newThiTocName = submitData['system.thiToc'];
+            const oldThiTocName = this.actor.system.thiToc;
 
-        console.log(this.document.system)
-        const newData = upgrade(
-            THI_TOC[0].upgrade,
-            this.document.system
-        )
-        console.log(newData);
-        submitData['system.skills.yHoc'] = newData.skills.yHoc;
+            if (newThiTocName !== oldThiTocName) {
+                let currentUpgrades = [...(this.actor.system.upgrades || [])];
+                
+                // Xóa các nâng cấp cũ của Thị Tộc khỏi lịch sử (xóa tất cả rules bắt đầu bằng thi-toc-)
+                currentUpgrades = removeUpgradeSource(currentUpgrades, 'thi-toc-');
+
+                // Tìm dữ liệu nâng cấp của Thị Tộc mới
+                const thiTocData = THI_TOC.find(t => game.i18n.localize(t.ten) === newThiTocName || t.linhGiap === newThiTocName);
+                
+                if (thiTocData && thiTocData.upgrade) {
+                    // Thêm các rule nâng cấp của Thị Tộc mới vào lịch sử
+                    for (let i = 0; i < thiTocData.upgrade.length; i++) {
+                        const rule = thiTocData.upgrade[i];
+                        currentUpgrades = applyUpgradeRule(currentUpgrades, `thi-toc-${i}`, rule);
+                    }
+                    console.log(`Updated upgrades history for new Thi Toc: ${newThiTocName}`);
+                }
+                
+                // Cập nhật lại mảng upgrades trong submitData
+                submitData['system.upgrades'] = currentUpgrades;
+            }
+        }
+
         return submitData;
     }
 

@@ -31,3 +31,18 @@ export interface UpgradeRule {
     // choose để báo là được chọn 1 hay nhiều các effects để apply vào
     choose?: number
 }
+
+/**
+ * Interface để lưu trữ một bản ghi nâng cấp đã được áp dụng vào nhân vật
+ * Giúp việc tính toán lại (re-calculate) trở nên dễ dàng khi thay đổi nguồn (ví dụ: đổi Thị Tộc)
+ */
+export interface AppliedUpgrade {
+    /** ID duy nhất cho nguồn nâng cấp (ví dụ: 'thi-toc', 'clan', 'level-up-4') */
+    sourceId: string;
+    
+    /** Rule gốc được áp dụng */
+    rule: UpgradeRule;
+    
+    /** Danh sách các index của effects đã được chọn (nếu rule có 'choose') */
+    selectedIndices?: number[];
+}

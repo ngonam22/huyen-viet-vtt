@@ -43,7 +43,8 @@ function copyStaticDirsPlugin() {
 
 export default defineConfig({
     build: {
-        outDir: path.resolve(__dirname, `build/${SYSTEM_ID}/module`),
+        // outDir: path.resolve(__dirname, `build/${SYSTEM_ID}/module`),
+        outDir: path.resolve(__dirname, `build/${SYSTEM_ID}`),
         emptyOutDir: false,
         sourcemap: true,
         lib: {
@@ -52,10 +53,26 @@ export default defineConfig({
             fileName: () => `${SYSTEM_ID}.mjs`
         },
         rollupOptions: {
+            input: {
+                style: path.resolve(__dirname, "scss/huyen-viet-vtt.scss")
+            },
             output: {
-                entryFileNames: `${SYSTEM_ID}.mjs`,
-                chunkFileNames: "chunks/[name]-[hash].mjs",
-                assetFileNames: "assets/[name]-[hash][extname]"
+                // 👇 JS vào module/
+                entryFileNames: (chunk) => {
+                    if (chunk.name === "main") {
+                        return `module/${SYSTEM_ID}.mjs`;
+                    }
+                    return `[name].js`;
+                },
+                // 👇 CSS ra css/
+                assetFileNames: (assetInfo) => {
+                    if (assetInfo.name?.endsWith(".css")) {
+                        return "css/huyen-viet-vtt1.css";
+                    }
+                    return "assets/[name]-[hash][extname]";
+                },
+
+                chunkFileNames: "module/chunks/[name]-[hash].mjs"
             }
         }
     },

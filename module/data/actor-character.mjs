@@ -1,4 +1,5 @@
 import BoilerplateActorBase from './base-actor.mjs';
+import { recalculateCharacterStats } from '../helpers/upgrade.ts';
 
 /** @typedef {import("../../types/actor-character").CharacterSchema} CharacterSchema */
 
@@ -130,11 +131,23 @@ export default class BoilerplateCharacter extends BoilerplateActorBase {
         })
       }),
 
+      upgrades: new fields.ArrayField(new fields.ObjectField()),
+
 
     }
   }
 
   prepareDerivedData() {
+    // 1. Áp dụng lịch sử nâng cấp (upgrades) lên các chỉ số cơ bản
+    const derived = recalculateCharacterStats(this, this.upgrades);
+    
+    // Cập nhật lại elements và skills với các giá trị đã qua modifier
+    // Lưu ý: Ta chỉ gán lại các giá trị này vào instance hiện tại để hiển thị, 
+    // không làm thay đổi dữ liệu gốc trong database (source data)
+    foundry.utils.mergeObject(this.elements, derived.elements);
+    foundry.utils.mergeObject(this.skills, derived.skills);
+    foundry.utils.mergeObject(this.abilities, derived.abilities);
+
     // Loop through ability scores, and add their modifiers to our sheet output.
     for (const key in this.abilities) {
       // Calculate the modifier using d20 rules.

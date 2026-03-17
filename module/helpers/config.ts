@@ -2,6 +2,34 @@ import {ThiToc} from "../../types/thiToc";
 
 export const BOILERPLATE: any = {};
 
+export const ELEMENTS = {
+    kim: {
+        key: "kim",
+        label: "Kim",
+        icon: "systems/huyen-viet-vtt/assets/icons/elements/kim.svg",
+    },
+    moc: {
+        key: "moc",
+        label: "Mộc",
+        icon: "systems/huyen-viet-vtt/assets/icons/elements/moc.svg",
+    },
+    thuy: {
+        key: "thuy",
+        label: "Thủy",
+        icon: "systems/huyen-viet-vtt/assets/icons/elements/thuy.svg",
+    },
+    hoa: {
+        key: "hoa",
+        label: "Hỏa",
+        icon: "systems/huyen-viet-vtt/assets/icons/elements/hoa.svg",
+    },
+    tho: {
+        key: "tho",
+        label: "Thổ",
+        icon: "systems/huyen-viet-vtt/assets/icons/elements/tho.svg",
+    },
+}
+
 /**
  * The set of Ability Scores used within the system.
  * @type {Object}

@@ -255,31 +255,39 @@
                 </div>
 
 
+                {{ hanhThe }}
                 <div id="ngu-hanh-canvas" style="position: relative">
-                    <video id="video-kim" class="energy-video" autoplay loop muted playsinline>
-                        <source src="systems/huyen-viet-vtt/assets/kim-energy.webm" type="video/webm">
-                        Your browser does not support the video tag.
-                    </video>
+<!--                    <video id="video-kim" class="energy-video" autoplay loop muted playsinline>-->
+<!--                        <source src="systems/huyen-viet-vtt/assets/kim-energy.webm" type="video/webm">-->
+<!--                        Your browser does not support the video tag.-->
+<!--                    </video>-->
 
-                    <video id="video-thuy" class="energy-video" autoplay loop muted playsinline>
-                        <source src="systems/huyen-viet-vtt/assets/thuy-energy.webm" type="video/webm">
-                        Your browser does not support the video tag.
-                    </video>
+<!--                    <video id="video-thuy" class="energy-video" autoplay loop muted playsinline>-->
+<!--                        <source src="systems/huyen-viet-vtt/assets/thuy-energy.webm" type="video/webm">-->
+<!--                        Your browser does not support the video tag.-->
+<!--                    </video>-->
 
-                    <video id="video-hoa" class="energy-video" autoplay loop muted playsinline>
-                        <source src="systems/huyen-viet-vtt/assets/hoa-energy.webm" type="video/webm">
-                        Your browser does not support the video tag.
-                    </video>
+<!--                    <video id="video-hoa" class="energy-video" autoplay loop muted playsinline>-->
+<!--                        <source src="systems/huyen-viet-vtt/assets/hoa-energy.webm" type="video/webm">-->
+<!--                        Your browser does not support the video tag.-->
+<!--                    </video>-->
 
-                    <video id="video-moc" class="energy-video" autoplay loop muted playsinline>
-                        <source src="systems/huyen-viet-vtt/assets/moc-energy.webm" type="video/webm">
-                        Your browser does not support the video tag.
-                    </video>
+<!--                    <video id="video-moc" class="energy-video" autoplay loop muted playsinline>-->
+<!--                        <source src="systems/huyen-viet-vtt/assets/moc-energy.webm" type="video/webm">-->
+<!--                        Your browser does not support the video tag.-->
+<!--                    </video>-->
 
-                    <video id="video-tho" class="energy-video" autoplay loop muted playsinline>
-                        <source src="systems/huyen-viet-vtt/assets/tho-energy.webm" type="video/webm">
-                        Your browser does not support the video tag.
-                    </video>
+<!--                    <video id="video-tho" class="energy-video" autoplay loop muted playsinline>-->
+<!--                        <source src="systems/huyen-viet-vtt/assets/tho-energy.webm" type="video/webm">-->
+<!--                        Your browser does not support the video tag.-->
+<!--                    </video>-->
+                    {{#each elements as |element|}}
+                        <video id="video-{{element}}"
+                               class="energy-video {{#if (eq ../hanhThe element)}}active{{/if}}"
+                               autoplay loop muted playsinline>
+                            <source src="systems/huyen-viet-vtt/assets/{{element}}-energy.webm" type="video/webm">
+                        </video>
+                    {{/each}}
 
                     <div id="ngu-hanh-holder">
                         <svg id="nguHanhSVG" viewBox="0 0 460 355" xmlns="http://www.w3.org/2000/svg" fill="none">
