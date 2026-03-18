@@ -1,0 +1,72 @@
+
+#ngu-hanh-canvas {
+    position: relative;
+
+    .energy-video{
+        position:absolute;
+        width:45%;
+        transform:translate(-50%, -50%) scale(.85);
+        opacity:0;
+        filter:blur(6px);
+        background: transparent;
+        pointer-events:none;
+
+        transition:
+                opacity .45s ease,
+                transform .45s cubic-bezier(.22,.9,.32,1),
+                filter .45s ease;
+        z-index: -1;
+    }
+
+
+    .energy-video.active{
+        opacity:1;
+        transform:translate(-50%, -50%) scale(1);
+        filter:blur(0);
+        animation: energyPulse 3s ease-in-out infinite;
+    }
+
+    #video-kim {
+        left: 50%;
+        top: 15%;
+    }
+    #video-thuy {
+        left: 76%;
+        top: 39%;
+    }
+    #video-hoa {
+        left: 34%;
+        top: 81%;
+    }
+    #video-moc {
+        width: 42%;
+        left: 66.5%;
+        top: 81%;
+    }
+    #video-tho {
+        left: 24%;
+        top: 39%;
+    }
+}
+#ngu-hanh-holder {
+    position:relative;
+    z-index: 5;
+}
+
+@keyframes energyPulse{
+
+    0%{
+        transform:translate(-50%, -50%) scale(1);
+        filter:blur(0) brightness(1);
+    }
+
+    50%{
+        transform:translate(-50%, -50%) scale(1.05);
+        filter:blur(0) brightness(1.2);
+    }
+
+    100%{
+        transform:translate(-50%, -50%) scale(1);
+        filter:blur(0) brightness(1);
+    }
+}

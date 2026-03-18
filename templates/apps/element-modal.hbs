@@ -1,11 +1,51 @@
 <section class="hv-element-modal__wrapper">
-    <header>
-        !!! ELEMENT MODAL !!!
-    </header>
+    <div class="c-bl"></div>
+    <div class="c-br"></div>
 
-    <div>
-        {{hello}}
+    <div class="modal-title">Ngũ Hành · Kiếm Mệnh</div>
+    <div class="divider"></div>
+
+    <!-- Elements -->
+    <div class="section-label">Ngũ Hành</div>
+    <div class="elements-grid" id="elementsGrid"></div>
+
+    <!-- Slider -->
+    <div class="slider-wrap">
+        <div class="slider-header">
+            <div class="section-label" style="margin:0">Sức Mạnh</div>
+            <div style="display:flex;align-items:baseline;gap:2px">
+                <span class="slider-value" id="sliderVal">5</span>
+                <span class="slider-max"> / 12</span>
+            </div>
+        </div>
+        <input type="range" id="mainSlider" min="1" max="12" value="5"/>
+        <div class="tick-row" id="tickRow"></div>
     </div>
 
+    <!-- Advantage -->
+    <div class="section-label">Ưu Thế</div>
+    <div class="options-row">
+        <button class="option-btn adv" id="optAdv" onclick="selectOption('adv')">
+            <span class="opt-radio"><span class="opt-dot"></span></span>Lợi Thế
+        </button>
+        <button class="option-btn norm selected" id="optNorm" onclick="selectOption('norm')">
+            <span class="opt-radio"><span class="opt-dot"></span></span>Thường
+        </button>
+        <button class="option-btn dis" id="optDis" onclick="selectOption('dis')">
+            <span class="opt-radio"><span class="opt-dot"></span></span>Bất Lợi
+        </button>
+    </div>
 
+    <!-- Initiative -->
+    <div class="initiative-section">
+        <div class="section-label">Roll for Initiative</div>
+        <div class="initiative-list" id="initiativeList"></div>
+    </div>
+
+    <!-- CTA -->
+    <button class="cta-btn" id="ctaBtn" onclick="castFate()">
+        <div class="cta-inner">
+            <span class="cta-orn">☰</span>Gieo Thiên Mệnh<span class="cta-orn">☷</span>
+        </div>
+    </button>
 </section>

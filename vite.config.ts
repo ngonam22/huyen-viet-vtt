@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import path from "node:path";
 import fs from "node:fs/promises";
+import tailwindcss from '@tailwindcss/vite'
 
 
 const SYSTEM_ID = "huyen-viet-vtt";
@@ -67,7 +68,7 @@ export default defineConfig({
                 // 👇 CSS ra css/
                 assetFileNames: (assetInfo) => {
                     if (assetInfo.name?.endsWith(".css")) {
-                        return "css/huyen-viet-vtt1.css";
+                        return "css/huyen-viet-vtt.css";
                     }
                     return "assets/[name]-[hash][extname]";
                 },
@@ -77,6 +78,7 @@ export default defineConfig({
         }
     },
     plugins: [
-        copyStaticDirsPlugin()
+        copyStaticDirsPlugin(),
+        tailwindcss(),
     ]
 });

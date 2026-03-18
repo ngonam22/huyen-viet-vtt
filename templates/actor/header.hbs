@@ -255,7 +255,6 @@
                 </div>
 
 
-                {{ hanhThe }}
                 <div id="ngu-hanh-canvas" style="position: relative">
 <!--                    <video id="video-kim" class="energy-video" autoplay loop muted playsinline>-->
 <!--                        <source src="systems/huyen-viet-vtt/assets/kim-energy.webm" type="video/webm">-->
@@ -281,6 +280,7 @@
 <!--                        <source src="systems/huyen-viet-vtt/assets/tho-energy.webm" type="video/webm">-->
 <!--                        Your browser does not support the video tag.-->
 <!--                    </video>-->
+                    <div class="tw-absolute inset gap-5 tw-bg-red-300 bg-red-300 h-48 w-96 object-cover isolate min-w-3xs"></div>
                     {{#each elements as |element|}}
                         <video id="video-{{element}}"
                                class="energy-video {{#if (eq ../hanhThe element)}}active{{/if}}"
