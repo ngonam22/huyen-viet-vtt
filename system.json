@@ -79,6 +79,14 @@
   "styles": [
     "css/huyen-viet-vtt.css"
   ],
+  "relationships": {
+    "requires": [
+      {
+        "id": "dice-so-nice",
+        "type": "module"
+      }
+    ]
+  },
   "languages": [
     {
       "lang": "en",

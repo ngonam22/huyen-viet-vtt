@@ -1,6 +1,75 @@
 
 #hv-element-modal {
+
+    $parch-mid: #c9b47e;
+    
     .window-content {
-        background: #8a6218 url("/systems/huyen-viet-vtt/assets/noise.svg") repeat;
+        position: relative;
+        background: #e8d9b5 url("/systems/huyen-viet-vtt/assets/noise.svg") repeat;
+        color: #2b2b2b;
+        font-family: $font-primary;
+    }
+
+
+    .modal-title {
+        font-size: 24px;
+        letter-spacing: 1px;
+        text-align: center;
+        text-transform: uppercase;
+        margin-bottom: 5px;
+        text-shadow: 0 0 22px rgba(196, 136, 75, 0.45);
+    }
+
+    /* Outer ruled border — single clean line */
+    .modal-frame {
+        position: absolute;
+        inset: 7px;
+        border: 1px solid $parch-mid;
+        pointer-events: none;
+        z-index: 0;
+    }
+    /* Corner flourishes via clip path diamonds */
+    .modal-frame::before,
+    .modal-frame::after {
+        content: '';
+        position: absolute;
+        width: 8px; height: 8px;
+        background: $parch-mid;
+        transform: rotate(45deg);
+    }
+    .modal-frame::before { top: -4px; left: -4px; }
+    .modal-frame::after  { top: -4px; right: -4px; }
+    .corner-bl, .corner-br {
+        position: absolute;
+        width: 8px; height: 8px;
+        background: $parch-mid;
+        transform: rotate(45deg);
+        z-index: 1;
+    }
+    .corner-bl { bottom: 3px; left: 3px; }
+    .corner-br { bottom: 3px; right: 3px; }
+
+    .modal-divider {
+        height: 1px;
+        background: linear-gradient(to right, transparent, var(--bg-500), transparent);
+        margin: 0 16px 20px;
+    }
+
+    .section-label {
+        font-size: 12px;
+        letter-spacing: 0.26em;
+        text-transform: uppercase;
+        opacity: 0.6;
+        margin-bottom: 9px;
+    }
+
+    .elements-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 7px;
+        margin-bottom: 20px;
+    }
+    .slider-wrap {
+        margin-bottom: 20px;
     }
 }

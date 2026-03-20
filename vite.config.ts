@@ -45,40 +45,33 @@ function copyStaticDirsPlugin() {
 export default defineConfig({
     build: {
         // outDir: path.resolve(__dirname, `build/${SYSTEM_ID}/module`),
-        outDir: path.resolve(__dirname, `build/${SYSTEM_ID}`),
+        outDir: BUILD_ROOT,
         emptyOutDir: false,
         sourcemap: true,
         lib: {
             entry: path.resolve(__dirname, "module/boilerplate.ts"),
             formats: ["es"],
-            fileName: () => `${SYSTEM_ID}.mjs`
+            fileName: () => `module/${SYSTEM_ID}.mjs`,
+            cssFileName: SYSTEM_ID
         },
         rollupOptions: {
-            input: {
-                style: path.resolve(__dirname, "scss/huyen-viet-vtt.scss")
-            },
             output: {
-                // 👇 JS vào module/
-                entryFileNames: (chunk) => {
-                    if (chunk.name === "main") {
-                        return `module/${SYSTEM_ID}.mjs`;
-                    }
-                    return `[name].js`;
-                },
-                // 👇 CSS ra css/
+                entryFileNames: `module/${SYSTEM_ID}.mjs`,
+                chunkFileNames: "module/chunks/[name]-[hash].mjs",
                 assetFileNames: (assetInfo) => {
-                    if (assetInfo.name?.endsWith(".css")) {
-                        return "css/huyen-viet-vtt.css";
-                    }
-                    return "assets/[name]-[hash][extname]";
-                },
+                    const name = assetInfo.name ?? "";
 
-                chunkFileNames: "module/chunks/[name]-[hash].mjs"
+                    if (name.endsWith(".css")) {
+                        return "css/[name][extname]";
+                    }
+
+                    return "assets/[name]-[hash][extname]";
+                }
             }
         }
     },
     plugins: [
         copyStaticDirsPlugin(),
-        tailwindcss(),
+        tailwindcss()
     ]
 });
