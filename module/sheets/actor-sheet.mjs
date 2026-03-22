@@ -85,16 +85,19 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
      */
     async _onClickAction(event, target) {
         const action = target.dataset.action;
+        const skill = target.dataset.target;
+        const hanhThe = this.getHanhThe()
 
         console.log("++++ _onClickAction", action);
-        console.log('demo')
 
         if (action === 'roll-skill') {
             console.log('BTN CLICKED+++++')
             // await setThiTocForActor(this.actor, 'ga')
 
-            if (this.getHanhThe()) {
-                this.actor.testDiceSoNice(2);
+            if (hanhThe) {
+                this.actor.testDiceSoNice(
+                    this.actor.system.skills[skill] + this.actor.system.elements?.[hanhThe]?.value
+                );
                 return;
             }
             // const result = await this.actor.rollCheck({})
