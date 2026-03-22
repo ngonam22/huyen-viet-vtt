@@ -3,12 +3,15 @@ import {ELEMENTS} from './config'
 /**
  * Lấy Hành hiện tại từ ActiveEffect marker
  */
-export function getActorCurrentElement(actor) {
-    if (!actor) return null;
+export function layHanhThe(actor: Actor): string|null {
 
-    const effect = actor.effects.find((e) =>
-        Boolean(e.getFlag(game.system.id, ELEMENTS))
+    const effect = actor.effects.find(
+        e => (e.flags as any)["huyen-viet-vtt"]?.hanhThe
     );
 
-    return effect?.getFlag(game.system.id, ELEMENTS) ?? null;
+    if (!effect) return null;
+
+    const hanhThe = (effect?.flags as any)["huyen-viet-vtt"]?.hanhThe;
+
+    return hanhThe || null;
 }

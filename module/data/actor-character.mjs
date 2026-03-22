@@ -11,6 +11,12 @@ const intField = (initial = 0, min = 0, max = 999) => new foundry.data.fields.Nu
   max
 })
 
+const statField = (initial = 0, min = 0, max = 999) =>
+    new foundry.data.fields.SchemaField({
+      base: intField(initial, min, max),
+      value: intField(initial, min, max)
+    });
+
 export default class BoilerplateCharacter extends BoilerplateActorBase {
   static LOCALIZATION_PREFIXES = [
     ...super.LOCALIZATION_PREFIXES,
@@ -130,9 +136,6 @@ export default class BoilerplateCharacter extends BoilerplateActorBase {
           value: intField(1)
         })
       }),
-
-      upgrades: new fields.ArrayField(new fields.ObjectField()),
-
 
     }
   }

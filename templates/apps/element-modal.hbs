@@ -1,13 +1,49 @@
 <section class="hv-element-modal__wrapper">
+    <div class="modal-frame"></div>
+    <div class="corner-bl"></div>
+    <div class="corner-br"></div>
     <div class="c-bl"></div>
     <div class="c-br"></div>
 
-    <div class="modal-title">Ngũ Hành · Kiếm Mệnh</div>
-    <div class="divider"></div>
-
     <!-- Elements -->
-    <div class="section-label">Ngũ Hành</div>
-    <div class="elements-grid" id="elementsGrid"></div>
+    <div class="tw:text-xl tw:text-beige-900">Ngũ Hành</div>
+    <div class="elements-grid tw:grid tw:grid-cols-5 tw:text-center" id="elementsGrid">
+        <div class="element-holder tw:bg-beige-800 tw:border-solid tw:border-beige-600 tw:border">
+            <span class="tw:text-xl tw:font-medium tw:text-primary tw:text-beige-400">Kim</span>
+            <div class="tw:text-beige-200 tw:text-shadow tw:font-bold tw:text-3xl">
+                {{signedNumber
+                        system.elements.kim.value}}
+            </div>
+        </div>
+        <div class="element-holder tw:bg-beige-800 tw:border-solid tw:border-beige-600 tw:border">
+            <span class="tw:text-xl tw:font-medium tw:text-primary tw:text-beige-400">Mộc</span>
+            <div class="tw:text-beige-200 tw:text-shadow tw:font-bold tw:text-3xl">
+                {{signedNumber
+                        system.elements.moc.value}}
+            </div>
+        </div>
+        <div class="element-holder tw:bg-beige-800 tw:border-solid tw:border-beige-600 tw:border">
+            <span class="tw:text-xl tw:font-medium tw:text-primary tw:text-beige-400">Thủy</span>
+            <div class="tw:text-beige-200 tw:text-shadow tw:font-bold tw:text-3xl">
+                {{signedNumber
+                        system.elements.thuy.value}}
+            </div>
+        </div>
+        <div class="element-holder tw:bg-beige-800 tw:border-solid tw:border-beige-600 tw:border">
+            <span class="tw:text-xl tw:font-medium tw:text-primary tw:text-beige-400">Hỏa</span>
+            <div class="tw:text-beige-200 tw:text-shadow tw:font-bold tw:text-3xl">
+                {{signedNumber
+                        system.elements.hoa.value}}
+            </div>
+        </div>
+        <div class="element-holder tw:bg-beige-800 tw:border-solid tw:border-beige-600 tw:border">
+            <span class="tw:text-xl tw:font-medium tw:text-primary tw:text-beige-400">Thổ</span>
+            <div class="tw:text-beige-200 tw:text-shadow tw:font-bold tw:text-3xl">
+                {{signedNumber
+                        system.elements.tho.value}}
+            </div>
+        </div>
+    </div>
 
     <!-- Slider -->
     <div class="slider-wrap">
@@ -24,28 +60,26 @@
 
     <!-- Advantage -->
     <div class="section-label">Ưu Thế</div>
-    <div class="options-row">
-        <button class="option-btn adv" id="optAdv" onclick="selectOption('adv')">
+    <div class="tw:grid tw:grid-cols-3 tw:gap-4 tw:mb-4 tw:text-center">
+        <button class="option-btn tw:text-base" onclick="selectOption('adv')">
             <span class="opt-radio"><span class="opt-dot"></span></span>Lợi Thế
         </button>
-        <button class="option-btn norm selected" id="optNorm" onclick="selectOption('norm')">
+        <button class="option-btn tw:text-base" onclick="selectOption('norm')">
             <span class="opt-radio"><span class="opt-dot"></span></span>Thường
         </button>
-        <button class="option-btn dis" id="optDis" onclick="selectOption('dis')">
+        <button class="option-btn tw:text-base" onclick="selectOption('dis')">
             <span class="opt-radio"><span class="opt-dot"></span></span>Bất Lợi
         </button>
     </div>
 
     <!-- Initiative -->
-    <div class="initiative-section">
+    <div class="tw:mb-12">
         <div class="section-label">Roll for Initiative</div>
         <div class="initiative-list" id="initiativeList"></div>
     </div>
 
     <!-- CTA -->
-    <button class="cta-btn" id="ctaBtn" onclick="castFate()">
-        <div class="cta-inner">
-            <span class="cta-orn">☰</span>Gieo Thiên Mệnh<span class="cta-orn">☷</span>
-        </div>
+    <button class="tw:text-beige-700 tw:bg-danger  tw:mx-auto" id="ctaBtn" data-action="test-dsn">
+        <span class="cta-orn">☰</span>Gieo Thiên Mệnh<span class="cta-orn">☷</span>
     </button>
 </section>

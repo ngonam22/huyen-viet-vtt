@@ -38,7 +38,17 @@ export class ElementModal extends HandlebarsApplicationMixin(ApplicationV2)
 
     async _prepareContext(_options) {
         return {
-            hello: 'THERE in CONTEXT'
+            system: this.actor.system,
+        }
+    }
+
+    async _onClickAction(event, target) {
+        const action = target.dataset.action;
+
+        if (action === 'test-dsn') {
+            // event.preventDefault()
+            await this.actor.testDiceSoNice(4);
+            return
         }
     }
 }

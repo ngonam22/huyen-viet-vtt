@@ -1,5 +1,67 @@
 {
   "BOILERPLATE": {
+    "ThiToc": {
+      "chuot": {
+        "label": "Tịnh Lý Thị Tộc",
+        "linhGiap": "Chuột",
+        "viTri": "Nội Bắc"
+      },
+      "trau": {
+        "label": "Sanh Cửu Thị Tộc",
+        "linhGiap": "Trâu",
+        "viTri": "Trung Đông Bắc"
+      },
+      "ho": {
+        "label": "Dương Tần Thị Tộc",
+        "linhGiap": "Hổ",
+        "viTri": "Ngoại Đông"
+      },
+      "meo": {
+        "label": "Minh Hạo Thị Tộc",
+        "linhGiap": "Biến hóa (Mèo lai Thỏ)",
+        "viTri": "Nội Đông"
+      },
+      "thin": {
+        "label": "Thường Liên Thị Tộc",
+        "linhGiap": "Cá Chép",
+        "viTri": "Trung Đông Nam"
+      },
+      "ran": {
+        "label": "Tiên Vị Thị Tộc",
+        "linhGiap": "Rắn",
+        "viTri": "Ngoại Nam"
+      },
+      "ngua": {
+        "label": "Nghị Võ Thị Tộc",
+        "linhGiap": "Ngựa",
+        "viTri": "Nội Nam"
+      },
+      "de": {
+        "label": "Thùy Minh Thị Tộc",
+        "linhGiap": "Sơn Dương",
+        "viTri": "Trung Tây Nam"
+      },
+      "khi": {
+        "label": "Thi Huân Thị Tộc",
+        "linhGiap": "Khỉ",
+        "viTri": "Ngoại Tây"
+      },
+      "ga": {
+        "label": "Diên Hậu Thị Tộc",
+        "linhGiap": "Khổng Tước",
+        "viTri": "Nội Tây"
+      },
+      "soi": {
+        "label": "Tuyết Luật Thị Tộc",
+        "linhGiap": "Sói",
+        "viTri": "Trung Tây Bắc"
+      },
+      "heo": {
+        "label": "Hạo Giới Thị Tộc",
+        "linhGiap": "Heo",
+        "viTri": "Ngoại Bắc"
+      }
+    },
     "Ability": {
       "sucLuc": {
         "long": "Sức Lực", "abbr": "sl"
@@ -15,6 +77,28 @@
       },
       "tocDo": {
         "long": "Tốc Độ", "abbr": "td"
+      }
+    },
+    "Element": {
+      "kim": {
+        "label": "Kim",
+        "hanhThe": "Kim Hành Thế"
+      },
+      "moc": {
+        "label": "Mộc",
+        "hanhThe": "Mộc Hành Thế"
+      },
+      "thuy": {
+        "label": "Thủy",
+        "hanhThe": "Thủy Hành Thế"
+      },
+      "hoa": {
+        "label": "Hỏa",
+        "hanhThe": "Hỏa Hành Thế"
+      },
+      "tho": {
+        "label": "Thổ",
+        "hanhThe": "Thổ Hành Thế"
       }
     },
     "SheetLabels": {

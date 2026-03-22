@@ -8,6 +8,7 @@ import { BoilerplateItemSheet } from './sheets/item-sheet.mjs';
 import { BOILERPLATE } from './helpers/config.ts';
 // Import DataModel classes
 import * as models from './data/_module.mjs';
+import {registerChatHooks} from "./chat/chat-hooks";
 
 const collections = foundry.documents.collections;
 const sheets = foundry.appv1.sheets;
@@ -80,6 +81,8 @@ Hooks.once('init', function () {
     makeDefault: true,
     label: 'BOILERPLATE.SheetLabels.Item',
   });
+
+  registerChatHooks();
 });
 
 /* -------------------------------------------- */

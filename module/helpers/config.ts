@@ -2,31 +2,129 @@ import {ThiToc} from "../../types/thiToc";
 
 export const BOILERPLATE: any = {};
 
+export const ELEMENT_KEYS = ["hoa", "tho", "kim", "thuy", "moc"] as const;
+export type HvElementKey = (typeof ELEMENT_KEYS)[number];
+
+export const SKILL_KEYS = [
+    "chinhTri",
+    "khoaHoc",
+    "thanHoc",
+    "xaHoi",
+    "yHoc",
+
+    "myThuat",
+    "vanTu",
+    "thoiTrang",
+    "chienCu",
+
+    "laoDong",
+    "thuongNghiep",
+    "haiNghiep",
+    "hacNghiep",
+    "sinhTon",
+
+    "lanhDao",
+    "leDao",
+    "bieuDien",
+    "tamY",
+
+    "theThuat",
+    "voThuat",
+    "binhPhap",
+    "thienDinh"
+] as const;
+export type HvSkillKey = (typeof SKILL_KEYS)[number];
+
+export const ABILITY_KEYS = [
+    "sucLuc",
+    "tamLuc",
+    "canhGiac",
+    "chuTam",
+    "tocDo",
+    "nguHop"
+] as const;
+export type HvAbilityKey = (typeof ABILITY_KEYS)[number];
+
+export interface HvCharacterIdentity {
+    giaToc: string;
+    monPhai: string;
+    thiToc: string;
+    ngheNghiep: string;
+    tinhCach: string;
+}
+
+export type HvElementField = {
+    value: number;
+};
+
+export type HvAbilityField = {
+    value: number;
+};
+
+
+export type HvElements = Record<HvElementKey, HvElementField>;
+export type HvSkills = Record<HvSkillKey, number>;
+export type HvAbilities = Record<HvAbilityKey, HvAbilityField>;
+
+export interface HvCharacterSystemData {
+    identity: HvCharacterIdentity;
+    elements: HvElements;
+    skills: HvSkills;
+    abilities: HvAbilities;
+    attributes: {
+        level: {
+            value: number;
+        };
+    };
+}
+
+/**
+ * Đây là object tạm để tính bonus từ Item/Effect
+ * Không lưu xuống DB
+ */
+export interface HvComputedTotals {
+    elements: Record<HvElementKey, number>;
+    skills: Record<HvSkillKey, number>;
+}
+
+export function isElementKey(value: string): value is HvElementKey {
+    return (ELEMENT_KEYS as readonly string[]).includes(value);
+}
+
+export function isSkillKey(value: string): value is HvSkillKey {
+    return (SKILL_KEYS as readonly string[]).includes(value);
+}
+
 export const ELEMENTS = {
     kim: {
         key: "kim",
-        label: "Kim",
-        icon: "systems/huyen-viet-vtt/assets/icons/elements/kim.svg",
+        label: "BOILERPLATE.Element.kim.label",
+        hanhTheLabel: "BOILERPLATE.Element.kim.hanhThe",
+        icon: "/systems/huyen-viet-vtt/assets/icons/metal-element.webp",
     },
     moc: {
         key: "moc",
-        label: "Mộc",
-        icon: "systems/huyen-viet-vtt/assets/icons/elements/moc.svg",
+        label: "BOILERPLATE.Element.moc.label",
+        hanhTheLabel: "BOILERPLATE.Element.moc.hanhThe",
+        icon: "/systems/huyen-viet-vtt/assets/icons/wood-element.webp",
     },
     thuy: {
         key: "thuy",
-        label: "Thủy",
-        icon: "systems/huyen-viet-vtt/assets/icons/elements/thuy.svg",
+        label: "BOILERPLATE.Element.thuy.label",
+        hanhTheLabel: "BOILERPLATE.Element.thuy.hanhThe",
+        icon: "/systems/huyen-viet-vtt/assets/icons/water-element.webp",
     },
     hoa: {
         key: "hoa",
-        label: "Hỏa",
-        icon: "systems/huyen-viet-vtt/assets/icons/elements/hoa.svg",
+        label: "BOILERPLATE.Element.hoa.label",
+        hanhTheLabel: "BOILERPLATE.Element.hoa.hanhThe",
+        icon: "/systems/huyen-viet-vtt/assets/icons/fire-element.webp",
     },
     tho: {
         key: "tho",
-        label: "Thổ",
-        icon: "systems/huyen-viet-vtt/assets/icons/elements/tho.svg",
+        label: "BOILERPLATE.Element.tho.label",
+        hanhTheLabel: "BOILERPLATE.Element.tho.hanhThe",
+        icon: "/systems/huyen-viet-vtt/assets/icons/earth-element.webp",
     },
 }
 
@@ -54,7 +152,7 @@ BOILERPLATE.abilityAbbreviations = {
 
 export const THI_TOC: ThiToc[] = [
     {
-        ten: 'BOILERPLATE.ThiToc.chuot.ten',
+        ten: 'BOILERPLATE.ThiToc.chuot.label',
         linhGiap: 'chuot',
         viTri: 'BOILERPLATE.ThiToc.chuot.viTri',
         upgrade: [
@@ -83,7 +181,7 @@ export const THI_TOC: ThiToc[] = [
         ]
     },
     {
-        ten: 'BOILERPLATE.ThiToc.trau.ten',
+        ten: 'BOILERPLATE.ThiToc.trau.label',
         linhGiap: 'trau',
         viTri: 'BOILERPLATE.ThiToc.trau.viTri',
         upgrade: [
@@ -112,7 +210,7 @@ export const THI_TOC: ThiToc[] = [
         ]
     },
     {
-        ten: 'BOILERPLATE.ThiToc.ho.ten',
+        ten: 'BOILERPLATE.ThiToc.ho.label',
         linhGiap: 'ho',
         viTri: 'BOILERPLATE.ThiToc.ho.viTri',
         upgrade: [
@@ -141,7 +239,7 @@ export const THI_TOC: ThiToc[] = [
         ]
     },
     {
-        ten: 'BOILERPLATE.ThiToc.meo.ten',
+        ten: 'BOILERPLATE.ThiToc.meo.label',
         linhGiap: 'meo',
         viTri: 'BOILERPLATE.ThiToc.meo.viTri',
         upgrade: [
@@ -170,9 +268,9 @@ export const THI_TOC: ThiToc[] = [
         ]
     },
     {
-        ten: 'BOILERPLATE.ThiToc.ca.ten',
-        linhGiap: 'ca',
-        viTri: 'BOILERPLATE.ThiToc.ca.viTri',
+        ten: 'BOILERPLATE.ThiToc.thin.label',
+        linhGiap: 'thin',
+        viTri: 'BOILERPLATE.ThiToc.thin.viTri',
         upgrade: [
             {
                 target: 'element',
@@ -199,7 +297,7 @@ export const THI_TOC: ThiToc[] = [
         ]
     },
     {
-        ten: 'BOILERPLATE.ThiToc.ran.ten',
+        ten: 'BOILERPLATE.ThiToc.ran.label',
         linhGiap: 'ran',
         viTri: 'BOILERPLATE.ThiToc.ran.viTri',
         upgrade: [
@@ -228,7 +326,7 @@ export const THI_TOC: ThiToc[] = [
         ]
     },
     {
-        ten: 'BOILERPLATE.ThiToc.ngua.ten',
+        ten: 'BOILERPLATE.ThiToc.ngua.label',
         linhGiap: 'ngua',
         viTri: 'BOILERPLATE.ThiToc.ngua.viTri',
         upgrade: [
@@ -257,7 +355,7 @@ export const THI_TOC: ThiToc[] = [
         ]
     },
     {
-        ten: 'BOILERPLATE.ThiToc.de.ten',
+        ten: 'BOILERPLATE.ThiToc.de.label',
         linhGiap: 'de',
         viTri: 'BOILERPLATE.ThiToc.de.viTri',
         upgrade: [
@@ -286,7 +384,7 @@ export const THI_TOC: ThiToc[] = [
         ]
     },
     {
-        ten: 'BOILERPLATE.ThiToc.khi.ten',
+        ten: 'BOILERPLATE.ThiToc.khi.label',
         linhGiap: 'khi',
         viTri: 'BOILERPLATE.ThiToc.khi.viTri',
         upgrade: [
@@ -315,7 +413,7 @@ export const THI_TOC: ThiToc[] = [
         ]
     },
     {
-        ten: 'BOILERPLATE.ThiToc.ga.ten',
+        ten: 'BOILERPLATE.ThiToc.ga.label',
         linhGiap: 'ga',
         viTri: 'BOILERPLATE.ThiToc.ga.viTri',
         upgrade: [
@@ -344,7 +442,7 @@ export const THI_TOC: ThiToc[] = [
         ]
     },
     {
-        ten: 'BOILERPLATE.ThiToc.soi.ten',
+        ten: 'BOILERPLATE.ThiToc.soi.label',
         linhGiap: 'soi',
         viTri: 'BOILERPLATE.ThiToc.soi.viTri',
         upgrade: [
@@ -373,7 +471,7 @@ export const THI_TOC: ThiToc[] = [
         ]
     },
     {
-        ten: 'BOILERPLATE.ThiToc.heo.ten',
+        ten: 'BOILERPLATE.ThiToc.heo.label',
         linhGiap: 'heo',
         viTri: 'BOILERPLATE.ThiToc.heo.viTri',
         upgrade: [

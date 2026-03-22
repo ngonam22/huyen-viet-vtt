@@ -1,7 +1,45 @@
 @layer theme, base, components, utilities;
 
+@layer theme {
+  @theme {
+    /* simple colors */
+    --color-danger: #A31D1D;
+    --color-maroon: #6D2323;
+    --color-vanilla: #FEF9E1;
+    --color-teal: #578E7E;
+    --color-purple: #8D77AB;
+
+    /* scales */
+    --color-mexican-red-50: #fef2f2;
+    --color-mexican-red-100: #fee2e2;
+    --color-mexican-red-200: #fecaca;
+    --color-mexican-red-300: #fca5a5;
+    --color-mexican-red-400: #f87171;
+    --color-mexican-red-500: #ef4444;
+    --color-mexican-red-600: #dc2626;
+    --color-mexican-red-700: #b91c1c;
+    --color-mexican-red-800: #a31d1d;
+    --color-mexican-red-900: #7f1d1d;
+    --color-mexican-red-950: #450a0a;
+
+    /* beige scale */
+    --color-beige-50: #fbf8f1;
+    --color-beige-100: #f5eedf;
+    --color-beige-200: #e5d0ac;
+    --color-beige-300: #ddc094;
+    --color-beige-400: #cfa068;
+    --color-beige-500: #c4894b;
+    --color-beige-600: #b67340;
+    --color-beige-700: #985c36;
+    --color-beige-800: #7a4b32;
+    --color-beige-900: #633e2b;
+    --color-beige-950: #351f15;
+  }
+}
+
 @import "tailwindcss/theme" layer(theme) prefix(tw);
 @import "tailwindcss/utilities" layer(utilities) prefix(tw);
+
 
 // Add custom fonts by visiting and search https://fonts.google.com
 //@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');

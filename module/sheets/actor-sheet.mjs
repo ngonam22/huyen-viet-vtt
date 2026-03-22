@@ -1,7 +1,9 @@
 import { prepareActiveEffectCategories } from '../helpers/effects.mjs';
 import { upgrade, applyUpgradeRule, removeUpgradeSource } from "../helpers/upgrade.ts";
-import { THI_TOC } from "../helpers/config.ts";
+import {ELEMENTS, THI_TOC} from "../helpers/config.ts";
 import { ElementModal } from './element-modal.mjs'
+import {removeThiTocFromActor, setThiTocForActor} from "../helpers/thiToc";
+import {layHanhThe} from "../helpers/element";
 
 const { api, sheets } = foundry.applications;
 
@@ -84,12 +86,19 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
     async _onClickAction(event, target) {
         const action = target.dataset.action;
 
-        console.log("++++ _onClickAction");
+        console.log("++++ _onClickAction", action);
+        console.log('demo')
 
         if (action === 'roll-skill') {
             console.log('BTN CLICKED+++++')
-            const result = await this.actor.rollCheck({})
-            console.log(result)
+            await setThiTocForActor(this.actor, 'ga')
+
+            if (this.getHanhThe()) {
+                this.actor.testDiceSoNice(2);
+                return;
+            }
+            // const result = await this.actor.rollCheck({})
+            // console.log(result)
 
             return ElementModal.show(this.actor, target.dataset.element);
         } else if (action === 'toggle-hanh-the') {
@@ -109,20 +118,74 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
 
             console.log("Ngũ hành clicked:", element);
 
-            const [created] = await this.actor.createEmbeddedDocuments("ActiveEffect", [{
-                name: `${element} Hành Thế`,
-                disable: false,
+            // tìm tất cả effect thuộc hanhThe
+            // tất cả hanhThe
+            const hanhTheEffects = this.actor.effects.filter(e =>
+                e.flags?.["huyen-viet-vtt"]?.hanhThe
+            );
+
+            // tim effect trùng
+            const sameEffect = hanhTheEffects.find(e =>
+                e.flags?.["huyen-viet-vtt"]?.hanhThe === element
+            );
+
+            if (sameEffect) {
+                // togget effect
+                await this.actor.deleteEmbeddedDocuments("ActiveEffect", [sameEffect.id]);
+                return;
+            }
+
+            if (hanhTheEffects.length === 1) {
+                // neu chi co 1 affect, update no
+                const existing = hanhTheEffects[0];
+
+                await this.actor.updateEmbeddedDocuments("ActiveEffect", [{
+                    _id: existing.id,
+                    name: game.i18n.localize(ELEMENTS[element]?.hanhTheLabel),
+                    img: ELEMENTS[element]?.icon,
+                    "flags.huyen-viet-vtt.hanhThe": element
+                }]);
+
+                return;
+            }
+
+            if (hanhTheEffects.length > 1) {
+                // ⚡ edge case: co nhieu hon 1 effect, update va remove cac effect con lai
+                const [keep, ...rest] = hanhTheEffects;
+
+                await this.actor.updateEmbeddedDocuments("ActiveEffect", [{
+                    _id: keep.id,
+                    name: game.i18n.localize(ELEMENTS[element]?.hanhTheLabel),
+                    img: ELEMENTS[element]?.icon,
+                    "flags.huyen-viet-vtt.hanhThe": element
+                }]);
+
+                if (rest.length) {
+                    await this.actor.deleteEmbeddedDocuments("ActiveEffect", rest.map(e => e.id));
+                }
+
+                return;
+            }
+
+            // tao moi effect khi khong co data
+            await this.actor.createEmbeddedDocuments("ActiveEffect", [{
+                name: game.i18n.localize(ELEMENTS[element]?.hanhTheLabel),
+                disabled: false,
                 transfer: false,
                 changes: [],
+                img: ELEMENTS[element]?.icon,
                 flags: {
                     "huyen-viet-vtt": {
                         hanhThe: element
                     }
                 }
-            }])
+            }]);
 
-            console.log('======', created)
             return;
+        } else if (action === 'test-dsn') {
+            // event.preventDefault()
+            await this.actor.testDiceSoNice();
+            return
         }
 
         return super._onClickAction(event, target);
@@ -151,12 +214,7 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
     /** @override */
     async _prepareContext(options) {
 
-        const effect = this.actor.effects.find(
-            e => e.flags["huyen-viet-vtt"]?.hanhThe
-        );
-
-        const hanhThe = effect?.flags["huyen-viet-vtt"]?.hanhThe;
-
+        console.log(this.actor)
         // Output initialization
         const context = {
             // Validates both permissions and compendium status
@@ -175,12 +233,16 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
             fields: this.document.schema.fields,
             systemFields: this.document.system.schema.fields,
 
-            hanhThe,
+            hanhThe: this.getHanhThe(),
             elements: ["kim", "thuy", "hoa", "moc", "tho"],
-        };
 
-        console.log('====== context')
-        console.log(hanhThe)
+            thiToc: this.actor.system.identity.thiToc ?? "",
+            thiTocOptions: THI_TOC.map((clan) => ({
+                value: clan.linhGiap,
+                label: clan.ten,
+                selected: clan.linhGiap === this.actor.system.identity.thiToc
+            }))
+        };
 
         // Offloading context prep to a helper function
         this._prepareItems(context);
@@ -349,6 +411,24 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
         // You may want to add other special handling here
         // Foundry comes with a large number of utility classes, e.g. SearchFilter
         // That you may want to implement yourself.
+
+        const select = this.element?.querySelector(".hv-thi-toc-select");
+        if (!select) return;
+
+        select.addEventListener("change", async (event) => {
+            const target = event.currentTarget;
+            const actor = this.actor;
+            const clanId = target.value;
+
+            console.log('--- THI TOC CHange')
+            console.log(clanId)
+            if (!clanId) {
+                await removeThiTocFromActor(actor);
+                return;
+            }
+
+            await setThiTocForActor(actor, clanId);
+        });
     }
 
     /**************
@@ -714,5 +794,9 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
                 input.disabled = true;
             }
         }
+    }
+
+    getHanhThe() {
+        return layHanhThe(this.actor)
     }
 }

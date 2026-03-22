@@ -2,6 +2,9 @@
 #hv-element-modal {
 
     $parch-mid: #c9b47e;
+    * {
+        font-family: $font-primary;
+    }
     
     .window-content {
         position: relative;
@@ -56,11 +59,11 @@
     }
 
     .section-label {
-        font-size: 12px;
-        letter-spacing: 0.26em;
+        font-size: 20px;
+        letter-spacing: 0.25px;
         text-transform: uppercase;
-        opacity: 0.6;
         margin-bottom: 9px;
+        font-weight: 500;
     }
 
     .elements-grid {

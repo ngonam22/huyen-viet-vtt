@@ -243,12 +243,27 @@
                         </div>
 
                         <div class='resource'>
-                            <label for='system.health.value' class='resource-label'>
+                            <label for='hv-thi-toc-select' class='resource-label'>
                                 Thị Tộc
                             </label>
                             <div class='resource-content flexrow flex-center flex-between'>
-                                <input name='system.thiToc' type='text' value='{{system.thiToc}}'
-                                    placeholder='Thị Tộc' />
+                                <select
+                                        id="hv-thi-toc-select"
+                                        name="demo"
+                                        class="hv-thi-toc-select"
+                                        id="hv-thi-toc-select"
+                                        {{#unless editable}}disabled{{/unless}}
+                                >
+                                    <option value="" disabled {{#unless document.system.identity.thiToc}}selected{{/unless}}>
+                                        -- Chọn Thị Tộc --
+                                    </option>
+
+                                    {{#each thiTocOptions as |option|}}
+                                        <option value="{{option.value}}" {{#if option.selected}}selected{{/if}}>
+                                            {{localize option.label }}
+                                        </option>
+                                    {{/each}}
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -280,7 +295,6 @@
 <!--                        <source src="systems/huyen-viet-vtt/assets/tho-energy.webm" type="video/webm">-->
 <!--                        Your browser does not support the video tag.-->
 <!--                    </video>-->
-                    <div class="tw-absolute inset gap-5 tw-bg-red-300 bg-red-300 h-48 w-96 object-cover isolate min-w-3xs"></div>
                     {{#each elements as |element|}}
                         <video id="video-{{element}}"
                                class="energy-video {{#if (eq ../hanhThe element)}}active{{/if}}"
@@ -499,13 +513,14 @@
         </div>
 
 
-
-
-
-
         <button type="button" data-action="roll-skill" data-skill="voThuat" data-element="hoa" data-dc="2"
             data-label="Võ Thuật + Hỏa">
             Roll
+        </button>
+
+        <button type="button" data-action="test-dsn" data-skill="voThuat" data-element="hoa" data-dc="2"
+                data-label="Võ Thuật + Hỏa">
+            Test DSN !!!!!
         </button>
 
         <div class='resources grid grid-3col'>
