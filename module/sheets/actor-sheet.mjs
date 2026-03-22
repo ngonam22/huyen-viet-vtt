@@ -91,7 +91,7 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
 
         if (action === 'roll-skill') {
             console.log('BTN CLICKED+++++')
-            await setThiTocForActor(this.actor, 'ga')
+            // await setThiTocForActor(this.actor, 'ga')
 
             if (this.getHanhThe()) {
                 this.actor.testDiceSoNice(2);
