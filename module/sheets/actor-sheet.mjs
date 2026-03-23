@@ -4,6 +4,7 @@ import {BOI_CANH, ELEMENTS, THI_TOC} from "../helpers/config.ts";
 import { ElementModal } from './element-modal.mjs'
 import {removeThiTocFromActor, setThiTocForActor} from "../helpers/thiToc";
 import {layHanhThe} from "../helpers/element";
+import {removeBoiCanhFromActor, setBoiCanhForActor} from "../helpers/boiCanh";
 
 const { api, sheets } = foundry.applications;
 
@@ -437,6 +438,22 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
             }
 
             await setThiTocForActor(actor, clanId);
+        });
+
+        const boiCanhSelect = this.element?.querySelector(".hv-boi-canh-select");
+        boiCanhSelect.addEventListener("change", async (event) => {
+            const target = event.currentTarget;
+            const actor = this.actor;
+            const boiCanhId = target.value;
+
+            console.log('--- Boi Canh CHange')
+            console.log(boiCanhId)
+            if (!boiCanhId) {
+                await removeBoiCanhFromActor(actor);
+                return;
+            }
+
+            await setBoiCanhForActor(actor, boiCanhId);
         });
     }
 

@@ -13,7 +13,7 @@ export function getBoiCanhById(id: string): ThiToc | undefined {
  * - add bối cảnh mới dưới dạng Item(type="boiCanh")
  */
 export async function setBoiCanhForActor(actor: Actor, id: string): Promise<void> {
-    const boiCanh = getThiTocById(id);
+    const boiCanh = getBoiCanhById(id);
     if (!boiCanh) {
         throw new Error(`Không tìm thấy Bối Cảnh với Id="${id}"`);
     }

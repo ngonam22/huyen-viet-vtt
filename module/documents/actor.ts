@@ -4,6 +4,7 @@ import {hasDiceSoNice} from "../../utils/diceSoNice";
 import {getThiTocById} from "../helpers/thiToc";
 import {UpgradeRule} from "../../types/upgrade";
 import {HvCharacterSystemData, HvComputedTotals, isElementKey, isSkillKey, SKILL_KEYS} from "../helpers/config";
+import {getBoiCanhById} from "../helpers/boiCanh";
 
 /**
  * Extend the base Actor document by defining a custom roll data structure which is ideal for the Simple system.
@@ -84,6 +85,9 @@ export class huyenvietvttActor extends Actor {
 
         // 2) Apply tất cả item Thị Tộc đang có
         this.applyThiTocItems(this, totals);
+
+        // Apply tat ca Boi Canh dang co
+        this.applyBoiCanhItems(this, totals);
 
         // 3) tính abilities từ totals đã được cộng bonus
         this.computeAbilities(system, totals);
@@ -185,6 +189,21 @@ export class huyenvietvttActor extends Actor {
         }
     }
 
+    applyBoiCanhItems(actor: Actor, totals: HvComputedTotals): void {
+
+        const thiTocItems = actor.items.filter((item) => item.type === "boiCanh");
+
+        for (const item of thiTocItems) {
+            const clanId = item.system?.id as string | undefined;
+            if (!clanId) continue;
+
+            const boiCanhById = getBoiCanhById(clanId);
+            if (!boiCanhById) continue;
+
+            this.applyUpgradeRules(totals, boiCanhById.upgrade);
+        }
+    }
+
     applyUpgradeRules(totals: HvComputedTotals, rules: UpgradeRule[]): void {
 
         for (const rule of rules) {
@@ -249,11 +268,17 @@ export class huyenvietvttActor extends Actor {
 
         // thay bằng công thức rulebook
         system.abilities.sucLuc.value = 5 + moc + hoa + tho;
-        system.abilities.tamLuc.value = 5 + hoa + tho + kim;
-        system.abilities.canhGiac.value = Math.floor((tho + kim + thuy) / 3);
-        system.abilities.chuTam.value = Math.floor((hoa + tho + kim) / 3);
-        system.abilities.tocDo.value = moc + hoa;
-        system.abilities.nguHop.value = system.attributes.level.value + kim;
+        system.abilities.tamLuc.value = thuy + tho + kim;
+        system.abilities.canhGiac.value = Math.ceil((hoa + kim + tho) / 3);
+        system.abilities.chuTam.value = kim + thuy + moc;
+        system.abilities.tocDo.value = (thuy + moc + hoa) / 2;
+        system.abilities.nguHop.value = Math.min(
+            system.abilities.sucLuc.value,
+            system.abilities.tamLuc.value,
+            system.abilities.canhGiac.value,
+            system.abilities.chuTam.value,
+            system.abilities.tocDo.value
+        );
 
         // update skills vao lai trong system
         for (let skill of SKILL_KEYS) {
