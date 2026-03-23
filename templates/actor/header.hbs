@@ -251,7 +251,6 @@
                                         id="hv-thi-toc-select"
                                         name="demo"
                                         class="hv-thi-toc-select"
-                                        id="hv-thi-toc-select"
                                         {{#unless editable}}disabled{{/unless}}
                                 >
                                     <option value="" disabled {{#unless document.system.identity.thiToc}}selected{{/unless}}>
@@ -259,6 +258,30 @@
                                     </option>
 
                                     {{#each thiTocOptions as |option|}}
+                                        <option value="{{option.value}}" {{#if option.selected}}selected{{/if}}>
+                                            {{localize option.label }}
+                                        </option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class='resource'>
+                            <label for='hv-boi-canh-select' class='resource-label'>
+                                Bối Cảnh
+                            </label>
+                            <div class='resource-content flexrow flex-center flex-between'>
+                                <select
+                                        id="hv-boi-canh-select"
+                                        name="boi-canh"
+                                        class="hv-boi-canh-select"
+                                        {{#unless editable}}disabled{{/unless}}
+                                >
+                                    <option value="" disabled {{#unless document.system.identity.boiCanh}}selected{{/unless}}>
+                                        -- Chọn Bối Cảnh --
+                                    </option>
+
+                                    {{#each boiCanhOptions as |option|}}
                                         <option value="{{option.value}}" {{#if option.selected}}selected{{/if}}>
                                             {{localize option.label }}
                                         </option>

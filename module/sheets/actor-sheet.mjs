@@ -1,6 +1,6 @@
 import { prepareActiveEffectCategories } from '../helpers/effects.mjs';
 import { upgrade, applyUpgradeRule, removeUpgradeSource } from "../helpers/upgrade.ts";
-import {ELEMENTS, THI_TOC} from "../helpers/config.ts";
+import {BOI_CANH, ELEMENTS, THI_TOC} from "../helpers/config.ts";
 import { ElementModal } from './element-modal.mjs'
 import {removeThiTocFromActor, setThiTocForActor} from "../helpers/thiToc";
 import {layHanhThe} from "../helpers/element";
@@ -244,7 +244,13 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
                 value: clan.linhGiap,
                 label: clan.ten,
                 selected: clan.linhGiap === this.actor.system.identity.thiToc
-            }))
+            })),
+
+            boiCanhOptions: BOI_CANH.map((boiCanh) => ({
+                value: boiCanh.id,
+                label: boiCanh.ten,
+                selected: boiCanh.id === this.actor.system.identity.boiCanh
+            })),
         };
 
         // Offloading context prep to a helper function

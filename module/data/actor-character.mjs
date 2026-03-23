@@ -63,7 +63,8 @@ export default class BoilerplateCharacter extends BoilerplateActorBase {
         monPhai: new fields.StringField({ initial: "" }),
         thiToc: new fields.StringField({ initial: "" }),
         ngheNghiep: new fields.StringField({ initial: "" }),
-        tinhCach: new fields.StringField({ initial: "" })
+        tinhCach: new fields.StringField({ initial: "" }),
+        boiCanh: new fields.StringField({ initial: "" })
       }),
 
       elements: new fields.SchemaField({

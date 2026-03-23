@@ -1,4 +1,6 @@
 import {ThiToc} from "../../types/thiToc";
+import {BoiCanh} from "../../types/boiCanh";
+
 
 export const BOILERPLATE: any = {};
 
@@ -150,7 +152,7 @@ BOILERPLATE.abilityAbbreviations = {
     cha: 'BOILERPLATE.Ability.Cha.abbr',
 };
 
-export const BOI_CANH = [
+export const BOI_CANH: BoiCanh[] = [
     {
         id: 'thanhThi',
         ten: 'BOILERPLATE.BoiCanh.thanhThi.label',
