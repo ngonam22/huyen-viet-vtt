@@ -62,6 +62,48 @@
         "viTri": "Ngoại Bắc"
       }
     },
+    "BoiCanh": {
+      "thanhThi": {
+        "label": "Thành Thị",
+        "desc": "Chốn phồn hoa đô thị, cư dân đông đúc"
+      },
+      "nongThon": {
+        "label": "Nông Thôn",
+        "desc": "Miền thôn quê đồng bằng, sản xuất lương thực"
+      },
+      "rungSau": {
+        "label": "Rừng Sâu",
+        "desc": "Rừng sâu rậm rạp, miền của cây cối muông thú"
+      },
+      "songNuoc": {
+        "label": "Sông Nước",
+        "desc": "Sông hồ biển cả, thuyền bè xuôi ngược"
+      },
+      "nuiDoi": {
+        "label": "Núi Đồi",
+        "desc": "Núi cao vực sâu, xa xôi hẻo lánh"
+      },
+      "namHai": {
+        "label": "Nam Hải",
+        "desc": "Nam hải đại dương, biển lớn cùng với hải tặc"
+      },
+      "yeuLam": {
+        "label": "Yêu Lâm",
+        "desc": "Rừng sâu yêu dị, vạn yêu tranh đấu"
+      },
+      "maVuc": {
+        "label": "Ma Vực",
+        "desc": "Hoang địa nguy hiểm, ma khí trùng thiên"
+      },
+      "tuyetVien": {
+        "label": "Tuyết Viên",
+        "desc": "Tuyết băng lạnh lẽo, cự nhân bành trướng"
+      },
+      "namLuc": {
+        "label": "Nam Lục",
+        "desc": "Lục địa xa xôi, văn hóa khác biệt"
+      }
+    },
     "Ability": {
       "sucLuc": {
         "long": "Sức Lực", "abbr": "sl"
