@@ -5,6 +5,8 @@ import {getThiTocById} from "../helpers/thiToc";
 import {UpgradeRule} from "../../types/upgrade";
 import {HvCharacterSystemData, HvComputedTotals, isElementKey, isSkillKey, SKILL_KEYS} from "../helpers/config";
 import {getBoiCanhById} from "../helpers/boiCanh";
+import { AppliedUpgrade, UpgradeRule } from "../../types/upgrade";
+import { getGiaCanhById } from "../helpers/giaCanh";
 
 /**
  * Extend the base Actor document by defining a custom roll data structure which is ideal for the Simple system.
@@ -88,6 +90,8 @@ export class huyenvietvttActor extends Actor {
 
         // Apply tat ca Boi Canh dang co
         this.applyBoiCanhItems(this, totals);
+
+        this.applyGiaCanhItems(this, totals);
 
         // 3) tính abilities từ totals đã được cộng bonus
         this.computeAbilities(system, totals);
