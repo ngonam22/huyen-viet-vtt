@@ -1,5 +1,6 @@
 import {ThiToc} from "../../types/thiToc";
 import {BoiCanh} from "../../types/boiCanh";
+import {GiaCanh} from "../../types/giaCanh";
 
 
 export const BOILERPLATE: any = {};
@@ -799,7 +800,7 @@ export const THI_TOC: ThiToc[] = [
 export const GIA_CANH: GiaCanh[] = [
   {
     id: "nong-dan",
-    ten: "Nông dân",
+    ten: "BOILERPLATE.GiaCanh.nongDan.label",
     description: "Sản xuất lương thực, trồng trọt chăn nuôi",
     upgrade: [
       {

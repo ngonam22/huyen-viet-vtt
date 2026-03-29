@@ -139,6 +139,12 @@ export default class BoilerplateCharacter extends BoilerplateActorBase {
         })
       }),
 
+      currency: new fields.SchemaField({
+        quan: intField(0, 0, 999999),
+        tien: intField(0, 0, 999999),
+        dong: intField(0, 0, 999999),
+      }),
+
     }
   }
 

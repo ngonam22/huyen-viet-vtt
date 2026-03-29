@@ -104,6 +104,11 @@
         "desc": "Lục địa xa xôi, văn hóa khác biệt"
       }
     },
+    "GiaCanh": {
+      "nongDan": {
+        "label": "Nông Dân"
+      }
+    },
     "Ability": {
       "sucLuc": {
         "long": "Sức Lực", "abbr": "sl"

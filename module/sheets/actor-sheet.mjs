@@ -1,6 +1,6 @@
 import { prepareActiveEffectCategories } from '../helpers/effects.mjs';
 import { upgrade, applyUpgradeRule, removeUpgradeSource } from "../helpers/upgrade.ts";
-import {BOI_CANH, ELEMENTS, THI_TOC} from "../helpers/config.ts";
+import {BOI_CANH, ELEMENTS, GIA_CANH, THI_TOC} from "../helpers/config.ts";
 import { ElementModal } from './element-modal.mjs'
 import {removeThiTocFromActor, setThiTocForActor} from "../helpers/thiToc";
 import {layHanhThe} from "../helpers/element";
@@ -19,8 +19,8 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
     static DEFAULT_OPTIONS = {
         classes: ['boilerplate', 'actor', 'character-sheet-window'],
         position: {
-            width: 600,
-            height: 600,
+            width: 820,
+            height: 720,
         },
         actions: {
             onEditImage: this._onEditImage,
@@ -93,6 +93,7 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
 
         if (action === 'roll-skill') {
             console.log('BTN CLICKED+++++')
+            this.actor.system.currency.quan += 10
             // await setThiTocForActor(this.actor, 'ga')
 
             if (hanhThe) {
@@ -252,6 +253,12 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
                 label: boiCanh.ten,
                 selected: boiCanh.id === this.actor.system.identity.boiCanh
             })),
+
+            giaCanhOptions: GIA_CANH.map(val => ({
+                id: val.id,
+                ten: val.ten,
+                description: val.description,
+            }))
         };
 
         // Offloading context prep to a helper function

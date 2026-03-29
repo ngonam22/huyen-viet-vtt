@@ -91,7 +91,7 @@ export class huyenvietvttActor extends Actor {
         // Apply tat ca Boi Canh dang co
         this.applyBoiCanhItems(this, totals);
 
-        this.applyGiaCanhItems(this, totals);
+        // this.applyGiaCanhItems(this, totals);
 
         // 3) tính abilities từ totals đã được cộng bonus
         this.computeAbilities(system, totals);

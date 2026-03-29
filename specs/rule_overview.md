@@ -86,7 +86,14 @@ Khi một Entity bị tấn công, engine xử lý theo thứ tự:
 2.  **HP Mitigation:** Sát Thương dư trừ vào `Sức Lực` (Khí lực).
 3.  **Core Damage (Tổn thương Ngũ Hành):** Nếu Sức Lực cạn (0), sát thương tác động trực tiếp lên Ngũ Hành. Tổn thương Hành sẽ kích hoạt debuff cho Hành đó (+2 ĐK) và buff Hành bị khắc (-1 ĐK).
 
-## 6. KIẾN TRÚC SỮ LIỆU ĐÍNH KÈM SẮP TỚI (Upcoming Detailed Specs)
+## 6. CƠ CHẾ KHÁC
+### 6.1. Tiền tệ
+Tiền tệ trong game có tên gọi lần lượt là đồng, tiền, quan. Với tỷ lệ quy đổi như sau:
+-   **1 quan** = 10 tiền
+-   **1 tiền** = 100 đồng
+-   **1 quan** = 10 tiền = 1000 đồng
+
+## 7. KIẾN TRÚC SỮ LIỆU ĐÍNH KÈM SẮP TỚI (Upcoming Detailed Specs)
 *(Ghi chú cho AI: Các spec file chi tiết sẽ được cung cấp ở các bước tiếp theo)*
 1.  `Spec_Character_Creation`: Quy trình 8 bước tạo nhân vật (Bối Cảnh, Gia Cảnh, Môn Phái...).
 2.  `Spec_Techniques_Magic`: Thuật Thức (Võ Kỹ, Chủ Thuật, Linh Thuật, Khí Thuật, Ma Thuật).
