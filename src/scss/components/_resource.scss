@@ -2,6 +2,36 @@
   font-weight: bold;
 }
 
+.ability-box--resource {
+  cursor: pointer;
+  transition: filter 0.15s ease;
+
+  &:hover {
+    filter: brightness(1.2);
+  }
+}
+
+.ability-box__content--resource {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 3px;
+}
+
+.ability-box__current {
+  font-weight: 700;
+}
+
+.ability-box__sep {
+  font-size: 0.8em;
+  opacity: 0.6;
+}
+
+.ability-box__base {
+  font-size: 0.85em;
+  opacity: 0.7;
+}
+
 .ability {
   margin-bottom: 2px;
 }

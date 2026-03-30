@@ -1,0 +1,51 @@
+<div class="hv-resource-modal">
+
+    {{! Row 1: current / max display }}
+    <div class="hv-resource-modal__display">
+        <span class="hv-resource-modal__current">{{current}}</span>
+        <span class="hv-resource-modal__sep">/</span>
+        <span class="hv-resource-modal__base">{{base}}</span>
+    </div>
+
+    {{! Row 2: controls (left col) + vertical slider (right col) }}
+    <div class="hv-resource-modal__body">
+
+        <div class="hv-resource-modal__controls">
+            <button type="button" class="hv-resource-modal__btn hv-resource-modal__btn--heal" data-action="heal">
+                Hồi Phục
+            </button>
+
+            <input
+                type="number"
+                class="hv-resource-amount"
+                value="{{amount}}"
+                min="1"
+                max="{{base}}"
+            />
+
+            <button type="button" class="hv-resource-modal__btn hv-resource-modal__btn--damage" data-action="damage">
+                Chịu Đòn
+            </button>
+        </div>
+
+        <div class="hv-resource-modal__slider-wrap">
+            <div class="hv-resource-slider"
+                 data-min="1"
+                 data-max="50"
+                 data-value="{{amount}}"
+                 role="slider"
+                 aria-valuenow="{{amount}}"
+                 aria-valuemin="1"
+                 aria-valuemax="50"
+                 tabindex="0"
+                 title="Scroll để thay đổi">
+                <div class="hv-resource-slider__track">
+                    <div class="hv-resource-slider__fill"></div>
+                    <div class="hv-resource-slider__thumb"></div>
+                </div>
+                <span class="hv-resource-slider__val">{{amount}}</span>
+            </div>
+        </div>
+
+    </div>
+</div>

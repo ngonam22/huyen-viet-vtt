@@ -1,0 +1,156 @@
+.resource-modal {
+  .hv-resource-modal {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  // Row 1 — big current / max
+  &__display {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 6px;
+    font-family: 'Crimson Pro', serif;
+  }
+
+  &__current {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: $c-dark;
+  }
+
+  &__sep {
+    font-size: 1.4rem;
+    color: $c-beige;
+  }
+
+  &__base {
+    font-size: 1.4rem;
+    color: $c-beige;
+  }
+
+  // Row 2 — two columns
+  &__body {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    align-items: stretch;
+  }
+
+  // Left column: Heal, input, Damage stacked
+  &__controls {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__btn {
+    width: 100%;
+    padding: 8px 0;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: filter 0.15s ease;
+
+    &:hover {
+      filter: brightness(1.15);
+    }
+
+    &--heal {
+      background: #2e7d4f;
+      color: #d6f0df;
+    }
+
+    &--damage {
+      background: #8b2020;
+      color: #f5d0d0;
+    }
+  }
+
+  .hv-resource-amount {
+    width: 100%;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding: 6px 0;
+    border: 1px solid $c-beige;
+    border-radius: 4px;
+    background: transparent;
+    color: $c-dark;
+
+    // hide browser spin buttons
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+    }
+    -moz-appearance: textfield;
+  }
+
+  // Right column: custom wheel-scrollable vertical slider
+  &__slider-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 8px;
+  }
+
+  .hv-resource-slider {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    cursor: ns-resize;
+    user-select: none;
+    outline: none;
+
+    &:focus .hv-resource-slider__track {
+      box-shadow: 0 0 0 2px rgba(46, 125, 79, 0.5);
+    }
+
+    &__track {
+      position: relative;
+      width: 10px;
+      height: 150px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 5px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      overflow: visible;
+    }
+
+    &__fill {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 0%;
+      background: #2e7d4f;
+      border-radius: 5px;
+      pointer-events: none;
+    }
+
+    &__thumb {
+      position: absolute;
+      left: 50%;
+      bottom: 0%;
+      transform: translate(-50%, 50%);
+      width: 18px;
+      height: 18px;
+      background: #e8e0c8;
+      border-radius: 50%;
+      border: 2px solid #2e7d4f;
+      pointer-events: none;
+    }
+
+    &__val {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: $c-beige;
+      min-width: 20px;
+      text-align: center;
+    }
+  }
+}

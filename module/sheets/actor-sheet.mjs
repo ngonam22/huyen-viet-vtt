@@ -2,6 +2,7 @@ import { prepareActiveEffectCategories } from '../helpers/effects.mjs';
 import { upgrade, applyUpgradeRule, removeUpgradeSource } from "../helpers/upgrade.ts";
 import {BOI_CANH, ELEMENTS, GIA_CANH, THI_TOC} from "../helpers/config.ts";
 import { ElementModal } from './element-modal.mjs'
+import { ResourceModal } from './resource-modal.mjs'
 import {removeThiTocFromActor, setThiTocForActor} from "../helpers/thiToc";
 import {layHanhThe} from "../helpers/element";
 import {removeBoiCanhFromActor, setBoiCanhForActor} from "../helpers/boiCanh";
@@ -90,6 +91,11 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
         const hanhThe = this.getHanhThe()
 
         console.log("++++ _onClickAction", action);
+
+        if (action === 'open-resource-modal') {
+            const type = target.dataset.type; // 'sucLuc' or 'tamLuc'
+            return ResourceModal.show(this.actor, type);
+        }
 
         if (action === 'roll-skill') {
             console.log('BTN CLICKED+++++')

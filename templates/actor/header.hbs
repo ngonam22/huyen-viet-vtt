@@ -283,21 +283,27 @@
                 </div>
 
                 <!-- starts ability box -->
-                <div class='tw:col-start-4 resource flex-group-center ability-box'>
-                    <label for='system.health.value' class='ability-box__title'>
+                <div class='tw:col-start-4 resource flex-group-center ability-box ability-box--resource'
+                     data-action="open-resource-modal" data-type="sucLuc" role="button">
+                    <div class='ability-box__title'>
                         {{localize 'BOILERPLATE.Actor.base.FIELDS.nguHanh.sucLuc.label'}}
-                    </label>
-                    <div class='ability-box__content'>
-                        {{system.abilities.sucLuc.value}}
+                    </div>
+                    <div class='ability-box__content ability-box__content--resource'>
+                        <span class="ability-box__current">{{system.abilities.sucLuc.value}}</span>
+                        <span class="ability-box__sep">/</span>
+                        <span class="ability-box__base">{{system.abilities.sucLuc.base}}</span>
                     </div>
                 </div>
 
-                <div class='tw:col-start-5 ability-box'>
+                <div class='tw:col-start-5 ability-box ability-box--resource'
+                     data-action="open-resource-modal" data-type="tamLuc" role="button">
                     <div class='ability-box__title'>
                         {{localize 'BOILERPLATE.Actor.base.FIELDS.nguHanh.tamLuc.label'}}
                     </div>
-                    <div class='ability-box__content'>
-                        {{system.abilities.tamLuc.value}}
+                    <div class='ability-box__content ability-box__content--resource'>
+                        <span class="ability-box__current">{{system.abilities.tamLuc.value}}</span>
+                        <span class="ability-box__sep">/</span>
+                        <span class="ability-box__base">{{system.abilities.tamLuc.base}}</span>
                     </div>
                 </div>
 
