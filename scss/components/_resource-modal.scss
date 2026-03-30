@@ -1,0 +1,303 @@
+.hv-resource-modal {
+  // Per-type colour tokens — override for tamLuc
+  --res-color:       #b84040;
+  --res-color-bg:    rgba(184, 64,  64,  0.08);
+  --res-color-muted: rgba(184, 64,  64,  0.28);
+
+  &[data-type="tamLuc"] {
+    --res-color:       #3a7abf;
+    --res-color-bg:    rgba(58,  122, 191, 0.08);
+    --res-color-muted: rgba(58,  122, 191, 0.28);
+  }
+
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  // ─── Tabs ─────────────────────────────────────────────────────────────────────
+  &__tabs {
+    display: flex;
+    flex-shrink: 0;
+    border-bottom: 1px solid rgba(181, 179, 164, 0.16);
+  }
+
+  &__tab {
+    flex: 1;
+    min-width: 0;
+    padding: 8px 4px 6px;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;        // sit on top of tabs border-bottom
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    transition: background 0.18s, border-color 0.18s;
+
+    &:hover:not(.is-active) {
+      background: rgba(181, 179, 164, 0.05);
+    }
+
+    &.is-active {
+      background: var(--res-color-bg);
+      border-bottom-color: var(--res-color);
+
+      .hv-resource-modal__tab-name {
+        color: var(--res-color);
+        opacity: 1;
+      }
+
+      .hv-resource-modal__tab-val {
+        opacity: 0.9;
+      }
+    }
+  }
+
+  &__tab-name {
+    font-family: Yrsa,sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: $c-beige;
+    opacity: 0.7;
+    transition: color 0.18s, opacity 0.18s;
+    white-space: nowrap;
+  }
+
+  &__tab-val {
+    font-family: Yrsa,sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: $c-dark;
+    opacity: 0.4;
+    transition: opacity 0.18s;
+    white-space: nowrap;
+  }
+
+  &__tab-sep {
+    opacity: 0.4;
+    margin: 0 1px;
+    font-size: 0.7rem;
+  }
+
+  // ─── HP / MP display ──────────────────────────────────────────────────────────
+  &__display {
+    flex-shrink: 0;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 5px;
+    font-family: Yrsa,sans-serif;
+    padding: 10px 12px 4px;
+  }
+
+  &__current {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: $c-dark;
+    line-height: 1;
+  }
+
+  &__sep {
+    font-size: 1.2rem;
+    color: $c-beige;
+    opacity: 0.4;
+  }
+
+  &__base {
+    font-size: 1.2rem;
+    color: $c-beige;
+  }
+
+  // ─── Two-column body ──────────────────────────────────────────────────────────
+  &__body {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+    align-items: stretch;
+    padding: 10px 12px 14px;
+    box-sizing: border-box;
+  }
+
+  // ─── Left: heal / amount / damage ─────────────────────────────────────────────
+  &__controls {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-width: 0;
+  }
+
+  &__btn {
+    width: 100%;
+    padding: 7px 0;
+    border: none;
+    border-radius: 5px;
+    font-family: Yrsa,sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    transition: filter 0.15s, box-shadow 0.15s;
+
+    &:hover  { filter: brightness(1.12); box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
+    &:active { filter: brightness(0.9); }
+
+    &--heal   { background: #2e7d4f; color: #d6f0df; }
+    &--damage { background: #8b2020; color: #f5d0d0; }
+  }
+
+  .hv-resource-amount {
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    font-family: Yrsa,sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding: 5px 0;
+    border: 1px solid rgba(181, 179, 164, 0.28);
+    border-radius: 5px;
+    background: var(--res-color-bg);
+    color: $c-dark;
+    transition: border-color 0.15s, box-shadow 0.15s;
+
+    &:focus {
+      outline: none;
+      border-color: var(--res-color-muted);
+      box-shadow: 0 0 0 2px var(--res-color-bg);
+    }
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button { -webkit-appearance: none; }
+    -moz-appearance: textfield;
+  }
+
+  // ─── Right: drum roller ───────────────────────────────────────────────────────
+  &__slider-wrap {
+    display: flex;
+    align-items: stretch;
+  }
+
+  .hv-resource-slider {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 68px;
+    cursor: ns-resize;
+    user-select: none;
+    outline: none;
+
+    &:focus-within &__center-line {
+      border-color: var(--res-color-muted);
+    }
+
+    // Borderless arrow hints — no box, just the glyph
+    &__arrow {
+      width: 100%;
+      height: 16px;
+      padding: 0;
+      background: transparent;
+      border: none;
+      color: $c-beige;
+      font-size: 0.4rem;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.45;
+      flex-shrink: 0;
+      transition: opacity 0.15s, color 0.15s;
+
+      &:hover  { opacity: 1; color: var(--res-color); }
+      &:active { opacity: 0.6; }
+    }
+
+    // Viewport — clips drum, gradient fade at edges
+    &__viewport {
+      flex: 1;
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      mask-image: linear-gradient(
+        to bottom,
+        transparent  0%,
+        black        22%,
+        black        78%,
+        transparent 100%
+      );
+      -webkit-mask-image: linear-gradient(
+        to bottom,
+        transparent  0%,
+        black        22%,
+        black        78%,
+        transparent 100%
+      );
+    }
+
+    // Drum strip — absolute-centred inside viewport
+    &__drum {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      will-change: transform;
+    }
+
+    // Number rows — height must match ITEM_H in JS (38px)
+    &__item {
+      width: 100%;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Yrsa,sans-serif;
+      font-weight: 700;
+      line-height: 1;
+      opacity: 1;
+
+
+      // Far neighbours — dim hint
+      &[data-offset="-2"],
+      &[data-offset="2"] {
+        font-size: 0.78rem;
+        color: $c-beige;
+      }
+
+      // Immediate neighbours — clearly readable
+      &[data-offset="-1"],
+      &[data-offset="1"] {
+        font-size: 1.05rem;
+        color: $c-beige;
+      }
+
+      // Active — prominent, normal text colour (not red)
+      &[data-offset="0"] {
+        font-size: 1.8rem;
+        color: $c-dark;
+      }
+    }
+
+    // Hairline borders flanking active number
+    &__center-line {
+      position: absolute;
+      left: 4px;
+      right: 4px;
+      top: 50%;
+      height: 38px;
+      transform: translateY(-50%);
+      border-top: 1px solid rgba(181, 179, 164, 0.2);
+      border-bottom: 1px solid rgba(181, 179, 164, 0.2);
+      pointer-events: none;
+      transition: border-color 0.2s;
+    }
+  }
+}

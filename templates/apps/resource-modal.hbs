@@ -1,4 +1,20 @@
-<div class="hv-resource-modal">
+<div class="hv-resource-modal" data-type="{{type}}">
+
+    {{! Tabs: switch between HP and MP }}
+    <div class="hv-resource-modal__tabs">
+        <button type="button"
+                class="hv-resource-modal__tab{{#if isSucLuc}} is-active{{/if}}"
+                data-action="switch-resource"
+                data-tab="sucLuc">
+            <span class="hv-resource-modal__tab-name">Sức Lực</span>
+        </button>
+        <button type="button"
+                class="hv-resource-modal__tab{{#if isTamLuc}} is-active{{/if}}"
+                data-action="switch-resource"
+                data-tab="tamLuc">
+            <span class="hv-resource-modal__tab-name">Tâm Lực</span>
+        </button>
+    </div>
 
     {{! Row 1: current / max display }}
     <div class="hv-resource-modal__display">
@@ -7,7 +23,7 @@
         <span class="hv-resource-modal__base">{{base}}</span>
     </div>
 
-    {{! Row 2: controls (left col) + vertical slider (right col) }}
+    {{! Row 2: controls (left col) + vertical drum slider (right col) }}
     <div class="hv-resource-modal__body">
 
         <div class="hv-resource-modal__controls">
@@ -39,11 +55,22 @@
                  aria-valuemax="50"
                  tabindex="0"
                  title="Scroll để thay đổi">
-                <div class="hv-resource-slider__track">
-                    <div class="hv-resource-slider__fill"></div>
-                    <div class="hv-resource-slider__thumb"></div>
+
+                <button type="button" class="hv-resource-slider__arrow hv-resource-slider__arrow--up" aria-label="Tăng">&#9650;</button>
+
+                <div class="hv-resource-slider__viewport">
+                    <div class="hv-resource-slider__drum">
+                        <div class="hv-resource-slider__item" data-offset="-2"></div>
+                        <div class="hv-resource-slider__item" data-offset="-1"></div>
+                        <div class="hv-resource-slider__item" data-offset="0"></div>
+                        <div class="hv-resource-slider__item" data-offset="1"></div>
+                        <div class="hv-resource-slider__item" data-offset="2"></div>
+                    </div>
+                    <div class="hv-resource-slider__center-line"></div>
                 </div>
-                <span class="hv-resource-slider__val">{{amount}}</span>
+
+                <button type="button" class="hv-resource-slider__arrow hv-resource-slider__arrow--down" aria-label="Giảm">&#9660;</button>
+
             </div>
         </div>
 
