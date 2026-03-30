@@ -17,7 +17,7 @@ export interface Effect {
 //   choose: 1
 // ]
 export interface UpgradeRule {
-    target: "element" | "skill"
+    target: "element" | "skill" | "ability" | "damage"
 
     // Loại cua upgrade
     // Add là điểm cộng thêm hoặc trừ đi

@@ -118,8 +118,9 @@ export class huyenvietvttActor extends Actor {
         // 3) tính abilities từ totals đã được cộng bonus
         this.computeAbilities(system, totals);
 
-        // const actorData = this;
-        // const flags = actorData.flags.huyenvietvtt || {};
+        // 4) apply ability modifiers from equipped weapons and armor
+        //    (runs after computeAbilities so formula values are already set)
+        this.applyEquippedItemEffects(system);
 
         console.log('____ recalculated')
     }
@@ -313,6 +314,53 @@ export class huyenvietvttActor extends Actor {
             }
 
             system.skills[skill] = totals.skills?.[skill]
+        }
+    }
+
+    /**
+     * Apply target:"ability" passiveEffects from all equipped weapons and armor.
+     * Runs after computeAbilities() so formula values are already in place.
+     * target:"damage" effects are intentionally skipped — handled at combat time.
+     */
+    applyEquippedItemEffects(system: HvCharacterSystemData): void {
+        const equippedWeapons = this.items.filter(
+            (i) => i.type === 'vuKhi' && (i.system as any).isEquipped
+        );
+
+        for (const weapon of equippedWeapons) {
+            const ws = weapon.system as any;
+            const rules = [...ws.passiveEffects];
+            if (ws.isTwoHanded) rules.push(...ws.twoHandedEffects);
+            this._applyAbilityRules(system, rules);
+        }
+
+        const equippedArmors = this.items.filter(
+            (i) => i.type === 'giapTru' && (i.system as any).isEquipped
+        );
+
+        for (const armor of equippedArmors) {
+            this._applyAbilityRules(system, (armor.system as any).passiveEffects);
+        }
+    }
+
+    /**
+     * Apply only target:"ability" rules directly onto system.abilities.
+     * Other targets (element, skill, damage) are ignored here.
+     */
+    _applyAbilityRules(system: HvCharacterSystemData, rules: any[]): void {
+        for (const rule of rules) {
+            if (rule.target !== 'ability') continue;
+            for (const effect of rule.effects) {
+                const ability = (system.abilities as any)[effect.name];
+                if (ability === undefined) continue;
+                // use .value for computed abilities; use .base for resource abilities
+                const field = 'base' in ability ? 'base' : 'value';
+                switch (rule.mode) {
+                    case 'add':      ability[field] += effect.value; break;
+                    case 'set':      ability[field]  = effect.value; break;
+                    case 'multiply': ability[field]  = Math.floor(ability[field] * effect.value); break;
+                }
+            }
         }
     }
 
