@@ -26,6 +26,16 @@ The `specs/` folder contains markdown files that document the game rules and sys
 
 When in doubt about intended behavior, the spec files take precedence over the current code.
 
+### Spec Sync Rule (strictly enforced)
+
+After making any code change unless is specified that is allowed to skip the spec check:
+
+1. **Re-read the relevant spec files** — check whether the change affects anything documented there (rules, data structures, formulas, schemas, etc.).
+2. **Suggest spec updates if needed** — if the code change introduces, modifies, or removes something that the specs document or should document, propose the exact edits to keep the specs current.
+3. **Confirm if no update is needed** — if no spec file needs changing, explicitly state that ("No spec updates needed — [brief reason]"). Do not silently skip this step.
+
+This applies to all spec files, not just `rule_overview.md`. Some changes affect only technical specs (schema shape, data flow, module structure), not the rulebook — that's fine, but still check and confirm either way.
+
 ## Architecture
 
 ### Entry Point

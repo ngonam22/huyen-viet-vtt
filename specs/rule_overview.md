@@ -39,12 +39,12 @@ Các mặt của d10 được map theo hệ Âm - Dương:
 
 ### 3.2. Chỉ Số Dẫn Xuất (Derived Stats - Ngũ Hành Phát Nguyên)
 Các chỉ số sinh lý/chiến đấu được tính toán tự động từ Ngũ Hành:
-*   `Sức Lực (HP/Stamina)` = `5 + (Mộc + Hỏa + Thổ)`.
-*   `Tâm Lực (Mental/Sanity)` = `Thổ + Kim + Thủy`. (Khi = 0 sẽ rơi vào trạng thái "Loạn Tâm", phải "Phát Tiết" để phục hồi).
+*   `Sức Lực (HP/Stamina)` = `5 + (Mộc + Hỏa + Thổ)`. Đây là giá trị **tối đa** (`base`). Giá trị hiện tại (`value`) bị giảm khi nhận sát thương và được lưu riêng — không bị ghi đè bởi công thức.
+*   `Tâm Lực (Mental/Sanity)` = `Thổ + Kim + Thủy`. Đây là giá trị **tối đa** (`base`). Giá trị hiện tại (`value`) bị giảm khi người chơi tiêu hao (Khi = 0 sẽ rơi vào trạng thái "Loạn Tâm", phải "Phát Tiết" để phục hồi).
 *   `Cảnh Giác (Passive Defense)` = `Math.ceil((Hỏa + Thổ + Kim) / 3)`.
 *   `Chú Tâm (Initiative)` = `Kim + Thủy + Mộc`.
 *   `Tốc Độ (Speed - in "bộ")` = `(Thủy + Mộc + Hỏa) / 3`.
-*   `Ngũ Hợp (Meta Currency/Fate)` = `Min(Sức Lực, Tâm Lực, Cảnh Giác, Chú Tâm, Tốc Độ)`.
+*   `Ngũ Hợp (Meta Currency/Fate)` = `Min(Sức Lực.base, Tâm Lực.base, Cảnh Giác, Chú Tâm, Tốc Độ)`. Sử dụng giá trị **tối đa** của Sức Lực và Tâm Lực, không phải giá trị hiện tại.
 
 ### 3.3. Kỹ Năng (Skills - Ngũ Đại Quốc Đạo)
 Chấm điểm từ 1-5, chia làm 5 nhóm:

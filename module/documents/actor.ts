@@ -5,7 +5,6 @@ import {getThiTocById} from "../helpers/thiToc";
 import {UpgradeRule} from "../../types/upgrade";
 import {HvCharacterSystemData, HvComputedTotals, isElementKey, isSkillKey, SKILL_KEYS} from "../helpers/config";
 import {getBoiCanhById} from "../helpers/boiCanh";
-import { AppliedUpgrade, UpgradeRule } from "../../types/upgrade";
 import { getGiaCanhById } from "../helpers/giaCanh";
 
 /**
@@ -64,6 +63,29 @@ export class huyenvietvttActor extends Actor {
     prepareBaseData() {
         // Data modifications in this step occur before processing embedded
         // documents or derived data.
+    }
+
+    /**
+     * Initialize sucLuc.value and tamLuc.value to their computed base on first creation.
+     * After this point, value is only changed by explicit player actions (damage, spending MP).
+     * @override
+     */
+    _onCreate(data: object, options: object, userId: string): void {
+        // @ts-expect-error
+        super._onCreate(data, options, userId);
+
+        // @ts-expect-error TS2367
+        if (this.type !== "character") return;
+
+        // _onCreate fires on all connected clients — only the creating user should write
+        if (game.user?.id !== userId) return;
+
+        const system = this.system as unknown as HvCharacterSystemData;
+
+        this.update({
+            "system.abilities.sucLuc.value": system.abilities.sucLuc.base,
+            "system.abilities.tamLuc.value": system.abilities.tamLuc.base,
+        });
     }
 
     /**
@@ -271,14 +293,14 @@ export class huyenvietvttActor extends Actor {
         system.elements.moc.value = moc
 
         // thay bằng công thức rulebook
-        system.abilities.sucLuc.value = 5 + moc + hoa + tho;
-        system.abilities.tamLuc.value = thuy + tho + kim;
+        system.abilities.sucLuc.base = 5 + moc + hoa + tho;
+        system.abilities.tamLuc.base = thuy + tho + kim;
         system.abilities.canhGiac.value = Math.ceil((hoa + kim + tho) / 3);
         system.abilities.chuTam.value = kim + thuy + moc;
         system.abilities.tocDo.value = (thuy + moc + hoa) / 2;
         system.abilities.nguHop.value = Math.min(
-            system.abilities.sucLuc.value,
-            system.abilities.tamLuc.value,
+            system.abilities.sucLuc.base,
+            system.abilities.tamLuc.base,
             system.abilities.canhGiac.value,
             system.abilities.chuTam.value,
             system.abilities.tocDo.value

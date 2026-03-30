@@ -114,9 +114,11 @@ export default class BoilerplateCharacter extends BoilerplateActorBase {
 
       abilities: new fields.SchemaField({
         sucLuc: new fields.SchemaField({
+          base: intField(),
           value: intField()
         }),
         tamLuc: new fields.SchemaField({
+          base: intField(),
           value: intField()
         }),
         canhGiac: new fields.SchemaField({

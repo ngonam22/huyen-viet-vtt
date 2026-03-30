@@ -44,8 +44,8 @@ export interface CharacterSkills {
 }
 
 export interface CharacterAbilities {
-    sucLuc: { value: number };
-    tamLuc: { value: number };
+    sucLuc: { base: number; value: number };
+    tamLuc: { base: number; value: number };
     canhGiac: { value: number };
     chuTam: { value: number };
     tocDo: { value: number };

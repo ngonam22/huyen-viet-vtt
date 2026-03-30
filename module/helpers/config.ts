@@ -64,10 +64,21 @@ export type HvAbilityField = {
     value: number;
 };
 
+export type HvResourceAbilityField = {
+    base: number;
+    value: number;
+};
 
 export type HvElements = Record<HvElementKey, HvElementField>;
 export type HvSkills = Record<HvSkillKey, number>;
-export type HvAbilities = Record<HvAbilityKey, HvAbilityField>;
+export interface HvAbilities {
+    sucLuc: HvResourceAbilityField;
+    tamLuc: HvResourceAbilityField;
+    canhGiac: HvAbilityField;
+    chuTam: HvAbilityField;
+    tocDo: HvAbilityField;
+    nguHop: HvAbilityField;
+}
 
 export interface HvCharacterSystemData {
     identity: HvCharacterIdentity;

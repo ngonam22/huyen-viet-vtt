@@ -9,7 +9,9 @@ export type NguHanh = {
 
 export type AbilityName = "sucLuc" | "tamLuc" | "canhGiac" | "chuTam" | "tocDo"
 export type Ability = {
-    [key in AbilityName]: {
-        value: number
-    }
+    sucLuc: { base: number; value: number };
+    tamLuc: { base: number; value: number };
+    canhGiac: { value: number };
+    chuTam: { value: number };
+    tocDo: { value: number };
 }
