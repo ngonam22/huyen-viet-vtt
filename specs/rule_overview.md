@@ -99,7 +99,7 @@ Tiền tệ trong game có tên gọi lần lượt là đồng, tiền, quan. V
 2.  `Spec_Techniques_Magic`: Thuật Thức (Võ Kỹ, Chủ Thuật, Linh Thuật, Khí Thuật, Ma Thuật).
 3.  `Spec_Equipment`: Hệ thống Item, Giáp Trụ (Kháng lực), Vũ Khí (Sát thương, Tính trạng vũ khí).
 4.  `Spec_Status_Effects`: Các trạng thái bất lợi (Choáng váng, Xuất huyết, Loạn tâm, Định thân...).
-
+5.  `Spec_Equipment` trong file `spec_equipment.md`: Hệ thống trang bị và vật phẩm (Vũ khí, giáp trụ, phòng cụ...).
 ***
 
 **Lệnh cho AI System:** Hãy lưu trữ cấu trúc Dữ Liệu và Logic Rule cơ bản này. Khi tôi cung cấp các module tiếp theo (ví dụ: Hệ Phái, Thuật Thức, Trang bị), hãy map chúng vào Data Model tương ứng đã được định nghĩa ở mục 3 và 5.
