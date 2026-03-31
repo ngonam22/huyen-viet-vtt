@@ -70,8 +70,8 @@
   "media": [
     {
       "type": "setup",
-      "url": "systems/boilerplate/assets/anvil-impact.png",
-      "thumbnail": "systems/boilerplate/assets/anvil-impact.png"
+      "url": "systems/huyen-viet-vtt/assets/anvil-impact.png",
+      "thumbnail": "systems/huyen-viet-vtt/assets/anvil-impact.png"
     }
   ],
   "version": "0.0.1",
@@ -105,7 +105,7 @@
   "socket": false,
   "manifest": "Replace this with a link to the /latest release system.json so people can receive updates after they've installed the system",
   "download": "This must link to a .zip file of the current version",
-  "background": "systems/boilerplate/assets/anvil-impact.png",
+  "background": "systems/huyen-viet-vtt/assets/anvil-impact.png",
   "grid": {
     "type": 1,
     "distance": 5,
