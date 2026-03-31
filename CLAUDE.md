@@ -9,14 +9,27 @@ This is a **FoundryVTT Game System** called "Huyền Việt Đại Lục" — a 
 ## Commands
 
 ```bash
-npm install          # Install dependencies
-npm run vite         # Build with Vite (TypeScript → ES modules, bundles CSS)
-npm run build        # Full build: generate + vite
-npm run watch        # Watch SCSS for changes
+npm install             # Install dependencies
+npm run build           # Full build: compiles TS, bundles CSS, copies all static files
+npm run watch           # Same as build but re-runs on file changes (dev mode)
 npm run createSymlinks  # Create symlinks for FoundryVTT dev setup
 ```
 
 Build output goes to `build/huyen-viet-vtt/` — symlink this into FoundryVTT's `Data/systems/` directory for development.
+
+## Build System
+
+Everything goes through **Vite** (`vite.config.ts`). There is no separate generate step.
+
+A single `npm run build` does all of the following:
+1. Compiles `module/boilerplate.ts` (and all imports) → `build/huyen-viet-vtt/module/huyen-viet-vtt.mjs`
+2. Processes `scss/` via Tailwind/PostCSS → `build/huyen-viet-vtt/css/huyen-viet-vtt.css`
+3. Copies static dirs: `templates/`, `lang/`, `assets/`, `packs/`, `lib/`
+4. Copies static files: `system.json`, `template.json`, `character-creation-config.json`
+
+**After any code change**, run `npm run build` to update the build output. Use `npm run watch` during active development so Foundry hot-reloads on each save.
+
+The `src/` folder is no longer part of the build — it contains the old boilerplate generator script and abandoned SCSS (migrated to `scss/`). Do not add new code there.
 
 ## Game Rules & Specifications
 
@@ -39,8 +52,7 @@ This applies to all spec files, not just `rule_overview.md`. Some changes affect
 ## Architecture
 
 ### Entry Point
-`module/boilerplate.ts` — registers DataModels, Actor/Item document classes, ApplicationV2 sheets, and Handlebars helpers on Foundry's `init` hook.
-This boilerplate Typescript will include the boilerplate.mjs file which stores most of the logic, then Vite can read and build it.
+`module/boilerplate.ts` — Vite entry point. Registers DataModels, Actor/Item document classes, ApplicationV2 sheets, and Handlebars helpers on Foundry's `init` hook. Imports `boilerplate.mjs` which holds most of the legacy logic.
 
 ### Stat Recalculation Pipeline
 The core mechanic: `huyenvietvttActor.prepareDerivedData()` in `module/documents/actor.ts` runs on every actor update:
