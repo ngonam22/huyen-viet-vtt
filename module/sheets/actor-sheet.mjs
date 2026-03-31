@@ -6,6 +6,7 @@ import { ResourceModal } from './resource-modal.mjs'
 import {removeThiTocFromActor, setThiTocForActor} from "../helpers/thiToc";
 import {layHanhThe} from "../helpers/element";
 import {removeBoiCanhFromActor, setBoiCanhForActor} from "../helpers/boiCanh";
+import {removeGiaCanhFromActor, setGiaCanhForActor} from "../helpers/giaCanh";
 
 const { api, sheets } = foundry.applications;
 
@@ -263,7 +264,7 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
             giaCanhOptions: GIA_CANH.map(val => ({
                 id: val.id,
                 ten: val.ten,
-                description: val.description,
+                selected: val.id === this.actor.system.identity.giaCanh
             }))
         };
 
@@ -467,6 +468,23 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
             }
 
             await setBoiCanhForActor(actor, boiCanhId);
+        });
+
+
+        const giaCanhSelect = this.element?.querySelector(".hv-gia-canh-select");
+        giaCanhSelect.addEventListener("change", async (event) => {
+            const target = event.currentTarget;
+            const actor = this.actor;
+            const giaCanhId = target.value;
+
+            console.log('--- Gia Canh CHange')
+            console.log(giaCanhId)
+            if (!giaCanhId) {
+                await removeGiaCanhFromActor(actor);
+                return;
+            }
+
+            await setGiaCanhForActor(actor, giaCanhId);
         });
     }
 

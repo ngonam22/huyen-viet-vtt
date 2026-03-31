@@ -91,13 +91,13 @@
                                     class="hv-gia-canh-select"
                                     {{#unless editable}}disabled{{/unless}}
                             >
-                                <option value="" disabled {{#unless document.system.identity.boiCanh}}selected{{/unless}}>
+                                <option value="" disabled {{#unless document.system.identity.giaCanh}}selected{{/unless}}>
                                     -- Chọn Gia Cảnh --
                                 </option>
 
                                 {{#each giaCanhOptions as |option|}}
-                                    <option value="{{option.value}}" {{#if option.selected}}selected{{/if}}>
-                                        {{localize option.label }}
+                                    <option value="{{option.id}}" {{#if option.selected}}selected{{/if}}>
+                                        {{localize option.ten }}
                                     </option>
                                 {{/each}}
                             </select>
