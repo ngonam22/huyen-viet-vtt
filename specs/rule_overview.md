@@ -93,7 +93,41 @@ Tiền tệ trong game có tên gọi lần lượt là đồng, tiền, quan. V
 -   **1 tiền** = 100 đồng
 -   **1 quan** = 10 tiền = 1000 đồng
 
-## 7. KIẾN TRÚC SỮ LIỆU ĐÍNH KÈM SẮP TỚI (Upcoming Detailed Specs)
+## 7. GIA CẢNH (Family Background / Occupation)
+
+Gia Cảnh đại diện cho xuất thân gia đình và nghề nghiệp của nhân vật. Mỗi nhân vật chọn một Gia Cảnh trong quá trình tạo nhân vật.
+
+### 7.1. Cấu trúc Upgrade Rule
+Mỗi Gia Cảnh chứa một danh sách `upgrade` gồm các rule:
+- **Rule có `choose`**: Người chơi phải chọn N effect từ danh sách (ví dụ: chọn 1 trong 2 Ngũ Hành). Nếu chưa chọn, rule này được **bỏ qua** (defer) cho đến khi người chơi xác nhận.
+- **Rule không có `choose`** (fixed): Bonus cố định, áp dụng ngay lập tức khi Gia Cảnh được gán vào nhân vật, không cần hành động từ người chơi.
+
+### 7.2. Cơ chế Deferred Selection
+Người chơi có thể gán Gia Cảnh trước mà chưa cần chọn hết các option. Hệ thống sẽ:
+1. Lưu trạng thái lựa chọn dưới dạng `AppliedUpgrade[]` trên item (type `"giaCanh"`) đính kèm vào actor.
+2. Trong `prepareDerivedData`, chỉ áp dụng các rule đã có `selectedIndices`. Rule chưa chọn được bỏ qua.
+3. Khi người chơi hoàn tất chọn lựa, gọi lại `setGiaCanhForActor` với `selectedIndicesByRule` đầy đủ để cập nhật.
+
+### 7.3. Luồng dữ liệu
+```
+GIA_CANH config (config.ts)
+    │
+    ▼
+setGiaCanhForActor(actor, id, selectedIndicesByRule)
+    ├─ selectedIndicesByRule = {}     → deferred, không lỗi
+    └─ selectedIndicesByRule = {0:[1]} → validate & lưu
+    │
+    ▼
+Item { type:"giaCanh", system: { giaCanhId, appliedUpgrades: AppliedUpgrade[] } }
+    │
+    ▼
+prepareDerivedData → applyGiaCanhItems (actor.ts)
+    ├─ rule.choose && selectedIndices rỗng → bỏ qua
+    ├─ rule.choose && selectedIndices có giá trị → áp dụng đúng effects được chọn
+    └─ không có choose (fixed) → áp dụng toàn bộ effects
+```
+
+## 8. KIẾN TRÚC SỮ LIỆU ĐÍNH KÈM SẮP TỚI (Upcoming Detailed Specs)
 *(Ghi chú cho AI: Các spec file chi tiết sẽ được cung cấp ở các bước tiếp theo)*
 1.  `Spec_Character_Creation`: Quy trình 8 bước tạo nhân vật (Bối Cảnh, Gia Cảnh, Môn Phái...).
 2.  `Spec_Techniques_Magic`: Thuật Thức (Võ Kỹ, Chủ Thuật, Linh Thuật, Khí Thuật, Ma Thuật).

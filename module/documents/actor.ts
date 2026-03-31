@@ -2,7 +2,7 @@ import {calculateAbility} from "../helpers/ability";
 import {calculateFromRolls, type Roll} from "../helpers/rollDice";
 import {hasDiceSoNice} from "../../utils/diceSoNice";
 import {getThiTocById} from "../helpers/thiToc";
-import {UpgradeRule} from "../../types/upgrade";
+import {AppliedUpgrade, UpgradeRule} from "../../types/upgrade";
 import {HvCharacterSystemData, HvComputedTotals, isElementKey, isSkillKey, SKILL_KEYS} from "../helpers/config";
 import {getBoiCanhById} from "../helpers/boiCanh";
 import { getGiaCanhById } from "../helpers/giaCanh";
@@ -113,7 +113,7 @@ export class huyenvietvttActor extends Actor {
         // Apply tat ca Boi Canh dang co
         this.applyBoiCanhItems(this, totals);
 
-        // this.applyGiaCanhItems(this, totals);
+        this.applyGiaCanhItems(this, totals);
 
         // 3) tính abilities từ totals đã được cộng bonus
         this.computeAbilities(system, totals);
@@ -228,6 +228,37 @@ export class huyenvietvttActor extends Actor {
             if (!boiCanhById) continue;
 
             this.applyUpgradeRules(totals, boiCanhById.upgrade);
+        }
+    }
+
+    applyGiaCanhItems(actor: Actor, totals: HvComputedTotals): void {
+        const giaCanhItems = actor.items.filter((i) => i.type === "giaCanh");
+
+        for (const item of giaCanhItems) {
+            const appliedUpgrades = (item.system as any)?.appliedUpgrades as AppliedUpgrade[] | undefined;
+            if (!appliedUpgrades?.length) continue;
+
+            for (const upgrade of appliedUpgrades) {
+                const { rule, selectedIndices } = upgrade;
+
+                // Rule requires player choice but none made yet → skip
+                if (rule.choose && (!selectedIndices || selectedIndices.length === 0)) continue;
+
+                const effectsToApply = rule.choose
+                    ? selectedIndices!.map((i) => rule.effects[i]).filter(Boolean)
+                    : rule.effects;
+
+                for (const effect of effectsToApply) {
+                    if (rule.target === "element") {
+                        if (!isElementKey(effect.name)) continue;
+                        this.applyNumericModifier(totals.elements, effect.name, rule.mode, effect.value);
+                    }
+                    if (rule.target === "skill") {
+                        if (!isSkillKey(effect.name)) continue;
+                        this.applyNumericModifier(totals.skills, effect.name, rule.mode, effect.value);
+                    }
+                }
+            }
         }
     }
 

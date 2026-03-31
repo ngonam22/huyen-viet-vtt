@@ -17,6 +17,9 @@ function validateSelections(
 
     const selected = selectedIndicesByRule[ruleIndex] ?? [];
 
+    // Empty selection = player deferred this choice — allowed
+    if (selected.length === 0) continue;
+
     if (selected.length !== rule.choose) {
       throw new Error(
         `Gia Cảnh rule #${ruleIndex} yêu cầu chọn đúng ${rule.choose} effect, nhưng nhận ${selected.length}`
@@ -82,7 +85,7 @@ export async function setGiaCanhForActor(
   );
 
   // 1) Xóa gia cảnh cũ
-  async removeGiaCanhFromActor(actor)
+  await removeGiaCanhFromActor(actor)
 
   // 2) Add gia cảnh mới
   await actor.createEmbeddedDocuments("Item", [
