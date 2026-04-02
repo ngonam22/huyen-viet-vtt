@@ -147,6 +147,20 @@ export default class BoilerplateCharacter extends BoilerplateActorBase {
         dong: intField(0, 0, 999999),
       }),
 
+      progression: new fields.SchemaField({
+        currentXp: intField(0, 0, 999999),  // spendable; decreases on upgrade
+        totalXp:   intField(0, 0, 999999),  // cumulative; never decreases; drives sect auto-leveling
+      }),
+
+      // Active XP-purchased modifiers consumed by recalculateCharacterStats().
+      // Item-sourced bonuses (thiToc, boiCanh, giaCanh) live on Item documents instead.
+      upgrades: new fields.ArrayField(new fields.ObjectField()),
+
+      // Append-only event log for UI timeline.
+      // Each entry: { id, type, timestamp, label, field, from, to, xpCost }
+      // Types: "element_upgrade" | "skill_upgrade" | "technique_learned" | "xp_gain" | "identity_change"
+      changelog: new fields.ArrayField(new fields.ObjectField()),
+
     }
   }
 

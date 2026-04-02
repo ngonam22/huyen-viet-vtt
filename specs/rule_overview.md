@@ -134,6 +134,8 @@ prepareDerivedData → applyGiaCanhItems (actor.ts)
 3.  `Spec_Equipment`: Hệ thống Item, Giáp Trụ (Kháng lực), Vũ Khí (Sát thương, Tính trạng vũ khí).
 4.  `Spec_Status_Effects`: Các trạng thái bất lợi (Choáng váng, Xuất huyết, Loạn tâm, Định thân...).
 5.  `Spec_Equipment` trong file `spec_equipment.md`: Hệ thống trang bị và vật phẩm (Vũ khí, giáp trụ, phòng cụ...).
+6.  `SPEC_SECTS_AND_FACTIONS` trong file `spec_sects_and_factions.md`: Hệ thống về Hệ Phái và Môn Phái (thông tin môn phái, cơ chế khởi tạo, cơ chế thăng cấp...).
+7. `SPEC_CHARACTER_PROGRESSION` trong file `spec_character_progression.md`: Hệ thống thăng tiến & nâng cấp nhân vật, đồng thời mô tả cách tính cost của các nâng cấp.
 ***
 
 **Lệnh cho AI System:** Hãy lưu trữ cấu trúc Dữ Liệu và Logic Rule cơ bản này. Khi tôi cung cấp các module tiếp theo (ví dụ: Hệ Phái, Thuật Thức, Trang bị), hãy map chúng vào Data Model tương ứng đã được định nghĩa ở mục 3 và 5.
