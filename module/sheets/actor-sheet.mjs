@@ -7,6 +7,7 @@ import {removeThiTocFromActor, setThiTocForActor} from "../helpers/thiToc";
 import {layHanhThe} from "../helpers/element";
 import {removeBoiCanhFromActor, setBoiCanhForActor} from "../helpers/boiCanh";
 import {removeGiaCanhFromActor, setGiaCanhForActor} from "../helpers/giaCanh";
+import { InventoryModal } from './inventory-modal.mjs';
 
 const { api, sheets } = foundry.applications;
 
@@ -73,6 +74,10 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
             template: 'systems/huyen-viet-vtt/templates/actor/spells.hbs',
             scrollable: [""],
         },
+        inventory: {
+            template: 'systems/huyen-viet-vtt/templates/actor/inventory.hbs',
+            scrollable: [""],
+        },
         effects: {
             template: 'systems/huyen-viet-vtt/templates/actor/effects.hbs',
             scrollable: [""],
@@ -96,6 +101,19 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
         if (action === 'open-resource-modal') {
             const type = target.dataset.type; // 'sucLuc' or 'tamLuc'
             return ResourceModal.show(this.actor, type);
+        }
+
+        if (action === 'open-inventory-modal') {
+            return InventoryModal.show(this.actor);
+        }
+
+        if (action === 'toggle-equip') {
+            const itemId = target.dataset.itemId;
+            const item = this.actor.items.get(itemId);
+            if (item) {
+                await item.update({ 'system.isEquipped': !item.system.isEquipped });
+            }
+            return;
         }
 
         if (action === 'roll-skill') {
@@ -213,7 +231,7 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
         // Control which parts show based on document subtype
         switch (this.document.type) {
             case 'character':
-                options.parts.push('features','thiToc', 'gear', 'spells', 'effects');
+                options.parts.push('features','thiToc', 'inventory', 'gear', 'spells', 'effects');
                 break;
             case 'npc':
                 options.parts.push('gear', 'effects');
@@ -298,6 +316,15 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
                     }
                 );
                 break;
+            case 'inventory':
+                context.tab = context.tabs[partId];
+                context.inventoryWeapons = this.actor.items.filter(i => i.type === 'vuKhi');
+                context.inventoryArmor = this.actor.items.filter(i => i.type === 'giapTru');
+                context.inventoryAccessories = this.actor.items.filter(i => i.type === 'trangBi');
+                context.hasInventory = context.inventoryWeapons.length
+                    + context.inventoryArmor.length
+                    + context.inventoryAccessories.length > 0;
+                break;
             case 'effects':
                 context.tab = context.tabs[partId];
                 // Prepare active effects
@@ -348,6 +375,10 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
                 case 'features':
                     tab.id = 'features';
                     tab.label += 'Features';
+                    break;
+                case 'inventory':
+                    tab.id = 'inventory';
+                    tab.label += 'Inventory';
                     break;
                 case 'gear':
                     tab.id = 'gear';

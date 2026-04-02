@@ -1,0 +1,328 @@
+/* ─── Inventory Tab ──────────────────────────────────────────────────────── */
+
+.hv-inv__toolbar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.25rem 0 0.5rem;
+}
+
+.hv-inv__add-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.75rem;
+  border: 1px solid var(--color-beige-300);
+  border-radius: 4px;
+  background: var(--color-beige-50);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.15s;
+
+  &:hover {
+    background: var(--color-beige-200);
+  }
+}
+
+/* Section headers */
+.hv-inv__section {
+  margin-bottom: 0.75rem;
+}
+
+.hv-inv__section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0 0 0.25rem;
+  padding: 0.25rem 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-beige-700);
+  border-bottom: 1px solid var(--color-beige-200);
+}
+
+/* Item rows */
+.hv-inv__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.hv-inv__row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.4rem;
+  border-radius: 3px;
+  transition: background 0.1s;
+
+  &:hover {
+    background: var(--color-beige-50);
+  }
+
+  & + & {
+    border-top: 1px solid var(--color-beige-100);
+  }
+}
+
+/* Equip checkbox */
+.hv-inv__equip {
+  flex: 0 0 auto;
+  cursor: pointer;
+}
+
+.hv-inv__equip-cb {
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+  accent-color: var(--color-teal);
+}
+
+/* Name + flavor */
+.hv-inv__name {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+
+  strong {
+    font-size: 0.82rem;
+    line-height: 1.2;
+  }
+}
+
+.hv-inv__flavor {
+  font-size: 0.7rem;
+  color: var(--color-beige-600);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Stat badges */
+.hv-inv__stats {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.hv-inv__stat {
+  font-size: 0.75rem;
+  color: var(--color-beige-800);
+  white-space: nowrap;
+
+  i {
+    margin-right: 0.15rem;
+    font-size: 0.65rem;
+    opacity: 0.7;
+  }
+}
+
+/* Condition badges */
+.hv-inv__condition {
+  flex: 0 0 auto;
+  font-size: 0.65rem;
+  padding: 0.1rem 0.35rem;
+  border-radius: 3px;
+  font-weight: 600;
+
+  &--hu-hai {
+    background: #fef3c7;
+    color: #92400e;
+  }
+
+  &--vo-nat {
+    background: #fee2e2;
+    color: #991b1b;
+  }
+}
+
+/* Controls */
+.hv-inv__controls {
+  flex: 0 0 auto;
+}
+
+.hv-inv__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 3px;
+  color: var(--color-beige-500);
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s;
+
+  &:hover {
+    color: var(--color-danger);
+    background: var(--color-mexican-red-50);
+  }
+}
+
+/* Empty state */
+.hv-inv__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0;
+  color: var(--color-beige-400);
+
+  i {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    font-size: 0.85rem;
+    margin: 0;
+  }
+}
+
+/* ─── Inventory Modal (catalog browser) ─────────────────────────────────── */
+
+.hv-catalog {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.hv-catalog__filters {
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  border-bottom: 1px solid var(--color-beige-200);
+}
+
+.hv-catalog__search {
+  width: 100%;
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--color-beige-300);
+  border-radius: 4px;
+  font-size: 0.8rem;
+
+  &::placeholder {
+    color: var(--color-beige-400);
+  }
+}
+
+.hv-catalog__type-btns {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.hv-catalog__type-btn {
+  flex: 1;
+  padding: 0.25rem 0.4rem;
+  border: 1px solid var(--color-beige-300);
+  border-radius: 4px;
+  background: var(--color-beige-50);
+  font-size: 0.7rem;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+
+  &:hover {
+    background: var(--color-beige-100);
+  }
+
+  &.is-active {
+    background: var(--color-teal);
+    color: white;
+    border-color: var(--color-teal);
+  }
+}
+
+/* Catalog item list */
+.hv-catalog__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  flex: 1 1 auto;
+}
+
+.hv-catalog__row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.5rem;
+  transition: background 0.1s;
+
+  &:hover {
+    background: var(--color-beige-50);
+  }
+
+  & + & {
+    border-top: 1px solid var(--color-beige-100);
+  }
+}
+
+.hv-catalog__info {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.hv-catalog__name {
+  font-size: 0.82rem;
+  line-height: 1.2;
+}
+
+.hv-catalog__flavor {
+  font-size: 0.68rem;
+  color: var(--color-beige-600);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hv-catalog__stat {
+  flex: 0 0 auto;
+  font-size: 0.75rem;
+  color: var(--color-beige-800);
+
+  i {
+    margin-right: 0.15rem;
+    font-size: 0.65rem;
+    opacity: 0.7;
+  }
+}
+
+.hv-catalog__actions {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.hv-catalog__qty {
+  width: 38px;
+  padding: 0.2rem 0.3rem;
+  border: 1px solid var(--color-beige-300);
+  border-radius: 3px;
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+.hv-catalog__add-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--color-teal);
+  border-radius: 4px;
+  background: var(--color-teal);
+  color: white;
+  cursor: pointer;
+  transition: opacity 0.15s;
+
+  &:hover {
+    opacity: 0.85;
+  }
+}

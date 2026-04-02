@@ -1,0 +1,46 @@
+{{! Catalog browser — add items to actor inventory }}
+<div class="hv-catalog">
+
+  {{! Filter bar }}
+  <div class="hv-catalog__filters">
+    <input type="text" class="hv-catalog__search" placeholder="Tìm kiếm vật phẩm..." />
+    <div class="hv-catalog__type-btns">
+      <button type="button" class="hv-catalog__type-btn is-active" data-filter="all">Tất Cả</button>
+      <button type="button" class="hv-catalog__type-btn" data-filter="weapon"><i class="fas fa-khanda"></i> Vũ Khí</button>
+      <button type="button" class="hv-catalog__type-btn" data-filter="armor"><i class="fas fa-shield-halved"></i> Giáp Trụ</button>
+      <button type="button" class="hv-catalog__type-btn" data-filter="accessory"><i class="fas fa-toolbox"></i> Trang Bị</button>
+    </div>
+  </div>
+
+  {{! Item list }}
+  <ol class="hv-catalog__list">
+    {{#each catalogItems as |item|}}
+    <li class="hv-catalog__row" data-catalog-id="{{item.id}}" data-catalog-type="{{item.catalogType}}">
+      <div class="hv-catalog__info">
+        <strong class="hv-catalog__name">{{item.name}}</strong>
+        <span class="hv-catalog__flavor">{{item.flavorText}}</span>
+      </div>
+
+      <div class="hv-catalog__stat">
+        {{#if item.baseDamage}}
+          <span data-tooltip="Sát thương"><i class="fas fa-burst"></i> {{item.baseDamage}}</span>
+        {{/if}}
+        {{#if item.baseResistance}}
+          <span data-tooltip="Kháng Lực"><i class="fas fa-shield"></i> {{item.baseResistance}}</span>
+        {{/if}}
+      </div>
+
+      <div class="hv-catalog__actions">
+        <input type="number" class="hv-catalog__qty" value="1" min="1" max="99" />
+        <button type="button" class="hv-catalog__add-btn"
+                data-action="add-catalog-item"
+                data-catalog-id="{{item.id}}"
+                data-catalog-type="{{item.catalogType}}">
+          <i class="fas fa-plus"></i>
+        </button>
+      </div>
+    </li>
+    {{/each}}
+  </ol>
+
+</div>
