@@ -50,9 +50,9 @@ Implementation: `module/documents/actor.ts` → `computeAbilities()`
 1. **Reset** — elements reset to base value (1), skills reset to 0
 2. **Apply Thị Tộc (Clan)** — each grants +1 to an element and +1 to a skill
 3. **Apply Bối Cảnh (Background)** — each grants +1 to an element and +1 to a skill
-4. **Apply Gia Cảnh (Family Background)** — additional element/skill bonuses
-5. **Apply upgrade modifiers** — add / set / multiply operations
-6. **Recalculate abilities** — run the six formulas above
+4. **Apply Gia Cảnh (Family Background)** — additional element/skill bonuses; deferred rules (no selection yet) are skipped
+5. **Recalculate abilities** — run the six formulas above
+6. **Apply equipped item effects** — `passiveEffects` (target:`ability` only) from all equipped `vuKhi`, `giapTru`, and `trangBi` items are applied on top of the computed ability values. Unequipped inventory items are fully ignored.
 
 This means **element scores are never stored raw**; they are rebuilt from scratch on every update from bonuses layered on top of the base value.
 
@@ -101,6 +101,41 @@ Clan animal signs (Thập Nhị Linh Giáp): Chuột, Trâu, Hổ, Mèo, Thìn, 
 
 ---
 
+## Equipment & Inventory
+
+Three item types represent physical gear on a character:
+
+| Type       | DataModel    | Purpose                                          |
+|------------|--------------|--------------------------------------------------|
+| `vuKhi`    | `HvVuKhi`    | Weapons — carries `baseDamage`, `range`, `passiveEffects`, `twoHandedEffects`, `traits` |
+| `giapTru`  | `HvGiapTru`  | Armor — carries `baseResistance`, `resistance` (computed from condition), `passiveEffects`, `traits` |
+| `trangBi`  | `HvTrangBi`  | Accessories / tools — carries `quantity`, `passiveEffects` |
+
+All three share `isEquipped` (boolean). Items sit in the actor's embedded `items` collection. Equipping/unequipping is a toggle on the item that immediately re-triggers `prepareDerivedData`.
+
+**Mechanical traits via `passiveEffects`:** Traits with stat consequences (e.g. Cồng Kềnh → `tocDo -1`) are encoded directly as `passiveEffects` entries rather than processing trait tag IDs. Display-only traits (Sắc Bén, Cầm Nã, etc.) live in the `traits` array and carry no mechanical processing.
+
+**`twoHandedEffects`** on weapons: applied when `isTwoHanded === true`, but only `target:"damage"` rules inside this array are meaningful — they are intentionally skipped during `prepareDerivedData` and consumed at combat time only.
+
+All game items are defined in `lib/items-config.json`. Use `addWeaponToActor` / `addArmorToActor` / `addAccessoryToActor` from `module/helpers/itemCatalog.ts` to add items to an actor's inventory (always unequipped).
+
+---
+
+## Character Progression Schema
+
+Three fields on `system` track progression:
+
+| Field | Type | Purpose |
+|---|---|---|
+| `progression.currentXp` | integer | Spendable XP — decreases on upgrade |
+| `progression.totalXp` | integer | Cumulative XP — never decreases; drives Đặc Kỹ Môn Phái auto-leveling thresholds |
+| `upgrades` | `AppliedUpgrade[]` | XP-purchased element/skill modifiers consumed by `recalculateCharacterStats()` |
+| `changelog` | `ChangelogEntry[]` | Append-only event log for UI timeline; covers XP gains, upgrades, and identity changes |
+
+See `specs/spec_character_progression.md` for XP cost formulas and sect auto-leveling thresholds.
+
+---
+
 ## Dice Resolution
 
 Rolls use a **d10 dice pool** (Gộp Xúc Xắc):
@@ -117,9 +152,15 @@ Rolls use a **d10 dice pool** (Gộp Xúc Xắc):
 
 | File | Purpose |
 |------|---------|
-| `module/helpers/config.ts` | Element/skill/ability keys, Thị Tộc, Bối Cảnh, Gia Cảnh data |
-| `module/helpers/ability.ts` | `calculateAbility()` — helper for formula math (not the runtime pipeline) |
+| `module/helpers/config.ts` | Element/skill/ability keys; Thị Tộc, Bối Cảnh, Gia Cảnh data |
+| `module/helpers/ability.ts` | `calculateAbility()` — formula math helper (not the runtime pipeline) |
 | `module/helpers/thiToc.ts` | Applies clan bonuses to computed totals |
 | `module/helpers/boiCanh.ts` | Applies background bonuses to computed totals |
+| `module/helpers/giaCanh.ts` | `setGiaCanhForActor` / `removeGiaCanhFromActor` — manages family background item + deferred selections |
+| `module/helpers/upgrade.ts` | `recalculateCharacterStats` — applies `AppliedUpgrade[]` to character stats |
+| `module/helpers/itemCatalog.ts` | Catalog lookups + `addWeaponToActor` / `addArmorToActor` / `addAccessoryToActor` |
 | `module/documents/actor.ts` | `prepareDerivedData()` — orchestrates the full recalc pipeline |
+| `lib/items-config.json` | Static catalog of all weapons, armor, and accessories |
 | `specs/rule_overview.md` | Full rulebook — source of truth for all game mechanics |
+| `specs/spec_character_progression.md` | XP cost formulas, upgrade pipeline, sect auto-leveling |
+| `specs/spec_equipment.md` | Weapon/armor attributes, traits, and combat pipeline |

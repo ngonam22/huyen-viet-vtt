@@ -1,0 +1,252 @@
+{
+  "weapons": [
+    {
+      "id": "dao-gam",
+      "name": "Dao Găm",
+      "description": "",
+      "flavorText": "Vũ khí nhỏ gọn, dễ giấu trong tay áo.",
+      "weaponClass": "melee",
+      "baseDamage": 3,
+      "range": 1,
+      "condition": "normal",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "kin-dao",    "label": "Kín Đáo",    "category": "utility", "description": "Dễ giấu, vượt qua kiểm tra ngụy trang và dò xét." },
+        { "id": "thuong-dung","label": "Thường Dụng","category": "utility", "description": "Không gây chú ý khi mang theo nơi công cộng." }
+      ]
+    },
+    {
+      "id": "dao",
+      "name": "Dao",
+      "description": "",
+      "flavorText": "Lưỡi dao một lưỡi ngắn, dùng phổ biến trong dân gian.",
+      "weaponClass": "melee",
+      "baseDamage": 3,
+      "range": 1,
+      "condition": "normal",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "thuong-dung","label": "Thường Dụng","category": "utility", "description": "Không gây chú ý khi mang theo nơi công cộng." }
+      ]
+    },
+    {
+      "id": "kiem",
+      "name": "Kiếm",
+      "description": "",
+      "flavorText": "Kiếm hai lưỡi cân bằng giữa tấn công và phòng thủ.",
+      "weaponClass": "melee",
+      "baseDamage": 6,
+      "range": 1,
+      "condition": "normal",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "sac-ben","label": "Sắc Bén","category": "combat", "description": "Nếu đòn đánh xuyên Kháng Lực, gây thêm +2 Sát thương. Nếu bị chặn hoàn toàn, mất tính trạng này đến khi mài lại." }
+      ]
+    },
+    {
+      "id": "truong-kiem",
+      "name": "Trường Kiếm",
+      "description": "",
+      "flavorText": "Kiếm dài uy nghi, có thể dùng một hoặc hai tay.",
+      "weaponClass": "melee",
+      "baseDamage": 7,
+      "range": 1,
+      "condition": "normal",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [
+        { "target": "damage", "mode": "add", "effects": [{ "name": "baseDamage", "value": 2 }] }
+      ],
+      "traits": [
+        { "id": "sac-ben", "label": "Sắc Bén",  "category": "combat",  "description": "Nếu đòn đánh xuyên Kháng Lực, gây thêm +2 Sát thương. Nếu bị chặn hoàn toàn, mất tính trạng này đến khi mài lại." },
+        { "id": "hai-tay", "label": "Hai Tay",  "category": "utility", "description": "Có thể dùng hai tay để nhận hiệu ứng Hai-tay (+2 Sát thương)." }
+      ]
+    },
+    {
+      "id": "dai-kiem",
+      "name": "Đại Kiếm",
+      "description": "",
+      "flavorText": "Thanh kiếm khổng lồ đòi hỏi sức mạnh và không gian chiến đấu rộng.",
+      "weaponClass": "melee",
+      "baseDamage": 9,
+      "range": 1,
+      "condition": "normal",
+      "isTwoHanded": true,
+      "passiveEffects": [
+        { "target": "ability", "mode": "add", "effects": [{ "name": "tocDo", "value": -1 }] }
+      ],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "sac-ben",   "label": "Sắc Bén",   "category": "combat",  "description": "Nếu đòn đánh xuyên Kháng Lực, gây thêm +2 Sát thương. Nếu bị chặn hoàn toàn, mất tính trạng này đến khi mài lại." },
+        { "id": "cong-kenh", "label": "Cồng Kềnh", "category": "utility", "description": "Trừ Tốc Độ -1. Nếu di chuyển trước tấn công trong cùng lượt, ĐK Công Kích +1." },
+        { "id": "hai-tay",   "label": "Hai Tay",   "category": "utility", "description": "Bắt buộc dùng hai tay." }
+      ]
+    },
+    {
+      "id": "chuy",
+      "name": "Chùy",
+      "description": "",
+      "flavorText": "Vũ khí đập nặng nề, chuyên phá giáp.",
+      "weaponClass": "melee",
+      "baseDamage": 5,
+      "range": 1,
+      "condition": "normal",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "tu-dap", "label": "Tù / Đập", "category": "combat", "description": "Tiêu 2 Chí Thành khi tấn công để ép giáp trụ địch vào trạng thái Hư hại." }
+      ]
+    },
+    {
+      "id": "bua-chien",
+      "name": "Búa Chiến",
+      "description": "",
+      "flavorText": "Búa chiến cán dài, uy lực lớn trên chiến trường.",
+      "weaponClass": "melee",
+      "baseDamage": 6,
+      "range": 1,
+      "condition": "normal",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [
+        { "target": "damage", "mode": "add", "effects": [{ "name": "baseDamage", "value": 2 }] }
+      ],
+      "traits": [
+        { "id": "tu-dap",    "label": "Tù / Đập",   "category": "combat",  "description": "Tiêu 2 Chí Thành khi tấn công để ép giáp trụ địch vào trạng thái Hư hại." },
+        { "id": "chien-nhu", "label": "Chiến Nhu",  "category": "utility", "description": "Vật phẩm chuyên dụng quân đội, phù hợp chiến trường." },
+        { "id": "hai-tay",   "label": "Hai Tay",    "category": "utility", "description": "Có thể dùng hai tay để nhận hiệu ứng Hai-tay (+2 Sát thương)." }
+      ]
+    },
+    {
+      "id": "giao",
+      "name": "Giáo",
+      "description": "",
+      "flavorText": "Vũ khí dài với đầu nhọn, lý tưởng để khống chế kẻ địch.",
+      "weaponClass": "melee",
+      "baseDamage": 6,
+      "range": 2,
+      "condition": "normal",
+      "isTwoHanded": true,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "cam-na",    "label": "Cầm Nã",   "category": "combat",  "description": "Tiêu 1+ Chí Thành để gây hiệu ứng Định thân, điều kiện: Cảnh Giác mục tiêu ≤ số Chí Thành dùng." },
+        { "id": "chien-nhu", "label": "Chiến Nhu", "category": "utility", "description": "Vật phẩm chuyên dụng quân đội." },
+        { "id": "hai-tay",   "label": "Hai Tay",   "category": "utility", "description": "Bắt buộc dùng hai tay." }
+      ]
+    },
+    {
+      "id": "thiet-chi",
+      "name": "Thiết Chỉ",
+      "description": "",
+      "flavorText": "Móng sắt bịt ngón tay, nhỏ gọn và đặc biệt.",
+      "weaponClass": "melee",
+      "baseDamage": 3,
+      "range": 1,
+      "condition": "normal",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "cam-na",  "label": "Cầm Nã",  "category": "combat",  "description": "Tiêu 1+ Chí Thành để gây hiệu ứng Định thân, điều kiện: Cảnh Giác mục tiêu ≤ số Chí Thành dùng." },
+        { "id": "kin-dao", "label": "Kín Đáo", "category": "utility", "description": "Dễ giấu, vượt qua kiểm tra ngụy trang và dò xét." }
+      ]
+    },
+    {
+      "id": "cung",
+      "name": "Cung",
+      "description": "",
+      "flavorText": "Cung tên tầm xa, cần không gian và thời gian để giương.",
+      "weaponClass": "ranged",
+      "baseDamage": 6,
+      "range": 15,
+      "condition": "normal",
+      "isTwoHanded": true,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "chien-nhu", "label": "Chiến Nhu", "category": "utility", "description": "Vật phẩm chuyên dụng quân đội." },
+        { "id": "hai-tay",   "label": "Hai Tay",   "category": "utility", "description": "Bắt buộc dùng hai tay." }
+      ]
+    }
+  ],
+  "armor": [
+    {
+      "id": "giap-da",
+      "name": "Giáp Da",
+      "description": "",
+      "flavorText": "Giáp làm từ da thuộc, nhẹ và linh hoạt.",
+      "baseResistance": 2,
+      "condition": "normal",
+      "passiveEffects": [],
+      "traits": [
+        { "id": "thuong-dung", "label": "Thường Dụng", "category": "utility", "description": "Không gây chú ý khi mang theo." }
+      ]
+    },
+    {
+      "id": "ho-tam-kinh",
+      "name": "Hộ Tâm Kính",
+      "description": "",
+      "flavorText": "Tấm giáp bảo vệ vùng ngực, cân bằng giữa phòng thủ và cơ động.",
+      "baseResistance": 3,
+      "condition": "normal",
+      "passiveEffects": [],
+      "traits": [
+        { "id": "ben-bi", "label": "Bền Bỉ", "category": "utility", "description": "Khi chịu sát thương phá hủy, chỉ bị Hư hại thay vì Phá hủy." }
+      ]
+    },
+    {
+      "id": "giap-sat",
+      "name": "Giáp Sắt",
+      "description": "",
+      "flavorText": "Giáp sắt tiêu chuẩn của binh sĩ, bảo vệ toàn thân.",
+      "baseResistance": 4,
+      "condition": "normal",
+      "passiveEffects": [],
+      "traits": [
+        { "id": "chien-nhu", "label": "Chiến Nhu", "category": "utility", "description": "Vật phẩm chuyên dụng quân đội." }
+      ]
+    },
+    {
+      "id": "giap-toan-than",
+      "name": "Giáp Toàn Thân",
+      "description": "",
+      "flavorText": "Bộ giáp bao phủ toàn thân, phòng thủ tối đa nhưng hạn chế cơ động.",
+      "baseResistance": 6,
+      "condition": "normal",
+      "passiveEffects": [
+        { "target": "ability", "mode": "add", "effects": [{ "name": "tocDo", "value": -1 }] }
+      ],
+      "traits": [
+        { "id": "cong-kenh", "label": "Cồng Kềnh", "category": "utility", "description": "Trừ Tốc Độ -1. Nếu di chuyển trước tấn công trong cùng lượt, ĐK Công Kích +1." },
+        { "id": "ben-bi",    "label": "Bền Bỉ",    "category": "utility", "description": "Khi chịu sát thương phá hủy, chỉ bị Hư hại thay vì Phá hủy." },
+        { "id": "chien-nhu", "label": "Chiến Nhu",  "category": "utility", "description": "Vật phẩm chuyên dụng quân đội." }
+      ]
+    }
+  ],
+  "accessories": [
+    {
+      "id": "tui-thuoc",
+      "name": "Túi Thuốc",
+      "description": "",
+      "flavorText": "Bộ dụng cụ y tế cơ bản cho hành trình.",
+      "quantity": 1,
+      "passiveEffects": []
+    },
+    {
+      "id": "bien-the-bai",
+      "name": "Biển Thẻ Bài",
+      "description": "",
+      "flavorText": "Thẻ bài chứng minh thân phận, tăng uy tín trong giao tiếp xã hội.",
+      "quantity": 1,
+      "passiveEffects": []
+    }
+  ]
+}

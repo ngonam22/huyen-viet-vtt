@@ -349,28 +349,25 @@ export class huyenvietvttActor extends Actor {
     }
 
     /**
-     * Apply target:"ability" passiveEffects from all equipped weapons and armor.
+     * Apply target:"ability" passiveEffects from all EQUIPPED items only.
+     * Unequipped inventory items are ignored entirely.
      * Runs after computeAbilities() so formula values are already in place.
      * target:"damage" effects are intentionally skipped — handled at combat time.
      */
     applyEquippedItemEffects(system: HvCharacterSystemData): void {
-        const equippedWeapons = this.items.filter(
-            (i) => i.type === 'vuKhi' && (i.system as any).isEquipped
-        );
-
-        for (const weapon of equippedWeapons) {
+        for (const weapon of this.items.filter((i) => i.type === 'vuKhi' && (i.system as any).isEquipped)) {
             const ws = weapon.system as any;
             const rules = [...ws.passiveEffects];
             if (ws.isTwoHanded) rules.push(...ws.twoHandedEffects);
             this._applyAbilityRules(system, rules);
         }
 
-        const equippedArmors = this.items.filter(
-            (i) => i.type === 'giapTru' && (i.system as any).isEquipped
-        );
-
-        for (const armor of equippedArmors) {
+        for (const armor of this.items.filter((i) => i.type === 'giapTru' && (i.system as any).isEquipped)) {
             this._applyAbilityRules(system, (armor.system as any).passiveEffects);
+        }
+
+        for (const acc of this.items.filter((i) => i.type === 'trangBi' && (i.system as any).isEquipped)) {
+            this._applyAbilityRules(system, (acc.system as any).passiveEffects ?? []);
         }
     }
 

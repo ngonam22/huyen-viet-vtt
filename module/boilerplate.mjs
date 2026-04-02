@@ -65,6 +65,7 @@ Hooks.once('init', function () {
     spell: models.BoilerplateSpell,
     vuKhi: models.HvVuKhi,
     giapTru: models.HvGiapTru,
+    trangBi: models.HvTrangBi,
   };
 
   // Active Effects are never copied to the Actor,

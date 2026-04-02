@@ -10,3 +10,4 @@ export { default as BoilerplateFeature } from './item-feature.mjs';
 export { default as BoilerplateSpell } from './item-spell.mjs';
 export { default as HvVuKhi } from './item-vuKhi.mjs';
 export { default as HvGiapTru } from './item-giapTru.mjs';
+export { default as HvTrangBi } from './item-trangBi.mjs';
