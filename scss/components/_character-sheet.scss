@@ -1,8 +1,30 @@
 &.character-sheet-window {
+    background: #333D3F;
+
     .window-content {
         overflow: auto !important;
+        background: transparent url("/systems/huyen-viet-vtt/assets/noise.svg") repeat;
     }
 
+
+    .sheet-panel {
+        position: relative;
+        border: 4px solid #707066;
+        background: radial-gradient(circle, rgba(58, 59, 53, 1) 0%, rgba(49, 59, 58, 1) 100%);
+        background-size: 100% 100%;
+        box-shadow: 0 0 5px black, inset 0 0 5px 1px #272821;
+        z-index: 1;
+
+        &:after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: transparent url("/systems/huyen-viet-vtt/assets/strain-effect.png") no-repeat;
+            background-size: 100% 100%;
+            opacity: 0.25;
+            z-index: -1;
+        }
+    }
     /* ══════════════════════════════════════════════════════
        ABILITY SECTION COMPONENT
     ══════════════════════════════════════════════════════ */

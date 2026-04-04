@@ -24,13 +24,12 @@
       }
     },
     "Item": {
-      "thiToc": {
-
-      },
+      "thiToc": {},
       "giaCanh": {},
       "boiCanh": {},
       "monPhai": {},
       "trangBi": {},
+      "vuKhi": {},
       "feature": {
         "htmlFields": [
           "description"

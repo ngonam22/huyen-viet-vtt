@@ -159,7 +159,8 @@
         "Features": "Môn Phái",
         "Gear": "Trang Bị",
         "Spells": "Spells",
-        "Effects": "Effects"
+        "Effects": "Effects",
+        "Inventory": "Kho Đồ"
       },
       "base": {
         "FIELDS": {

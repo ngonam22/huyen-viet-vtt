@@ -64,8 +64,9 @@
   @import 'components/effects';
   @import "components/character-sheet";
   @import "components/ngu-hanh-canvas";
-  @import "components/inventory";
 }
+
+@import "components/inventory";
 
 /* Resource modal (HP / MP management) */
 @import 'components/resource-modal';
