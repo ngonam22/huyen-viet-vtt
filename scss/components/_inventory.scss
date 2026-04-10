@@ -2,8 +2,93 @@
 
 .hv-inv__toolbar {
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: space-between;
   padding: 0.25rem 0 0.5rem;
+}
+
+/* KL badge in toolbar */
+.hv-inv__kl-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-beige-800);
+
+  i {
+    color: var(--color-teal);
+    font-size: 0.75rem;
+  }
+}
+
+/* Accordion blocks */
+.hv-inv__accordion {
+  border-top: 1px solid var(--color-beige-200);
+
+  &:last-of-type {
+    border-bottom: 1px solid var(--color-beige-200);
+    margin-bottom: 0.5rem;
+  }
+}
+
+.hv-inv__accordion-header {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.5rem;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-beige-700);
+  user-select: none;
+  list-style: none;
+
+  &::-webkit-details-marker { display: none; }
+  &::marker { display: none; }
+
+  &:hover {
+    background: var(--color-beige-50);
+  }
+}
+
+/* Rotating arrow icon */
+.hv-inv__accordion-arrow {
+  font-size: 0.6rem;
+  transition: transform 0.15s ease;
+  color: var(--color-beige-400);
+}
+
+details[open] > .hv-inv__accordion-header .hv-inv__accordion-arrow {
+  transform: rotate(90deg);
+}
+
+/* Item count badge in collapsed header */
+.hv-inv__accordion-count {
+  margin-left: auto;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--color-beige-500);
+  background: var(--color-beige-100);
+  border-radius: 10px;
+  padding: 0.05rem 0.4rem;
+}
+
+/* Equipped row accent in bag sections */
+.hv-inv__row--equipped {
+  border-left: 3px solid var(--color-teal);
+  padding-left: calc(0.4rem - 3px);
+}
+
+/* Empty equipped state */
+.hv-inv__empty-equipped {
+  padding: 0.4rem 0.75rem 0.6rem;
+  font-size: 0.78rem;
+  color: var(--color-beige-400);
+  font-style: italic;
+  margin: 0;
 }
 
 .hv-inv__add-btn {
@@ -23,24 +108,6 @@
   }
 }
 
-/* Section headers */
-.hv-inv__section {
-  margin-bottom: 0.75rem;
-}
-
-.hv-inv__section-title {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  margin: 0 0 0.25rem;
-  padding: 0.25rem 0.4rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--color-beige-700);
-  border-bottom: 1px solid var(--color-beige-200);
-}
 
 /* Item rows */
 .hv-inv__list {

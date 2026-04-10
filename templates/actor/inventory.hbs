@@ -1,36 +1,38 @@
-{{! Inventory Tab — lists all vuKhi, giapTru, trangBi on the actor }}
-<section class="tab inventory scrollable {{tab.cssClass}}"
-         data-group="primary" data-tab="inventory"
-         style="min-height: 250px"
->
+{{! Inventory Tab — accordion layout }}
+<section class="tab inventory scrollable {{tab.cssClass}}" data-group="primary" data-tab="inventory">
 
-  {{! Top bar }}
+  {{! Toolbar }}
   <div class="hv-inv__toolbar">
     <button type="button" class="hv-inv__add-btn" data-action="open-inventory-modal">
       <i class="fas fa-plus"></i> Thêm Vật Phẩm
     </button>
+    <span class="hv-inv__kl-badge" data-tooltip="Khang Lực — giảm sát thương nhận vào">
+      <i class="fas fa-shield-halved"></i> KL: {{khangLuc}}
+    </span>
   </div>
 
-  {{! ── Weapons ──────────────────────────────────────────── }}
-  {{#if inventoryWeapons.length}}
-  <div class="hv-inv__section">
-    <h3 class="hv-inv__section-title"><i class="fas fa-khanda"></i> Vũ Khí</h3>
+  {{! ── Đang Trang Bị (open by default) ──────────────────── }}
+  <details class="hv-inv__accordion" open>
+    <summary class="hv-inv__accordion-header">
+      <i class="fas fa-chevron-right hv-inv__accordion-arrow"></i>
+      <i class="fas fa-user-shield"></i> Đang Trang Bị
+    </summary>
+
+    {{#if hasEquipped}}
     <ol class="hv-inv__list">
-      {{#each inventoryWeapons as |item|}}
+
+      {{#each equippedWeapons as |item|}}
       <li class="hv-inv__row" data-item-id="{{item._id}}" data-document-class="Item">
-
-        <label class="hv-inv__equip" data-tooltip="Trang bị / Tháo">
+        <label class="hv-inv__equip" data-tooltip="Tháo trang bị">
           <input type="checkbox" class="hv-inv__equip-cb" data-action="toggle-equip"
-                 data-item-id="{{item._id}}" {{#if item.system.isEquipped}}checked{{/if}} />
+                 data-item-id="{{item._id}}" checked />
         </label>
-
         <div class="hv-inv__name">
           <strong>{{item.name}}</strong>
           {{#if item.system.flavorText}}
             <span class="hv-inv__flavor">{{item.system.flavorText}}</span>
           {{/if}}
         </div>
-
         <div class="hv-inv__stats">
           <span class="hv-inv__stat" data-tooltip="Sát thương">
             <i class="fas fa-burst"></i> {{item.system.baseDamage}}
@@ -39,14 +41,12 @@
             <i class="fas fa-arrows-left-right"></i> {{item.system.range}}
           </span>
         </div>
-
         {{#unless (eq item.system.condition "normal")}}
         <span class="hv-inv__condition hv-inv__condition--{{item.system.condition}}">
           {{#if (eq item.system.condition "hu-hai")}}Hư hại{{/if}}
           {{#if (eq item.system.condition "vo-nat")}}Vỡ nát{{/if}}
         </span>
         {{/unless}}
-
         <div class="hv-inv__controls">
           <a class="hv-inv__btn" data-tooltip="Xóa" data-action="deleteDoc">
             <i class="fas fa-trash"></i>
@@ -54,43 +54,30 @@
         </div>
       </li>
       {{/each}}
-    </ol>
-  </div>
-  {{/if}}
 
-  {{! ── Armor ────────────────────────────────────────────── }}
-  {{#if inventoryArmor.length}}
-  <div class="hv-inv__section">
-    <h3 class="hv-inv__section-title"><i class="fas fa-shield-halved"></i> Giáp Trụ</h3>
-    <ol class="hv-inv__list">
-      {{#each inventoryArmor as |item|}}
+      {{#each equippedArmor as |item|}}
       <li class="hv-inv__row" data-item-id="{{item._id}}" data-document-class="Item">
-
-        <label class="hv-inv__equip" data-tooltip="Trang bị / Tháo">
+        <label class="hv-inv__equip" data-tooltip="Tháo trang bị">
           <input type="checkbox" class="hv-inv__equip-cb" data-action="toggle-equip"
-                 data-item-id="{{item._id}}" {{#if item.system.isEquipped}}checked{{/if}} />
+                 data-item-id="{{item._id}}" checked />
         </label>
-
         <div class="hv-inv__name">
           <strong>{{item.name}}</strong>
           {{#if item.system.flavorText}}
             <span class="hv-inv__flavor">{{item.system.flavorText}}</span>
           {{/if}}
         </div>
-
         <div class="hv-inv__stats">
           <span class="hv-inv__stat" data-tooltip="Kháng Lực">
             <i class="fas fa-shield"></i> {{item.system.resistance}}
           </span>
         </div>
-
         {{#unless (eq item.system.condition "normal")}}
         <span class="hv-inv__condition hv-inv__condition--{{item.system.condition}}">
           {{#if (eq item.system.condition "hu-hai")}}Hư hại{{/if}}
           {{#if (eq item.system.condition "vo-nat")}}Vỡ nát{{/if}}
         </span>
         {{/unless}}
-
         <div class="hv-inv__controls">
           <a class="hv-inv__btn" data-tooltip="Xóa" data-action="deleteDoc">
             <i class="fas fa-trash"></i>
@@ -98,36 +85,74 @@
         </div>
       </li>
       {{/each}}
-    </ol>
-  </div>
-  {{/if}}
 
-  {{! ── Accessories ──────────────────────────────────────── }}
-  {{#if inventoryAccessories.length}}
-  <div class="hv-inv__section">
-    <h3 class="hv-inv__section-title"><i class="fas fa-toolbox"></i> Trang Bị</h3>
-    <ol class="hv-inv__list">
-      {{#each inventoryAccessories as |item|}}
+      {{#each equippedAccessories as |item|}}
       <li class="hv-inv__row" data-item-id="{{item._id}}" data-document-class="Item">
-
-        <label class="hv-inv__equip" data-tooltip="Trang bị / Tháo">
+        <label class="hv-inv__equip" data-tooltip="Tháo trang bị">
           <input type="checkbox" class="hv-inv__equip-cb" data-action="toggle-equip"
-                 data-item-id="{{item._id}}" {{#if item.system.isEquipped}}checked{{/if}} />
+                 data-item-id="{{item._id}}" checked />
         </label>
-
         <div class="hv-inv__name">
           <strong>{{item.name}}</strong>
           {{#if item.system.flavorText}}
             <span class="hv-inv__flavor">{{item.system.flavorText}}</span>
           {{/if}}
         </div>
-
         <div class="hv-inv__stats">
           <span class="hv-inv__stat" data-tooltip="Số lượng">
             <i class="fas fa-layer-group"></i> {{item.system.quantity}}
           </span>
         </div>
+        <div class="hv-inv__controls">
+          <a class="hv-inv__btn" data-tooltip="Xóa" data-action="deleteDoc">
+            <i class="fas fa-trash"></i>
+          </a>
+        </div>
+      </li>
+      {{/each}}
 
+    </ol>
+    {{else}}
+    <p class="hv-inv__empty-equipped">Chưa trang bị gì.</p>
+    {{/if}}
+  </details>
+
+  {{! ── Vũ Khí (collapsed by default) ────────────────────── }}
+  {{#if inventoryWeapons.length}}
+  <details class="hv-inv__accordion">
+    <summary class="hv-inv__accordion-header">
+      <i class="fas fa-chevron-right hv-inv__accordion-arrow"></i>
+      <i class="fas fa-khanda"></i> Vũ Khí
+      <span class="hv-inv__accordion-count">{{inventoryWeapons.length}}</span>
+    </summary>
+    <ol class="hv-inv__list">
+      {{#each inventoryWeapons as |item|}}
+      <li class="hv-inv__row {{#if item.system.isEquipped}}hv-inv__row--equipped{{/if}}"
+          data-item-id="{{item._id}}" data-document-class="Item">
+        <label class="hv-inv__equip" data-tooltip="Trang bị / Tháo">
+          <input type="checkbox" class="hv-inv__equip-cb" data-action="toggle-equip"
+                 data-item-id="{{item._id}}" {{#if item.system.isEquipped}}checked{{/if}} />
+        </label>
+        <div class="hv-inv__name">
+          <strong>{{item.name}}</strong>
+          {{#if item.system.flavorText}}
+            <span class="hv-inv__flavor">{{item.system.flavorText}}</span>
+          {{/if}}
+        </div>
+        <div class="hv-inv__stats">
+          <span class="hv-inv__stat" data-tooltip="Sát thương">
+            <i class="fas fa-burst"></i> {{item.system.baseDamage}}
+          </span>
+          <span class="hv-inv__stat" data-tooltip="Phạm vi">
+            <i class="fas fa-arrows-left-right"></i> {{item.system.range}}
+          </span>
+        </div>
+        {{#unless (eq item.system.condition "normal")}}
+        <span class="hv-inv__condition hv-inv__condition--{{item.system.condition}}">
+          {{#if (eq item.system.condition "hu-hai")}}Hư hại{{/if}}
+          {{#if (eq item.system.condition "vo-nat")}}Vỡ nát{{/if}}
+        </span>
+        {{/unless}}
         <div class="hv-inv__controls">
           <a class="hv-inv__btn" data-tooltip="Xóa" data-action="deleteDoc">
             <i class="fas fa-trash"></i>
@@ -136,10 +161,92 @@
       </li>
       {{/each}}
     </ol>
-  </div>
+  </details>
   {{/if}}
 
-  {{! Empty state }}
+  {{! ── Giáp Trụ (collapsed by default) ──────────────────── }}
+  {{#if inventoryArmor.length}}
+  <details class="hv-inv__accordion">
+    <summary class="hv-inv__accordion-header">
+      <i class="fas fa-chevron-right hv-inv__accordion-arrow"></i>
+      <i class="fas fa-shield-halved"></i> Giáp Trụ
+      <span class="hv-inv__accordion-count">{{inventoryArmor.length}}</span>
+    </summary>
+    <ol class="hv-inv__list">
+      {{#each inventoryArmor as |item|}}
+      <li class="hv-inv__row {{#if item.system.isEquipped}}hv-inv__row--equipped{{/if}}"
+          data-item-id="{{item._id}}" data-document-class="Item">
+        <label class="hv-inv__equip" data-tooltip="Trang bị / Tháo">
+          <input type="checkbox" class="hv-inv__equip-cb" data-action="toggle-equip"
+                 data-item-id="{{item._id}}" {{#if item.system.isEquipped}}checked{{/if}} />
+        </label>
+        <div class="hv-inv__name">
+          <strong>{{item.name}}</strong>
+          {{#if item.system.flavorText}}
+            <span class="hv-inv__flavor">{{item.system.flavorText}}</span>
+          {{/if}}
+        </div>
+        <div class="hv-inv__stats">
+          <span class="hv-inv__stat" data-tooltip="Kháng Lực">
+            <i class="fas fa-shield"></i> {{item.system.resistance}}
+          </span>
+        </div>
+        {{#unless (eq item.system.condition "normal")}}
+        <span class="hv-inv__condition hv-inv__condition--{{item.system.condition}}">
+          {{#if (eq item.system.condition "hu-hai")}}Hư hại{{/if}}
+          {{#if (eq item.system.condition "vo-nat")}}Vỡ nát{{/if}}
+        </span>
+        {{/unless}}
+        <div class="hv-inv__controls">
+          <a class="hv-inv__btn" data-tooltip="Xóa" data-action="deleteDoc">
+            <i class="fas fa-trash"></i>
+          </a>
+        </div>
+      </li>
+      {{/each}}
+    </ol>
+  </details>
+  {{/if}}
+
+  {{! ── Trang Bị (collapsed by default) ──────────────────── }}
+  {{#if inventoryAccessories.length}}
+  <details class="hv-inv__accordion">
+    <summary class="hv-inv__accordion-header">
+      <i class="fas fa-chevron-right hv-inv__accordion-arrow"></i>
+      <i class="fas fa-toolbox"></i> Trang Bị
+      <span class="hv-inv__accordion-count">{{inventoryAccessories.length}}</span>
+    </summary>
+    <ol class="hv-inv__list">
+      {{#each inventoryAccessories as |item|}}
+      <li class="hv-inv__row {{#if item.system.isEquipped}}hv-inv__row--equipped{{/if}}"
+          data-item-id="{{item._id}}" data-document-class="Item">
+        <label class="hv-inv__equip" data-tooltip="Trang bị / Tháo">
+          <input type="checkbox" class="hv-inv__equip-cb" data-action="toggle-equip"
+                 data-item-id="{{item._id}}" {{#if item.system.isEquipped}}checked{{/if}} />
+        </label>
+        <div class="hv-inv__name">
+          <strong>{{item.name}}</strong>
+          {{#if item.system.flavorText}}
+            <span class="hv-inv__flavor">{{item.system.flavorText}}</span>
+          {{/if}}
+        </div>
+        <div class="hv-inv__stats">
+          <span class="hv-inv__stat" data-tooltip="Số lượng">
+            <i class="fas fa-layer-group"></i> {{item.system.quantity}}
+          </span>
+        </div>
+        <div class="hv-inv__controls">
+          <a class="hv-inv__btn" data-tooltip="Xóa" data-action="deleteDoc">
+            <i class="fas fa-trash"></i>
+          </a>
+        </div>
+      </li>
+      {{/each}}
+    </ol>
+  </details>
+  {{/if}}
+
+  {{! Empty state — nothing in inventory at all }}
   {{#unless hasInventory}}
   <div class="hv-inv__empty">
     <i class="fas fa-box-open"></i>

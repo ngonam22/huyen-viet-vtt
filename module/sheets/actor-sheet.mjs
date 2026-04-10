@@ -318,12 +318,19 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
                 break;
             case 'inventory':
                 context.tab = context.tabs[partId];
-                context.inventoryWeapons = this.actor.items.filter(i => i.type === 'vuKhi');
-                context.inventoryArmor = this.actor.items.filter(i => i.type === 'giapTru');
+                context.inventoryWeapons     = this.actor.items.filter(i => i.type === 'vuKhi');
+                context.inventoryArmor       = this.actor.items.filter(i => i.type === 'giapTru');
                 context.inventoryAccessories = this.actor.items.filter(i => i.type === 'trangBi');
                 context.hasInventory = context.inventoryWeapons.length
                     + context.inventoryArmor.length
                     + context.inventoryAccessories.length > 0;
+                context.equippedWeapons      = context.inventoryWeapons.filter(i => i.system.isEquipped);
+                context.equippedArmor        = context.inventoryArmor.filter(i => i.system.isEquipped);
+                context.equippedAccessories  = context.inventoryAccessories.filter(i => i.system.isEquipped);
+                context.hasEquipped = context.equippedWeapons.length
+                    + context.equippedArmor.length
+                    + context.equippedAccessories.length > 0;
+                context.khangLuc = this.actor.system.abilities.khangLuc.value;
                 break;
             case 'effects':
                 context.tab = context.tabs[partId];

@@ -150,10 +150,12 @@ Trong combat, character phải chọn 1 Hành làm "Thế" (Stance), cung cấp 
 *   `Mộc Thế`: Có thêm 1 free action (không yêu cầu test).
 
 ### 5.3. Damage Pipeline (Luồng xử lý Sát Thương)
-Khi một Entity bị tấn công, engine xử lý theo thứ tự:
+Khi một Character bị tấn công, Game Rule xử lý theo thứ tự:
 1.  **Armor Mitigation:** `Sát Thương` - `khangLuc.value` (tổng Kháng Lực từ giáp + buff tạm). Giá trị này luôn được tính lại từ item, không lưu DB. Giá trị Sát Thương sau khi trừ Kháng Lực > 0, tiếp tục bước tiếp theo.
 2.  **HP Mitigation:** Sát Thương dư trừ vào `sucLuc.value` (Sức Lực hiện tại).
 3.  **Core Damage (Tổn thương Ngũ Hành):** Nếu Sức Lực cạn (0), sát thương tác động trực tiếp lên Ngũ Hành. Tổn thương Hành sẽ kích hoạt debuff cho Hành đó (+2 ĐK) và buff Hành bị khắc (-1 ĐK).
+
+Tuy nhiên, ở version hiện tại, người chơi tự tính mức sát thương mà Nhân vật (Character) nhận vào, và tự trừ vào Sức Lực (HP) thông qua UI.
 
 ## 6. CƠ CHẾ KHÁC
 ### 6.1. Tiền tệ
