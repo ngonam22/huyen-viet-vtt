@@ -133,6 +133,9 @@ export default class BoilerplateCharacter extends BoilerplateActorBase {
         nguHop: new fields.SchemaField({
           value: intField()
         }),
+        khangLuc: new fields.SchemaField({
+          value: intField()
+        }),
       }),
 
       attributes: new fields.SchemaField({

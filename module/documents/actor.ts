@@ -1,10 +1,10 @@
-import {calculateAbility} from "../helpers/ability";
-import {calculateFromRolls, type Roll} from "../helpers/rollDice";
-import {hasDiceSoNice} from "../../utils/diceSoNice";
-import {getThiTocById} from "../helpers/thiToc";
-import {AppliedUpgrade, UpgradeRule} from "../../types/upgrade";
-import {HvCharacterSystemData, HvComputedTotals, isElementKey, isSkillKey, SKILL_KEYS} from "../helpers/config";
-import {getBoiCanhById} from "../helpers/boiCanh";
+import { calculateAbility } from "../helpers/ability";
+import { calculateFromRolls, type Roll } from "../helpers/rollDice";
+import { hasDiceSoNice } from "../../utils/diceSoNice";
+import { getThiTocById } from "../helpers/thiToc";
+import { AppliedUpgrade, UpgradeRule } from "../../types/upgrade";
+import { HvCharacterSystemData, HvComputedTotals, isElementKey, isSkillKey, SKILL_KEYS } from "../helpers/config";
+import { getBoiCanhById } from "../helpers/boiCanh";
 import { getGiaCanhById } from "../helpers/giaCanh";
 
 /**
@@ -203,7 +203,7 @@ export class huyenvietvttActor extends Actor {
 
     applyThiTocItems(actor: Actor, totals: HvComputedTotals): void {
 
-        const thiTocItems = actor.items.filter((item) => item.type === "thiToc");
+        const thiTocItems = actor.items.filter((item) => (item.type as string) === "thiToc");
 
         for (const item of thiTocItems) {
             const clanId = item.system?.clanId as string | undefined;
@@ -218,7 +218,7 @@ export class huyenvietvttActor extends Actor {
 
     applyBoiCanhItems(actor: Actor, totals: HvComputedTotals): void {
 
-        const thiTocItems = actor.items.filter((item) => item.type === "boiCanh");
+        const thiTocItems = actor.items.filter((item) => (item.type as string) === "boiCanh");
 
         for (const item of thiTocItems) {
             const clanId = item.system?.id as string | undefined;
@@ -232,7 +232,7 @@ export class huyenvietvttActor extends Actor {
     }
 
     applyGiaCanhItems(actor: Actor, totals: HvComputedTotals): void {
-        const giaCanhItems = actor.items.filter((i) => i.type === "giaCanh");
+        const giaCanhItems = actor.items.filter((i) => (i.type as string) === "giaCanh");
 
         for (const item of giaCanhItems) {
             const appliedUpgrades = (item.system as any)?.appliedUpgrades as AppliedUpgrade[] | undefined;
@@ -355,18 +355,36 @@ export class huyenvietvttActor extends Actor {
      * target:"damage" effects are intentionally skipped — handled at combat time.
      */
     applyEquippedItemEffects(system: HvCharacterSystemData): void {
-        for (const weapon of this.items.filter((i) => i.type === 'vuKhi' && (i.system as any).isEquipped)) {
+        const weaponList: any[] = [];
+        const armorList: any[] = [];
+        const itemList: any[] = [];
+
+        // only take equipped items and put it in weaponList, armorList, itemList to process later
+        this.items.filter(i => (i.system as any).isEquipped).forEach(i => {
+            if ((i.type as string) === 'vuKhi') {
+                weaponList.push(i);
+            } else if ((i.type as string) === 'giapTru') {
+                armorList.push(i);
+            } else if ((i.type as string) === 'phuKien') {
+                itemList.push(i);
+            }
+        })
+
+        for (const weapon of weaponList) {
             const ws = weapon.system as any;
             const rules = [...ws.passiveEffects];
             if (ws.isTwoHanded) rules.push(...ws.twoHandedEffects);
             this._applyAbilityRules(system, rules);
         }
 
-        for (const armor of this.items.filter((i) => i.type === 'giapTru' && (i.system as any).isEquipped)) {
+        let totalResistance = 0;
+        for (const armor of armorList) {
+            totalResistance += (armor.system as any).resistance ?? 0;
             this._applyAbilityRules(system, (armor.system as any).passiveEffects);
         }
+        system.abilities.khangLuc.value = totalResistance;
 
-        for (const acc of this.items.filter((i) => i.type === 'trangBi' && (i.system as any).isEquipped)) {
+        for (const acc of itemList) {
             this._applyAbilityRules(system, (acc.system as any).passiveEffects ?? []);
         }
     }
@@ -384,9 +402,9 @@ export class huyenvietvttActor extends Actor {
                 // use .value for computed abilities; use .base for resource abilities
                 const field = 'base' in ability ? 'base' : 'value';
                 switch (rule.mode) {
-                    case 'add':      ability[field] += effect.value; break;
-                    case 'set':      ability[field]  = effect.value; break;
-                    case 'multiply': ability[field]  = Math.floor(ability[field] * effect.value); break;
+                    case 'add': ability[field] += effect.value; break;
+                    case 'set': ability[field] = effect.value; break;
+                    case 'multiply': ability[field] = Math.floor(ability[field] * effect.value); break;
                 }
             }
         }
@@ -404,7 +422,7 @@ export class huyenvietvttActor extends Actor {
         return { ...super.getRollData(), ...(this.system.getRollData?.() ?? null) };
     }
 
-    async rollCheck({} = {}) {
+    async rollCheck({ } = {}) {
         let diceCount = 2
         const roll = await (new Roll(`${diceCount}d10`)).evaluate();
 
@@ -418,7 +436,7 @@ export class huyenvietvttActor extends Actor {
         });
 
         await ChatMessage.create({
-            speaker: ChatMessage.getSpeaker({ actor: this}),
+            speaker: ChatMessage.getSpeaker({ actor: this }),
             content: `${diceCount}d10 <==== ${diceResults.join(",")}`,
         })
 

@@ -44,7 +44,8 @@ export const ABILITY_KEYS = [
     "canhGiac",
     "chuTam",
     "tocDo",
-    "nguHop"
+    "nguHop",
+    "khangLuc"
 ] as const;
 export type HvAbilityKey = (typeof ABILITY_KEYS)[number];
 
@@ -153,6 +154,7 @@ BOILERPLATE.abilities = {
     chuTam: 'BOILERPLATE.Ability.chuTam.long',
     tocDo: 'BOILERPLATE.Ability.tocDo.long',
     nguHop: 'BOILERPLATE.Ability.nguHop.long',
+    khangLuc: 'BOILERPLATE.Ability.khangLuc.long',
 };
 
 BOILERPLATE.abilityAbbreviations = {

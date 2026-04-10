@@ -50,6 +50,7 @@ export interface CharacterAbilities {
     chuTam: { value: number };
     tocDo: { value: number };
     nguHop: { value: number };
+    khangLuc: { value: number };
 }
 
 export interface CharacterAttributes {

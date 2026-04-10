@@ -30,31 +30,100 @@ Các mặt của d10 được map theo hệ Âm - Dương:
 ## 3. DATA MODEL: THỰC THỂ NHÂN VẬT (Character Entity)
 
 ### 3.1. Chỉ Số Cốt Lõi (Core Attributes - Ngũ Hành)
-Đại diện cho "phương pháp hành động" (Hành phương) từ 1 đến 5.
-*   `Hỏa` (Sáng tạo, áp đảo, bộc trực).
-*   `Thổ` (Bảo thủ, kiên định, chống chịu).
-*   `Kim` (Kỷ luật, tinh luyện, hư chiêu).
-*   `Thủy` (Trực giác, vô chiêu, linh hoạt).
-*   `Mộc` (Thăng hoa, biến chiêu, cảm hóa).
+Đại diện cho "phương pháp hành động" (Hành phương) từ 1 đến 5. Lưu trong `system.elements.<key>.value` (integer, 1–6).
+*   `hoa` — Hỏa (Sáng tạo, áp đảo, bộc trực).
+*   `tho` — Thổ (Bảo thủ, kiên định, chống chịu).
+*   `kim` — Kim (Kỷ luật, tinh luyện, hư chiêu).
+*   `thuy` — Thủy (Trực giác, vô chiêu, linh hoạt).
+*   `moc` — Mộc (Thăng hoa, biến chiêu, cảm hóa).
+
+Các giá trị này được **reset về 1 mỗi lần `prepareDerivedData()` chạy**, sau đó cộng dồn bonus từ Thị Tộc, Bối Cảnh, và Gia Cảnh. Giá trị trong DB là base — không phải giá trị hiển thị cuối cùng.
 
 ### 3.2. Chỉ Số Dẫn Xuất (Derived Stats - Ngũ Hành Phát Nguyên)
-Các chỉ số sinh lý/chiến đấu được tính toán tự động từ Ngũ Hành:
-*   `Sức Lực (HP/Stamina)` = `5 + (Mộc + Hỏa + Thổ)`. Đây là giá trị **tối đa** (`base`). Giá trị hiện tại (`value`) bị giảm khi nhận sát thương và được lưu riêng — không bị ghi đè bởi công thức.
-*   `Tâm Lực (Mental/Sanity)` = `Thổ + Kim + Thủy`. Đây là giá trị **tối đa** (`base`). Giá trị hiện tại (`value`) bị giảm khi người chơi tiêu hao (Khi = 0 sẽ rơi vào trạng thái "Loạn Tâm", phải "Phát Tiết" để phục hồi).
-*   `Cảnh Giác (Passive Defense)` = `Math.ceil((Hỏa + Thổ + Kim) / 3)`.
-*   `Chú Tâm (Initiative)` = `Kim + Thủy + Mộc`.
-*   `Tốc Độ (Speed - in "bộ")` = `(Thủy + Mộc + Hỏa) / 3`.
-*   `Ngũ Hợp (Meta Currency/Fate)` = `Min(Sức Lực.base, Tâm Lực.base, Cảnh Giác, Chú Tâm, Tốc Độ)`. Sử dụng giá trị **tối đa** của Sức Lực và Tâm Lực, không phải giá trị hiện tại.
+Tất cả các chỉ số này đều **không lưu trong database** — chúng được tính toán lại mỗi `prepareDerivedData()` và chỉ tồn tại trên in-memory object.
 
-### 3.3. Kỹ Năng (Skills - Ngũ Đại Quốc Đạo)
-Chấm điểm từ 1-5, chia làm 5 nhóm:
-1.  **Võ Đạo:** Thể Thuật, Võ Thuật, Binh Pháp, Lãnh Đạo.
-2.  **Văn Đạo:** Lễ Đạo, Xã Hội Học, Chính Trị Học, Văn Tự.
-3.  **Nghệ Đạo:** Mỹ Thuật, Thời Trang, Rèn Đúc, Biểu Diễn.
-4.  **Tu Đạo:** Thần Học, Y Học, Thiền Định, Tâm Ý.
-5.  **Sinh/Hắc Đạo:** Lao Động, Thương Nghiệp, Hải Nghiệp, Sinh Tồn, Hắc Nghiệp.
+#### Chỉ số tài nguyên (có `base` và `value`)
+*   `sucLuc` — Sức Lực (HP/Stamina):
+    - `base` = `5 + (moc + hoa + tho)` — tính lại mỗi lần.
+    - `value` — **lưu trong DB**, chỉ thay đổi khi nhận sát thương hoặc hồi phục. Không bị ghi đè bởi công thức.
+*   `tamLuc` — Tâm Lực (Mental/Sanity):
+    - `base` = `tho + kim + thuy` — tính lại mỗi lần.
+    - `value` — **lưu trong DB**, bị giảm khi tiêu hao. Khi = 0 → trạng thái "Loạn Tâm".
 
-### 3.4. Metadata & Narrative Tags
+#### Chỉ số thuần derived (chỉ có `value`, không lưu DB)
+*   `canhGiac` — Cảnh Giác (Passive Difficulty): `value` = `ceil((hoa + tho + kim) / 3)`.
+*   `chuTam` — Chú Tâm (Initiative): `value` = `kim + thuy + moc`.
+*   `tocDo` — Tốc Độ (Speed, tính bằng "bộ"): `value` = `(thuy + moc + hoa) / 2`.
+*   `nguHop` — Ngũ Hợp (Meta Currency/Fate): `value` = `min(sucLuc.base, tamLuc.base, canhGiac, chuTam, tocDo)`. Dùng giá trị **tối đa** của sucLuc và tamLuc.
+*   `khangLuc` — Khang Lực (Defense / Damage Reduction): `value` = tổng `resistance` của tất cả item `giapTru` đang được trang bị (`isEquipped = true`), cộng thêm các buff tạm từ ActiveEffect. **Không lưu DB** — luôn tính lại trong `applyEquippedItemEffects()`.
+
+#### Damage Pipeline (xem §5.3)
+Khi bị tấn công: `Sát Thương - khangLuc.value` → phần dư trừ `sucLuc.value`.
+
+### 3.3. Schema Đầy Đủ (actor-character DataModel)
+```
+system: {
+  identity: {
+    giaToc: string        // Gia tộc (clan name, free text)
+    monPhai: string       // Môn phái (sect)
+    thiToc: string        // ID Thị Tộc đã chọn (ref → THI_TOC config)
+    ngheNghiep: string    // Nghề nghiệp (free text)
+    tinhCach: string      // Tính cách (free text)
+    boiCanh: string       // ID Bối Cảnh đã chọn (ref → BOI_CANH config)
+    giaCanh: string       // ID Gia Cảnh đã chọn (ref → GIA_CANH config)
+  }
+  elements: {
+    hoa/tho/kim/thuy/moc: { value: int 1–6 }  // stored base; runtime value computed
+  }
+  skills: {
+    // Học Đạo
+    chinhTri, khoaHoc, thanHoc, xaHoi, yHoc: int 0–6
+    // Nghệ Đạo
+    myThuat, vanTu, thoiTrang, chienCu: int 0–6
+    // Sinh/Hắc Đạo
+    laoDong, thuongNghiep, haiNghiep, hacNghiep, sinhTon: int 0–6
+    // Tâm Đạo
+    lanhDao, leDao, bieuDien, tamY: int 0–6
+    // Võ Đạo
+    theThuat, voThuat, binhPhap, thienDinh: int 0–6
+  }
+  abilities: {
+    sucLuc:   { base: int, value: int }   // value = current HP (stored)
+    tamLuc:   { base: int, value: int }   // value = current MP (stored)
+    canhGiac: { value: int }              // derived only
+    chuTam:   { value: int }              // derived only
+    tocDo:    { value: int }              // derived only
+    nguHop:   { value: int }              // derived only
+    khangLuc: { value: int }              // derived only — sum of equipped armor resistance
+  }
+  attributes: {
+    level: { value: int }   // nhân vật cấp (hiện chưa dùng)
+  }
+  currency: {
+    quan: int   // 1 quan = 10 tiền
+    tien: int   // 1 tiền = 100 đồng
+    dong: int
+  }
+  progression: {
+    currentXp: int   // XP có thể tiêu; giảm khi nâng cấp
+    totalXp:   int   // XP tích lũy; không giảm; dùng tính cấp môn phái
+  }
+  upgrades: UpgradeRule[]   // XP-purchased modifiers (element/skill only)
+  changelog: EventLog[]     // append-only event log cho UI timeline
+}
+```
+
+### 3.4. Kỹ Năng (Skills - Ngũ Đại Quốc Đạo)
+Chấm điểm từ 0–6 (thực tế), chia làm 5 nhóm:
+1.  **Võ Đạo:** Thể Thuật, Võ Thuật, Binh Pháp, Thiền Định.
+2.  **Học Đạo:** Chính Trị, Khoa Học, Thần Học, Xã Hội, Y Học.
+3.  **Nghệ Đạo:** Mỹ Thuật, Văn Tự, Thời Trang, Chiến Cụ.
+4.  **Tâm Đạo:** Lãnh Đạo, Lễ Đạo, Biểu Diễn, Tâm Ý.
+5.  **Sinh/Hắc Đạo:** Lao Động, Thương Nghiệp, Hải Nghiệp, Hắc Nghiệp, Sinh Tồn.
+
+Kỹ năng được **reset về 0 mỗi `prepareDerivedData()`**, sau đó cộng dồn bonus từ item sources.
+
+### 3.5. Metadata & Narrative Tags
 *   **Đặc Điểm:** `Ưu Điểm` (Cho phép dùng 1 Ngũ Hợp reroll 2 xúc xắc) và `Khuyết Điểm` (Ép reroll xúc xắc Thành, thưởng Ngũ Hợp nếu thất bại).
 *   **Tâm Lý:** `Niềm Vui` (Hồi 3 Tâm Lực) và `Nỗi Sợ` (Trừ 3 Tâm Lực, thưởng 1 Ngũ Hợp).
 *   **Xã Hội:** `Địa Vị` (0-99), `Danh Tiếng` (-5 đến 5), `Nhân Phẩm` (-5 đến 5).
@@ -82,8 +151,8 @@ Trong combat, character phải chọn 1 Hành làm "Thế" (Stance), cung cấp 
 
 ### 5.3. Damage Pipeline (Luồng xử lý Sát Thương)
 Khi một Entity bị tấn công, engine xử lý theo thứ tự:
-1.  **Armor Mitigation:** `Sát Thương` - `Kháng Lực` (Armor).
-2.  **HP Mitigation:** Sát Thương dư trừ vào `Sức Lực` (Khí lực).
+1.  **Armor Mitigation:** `Sát Thương` - `khangLuc.value` (tổng Kháng Lực từ giáp + buff tạm). Giá trị này luôn được tính lại từ item, không lưu DB. Giá trị Sát Thương sau khi trừ Kháng Lực > 0, tiếp tục bước tiếp theo.
+2.  **HP Mitigation:** Sát Thương dư trừ vào `sucLuc.value` (Sức Lực hiện tại).
 3.  **Core Damage (Tổn thương Ngũ Hành):** Nếu Sức Lực cạn (0), sát thương tác động trực tiếp lên Ngũ Hành. Tổn thương Hành sẽ kích hoạt debuff cho Hành đó (+2 ĐK) và buff Hành bị khắc (-1 ĐK).
 
 ## 6. CƠ CHẾ KHÁC

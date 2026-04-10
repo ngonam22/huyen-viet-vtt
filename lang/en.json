@@ -183,6 +183,9 @@
             },
             "nguHop": {
               "label": "Ngũ Hợp"
+            },
+            "khangLuc": {
+              "label": "Khang Lực"
             }
           },
           "biography": {"label": "Biography"},
