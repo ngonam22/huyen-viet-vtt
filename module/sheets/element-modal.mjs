@@ -36,6 +36,25 @@ export class ElementModal extends HandlebarsApplicationMixin(ApplicationV2)
         return new this(actor, elementKey).render(true);
     }
 
+    async _onRender(_context, _options) {
+        await super._onRender(_context, _options);
+
+        const el = this.element;
+        const $tablets = el.querySelectorAll('.elemental-tablet')
+        $tablets.forEach(btn => {
+            btn.addEventListener('click', () => {
+
+                if (btn.classList.contains('is-active')) {
+                    btn.classList.remove('is-active');
+                    return;
+                }
+
+                $tablets.forEach(b => b.classList.remove('is-active'));
+                btn.classList.add('is-active');
+            });
+        });
+    }
+
     async _prepareContext(_options) {
         return {
             system: this.actor.system,

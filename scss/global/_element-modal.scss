@@ -5,10 +5,56 @@
     * {
         font-family: $font-primary;
     }
-    
+
+    .elemental-tablet {
+        height: 149px;
+        padding: 25px 20px;
+        cursor: pointer;
+    }
+    #hoa-tablet {
+        background: transparent url("/systems/huyen-viet-vtt/assets/hoa-tablet.png") no-repeat center;
+
+        &:hover {
+            background-image: url("/systems/huyen-viet-vtt/assets/hoa-tablet-hover.png");
+        }
+
+        &.is-active {
+            background-image: url("/systems/huyen-viet-vtt/assets/hoa-tablet-active.png");
+        }
+    }
+    #tho-tablet {
+        background: transparent url("/systems/huyen-viet-vtt/assets/tho-tablet.png") no-repeat center;
+
+        &:hover {
+            background-image: url("/systems/huyen-viet-vtt/assets/tho-tablet-hover.png");
+        }
+
+        &.is-active {
+            background-image: url("/systems/huyen-viet-vtt/assets/tho-tablet-active.png");
+        }
+    }
+    #thuy-tablet {
+        background: transparent url("/systems/huyen-viet-vtt/assets/thuy-tablet.png") no-repeat center;
+
+        &:hover {
+            background-image: url("/systems/huyen-viet-vtt/assets/thuy-tablet-hover.png");
+        }
+
+        &.is-active {
+            background-image: url("/systems/huyen-viet-vtt/assets/thuy-tablet-active.png");
+        }
+    }
+    #hoa-tablet-icon {
+
+    }
+
+    .tablet-text {
+        color: #E27E4D;
+        font-size: 25px;
+    }
     .window-content {
         position: relative;
-        background: #e8d9b5 url("/systems/huyen-viet-vtt/assets/noise.svg") repeat;
+        background: #151F21 url("/systems/huyen-viet-vtt/assets/noise.svg") repeat;
         color: #2b2b2b;
         font-family: $font-primary;
     }

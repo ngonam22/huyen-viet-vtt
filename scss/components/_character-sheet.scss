@@ -1,5 +1,5 @@
 &.character-sheet-window {
-    background: #333D3F;
+    background: #28303b;
 
     .window-content {
         overflow: auto !important;
@@ -8,21 +8,50 @@
 
 
     .sheet-panel {
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
         position: relative;
-        border: 4px solid #707066;
-        background: radial-gradient(circle, rgba(58, 59, 53, 1) 0%, rgba(49, 59, 58, 1) 100%);
-        background-size: 100% 100%;
-        box-shadow: 0 0 5px black, inset 0 0 5px 1px #272821;
-        z-index: 1;
 
-        &:after {
-            content: '';
+        /*
+            Each slice is the SAME full border path, but the viewBox shows only a strip:
+
+              top:    viewBox="0   0  525  24"   uniform scale → bumps stay round
+              middle: viewBox="0  24  525 151"   preserveAspectRatio="none", stretches
+                                                 vertically (rails are straight, so the
+                                                 distortion is invisible)
+              bottom: viewBox="0 175  525  24"   uniform scale → bumps stay round
+
+            The path is drawn in full inside every slice; the SVG viewport just crops to
+            the strip. That guarantees seamless joins at y=24 and y=175 because every
+            slice computes the inner shadow / drop shadow against the same full geometry.
+          */
+        &__top, &__bottom {
+            display: block;
+            width: 100%;
+            height: auto;       /* preserves aspect → corners stay perfect at any width */
+            flex-shrink: 0;
+        }
+        &__middle {
+            position: relative;
+            flex: 1 1 auto;     /* ⟵ this is what makes panel height dynamic */
+            min-height: 30px;
+            display: flex;
+        }
+        &__middle-svg {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: transparent url("/systems/huyen-viet-vtt/assets/strain-effect.png") no-repeat;
-            background-size: 100% 100%;
-            opacity: 0.25;
-            z-index: -1;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        &__content {
+            position: relative;
+            z-index: 1;
+            flex: 1;
+            margin: 0 var(--rail-inset);
+            padding: 5px 29px 0;
+            overflow: hidden;
         }
     }
     /* ══════════════════════════════════════════════════════
@@ -216,6 +245,76 @@
             color: #e8c87c;
             font-size: 40px;
             font-weight: 500;
+        }
+    }
+
+    .tabs {
+        border: none;
+        gap: 0 5px;
+
+        > a {
+            position: relative;
+            border: 1px solid #272e36;
+            background: #6b757e;
+            box-shadow: inset 0 0 5px #3f484f;
+            flex: 1;
+            border-radius: 9px 9px 0 0;
+
+            &:before, &:after {
+                content: '';
+                position: absolute;
+                top: 0; left: 0;
+                right: 0; bottom: 0;
+                border-radius: 5px 5px 0 0;
+            }
+
+            &:before {
+                border: 1px solid #3c4349;
+                margin: 3px 3px 0;
+                box-shadow: 0 0 3px #3c2e29;
+                background: #30373d;
+                z-index: 1;
+            }
+
+            span {
+                position: relative;
+                letter-spacing: 0.5px;
+                z-index: 5;
+            }
+
+            &.active {
+                background: #f8c48d;
+
+                &:before {
+                    border: 2px solid #5b5552;
+                    box-shadow: 0 0 3px 2px #3a2d28;
+                    z-index: 1;
+                }
+
+            }
+        }
+    }
+
+    .tab {
+        position: relative;
+        padding: 10px;
+        z-index: 10;
+        &.active {
+            min-height: 250px;
+            border: 3px solid #977663;
+            background: #17120d;
+
+            &:before {
+                content: '';
+                position: absolute;
+                top: 0; left: 0;
+                right: 0; bottom: 0;
+                margin: 2px;
+                border: 2px solid #383f42;
+                background: #30373c;
+                box-shadow: inset 0 0 5px #2b3034;
+                z-index: -1;
+            }
         }
     }
 }
