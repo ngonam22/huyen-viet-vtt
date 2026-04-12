@@ -190,30 +190,6 @@
                     <div class="tw:grid tw:grid-cols-6 tw:grid-rows-2 tw:gap-4 tw:items-center tw:content-center">
                         <div class="tw:row-span-3 tw:col-span-3">
                             <div id="ngu-hanh-canvas" style="position: relative;">
-                                <!--                    <video id="video-kim" class="energy-video" autoplay loop muted playsinline>-->
-                                <!--                        <source src="systems/huyen-viet-vtt/assets/kim-energy.webm" type="video/webm">-->
-                                <!--                        Your browser does not support the video tag.-->
-                                <!--                    </video>-->
-
-                                <!--                    <video id="video-thuy" class="energy-video" autoplay loop muted playsinline>-->
-                                <!--                        <source src="systems/huyen-viet-vtt/assets/thuy-energy.webm" type="video/webm">-->
-                                <!--                        Your browser does not support the video tag.-->
-                                <!--                    </video>-->
-
-                                <!--                    <video id="video-hoa" class="energy-video" autoplay loop muted playsinline>-->
-                                <!--                        <source src="systems/huyen-viet-vtt/assets/hoa-energy.webm" type="video/webm">-->
-                                <!--                        Your browser does not support the video tag.-->
-                                <!--                    </video>-->
-
-                                <!--                    <video id="video-moc" class="energy-video" autoplay loop muted playsinline>-->
-                                <!--                        <source src="systems/huyen-viet-vtt/assets/moc-energy.webm" type="video/webm">-->
-                                <!--                        Your browser does not support the video tag.-->
-                                <!--                    </video>-->
-
-                                <!--                    <video id="video-tho" class="energy-video" autoplay loop muted playsinline>-->
-                                <!--                        <source src="systems/huyen-viet-vtt/assets/tho-energy.webm" type="video/webm">-->
-                                <!--                        Your browser does not support the video tag.-->
-                                <!--                    </video>-->
                                 {{#each elements as |element|}}
                                     <video id="video-{{element}}"
                                            class="energy-video {{#if (eq ../hanhThe element)}}active{{/if}}"
@@ -301,11 +277,11 @@
                                                     stroke-opacity=".7" />
                                             <circle cx="352" cy="141" r="40" fill="none" stroke="#5ba3d4" stroke-width=".5"
                                                     stroke-opacity=".2" stroke-dasharray="3 6" />
-                                            <text x="352" y="127" text-anchor="middle" font-size="15" fill="#5ba3d4">💧</text>
+                                            <image href="/systems/huyen-viet-vtt/assets/icons/thuy-tablet-icon.webp" x="340" y="105" width="28" height="28"></image>
                                             <text x="352" y="145" text-anchor="middle" font-family="'Crimson Pro',serif"
                                                   font-size="13" font-weight="600" fill="#a8d4f0" letter-spacing=".5">Thủy</text>
-                                            <text x="352" y="159" text-anchor="middle" font-family="'Crimson Pro',serif"
-                                                  font-size="12" font-weight="700" fill="#5ba3d4">{{signedNumber
+                                            <text x="352" y="165" text-anchor="middle" font-family="'Crimson Pro',serif"
+                                                  font-size="16" font-weight="700" fill="#5ba3d4">{{signedNumber
                                                     system.elements.thuy.value}}</text>
                                         </g>
 
@@ -354,6 +330,13 @@
                                                     system.elements.tho.value}}</text>
                                         </g>
 
+                                        {{#if (eq hanhThe "tho")}}
+                                            <image href="/systems/huyen-viet-vtt/assets/icons/tho-tablet-icon.webp" x="210" y="160" width="40" height="40"></image>
+                                        {{else if (eq hanhThe "hoa")}}
+                                            <image href="/systems/huyen-viet-vtt/assets/icons/hoa-tablet-icon.webp" x="210" y="160" width="40" height="40"></image>
+                                        {{else if (eq hanhThe "thuy")}}
+                                            <image href="/systems/huyen-viet-vtt/assets/icons/thuy-tablet-icon.webp" x="207" y="157" width="43" height="43"></image>
+                                        {{/if}}
                                     </svg>
                                 </div>
                             </div>
