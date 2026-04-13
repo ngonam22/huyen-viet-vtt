@@ -29,50 +29,65 @@
   display: inline-flex;
   align-items: center;
   border-radius: 6px;
-  border: 1px solid var(--color-beige-200);
-  background: var(--color-beige-100);
-  overflow: hidden;
+  border: 1px solid var(--tw-color-beige-200);
+  background: var(--tw-color-beige-100);
 }
 
-.hv-toggle__opt {
-  flex: 1;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.2rem 0.7rem;
-  font-size: 0.72rem;
-  font-weight: 600;
-  color: var(--color-beige-600);
-  cursor: pointer;
-  border: none;
-  border-radius: 0;
-  background: transparent;
-  transition: background 0.15s, color 0.15s;
-  white-space: nowrap;
-  user-select: none;
+/* Labeled variant — sliding teal pill ───────────────────────────────────── */
 
-  &:hover:not(.is-active) {
-    background: var(--color-beige-200);
-    color: var(--color-beige-800);
+.hv-toggle--labeled {
+  position: relative;
+  overflow: hidden;   /* clips pill corners to the container's border-radius */
+
+  .hv-toggle__pill {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--pill-left, 0px);
+    width: var(--pill-width, 0px);
+    background: var(--tw-color-teal);
+    transition: left 0.22s cubic-bezier(0.4, 0, 0.2, 1),
+                width 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    z-index: 0;
   }
 
-  &.is-active {
-    background: var(--color-teal);
-    color: #fff;
-  }
+  .hv-toggle__opt {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.2rem 0.7rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    white-space: nowrap;
+    user-select: none;
+    transition: color 0.15s;
 
-  /* Divider between options */
-  & + & {
-    border-left: 1px solid var(--color-beige-200);
+    /* Active label: white text on the teal pill */
+    &.is-active {
+      color: #fff;
+    }
+
+    /* Inactive label: invisible but still occupies space so pill width stays correct */
+    &:not(.is-active) {
+      color: transparent;
+    }
   }
 }
 
-/* Minimal variant — no labels, dot-only pill ─────────────────────────────── */
+/* Minimal variant — dot-only pill ────────────────────────────────────────── */
 
 .hv-toggle--minimal {
   border-radius: 20px;
   padding: 3px;
   gap: 3px;
+  overflow: hidden;
 
   .hv-toggle__opt {
     width: 12px;
@@ -80,9 +95,13 @@
     border-radius: 50%;
     padding: 0;
     flex: 0 0 auto;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    transition: background 0.15s;
 
-    & + & {
-      border-left: none;
+    &.is-active {
+      background: var(--tw-color-teal);
     }
   }
 }

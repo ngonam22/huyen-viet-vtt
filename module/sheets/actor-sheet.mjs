@@ -111,8 +111,21 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
         }
 
         if (action === 'toggle-inventory-view') {
-            this._inventoryView = target.dataset.value;
-            this.render();
+            const value = target.dataset.value;
+            if (this._inventoryView === value) return;
+
+            // Swap is-active on buttons immediately so the pill animates,
+            // then re-render the list after the transition finishes (0.22s).
+            const toggle = target.closest('.hv-toggle');
+            if (toggle) {
+                toggle.querySelectorAll('.hv-toggle__opt').forEach(btn => {
+                    btn.classList.toggle('is-active', btn.dataset.value === value);
+                });
+                this._syncTogglePill(toggle, true);
+            }
+
+            this._inventoryView = value;
+            setTimeout(() => this.render(), 230);
             return;
         }
 
@@ -488,12 +501,42 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
      * @protected
      * @override
      */
+    /**
+     * Positions the sliding pill of every hv-toggle in the sheet to sit exactly
+     * under its active button. Sets --pill-left / --pill-width CSS custom
+     * properties so the pill dimensions match the label text naturally.
+     *
+     * @param {HTMLElement} toggle  The .hv-toggle container element.
+     * @param {boolean}     animate When false (initial render) the transition is
+     *                              suppressed so the pill snaps without animating.
+     */
+    _syncTogglePill(toggle, animate = false) {
+        const activeBtn = toggle.querySelector('.hv-toggle__opt.is-active');
+        const pill = toggle.querySelector('.hv-toggle__pill');
+        if (!activeBtn || !pill) return;
+
+        if (!animate) {
+            // Suppress transition so the pill snaps on (re)render with no flash.
+            pill.style.transition = 'none';
+        }
+
+        toggle.style.setProperty('--pill-left', `${activeBtn.offsetLeft}px`);
+        toggle.style.setProperty('--pill-width', `${activeBtn.offsetWidth}px`);
+
+        if (!animate) {
+            // Re-enable transition after the browser has painted the snapped position.
+            requestAnimationFrame(() => { pill.style.transition = ''; });
+        }
+    }
+
     async _onRender(context, options) {
         await super._onRender(context, options);
         this.#disableOverrides();
-        // You may want to add other special handling here
-        // Foundry comes with a large number of utility classes, e.g. SearchFilter
-        // That you may want to implement yourself.
+
+        // Snap all toggle pills to their active button after every render.
+        this.element?.querySelectorAll('.hv-toggle--labeled').forEach(toggle => {
+            this._syncTogglePill(toggle);
+        });
 
         const select = this.element?.querySelector(".hv-thi-toc-select");
         if (!select) return;
