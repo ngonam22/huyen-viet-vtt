@@ -36,6 +36,16 @@ globalThis.boilerplate = {
 
 Hooks.once('init', function () {
   console.log('Huyền Việt | Initializing system');
+
+  // Register shared UI component partials so they can be used as
+  // {{> hv-toggle ...}} and {{> hv-checkbox ...}} in any template.
+  loadTemplates([
+    'systems/huyen-viet-vtt/templates/components/hv-toggle.hbs',
+    'systems/huyen-viet-vtt/templates/components/hv-checkbox.hbs',
+  ]).then(([toggleTpl, checkboxTpl]) => {
+    Handlebars.registerPartial('hv-toggle', toggleTpl);
+    Handlebars.registerPartial('hv-checkbox', checkboxTpl);
+  });
   // Add custom constants for configuration.
   CONFIG.BOILERPLATE = BOILERPLATE;
 

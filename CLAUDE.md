@@ -36,6 +36,7 @@ The `src/` folder is no longer part of the build — it contains the old boilerp
 The `specs/` folder contains markdown files that document the game rules and system design. Always consult these before implementing any game mechanic.
 
 - **`specs/rule_overview.md`** — Single source of truth for the rulebook. Read this first when working on anything rules-related (stats, abilities, skills, clans, backgrounds, dice mechanics, etc.).
+- **`specs/ui-patterns.md`** — UX rationale for UI components and interaction patterns (inventory toggle, checkbox behaviour, visual language). Read this before modifying inventory UI or shared components (`hv-toggle`, `hv-checkbox`).
 
 When in doubt about intended behavior, the spec files take precedence over the current code.
 

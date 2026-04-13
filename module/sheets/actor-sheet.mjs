@@ -45,6 +45,9 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
         return game.i18n.localize('BOILERPLATE.Actor.Character.title.label') + ': ' + this.actor.name;
     }
 
+    /** Tracks which inventory view is active: 'equipped' (default) | 'all' */
+    _inventoryView = 'equipped';
+
     /** @override */
     static PARTS = {
         header: {
@@ -105,6 +108,12 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
 
         if (action === 'open-inventory-modal') {
             return InventoryModal.show(this.actor);
+        }
+
+        if (action === 'toggle-inventory-view') {
+            this._inventoryView = target.dataset.value;
+            this.render();
+            return;
         }
 
         if (action === 'toggle-equip') {
@@ -318,6 +327,7 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
                 break;
             case 'inventory':
                 context.tab = context.tabs[partId];
+                context.inventoryView        = this._inventoryView;
                 context.inventoryWeapons     = this.actor.items.filter(i => i.type === 'vuKhi');
                 context.inventoryArmor       = this.actor.items.filter(i => i.type === 'giapTru');
                 context.inventoryAccessories = this.actor.items.filter(i => i.type === 'trangBi');
