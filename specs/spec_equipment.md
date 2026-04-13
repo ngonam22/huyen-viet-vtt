@@ -55,3 +55,12 @@ Khi **Nhân Vật A (Cầm Trường Kiếm)** Tấn công **Nhân Vật B (Mặ
     *   **Tổng Sát Thương Thực Tế (Final Damage):** 7.
 4.  **Trừ vào Chỉ Số Nhân Vật B (Stat Reduction):** Sát thương này sẽ trừ vào thanh `Sức Lực` của B. Nếu Sức Lực của B cạn kiệt (=0), sát thương sẽ ăn thẳng vào các thuộc tính Ngũ Hành (Hỏa, Thổ, Kim...).
 5.  **Hy sinh Trang bị (Item Sacrifice Mechanics):** Nhân vật B có thể chủ động hy sinh Giáp sắt để đỡ thêm sát thương (bằng chỉ số Kháng lực), nhưng việc này sẽ ép Giáp sắt nhận trạng thái "Hư hại" (giảm vĩnh viễn -2 Kháng Lực cho đến khi được sửa chữa). Nếu Giáp đã bị "Hư hại" từ trước mà lại bị hy sinh, nó sẽ rơi vào trạng thái "Vỡ nát" và mất toàn bộ chỉ số.
+
+## 5. CƠ CHẾ TỔN THƯƠNG VÀ HƯ HỎNG TRANG BỊ (Item Damage & Degradation)
+Trang bị không phải là bất biến. Nhân vật có thể chủ động "hy sinh" giáp trụ hoặc vũ khí đễ đỡ đòn sát mạng. Khi đó vật phẩm sẽ rơi vào trạng thái hỏng hóc.
+
+### 5.1. Các Trạng Thái Của Trang Bị
+*   **Bình thường (Normal):** Trang bị hoạt động với đầy đủ chỉ số.
+*   **Hư hại (Damaged):** Trang bị bị giảm vĩnh viễn **-2 Kháng Lực** (đối với Giáp) hoặc mất một số tính năng nhất định (đối với Vũ khí). Trạng thái này là vĩnh viễn đến khi được sửa chữa.
+*   **Vỡ nát (Broken):** Trang bị mất hoàn toàn tác dụng. Không thể sử dụng và không còn cung cấp bất kỳ chỉ số nào. Trạng thái này xảy ra khi một trang bị đã "Hư hại" lại tiếp tục bị hy sinh (hoặc trúng kỹ năng bạo phá vũ khí).
+

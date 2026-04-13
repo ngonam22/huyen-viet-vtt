@@ -175,13 +175,29 @@
   }
 }
 
-/* Condition badges */
+/* Condition badges — always present on weapons and armor, clickable to cycle.
+ * Cycle order: normal → hu-hai → vo-nat → normal.
+ * Only vuKhi and giapTru carry a condition; trangBi rows omit this element. */
 .hv-inv__condition {
   flex: 0 0 auto;
   font-size: 0.65rem;
   padding: 0.1rem 0.35rem;
   border-radius: 3px;
   font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  transition: opacity 0.12s;
+
+  &:hover {
+    opacity: 0.75;
+  }
+
+  /* Normal state: ghost/muted — present but visually unobtrusive */
+  &--normal {
+    border: 1px solid var(--color-beige-200);
+    color: var(--color-beige-400);
+    background: transparent;
+  }
 
   &--hu-hai {
     background: #fef3c7;

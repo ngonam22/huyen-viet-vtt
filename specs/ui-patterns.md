@@ -44,6 +44,24 @@ The **all items view** is for browsing and managing the full bag — swapping ge
 
 ---
 
+## Item Condition Cycling
+
+Weapons (`vuKhi`) and armor (`giapTru`) carry a `condition` field with three states (see `spec_equipment.md` §5.1 for mechanical effects):
+
+| State | Value | Badge style |
+|-------|-------|-------------|
+| Bình thường | `"normal"` | Ghost/muted — border only, no fill |
+| Hư hại | `"hu-hai"` | Amber |
+| Vỡ nát | `"vo-nat"` | Red |
+
+The condition badge is **always shown** on weapon/armor rows (including the normal state) and is clickable. Each click cycles forward: `normal → hu-hai → vo-nat → normal`. The tooltip describes the current state and previews the next step.
+
+Accessories (`trangBi`) have no `condition` field and no badge — they don't degrade per spec.
+
+The cycle is intentionally manual: condition changes happen in-fiction (item sacrifice, trait effects like `Sắc bén` losing sharpness) and the GM or player marks them here.
+
+---
+
 ## Shared UI Components
 
 ### `hv-toggle` — Segmented binary toggle

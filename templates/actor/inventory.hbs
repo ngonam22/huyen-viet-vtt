@@ -53,12 +53,14 @@
             <i class="fas fa-arrows-left-right"></i> {{item.system.range}}
           </span>
         </div>
-        {{#unless (eq item.system.condition "normal")}}
-        <span class="hv-inv__condition hv-inv__condition--{{item.system.condition}}">
+        <span class="hv-inv__condition hv-inv__condition--{{item.system.condition}}"
+              data-action="cycle-condition"
+              data-item-id="{{item._id}}"
+              data-tooltip="{{#if (eq item.system.condition 'normal')}}Bình thường · Click để đánh dấu Hư hại{{/if}}{{#if (eq item.system.condition 'hu-hai')}}Hư hại · Click để đánh dấu Vỡ nát{{/if}}{{#if (eq item.system.condition 'vo-nat')}}Vỡ nát · Click để khôi phục Bình thường{{/if}}">
+          {{#if (eq item.system.condition "normal")}}Bình thường{{/if}}
           {{#if (eq item.system.condition "hu-hai")}}Hư hại{{/if}}
           {{#if (eq item.system.condition "vo-nat")}}Vỡ nát{{/if}}
         </span>
-        {{/unless}}
         <div class="hv-inv__controls">
           <a class="hv-inv__btn" data-tooltip="Xóa" data-action="deleteDoc">
             <i class="fas fa-trash"></i>
@@ -81,12 +83,14 @@
             <i class="fas fa-shield"></i> {{item.system.resistance}}
           </span>
         </div>
-        {{#unless (eq item.system.condition "normal")}}
-        <span class="hv-inv__condition hv-inv__condition--{{item.system.condition}}">
+        <span class="hv-inv__condition hv-inv__condition--{{item.system.condition}}"
+              data-action="cycle-condition"
+              data-item-id="{{item._id}}"
+              data-tooltip="{{#if (eq item.system.condition 'normal')}}Bình thường · Click để đánh dấu Hư hại{{/if}}{{#if (eq item.system.condition 'hu-hai')}}Hư hại · Click để đánh dấu Vỡ nát{{/if}}{{#if (eq item.system.condition 'vo-nat')}}Vỡ nát · Click để khôi phục Bình thường{{/if}}">
+          {{#if (eq item.system.condition "normal")}}Bình thường{{/if}}
           {{#if (eq item.system.condition "hu-hai")}}Hư hại{{/if}}
           {{#if (eq item.system.condition "vo-nat")}}Vỡ nát{{/if}}
         </span>
-        {{/unless}}
         <div class="hv-inv__controls">
           <a class="hv-inv__btn" data-tooltip="Xóa" data-action="deleteDoc">
             <i class="fas fa-trash"></i>

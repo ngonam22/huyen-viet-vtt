@@ -157,6 +157,14 @@ Khi một Character bị tấn công, Game Rule xử lý theo thứ tự:
 
 Tuy nhiên, ở version hiện tại, người chơi tự tính mức sát thương mà Nhân vật (Character) nhận vào, và tự trừ vào Sức Lực (HP) thông qua UI.
 
+### 5.4. Tổn Thương khi nhận Sát Thương
+
+Khi nhận sát thương vượt mức Sức Lực (Khí Lực) Khi lượng Sức Lực của nhân vật bị cạn kiệt (về 0), nhân vật sẽ không thể vận sức để chống đỡ hay né tránh các mối nguy hiểm. Lượng sát thương dư thừa lúc này sẽ trực tiếp gây **Tổn thương lên bản thể của nhân vật** thông qua các bước xử lý sau:
+- **Tổn thương Ngũ Hành**:  Sát thương sẽ đâm thẳng vào cơ thể, gây tổn thương trực tiếp lên chỉ số Hành tương ứng với Hành Thế mà nhân vật đang sử dụng ở thời điểm đó
+- **Hy sinh Giáp trụ** (Cơ hội cứu vãn): Trước khi chịu tổn thương Hành, nhân vật có thể chọn hy sinh giáp trụ đang mặc để giảm bớt sát thương (bằng với chỉ số Kháng Lực của giáp). Tuy nhiên, việc này sẽ khiến giáp trụ rơi vào trạng thái "Hư hại" và vĩnh viễn bị giảm -2 Kháng Lực cho tới khi được sửa chữa
+- **Hệ quả của Tổn thương Hành**: Do Ngũ Hành có tính sinh khắc, một Hành bị thương sẽ làm mất cân bằng cơ thể. Cụ thể, Độ Khó (ĐK) của tất cả các bài xét năng lực dùng Hành bị thương sẽ bị tăng thêm +2. Bù lại, Hành bị khắc bởi nó sẽ trở nên mạnh hơn 1 cấp bậc.
+- **Cửa tử (Thập Tử Nhất Sinh)**: Nếu nhân vật nhận quá nhiều sát thương đến mức cả 5 Hành đều bị tổn thương, nhân vật sẽ lập tức rơi vào thời khắc sinh tử. Khi đó, nhân vật phải đối mặt với cái chết (Vinh quang cuối cùng), tiêu hao điểm Ngũ Hợp để giữ mạng sống nhưng mang thương tật vĩnh viễn, hoặc đổ xúc xắc đánh cược với số mệnh
+
 ## 6. CƠ CHẾ KHÁC
 ### 6.1. Tiền tệ
 Tiền tệ trong game có tên gọi lần lượt là đồng, tiền, quan. Với tỷ lệ quy đổi như sau:

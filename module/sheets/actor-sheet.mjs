@@ -125,6 +125,17 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
             return;
         }
 
+        if (action === 'cycle-condition') {
+            const itemId = target.dataset.itemId;
+            const item = this.actor.items.get(itemId);
+            if (item) {
+                const cycle = { normal: 'hu-hai', 'hu-hai': 'vo-nat', 'vo-nat': 'normal' };
+                const next = cycle[item.system.condition] ?? 'normal';
+                await item.update({ 'system.condition': next });
+            }
+            return;
+        }
+
         if (action === 'roll-skill') {
             console.log('BTN CLICKED+++++')
             this.actor.system.currency.quan += 10
