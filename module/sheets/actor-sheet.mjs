@@ -45,6 +45,9 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
         return game.i18n.localize('BOILERPLATE.Actor.Character.title.label') + ': ' + this.actor.name;
     }
 
+    /** Tracks which inventory view is active: 'equipped' (default) | 'all' */
+    _inventoryView = 'equipped';
+
     /** @override */
     static PARTS = {
         header: {
@@ -107,11 +110,28 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
             return InventoryModal.show(this.actor);
         }
 
+        if (action === 'toggle-inventory-view') {
+            this._inventoryView = target.dataset.value;
+            this.render();
+            return;
+        }
+
         if (action === 'toggle-equip') {
             const itemId = target.dataset.itemId;
             const item = this.actor.items.get(itemId);
             if (item) {
                 await item.update({ 'system.isEquipped': !item.system.isEquipped });
+            }
+            return;
+        }
+
+        if (action === 'cycle-condition') {
+            const itemId = target.dataset.itemId;
+            const item = this.actor.items.get(itemId);
+            if (item) {
+                const cycle = { normal: 'hu-hai', 'hu-hai': 'vo-nat', 'vo-nat': 'normal' };
+                const next = cycle[item.system.condition] ?? 'normal';
+                await item.update({ 'system.condition': next });
             }
             return;
         }
@@ -318,6 +338,7 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
                 break;
             case 'inventory':
                 context.tab = context.tabs[partId];
+                context.inventoryView        = this._inventoryView;
                 context.inventoryWeapons     = this.actor.items.filter(i => i.type === 'vuKhi');
                 context.inventoryArmor       = this.actor.items.filter(i => i.type === 'giapTru');
                 context.inventoryAccessories = this.actor.items.filter(i => i.type === 'trangBi');

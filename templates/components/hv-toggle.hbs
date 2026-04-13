@@ -1,0 +1,46 @@
+{{!
+  ┌──────────────────────────────────────────────────────────────────────────┐
+  │  hv-toggle — Segmented binary toggle (pill-style, two options)           │
+  ├──────────────────────────────────────────────────────────────────────────┤
+  │  Parameters (pass as hash args to the partial):                          │
+  │    action      {string}   data-action fired when an option is clicked    │
+  │    optA        {string}   value identifier for option A                  │
+  │    labelA      {string}   display label for option A                     │
+  │    optB        {string}   value identifier for option B                  │
+  │    labelB      {string}   display label for option B                     │
+  │    activeValue {string}   currently active option value                  │
+  │    minimal     {boolean}  if true, renders dot-only pill (no labels)     │
+  │                                                                          │
+  │  CSS variants (set automatically based on `minimal`):                    │
+  │    .hv-toggle--labeled   both labels always visible, active highlighted  │
+  │    .hv-toggle--minimal   no labels, small pill with a dot indicator      │
+  │                                                                          │
+  │  Usage (labeled, default):                                               │
+  │    {{> hv-toggle                                                         │
+  │        action="toggle-inventory-view"                                    │
+  │        optA="equipped" labelA="Đang Trang Bị"                           │
+  │        optB="all"      labelB="Tất Cả"                                  │
+  │        activeValue=inventoryView                                         │
+  │    }}                                                                    │
+  │                                                                          │
+  │  Usage (minimal, no labels):                                             │
+  │    {{> hv-toggle ... minimal=true}}                                      │
+  │                                                                          │
+  │  See scss/components/_ui-components.scss for visual states.              │
+  │  See specs/ui-patterns.md for UX rationale.                              │
+  └──────────────────────────────────────────────────────────────────────────┘
+}}
+<div class="hv-toggle {{#if minimal}}hv-toggle--minimal{{else}}hv-toggle--labeled{{/if}}" role="group">
+  <button type="button"
+          class="hv-toggle__opt {{#if (eq activeValue optA)}}is-active{{/if}}"
+          data-action="{{action}}"
+          data-value="{{optA}}">
+    {{#unless minimal}}{{labelA}}{{/unless}}
+  </button>
+  <button type="button"
+          class="hv-toggle__opt {{#if (eq activeValue optB)}}is-active{{/if}}"
+          data-action="{{action}}"
+          data-value="{{optB}}">
+    {{#unless minimal}}{{labelB}}{{/unless}}
+  </button>
+</div>

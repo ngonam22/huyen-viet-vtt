@@ -1,0 +1,156 @@
+/* ─── Shared UI Components ─────────────────────────────────────────────────── */
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ *  hv-toggle — Segmented binary toggle
+ * ═══════════════════════════════════════════════════════════════════════════
+ *
+ *  Two visual variants controlled by a BEM modifier:
+ *
+ *  .hv-toggle--labeled  (default)
+ *    Both option labels are always visible side-by-side.
+ *    The active option gets a filled teal background; inactive is muted.
+ *    Use when the user needs to understand both options at a glance.
+ *
+ *  .hv-toggle--minimal
+ *    No text labels. Renders as a small pill with dot indicators.
+ *    Use in space-constrained areas where meaning is clear from context.
+ *
+ *  HTML structure:
+ *    <div class="hv-toggle hv-toggle--labeled" role="group">
+ *      <button class="hv-toggle__opt [is-active]" data-action data-value>…</button>
+ *      <button class="hv-toggle__opt [is-active]" data-action data-value>…</button>
+ *    </div>
+ *
+ *  See templates/components/hv-toggle.hbs for the Handlebars partial and params.
+ *  See specs/ui-patterns.md for UX rationale.
+ * ═════════════════════════════════════════════════════════════════════════ */
+
+.hv-toggle {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 6px;
+  border: 1px solid var(--color-beige-200);
+  background: var(--color-beige-100);
+  overflow: hidden;
+}
+
+.hv-toggle__opt {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.2rem 0.7rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--color-beige-600);
+  cursor: pointer;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+  user-select: none;
+
+  &:hover:not(.is-active) {
+    background: var(--color-beige-200);
+    color: var(--color-beige-800);
+  }
+
+  &.is-active {
+    background: var(--color-teal);
+    color: #fff;
+  }
+
+  /* Divider between options */
+  & + & {
+    border-left: 1px solid var(--color-beige-200);
+  }
+}
+
+/* Minimal variant — no labels, dot-only pill ─────────────────────────────── */
+
+.hv-toggle--minimal {
+  border-radius: 20px;
+  padding: 3px;
+  gap: 3px;
+
+  .hv-toggle__opt {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    padding: 0;
+    flex: 0 0 auto;
+
+    & + & {
+      border-left: none;
+    }
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ *  hv-checkbox — Custom styled checkbox
+ * ═══════════════════════════════════════════════════════════════════════════
+ *
+ *  Replaces the native browser checkbox with a visually consistent element.
+ *
+ *  Visual anatomy:
+ *    ┌─────────────┐  ← outer border (1.5px, rounded)
+ *    │   ┌─────┐   │
+ *    │   │fill │   │  ← inner colored rectangle (background-clip: content-box)
+ *    │   └─────┘   │  ← padding creates the visual gap between border and fill
+ *    └─────────────┘
+ *
+ *  States:
+ *    default    border: beige-300  ·  inner fill: beige-200 (neutral gray)
+ *    .is-active border: --color-danger  ·  inner fill: --color-danger (red)
+ *
+ *  HTML structure:
+ *    <label class="hv-cb [is-active]" data-action data-item-id>
+ *      <input class="hv-cb__input">    ← visually hidden, for a11y only
+ *      <span  class="hv-cb__box">      ← the visible styled square
+ *    </label>
+ *
+ *  Note: data-action lives on the <label> so FoundryVTT's click delegation
+ *  captures it on any click within the component (label or box).
+ *
+ *  See templates/components/hv-checkbox.hbs for the Handlebars partial and params.
+ *  See specs/ui-patterns.md for UX rationale.
+ * ═════════════════════════════════════════════════════════════════════════ */
+
+.hv-cb {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* Visually hidden native input — present for semantics/a11y only */
+.hv-cb__input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+/* The visible square. The padding gap + background-clip create the
+ * "border → gap → inner fill rectangle" appearance. */
+.hv-cb__box {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border: 1.5px solid var(--color-beige-300);
+  border-radius: 2px;
+  padding: 2.5px;
+  background-color: var(--color-beige-200);
+  background-clip: content-box;  /* fill only shows in the content area (inside padding) */
+  box-sizing: border-box;
+  transition: border-color 0.12s, background-color 0.12s;
+}
+
+.hv-cb.is-active .hv-cb__box {
+  border-color: var(--color-danger);
+  background-color: var(--color-danger);
+}

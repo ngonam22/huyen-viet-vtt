@@ -1,0 +1,34 @@
+{{!
+  ┌──────────────────────────────────────────────────────────────────────────┐
+  │  hv-checkbox — Custom styled checkbox                                    │
+  ├──────────────────────────────────────────────────────────────────────────┤
+  │  Parameters (pass as hash args to the partial):                          │
+  │    checked  {boolean}  when true, applies .is-active (danger color)      │
+  │    action   {string}   data-action fired on label click                  │
+  │    itemId   {string}   forwarded as data-item-id on the label            │
+  │                                                                          │
+  │  Visual states:                                                          │
+  │    default    border: beige-300  ·  inner fill: beige-200 (neutral gray) │
+  │    .is-active border: --color-danger  ·  inner fill: --color-danger      │
+  │                                                                          │
+  │  The data-action and data-item-id live on the outer <label>, which is    │
+  │  what FoundryVTT's click delegation catches. The hidden native <input>   │
+  │  is present for semantics and accessibility only.                        │
+  │                                                                          │
+  │  Usage:                                                                  │
+  │    {{> hv-checkbox                                                       │
+  │        checked=item.system.isEquipped                                    │
+  │        action="toggle-equip"                                             │
+  │        itemId=item._id                                                   │
+  │    }}                                                                    │
+  │                                                                          │
+  │  See scss/components/_ui-components.scss for visual states.              │
+  │  See specs/ui-patterns.md for UX rationale.                              │
+  └──────────────────────────────────────────────────────────────────────────┘
+}}
+<label class="hv-cb {{#if checked}}is-active{{/if}}"
+       data-action="{{action}}"
+       data-item-id="{{itemId}}">
+  <input type="checkbox" class="hv-cb__input" {{#if checked}}checked{{/if}} />
+  <span class="hv-cb__box"></span>
+</label>
