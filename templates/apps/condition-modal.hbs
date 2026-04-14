@@ -4,15 +4,24 @@
 
 <div class="hv-cond-modal__grid">
   {{#each conditions as |cond|}}
-  <div class="hv-cond-card {{#if cond.isActive}}is-active{{/if}}">
-    <div class="hv-cond-card__header"
+  <div
+          class="hv-cond-card {{#if cond.isActive}}is-active{{/if}}
+            tw:flex tw:flex-1
+            tw:items-center tw:border tw:border-slate-500 tw:bg-slate-700
+            tw:hover:bg-slate-900 tw:hover:border-slate-700
+        "
+  >
+    <div class="hv-cond-card__header tw:flex-1"
          data-condition-id="{{cond.id}}"
          data-tooltip="{{cond.description}} (Double-click để bật/tắt)">
       <i class="fas {{cond.faIcon}} hv-cond-card__icon"></i>
-      <span class="hv-cond-card__label">{{cond.label}}</span>
-      {{#if cond.isActive}}
-      <span class="hv-cond-card__dot"></span>
-      {{/if}}
+      <span class="hv-cond-card__label">
+          {{cond.label}}
+          {{#if cond.isActive}}
+              <span class="hv-cond-card__dot"></span>
+          {{/if}}
+      </span>
+
     </div>
 
     {{! Element picker — only shown for Tổn Thương Ngũ Hành }}

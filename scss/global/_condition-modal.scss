@@ -37,16 +37,16 @@
 /* ── Card ─────────────────────────────────────────────────────────────────── */
 
 .hv-cond-card {
-  border: 1.5px solid var(--color-beige-200);
+  position: relative;
   border-radius: 6px;
-  background: var(--color-beige-50);
   overflow: hidden;
   transition: border-color 0.15s, box-shadow 0.15s;
+  cursor: pointer;
+  user-select: none;
 
   &.is-active {
-    border-color: var(--color-danger);
-    box-shadow: 0 0 0 1px var(--color-danger), inset 0 0 8px rgba(163, 29, 29, 0.08);
-    background: #fff8f8;
+    border-color: #A31D1DFF;
+    box-shadow: inset 0 0 8px 2px rgb(163, 29, 29);
   }
 }
 
@@ -54,31 +54,28 @@
 
 .hv-cond-card__header {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
   padding: 0.5rem 0.6rem;
-  cursor: pointer;
-  user-select: none;
-
-  &:hover {
-    background: rgba(0, 0, 0, 0.03);
-  }
 }
 
 .hv-cond-card__icon {
-  flex: 0 0 auto;
+  flex: 0 0 100%;
   width: 18px;
   text-align: center;
   font-size: 0.9rem;
-  color: var(--color-beige-600);
+  color: rgb(182, 115, 64);
 
   .is-active & {
-    color: var(--color-danger);
+    color: #A31D1DFF;
   }
 }
 
 .hv-cond-card__label {
-  flex: 1 1 auto;
+  flex: 0 0 100%;
+  text-align: center;
   font-size: 0.78rem;
   font-weight: 600;
   color: var(--color-beige-800);
@@ -87,11 +84,12 @@
 
 /* Small red dot indicator in the top-right of the header when active */
 .hv-cond-card__dot {
-  flex: 0 0 auto;
+  position: absolute;
+  right: 10px; top: 5px;
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--color-danger);
+  background: rgb(163, 29, 29);
 }
 
 /* ── Element picker (Tổn Thương Ngũ Hành only) ───────────────────────────── */
