@@ -86,3 +86,62 @@ Replaces the native browser checkbox with a styled element that fits the system'
 The danger color is intentionally strong — it signals that something is *in use*, which is a meaningful game state. The gray default is deliberately understated so the red stands out at a glance.
 
 Technical reference: `templates/components/hv-checkbox.hbs` (params) · `scss/components/_ui-components.scss` (styles)
+
+---
+
+## Condition System
+
+### Intent
+
+Conditions (hiệu ứng) are status flags that affect a character in-fiction. They are tracked as FoundryVTT `ActiveEffect` documents on the actor — the same mechanism used for the Hành Thể (stance) flag.
+
+The condition system has two layers:
+
+1. **Coded side effects** — conditions that mechanically alter stats. Only **Loạn Tâm** is coded: when active, `prepareDerivedData()` overrides `canhGiac → 1` after the element formula runs.
+2. **Flag-only conditions** — all other 6 conditions. They are stored as ActiveEffects so UI components (strips, future panels) can react to them, but their mechanical effects (difficulty modifiers, damage multipliers) are applied by the GM at the table.
+
+### Storage: ActiveEffect flag pattern
+
+Each condition = one `ActiveEffect` with a system flag:
+```js
+{ flags: { "huyen-viet-vtt": { conditionId: "loanTam" } } }
+```
+
+**Tổn Thương Ngũ Hành** is special — one `ActiveEffect` *per wounded element*:
+```js
+{ name: "Tổn Thương — Hỏa", flags: { "huyen-viet-vtt": { conditionId: "tonThuongNguHanh", woundedElement: "hoa" } } }
+```
+This keeps create/delete simple (no read-modify-write on an array) and lets each element be toggled independently.
+
+### Query API
+
+All condition queries go through `module/helpers/conditions.ts`:
+
+| Function | Returns | Use case |
+|---|---|---|
+| `getActiveConditions(actor)` | `Set<string>` of conditionIds | Know which conditions are active |
+| `hasCondition(actor, id)` | `boolean` | Guard logic (e.g. Loạn Tâm override) |
+| `getWoundedElements(actor)` | `Set<string>` of element ids | Know which elements are wounded |
+| `isElementWounded(actor, el)` | `boolean` | Future element-aware panels |
+| `toggleCondition(actor, id)` | — | Add or remove a standard condition |
+| `toggleElementWound(actor, el)` | — | Add or remove one elemental wound |
+
+`getActiveConditions()` returns `'tonThuongNguHanh'` in the Set if *any* element is wounded.
+
+### Condition picker (ConditionModal)
+
+A 2-column grid of cards opened by clicking the "+" button in the condition strip. Double-click a card to toggle the condition. For Tổn Thương Ngũ Hành, the card expands to show 5 element buttons — double-click each to toggle independently.
+
+- Active card: danger-red border + subtle glow.
+- Inactive card: ghost border.
+- Active element button: colored using the element's color variable (`--elem-color`).
+
+Technical reference: `module/sheets/condition-modal.mjs` · `templates/apps/condition-modal.hbs` · `scss/global/_condition-modal.scss`
+
+### Condition strip (character sheet header)
+
+A compact icon row below the skills grid. Always visible. Shows one danger-red pill per active condition. Tổn Thương Ngũ Hành shows one colored pill per wounded element (element color via `--elem-color`). The "+" pill opens the picker.
+
+When no conditions are active, only the "+" button is shown — the strip has a fixed min-height so the header layout doesn't shift.
+
+Technical reference: `templates/actor/header.hbs` (strip markup) · `scss/components/_condition-strip.scss` (styles)
