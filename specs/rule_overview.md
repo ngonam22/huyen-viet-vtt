@@ -206,7 +206,14 @@ prepareDerivedData → applyGiaCanhItems (actor.ts)
     └─ không có choose (fixed) → áp dụng toàn bộ effects
 ```
 
-## 8. KIẾN TRÚC SỮ LIỆU ĐÍNH KÈM SẮP TỚI (Upcoming Detailed Specs)
+## 9. HỆ THỐNG HIỆU ỨNG (Condition Effects)
+Đây là các hiệu ứng tác động vào nhân vật theo một khoảng thời gian nhất định, có thể chỉ là 1 lượt, hoặc mãi mãi trừ khi người chơi có hành động giải trừ. Các hiệu ứng này có thể là các trạng thái bất lợi hoặc có lợi, và người chơi có thể mang nhiều trạng thái bất lợi cùng một lúc.
+
+Mỗi trạng thái hiệu ứng sẽ có những tác động khác nhau: như có thể tăng Độ khó, làm nhân vật không thể di chuyển, hoặc làm chỉ số Cảnh Giác xuống chỉ còn 1 (Loạn Tâm), v.v... 
+
+Chi tiết ở các trạng thái hiệu ứng và thông tin kỹ thuật sẽ được liệt kê tại `spec_condition_effects.md`
+
+## 10. KIẾN TRÚC SỮ LIỆU ĐÍNH KÈM SẮP TỚI (Upcoming Detailed Specs)
 *(Ghi chú cho AI: Các spec file chi tiết sẽ được cung cấp ở các bước tiếp theo)*
 1.  `Spec_Character_Creation`: Quy trình 8 bước tạo nhân vật (Bối Cảnh, Gia Cảnh, Môn Phái...).
 2.  `Spec_Techniques_Magic`: Thuật Thức (Võ Kỹ, Chủ Thuật, Linh Thuật, Khí Thuật, Ma Thuật).

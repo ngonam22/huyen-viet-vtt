@@ -6,6 +6,7 @@ import { AppliedUpgrade, UpgradeRule } from "../../types/upgrade";
 import { HvCharacterSystemData, HvComputedTotals, isElementKey, isSkillKey, SKILL_KEYS } from "../helpers/config";
 import { getBoiCanhById } from "../helpers/boiCanh";
 import { getGiaCanhById } from "../helpers/giaCanh";
+import { hasCondition } from "../helpers/conditions";
 
 /**
  * Extend the base Actor document by defining a custom roll data structure which is ideal for the Simple system.
@@ -121,6 +122,12 @@ export class huyenvietvttActor extends Actor {
         // 4) apply ability modifiers from equipped weapons and armor
         //    (runs after computeAbilities so formula values are already set)
         this.applyEquippedItemEffects(system);
+
+        // 5) Loạn Tâm: mental breakdown overrides Cảnh Giác to 1
+        //    Must run after computeAbilities() so the formula value is already set.
+        if (hasCondition(this, 'loanTam')) {
+            system.abilities.canhGiac.value = 1;
+        }
 
         console.log('____ recalculated')
     }

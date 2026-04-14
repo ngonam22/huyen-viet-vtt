@@ -1,0 +1,35 @@
+{{! Condition Picker Modal }}
+{{! Double-click a card header to toggle the condition on/off.                  }}
+{{! For Tổn Thương Ngũ Hành, double-click the individual element buttons below. }}
+
+<div class="hv-cond-modal__grid">
+  {{#each conditions as |cond|}}
+  <div class="hv-cond-card {{#if cond.isActive}}is-active{{/if}}">
+    <div class="hv-cond-card__header"
+         data-condition-id="{{cond.id}}"
+         data-tooltip="{{cond.description}} (Double-click để bật/tắt)">
+      <i class="fas {{cond.faIcon}} hv-cond-card__icon"></i>
+      <span class="hv-cond-card__label">{{cond.label}}</span>
+      {{#if cond.isActive}}
+      <span class="hv-cond-card__dot"></span>
+      {{/if}}
+    </div>
+
+    {{! Element picker — only shown for Tổn Thương Ngũ Hành }}
+    {{#if cond.elements}}
+    <div class="hv-cond-card__elements">
+      {{#each cond.elements as |elem|}}
+      <button type="button"
+              class="hv-cond-elem-btn {{#if elem.isWounded}}is-wounded{{/if}}"
+              data-element-id="{{elem.id}}"
+              style="--elem-color: {{elem.color}}"
+              data-tooltip="{{elem.label}}{{#if elem.isWounded}} — Đang bị thương{{/if}} (Double-click để bật/tắt)">
+        <i class="fas {{elem.faIcon}}"></i>
+        <span>{{elem.label}}</span>
+      </button>
+      {{/each}}
+    </div>
+    {{/if}}
+  </div>
+  {{/each}}
+</div>

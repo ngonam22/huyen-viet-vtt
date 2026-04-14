@@ -55,6 +55,7 @@
 @import 'global/grid';
 @import 'global/flex';
 @import "global/element-modal";
+@import "global/condition-modal";
 
 /* Styles limited to boilerplate sheets */
 .boilerplate {
@@ -64,6 +65,7 @@
   @import 'components/effects';
   @import "components/character-sheet";
   @import "components/ngu-hanh-canvas";
+  @import "components/condition-strip";
 }
 
 @import "components/ui-components";

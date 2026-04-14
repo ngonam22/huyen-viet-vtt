@@ -4,6 +4,7 @@ import { BoilerplateItem } from './documents/item.mjs';
 // Import sheet classes.
 import { BoilerplateActorSheet } from './sheets/actor-sheet.mjs';
 import { BoilerplateItemSheet } from './sheets/item-sheet.mjs';
+import { ConditionModal } from './sheets/condition-modal.mjs';
 // Import helper/utility classes and constants.
 import { BOILERPLATE } from './helpers/config.ts';
 // Import DataModel classes
@@ -27,6 +28,7 @@ globalThis.boilerplate = {
   applications: {
     BoilerplateActorSheet,
     BoilerplateItemSheet,
+    ConditionModal,
   },
   utils: {
     rollItemMacro,
@@ -42,6 +44,7 @@ Hooks.once('init', function () {
   loadTemplates([
     'systems/huyen-viet-vtt/templates/components/hv-toggle.hbs',
     'systems/huyen-viet-vtt/templates/components/hv-checkbox.hbs',
+    'systems/huyen-viet-vtt/templates/apps/condition-modal.hbs',
   ]).then(([toggleTpl, checkboxTpl]) => {
     Handlebars.registerPartial('hv-toggle', toggleTpl);
     Handlebars.registerPartial('hv-checkbox', checkboxTpl);

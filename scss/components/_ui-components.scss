@@ -25,83 +25,140 @@
  *  See specs/ui-patterns.md for UX rationale.
  * ═════════════════════════════════════════════════════════════════════════ */
 
-.hv-toggle {
-  display: inline-flex;
-  align-items: center;
-  border-radius: 6px;
-  border: 1px solid var(--tw-color-beige-200);
-  background: var(--tw-color-beige-100);
-}
-
-/* Labeled variant — sliding teal pill ───────────────────────────────────── */
+/* Labeled variant — CSS-only sliding pill ───────────────────────────────── *
+ *                                                                            *
+ * Layout trick: all children share a single grid cell (grid-area: 1/1) so  *
+ * opt-a, opt-b, and the fill div all overlap. Padding on opt-a/b pushes the *
+ * text to one side of the pill. The hidden checkbox drives opacity + fill   *
+ * position through CSS sibling selectors — zero JS for the animation.       *
+ *                                                                            *
+ * Checked  = optA active: opt-a visible, fill slides right                  *
+ * Unchecked = optB active: opt-b visible, fill stays left                   */
 
 .hv-toggle--labeled {
-  position: relative;
-  overflow: hidden;   /* clips pill corners to the container's border-radius */
+  --height: 20px;
 
-  .hv-toggle__pill {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: var(--pill-left, 0px);
-    width: var(--pill-width, 0px);
-    background: var(--tw-color-teal);
-    transition: left 0.22s cubic-bezier(0.4, 0, 0.2, 1),
-                width 0.22s cubic-bezier(0.4, 0, 0.2, 1);
-    pointer-events: none;
-    z-index: 0;
+  display: inline-grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  cursor: pointer;
+  font-size: 0.72rem;
+  font-weight: 600;
+  user-select: none;
+
+  /* Every child overlaps in the single grid cell */
+  > * { grid-area: 1 / 1; }
+
+  .hv-toggle__input {
+    display: none;
   }
 
-  .hv-toggle__opt {
-    position: relative;
-    z-index: 1;
-    flex: 1;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.2rem 0.7rem;
-    font-size: 0.72rem;
-    font-weight: 600;
-    cursor: pointer;
-    border: none;
-    background: transparent;
+  /* Both labels overlap the fill. Each hides one side with padding so text
+   * appears next to (not on top of) the pill. */
+  .hv-toggle__opt-a,
+  .hv-toggle__opt-b {
+    padding: 0 10px;
+    min-width: 30px;
     white-space: nowrap;
-    user-select: none;
-    transition: color 0.15s;
+    text-align: center;
+    z-index: 2;
+    transition: opacity 0.2s;
+    color: var(--color-beige-700);
+  }
 
-    /* Active label: white text on the teal pill */
-    &.is-active {
-      color: #fff;
-    }
+  /* opt-b (right/default): pill is on the left, so text is pushed right */
+  .hv-toggle__opt-b {
+    opacity: 1;
+    padding-left: calc(var(--height) + 5px);
+  }
 
-    /* Inactive label: invisible but still occupies space so pill width stays correct */
-    &:not(.is-active) {
-      color: transparent;
+  /* opt-a (left/checked): pill is on the right, so text is pushed left */
+  .hv-toggle__opt-a {
+    opacity: 0;
+    padding-right: calc(var(--height) + 5px);
+  }
+
+  /* The pill background — slides horizontally via a CSS transition */
+  .hv-toggle__fill {
+    position: relative;
+    width: 100%;
+    height: var(--height);
+    border-radius: 15px;
+    background: var(--color-beige-300);
+    transition: background 0.2s;
+    z-index: 1;
+
+    /* The sliding dot inside the pill */
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: var(--height);
+      width: var(--height);
+      background: #fff;
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.25);
+      border-radius: 15px;
+      transition: left 0.2s;
     }
   }
+
+  /* Checked state: pill teal, dot slides right, opt-a visible, opt-b hidden */
+  .hv-toggle__input:checked ~ .hv-toggle__fill {
+    background: var(--color-teal);
+
+    &::after {
+      left: calc(100% - var(--height));
+    }
+  }
+
+  .hv-toggle__input:checked ~ .hv-toggle__opt-a { opacity: 1; }
+  .hv-toggle__input:checked ~ .hv-toggle__opt-b { opacity: 0; }
 }
 
-/* Minimal variant — dot-only pill ────────────────────────────────────────── */
+/* Minimal variant — dot-only pill (no labels) ───────────────────────────── */
 
 .hv-toggle--minimal {
-  border-radius: 20px;
-  padding: 3px;
-  gap: 3px;
-  overflow: hidden;
+  --height: 14px;
 
-  .hv-toggle__opt {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    padding: 0;
-    flex: 0 0 auto;
-    cursor: pointer;
-    border: none;
-    background: transparent;
-    transition: background 0.15s;
+  display: inline-grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  cursor: pointer;
 
-    &.is-active {
-      background: var(--tw-color-teal);
+  > * { grid-area: 1 / 1; }
+
+  .hv-toggle__input { display: none; }
+  .hv-toggle__opt-a,
+  .hv-toggle__opt-b { display: none; }  /* no labels in minimal mode */
+
+  .hv-toggle__fill {
+    width: calc(var(--height) * 2 + 4px);
+    height: var(--height);
+    border-radius: 15px;
+    background: var(--color-beige-300);
+    transition: background 0.2s;
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: var(--height);
+      width: var(--height);
+      background: #fff;
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+      border-radius: 15px;
+      transition: left 0.2s;
+    }
+  }
+
+  .hv-toggle__input:checked ~ .hv-toggle__fill {
+    background: var(--color-teal);
+
+    &::after {
+      left: calc(100% - var(--height));
     }
   }
 }

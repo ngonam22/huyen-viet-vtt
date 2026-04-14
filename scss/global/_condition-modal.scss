@@ -1,0 +1,138 @@
+/* ─── Condition Picker Modal ──────────────────────────────────────────────────
+ *
+ * Standalone ApplicationV2 window — must be global (not scoped to .boilerplate)
+ * because it renders outside the actor sheet DOM.
+ *
+ * Anatomy:
+ *   .hv-cond-modal          — the <section> root (ApplicationV2 tag)
+ *   .hv-cond-modal__grid    — 2-column grid of condition cards
+ *   .hv-cond-card           — individual card, inactive by default
+ *   .hv-cond-card.is-active — active state: danger-red border + subtle glow
+ *   .hv-cond-card__header   — icon + label row; double-click target
+ *   .hv-cond-card__dot      — small red indicator dot when condition is active
+ *   .hv-cond-card__elements — 5-button element picker (tonThuongNguHanh only)
+ *   .hv-cond-elem-btn       — single element toggle button
+ *   .hv-cond-elem-btn.is-wounded — wounded element: colored background
+ *
+ * Usage:
+ *   ConditionModal.show(actor)  → opens the modal for the given actor
+ *   Double-click card header    → toggle that condition
+ *   Double-click element button → toggle that elemental wound (TTNH only)
+ *
+ * See specs/ui-patterns.md §Condition System for UX rationale.
+ * ─────────────────────────────────────────────────────────────────────────── */
+
+.hv-cond-modal {
+  .window-content {
+    padding: 0.75rem;
+  }
+}
+
+.hv-cond-modal__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+
+/* ── Card ─────────────────────────────────────────────────────────────────── */
+
+.hv-cond-card {
+  border: 1.5px solid var(--color-beige-200);
+  border-radius: 6px;
+  background: var(--color-beige-50);
+  overflow: hidden;
+  transition: border-color 0.15s, box-shadow 0.15s;
+
+  &.is-active {
+    border-color: var(--color-danger);
+    box-shadow: 0 0 0 1px var(--color-danger), inset 0 0 8px rgba(163, 29, 29, 0.08);
+    background: #fff8f8;
+  }
+}
+
+/* ── Card header (click target) ──────────────────────────────────────────── */
+
+.hv-cond-card__header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.6rem;
+  cursor: pointer;
+  user-select: none;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.03);
+  }
+}
+
+.hv-cond-card__icon {
+  flex: 0 0 auto;
+  width: 18px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--color-beige-600);
+
+  .is-active & {
+    color: var(--color-danger);
+  }
+}
+
+.hv-cond-card__label {
+  flex: 1 1 auto;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-beige-800);
+  line-height: 1.2;
+}
+
+/* Small red dot indicator in the top-right of the header when active */
+.hv-cond-card__dot {
+  flex: 0 0 auto;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-danger);
+}
+
+/* ── Element picker (Tổn Thương Ngũ Hành only) ───────────────────────────── */
+
+.hv-cond-card__elements {
+  display: flex;
+  gap: 0.3rem;
+  padding: 0.3rem 0.6rem 0.5rem;
+  border-top: 1px solid var(--color-beige-100);
+  flex-wrap: wrap;
+}
+
+.hv-cond-elem-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.2rem 0.4rem;
+  border: 1.5px solid var(--color-beige-200);
+  border-radius: 4px;
+  background: transparent;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--color-beige-600);
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.12s, border-color 0.12s, color 0.12s;
+
+  i {
+    font-size: 0.6rem;
+  }
+
+  &:hover {
+    background: var(--color-beige-100);
+    border-color: var(--color-beige-300);
+  }
+
+  /* Wounded element — colored accent using the per-element CSS custom property
+   * --elem-color set inline by the template (e.g. #e07b4a for Hỏa). */
+  &.is-wounded {
+    border-color: var(--elem-color, var(--color-beige-400));
+    color: var(--elem-color, var(--color-beige-800));
+    background: color-mix(in srgb, var(--elem-color, var(--color-beige-400)) 15%, transparent);
+  }
+}

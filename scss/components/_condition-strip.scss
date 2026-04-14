@@ -1,0 +1,62 @@
+/* ─── Condition Strip (Character Sheet Header) ───────────────────────────────
+ *
+ * A compact icon strip rendered below the skills grid in the sheet header.
+ * Shows one icon per active condition. Tổn Thương Ngũ Hành shows one icon
+ * per wounded element instead of one icon for the condition as a whole.
+ *
+ * When no conditions are active only the "+" opener button is visible.
+ * The strip height is fixed so the header size doesn't jump when conditions change.
+ *
+ * Scoped inside .boilerplate in huyen-viet-vtt.scss.
+ * See specs/ui-patterns.md §Condition System for UX rationale.
+ * ─────────────────────────────────────────────────────────────────────────── */
+
+.hv-cond-strip {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  padding: 0.4rem 0.1rem 0;
+  min-height: 2rem;
+}
+
+/* One icon pill per active condition (or per wounded element for TTNH) */
+.hv-cond-strip__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  background: var(--color-danger);
+  color: #fff;
+  font-size: 0.65rem;
+  cursor: default;
+
+  /* Element-wound variants use their element color via --elem-color */
+  &--element {
+    background: var(--elem-color, var(--color-beige-400));
+  }
+}
+
+/* Subtle "+" button that opens the condition picker modal */
+.hv-cond-strip__open-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border: 1.5px dashed var(--color-beige-300);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--color-beige-400);
+  font-size: 0.65rem;
+  cursor: pointer;
+  transition: border-color 0.12s, color 0.12s, background 0.12s;
+
+  &:hover {
+    border-color: var(--color-teal);
+    color: var(--color-teal);
+    background: rgba(87, 142, 126, 0.08);
+  }
+}

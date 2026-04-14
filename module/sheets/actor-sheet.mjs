@@ -8,6 +8,8 @@ import {layHanhThe} from "../helpers/element";
 import {removeBoiCanhFromActor, setBoiCanhForActor} from "../helpers/boiCanh";
 import {removeGiaCanhFromActor, setGiaCanhForActor} from "../helpers/giaCanh";
 import { InventoryModal } from './inventory-modal.mjs';
+import { ConditionModal } from './condition-modal.mjs';
+import { CONDITIONS, ELEMENTS_FOR_WOUND, getActiveConditions, getWoundedElements } from '../helpers/conditions.ts';
 
 const { api, sheets } = foundry.applications;
 
@@ -110,22 +112,19 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
             return InventoryModal.show(this.actor);
         }
 
+        if (action === 'open-condition-modal') {
+            return ConditionModal.show(this.actor);
+        }
+
+        // toggle-inventory-view is now driven by the hv-toggle change event
+        // (see _onRender). This branch is kept as a fallback for any caller
+        // that still routes through _onClickAction with a data-value attribute.
         if (action === 'toggle-inventory-view') {
             const value = target.dataset.value;
-            if (this._inventoryView === value) return;
-
-            // Swap is-active on buttons immediately so the pill animates,
-            // then re-render the list after the transition finishes (0.22s).
-            const toggle = target.closest('.hv-toggle');
-            if (toggle) {
-                toggle.querySelectorAll('.hv-toggle__opt').forEach(btn => {
-                    btn.classList.toggle('is-active', btn.dataset.value === value);
-                });
-                this._syncTogglePill(toggle, true);
+            if (value && this._inventoryView !== value) {
+                this._inventoryView = value;
+                this.render();
             }
-
-            this._inventoryView = value;
-            setTimeout(() => this.render(), 230);
             return;
         }
 
@@ -319,6 +318,30 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
             }))
         };
 
+        // Build condition strip items for the header.
+        // Each entry has { label, faIcon } — displayed as small icon pills.
+        // Tổn Thương Ngũ Hành shows one entry per wounded element (not one for the condition).
+        const activeConditions = getActiveConditions(this.actor);
+        const woundedElements = getWoundedElements(this.actor);
+        const conditionStripItems = [];
+        for (const c of CONDITIONS) {
+            if (c.id === 'tonThuongNguHanh') {
+                for (const elem of ELEMENTS_FOR_WOUND) {
+                    if (woundedElements.has(elem.id)) {
+                        conditionStripItems.push({
+                            label: `Tổn Thương — ${elem.label}`,
+                            faIcon: elem.faIcon,
+                            color: elem.color,
+                            isElement: true,
+                        });
+                    }
+                }
+            } else if (activeConditions.has(c.id)) {
+                conditionStripItems.push({ label: c.label, faIcon: c.faIcon, isElement: false });
+            }
+        }
+        context.conditionStripItems = conditionStripItems;
+
         // Offloading context prep to a helper function
         this._prepareItems(context);
 
@@ -493,49 +516,24 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
         context.spells = spells;
     }
 
-    /**
-     * Actions performed after any render of the Application.
-     * Post-render steps are not awaited by the render process.
-     * @param {ApplicationRenderContext} context      Prepared context data
-     * @param {RenderOptions} options                 Provided render options
-     * @protected
-     * @override
-     */
-    /**
-     * Positions the sliding pill of every hv-toggle in the sheet to sit exactly
-     * under its active button. Sets --pill-left / --pill-width CSS custom
-     * properties so the pill dimensions match the label text naturally.
-     *
-     * @param {HTMLElement} toggle  The .hv-toggle container element.
-     * @param {boolean}     animate When false (initial render) the transition is
-     *                              suppressed so the pill snaps without animating.
-     */
-    _syncTogglePill(toggle, animate = false) {
-        const activeBtn = toggle.querySelector('.hv-toggle__opt.is-active');
-        const pill = toggle.querySelector('.hv-toggle__pill');
-        if (!activeBtn || !pill) return;
-
-        if (!animate) {
-            // Suppress transition so the pill snaps on (re)render with no flash.
-            pill.style.transition = 'none';
-        }
-
-        toggle.style.setProperty('--pill-left', `${activeBtn.offsetLeft}px`);
-        toggle.style.setProperty('--pill-width', `${activeBtn.offsetWidth}px`);
-
-        if (!animate) {
-            // Re-enable transition after the browser has painted the snapped position.
-            requestAnimationFrame(() => { pill.style.transition = ''; });
-        }
-    }
-
     async _onRender(context, options) {
         await super._onRender(context, options);
         this.#disableOverrides();
 
-        // Snap all toggle pills to their active button after every render.
-        this.element?.querySelectorAll('.hv-toggle--labeled').forEach(toggle => {
-            this._syncTogglePill(toggle);
+        // Wire change events for all hv-toggle inputs. The CSS handles the
+        // visual transition; we only need to update sheet state and re-render
+        // the content area after the CSS animation finishes (0.2s).
+        this.element?.querySelectorAll('.hv-toggle__input[data-action]').forEach(input => {
+            input.addEventListener('change', (e) => {
+                const inp = e.currentTarget;
+                const action = inp.dataset.action;
+                const newValue = inp.checked ? inp.dataset.optA : inp.dataset.optB;
+
+                if (action === 'toggle-inventory-view' && this._inventoryView !== newValue) {
+                    this._inventoryView = newValue;
+                    setTimeout(() => this.render(), 210); // wait for CSS pill transition
+                }
+            });
         });
 
         const select = this.element?.querySelector(".hv-thi-toc-select");

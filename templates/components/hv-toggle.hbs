@@ -1,20 +1,30 @@
 {{!--
   ┌──────────────────────────────────────────────────────────────────────────┐
-  │  hv-toggle — Segmented binary toggle (sliding pill)                      │
+  │  hv-toggle — CSS-only sliding pill toggle (binary, two labels)           │
   ├──────────────────────────────────────────────────────────────────────────┤
-  │  Parameters (pass as hash args to the partial):                          │
-  │    action      {string}   data-action fired when an option is clicked    │
-  │    optA        {string}   value identifier for option A                  │
-  │    labelA      {string}   display label for option A                     │
-  │    optB        {string}   value identifier for option B                  │
-  │    labelB      {string}   display label for option B                     │
-  │    activeValue {string}   currently active option value                  │
-  │    minimal     {boolean}  if true, renders dot-only pill (no labels)     │
+  │  How it works:                                                           │
+  │    A hidden checkbox drives the state entirely through CSS sibling       │
+  │    selectors — no JS needed for the animation. The two text labels       │
+  │    overlap the fill div in a single-column grid. One label is opaque     │
+  │    while the other is transparent; they swap on checkbox change.         │
+  │    The .hv-toggle__fill pill slides left↔right via a CSS transition.    │
   │                                                                          │
-  │  CSS modifiers on the container:                                         │
-  │    .hv-toggle--labeled    sliding teal pill with labels (default)        │
-  │    .hv-toggle--minimal    dot-only pill, no labels                       │
-  │  Pill position is set by JS via --pill-left / --pill-width CSS vars.     │
+  │  Parameters (pass as hash args to the partial):                          │
+  │    action      {string}   Identifier forwarded as data-action on input.  │
+  │                           The sheet's _onRender wires a `change` handler │
+  │                           for any .hv-toggle__input with this attr.      │
+  │    optA        {string}   Value for the LEFT option (pill on right when  │
+  │                           active, i.e. input is checked).                │
+  │    labelA      {string}   Display label for option A.                    │
+  │    optB        {string}   Value for the RIGHT option (default/unchecked).│
+  │    labelB      {string}   Display label for option B.                    │
+  │    activeValue {string}   Currently active option value. When equal to   │
+  │                           optA, the checkbox is rendered checked.        │
+  │    minimal     {boolean}  If true, renders a dot-only pill (no labels).  │
+  │                                                                          │
+  │  CSS modifier on the label:                                              │
+  │    .hv-toggle--labeled   Sliding pill with labels (default).             │
+  │    .hv-toggle--minimal   Dot-only pill, no labels.                       │
   │                                                                          │
   │  Usage (labeled, default):                                               │
   │    {{> hv-toggle                                                         │
@@ -24,26 +34,25 @@
   │        activeValue=inventoryView                                         │
   │    }}                                                                    │
   │                                                                          │
-  │  Usage (minimal, no labels):                                             │
+  │  Usage (minimal, dot-only):                                              │
   │    {{> hv-toggle action="..." optA="..." optB="..."                      │
-  │        activeValue=someValue minimal=true}}                               │
+  │        activeValue=someValue minimal=true}}                              │
   │                                                                          │
-  │  See scss/components/_ui-components.scss for visual states.              │
+  │  See scss/components/_ui-components.scss for visual states.             │
   │  See specs/ui-patterns.md for UX rationale.                              │
   └──────────────────────────────────────────────────────────────────────────┘
 --}}
-<div class="hv-toggle {{#if minimal}}hv-toggle--minimal{{else}}hv-toggle--labeled{{/if}}" role="group">
-  {{#unless minimal}}<span class="hv-toggle__pill" aria-hidden="true"></span>{{/unless}}
-  <button type="button"
-          class="hv-toggle__opt {{#if (eq activeValue optA)}}is-active{{/if}}"
-          data-action="{{action}}"
-          data-value="{{optA}}">
-    {{#unless minimal}}{{labelA}}{{/unless}}
-  </button>
-  <button type="button"
-          class="hv-toggle__opt {{#if (eq activeValue optB)}}is-active{{/if}}"
-          data-action="{{action}}"
-          data-value="{{optB}}">
-    {{#unless minimal}}{{labelB}}{{/unless}}
-  </button>
-</div>
+<label class="hv-toggle {{#if minimal}}hv-toggle--minimal{{else}}hv-toggle--labeled{{/if}}">
+  {{! Hidden checkbox — drives all visual state via CSS. Checked = optA active. }}
+  <input class="hv-toggle__input" type="checkbox"
+         data-action="{{action}}"
+         data-opt-a="{{optA}}"
+         data-opt-b="{{optB}}"
+         {{#if (eq activeValue optA)}}checked{{/if}}>
+  {{! optA: visible when checked (pill slid right), hidden when unchecked }}
+  <div class="hv-toggle__opt-a">{{labelA}}</div>
+  {{! optB: visible when unchecked (pill on left), hidden when checked }}
+  <div class="hv-toggle__opt-b">{{labelB}}</div>
+  {{! The sliding pill background }}
+  <div class="hv-toggle__fill"></div>
+</label>

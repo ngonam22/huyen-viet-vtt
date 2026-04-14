@@ -636,6 +636,30 @@
             </div>
         </div>
 
+    {{! ── Condition Strip ──────────────────────────────────────────────────── }}
+    {{! Shows one icon pill per active condition. Tổn Thương Ngũ Hành shows     }}
+    {{! one icon per wounded element. The "+" button opens the condition picker. }}
+    <div class="hv-cond-strip">
+      {{#each conditionStripItems as |item|}}
+        {{#if item.isElement}}
+        <span class="hv-cond-strip__icon hv-cond-strip__icon--element"
+              style="--elem-color: {{item.color}}"
+              data-tooltip="{{item.label}}">
+          <i class="fas {{item.faIcon}}"></i>
+        </span>
+        {{else}}
+        <span class="hv-cond-strip__icon" data-tooltip="{{item.label}}">
+          <i class="fas {{item.faIcon}}"></i>
+        </span>
+        {{/if}}
+      {{/each}}
+      <button type="button"
+              class="hv-cond-strip__open-btn"
+              data-action="open-condition-modal"
+              data-tooltip="Quản lý Hiệu Ứng">
+        <i class="fas fa-plus"></i>
+      </button>
+    </div>
 
     </div>
 </header>
