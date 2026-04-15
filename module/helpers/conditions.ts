@@ -153,6 +153,42 @@ export async function toggleCondition(actor: Actor, conditionId: string): Promis
 }
 
 /**
+ * Applies the next elemental wound following the canonical order:
+ * kim → thuy → moc → hoa → tho.
+ *
+ * - All 5 wounded: no-op.
+ * - 0 wounded:     picks one at random.
+ * - 1–4 wounded:   finds the last wounded element by order index, then
+ *                  advances forward (cycling) to the first unwounded slot.
+ */
+export async function applyNextElementalWound(actor: Actor): Promise<void> {
+    const ORDER = ['kim', 'thuy', 'moc', 'hoa', 'tho'] as const;
+    const wounded = getWoundedElements(actor);
+
+    if (wounded.size >= 5) return;
+
+    let target: string;
+
+    if (wounded.size === 0) {
+        target = ORDER[Math.floor(Math.random() * ORDER.length)];
+    } else {
+        // Find the last wounded element by sequence position
+        let lastIdx = -1;
+        for (let i = 0; i < ORDER.length; i++) {
+            if (wounded.has(ORDER[i])) lastIdx = i;
+        }
+        // Cycle forward until an unwounded slot is found
+        target = ORDER[0]; // fallback (unreachable if wounded.size < 5)
+        for (let offset = 1; offset <= ORDER.length; offset++) {
+            const candidate = ORDER[(lastIdx + offset) % ORDER.length];
+            if (!wounded.has(candidate)) { target = candidate; break; }
+        }
+    }
+
+    await toggleElementWound(actor, target);
+}
+
+/**
  * Toggles a single elemental wound for Tổn Thương Ngũ Hành.
  * Creates a separate ActiveEffect per element so each can be toggled independently.
  */

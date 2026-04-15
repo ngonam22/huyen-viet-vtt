@@ -75,4 +75,15 @@
         </div>
 
     </div>
+
+    {{#if isSucLuc}}
+    <div class="hv-resource-modal__element-option">
+        <label class="hv-resource-modal__element-label">
+            <input type="checkbox"
+                   class="hv-element-damage-toggle"
+                   {{#if damageElement}}checked{{/if}}>
+            Tổn Thương Ngũ Hành
+        </label>
+    </div>
+    {{/if}}
 </div>

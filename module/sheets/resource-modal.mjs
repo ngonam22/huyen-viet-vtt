@@ -1,3 +1,5 @@
+import { applyNextElementalWound } from '../helpers/conditions.js';
+
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 
 export class ResourceModal extends HandlebarsApplicationMixin(ApplicationV2) {
@@ -29,6 +31,7 @@ export class ResourceModal extends HandlebarsApplicationMixin(ApplicationV2) {
         this.actor = actor;
         this.type = type;
         this._amount = 1;
+        this._damageElement = false;
     }
 
     get title() {
@@ -51,6 +54,7 @@ export class ResourceModal extends HandlebarsApplicationMixin(ApplicationV2) {
             current: ability.value,
             base: ability.base,
             amount: this._amount,
+            damageElement: this._damageElement,
             sucLuc: { current: sl.value, base: sl.base },
             tamLuc: { current: tl.value, base: tl.base },
         };
@@ -145,6 +149,14 @@ export class ResourceModal extends HandlebarsApplicationMixin(ApplicationV2) {
             const val = Math.min(Math.max(parseInt(e.target.value) || MIN, MIN), MAX);
             updateSlider(val);
         });
+
+        // Elemental wound checkbox
+        const cbEl = this.element.querySelector('.hv-element-damage-toggle');
+        if (cbEl) {
+            cbEl.addEventListener('change', () => {
+                this._damageElement = cbEl.checked;
+            });
+        }
     }
 
     async _onClickAction(event, target) {
@@ -154,8 +166,9 @@ export class ResourceModal extends HandlebarsApplicationMixin(ApplicationV2) {
         if (action === 'switch-resource') {
             const newType = target.dataset.tab;
             if (newType && newType !== this.type) {
-                this.type    = newType;
-                this._amount = 1;
+                this.type           = newType;
+                this._amount        = 1;
+                this._damageElement = false;
                 this.render();
             }
             return;
@@ -171,6 +184,10 @@ export class ResourceModal extends HandlebarsApplicationMixin(ApplicationV2) {
         await this.actor.update({
             [`system.abilities.${this.type}.value`]: newValue,
         });
+
+        if (action === 'damage' && this._damageElement && this.type === 'sucLuc') {
+            await applyNextElementalWound(this.actor);
+        }
 
         this.render();
     }

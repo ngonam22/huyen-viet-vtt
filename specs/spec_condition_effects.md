@@ -21,7 +21,7 @@ Với các hiệu ứng có Side Effect, sẽ có mục riêng trong code nhằm
 | **Xuất Huyết** | Nhân vật bị tổn thương mạch máu | - | Mất 3 Tâm Lực mỗi khi đổ xúc xắc. Cuối lượt nhận 3 sát thương vật lý (bỏ qua Kháng Lực). Sát thương này cộng dồn (+3) sau mỗi vòng. |
 | **Choáng Váng** | Nhân vật bị choáng do các đòn đánh vào đầu, mắt hay vào giác quan | - | Hành động Công Kích hoặc Mưu Kế bị tăng +2 Độ Khó |
 | **Bất Tỉnh** | Nhân vật bất tỉnh | - | Không thể dùng khí lực để đỡ đòn. Sát thương nhận vào nhân đôi |
-| **Tổn Thương Ngũ Hành** | Khi Sức lực = 0, Sát thương sẽ đánh vào Ngũ Hành | - | Hành bị thương khi có bài xét sẽ có Độ Khó +2, nhưng Độ Khó của Hành bị Khắc tương ứng giảm 1|
+| **Tổn Thương Ngũ Hành** | Khi Sức lực = 0, Sát thương sẽ đánh vào Ngũ Hành | - | Hành bị thương khi có bài xét sẽ có Độ Khó +2, nhưng Độ Khó của Hành bị Khắc tương ứng giảm 1. Thứ tự Hành bị tổn thương: Kim → Thủy → Mộc → Hỏa → Thổ (nếu chưa có Hành nào bị thương thì chọn ngẫu nhiên; nếu đã có thì tiếp tục theo thứ tự sau Hành bị thương cuối cùng; nếu cả 5 Hành đều bị thương thì không có gì xảy ra)|
 | **Loạn Tâm** | Khi Tâm Lực = 0 | Phải "Phát Tiết" để phục hồi | chỉ số Cảnh Giác giảm xuống bằng 1 |
 | **Cuồng Nộ** | Mất lý trí và chiến đấu điên cuồng | - | Sát thương gây ra và nhận phải đều được cộng thêm +2 |
 | **Câm Lặng** | Không thể nói | - | Các hành động Mưu kế, đọc phép (Linh thuật, Ma thuật) bị tăng tới +5 Độ Khó. |
