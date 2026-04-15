@@ -12,6 +12,20 @@
         display: flex;
         flex-direction: column;
         position: relative;
+        background: transparent url("/systems/huyen-viet-vtt/assets/slate-slab.webp") no-repeat;
+        padding: 45px 15px;
+        background-size: 100% 100%;
+        box-shadow: 0 0 15px 1px black;
+        border-radius: 15px;
+
+        label {
+            display: block;
+            color: #e7d1b1;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 1);
+            font-weight: 500;
+            letter-spacing: 0.25px;
+            margin-bottom: 5px;
+        }
 
         /*
             Each slice is the SAME full border path, but the viewBox shows only a strip:
@@ -52,6 +66,13 @@
             margin: 0 var(--rail-inset);
             padding: 5px 29px 0;
             overflow: hidden;
+        }
+
+        input, select {
+            background: rgba(51, 58, 65, 0.7);
+            border: 2px solid rgba(28, 37, 44, 0.85);
+            border-radius: 8px;
+            box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.45);
         }
     }
     /* ══════════════════════════════════════════════════════

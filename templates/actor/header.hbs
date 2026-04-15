@@ -52,17 +52,9 @@
 
     <div class='header-fields'>
         <div class="sheet-panel">
-            <!-- TOP: fixed crop, corners render correctly -->
-            <svg class="sheet-panel__top" viewBox="0 0 525 24" xmlns="http://www.w3.org/2000/svg">
-                <use href="#border-shape"/>
-            </svg>
 
             <!-- MIDDLE: stretches to fit content height -->
             <div class="sheet-panel__middle">
-                <svg class="sheet-panel__middle-svg" viewBox="0 24 525 151"
-                     preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-                    <use href="#border-shape"/>
-                </svg>
 
                 <div class='sheet-panel__content resources grid-span-2 self-start'>
 
@@ -187,7 +179,7 @@
                     </div>
 
 
-                    <div class="tw:grid tw:grid-cols-6 tw:grid-rows-2 tw:gap-4 tw:items-center tw:content-center">
+                    <div class="tw:grid tw:grid-cols-6 tw:mt-4 tw:grid-rows-2 tw:gap-4 tw:items-center tw:content-center">
                         <div class="tw:row-span-3 tw:col-span-3">
                             <div id="ngu-hanh-canvas" style="position: relative;">
                                 {{#each elements as |element|}}
@@ -408,10 +400,6 @@
 
             </div>
 
-            <!-- BOTTOM: fixed crop, corners render correctly -->
-            <svg class="sheet-panel__bottom" viewBox="0 175 525 24" xmlns="http://www.w3.org/2000/svg">
-                <use href="#border-shape"/>
-            </svg>
         </div>
 
         <div class="tw:grid tw:grid-cols-5 tw:gap-3 tw:mt-4">
