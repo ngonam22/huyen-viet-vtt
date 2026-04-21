@@ -324,16 +324,20 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
         const activeConditions = getActiveConditions(this.actor);
         const woundedElements = getWoundedElements(this.actor);
         const conditionStripItems = [];
+        // variable for client to easier to check
+        const tonThuongNguHanh = {}
         for (const c of CONDITIONS) {
             if (c.id === 'tonThuongNguHanh') {
                 for (const elem of ELEMENTS_FOR_WOUND) {
                     if (woundedElements.has(elem.id)) {
                         conditionStripItems.push({
+                            id: c.id,
                             label: `Tổn Thương — ${elem.label}`,
                             faIcon: elem.faIcon,
                             color: elem.color,
                             isElement: true,
                         });
+                        tonThuongNguHanh[elem.id] = true;
                     }
                 }
             } else if (activeConditions.has(c.id)) {
@@ -341,6 +345,7 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
             }
         }
         context.conditionStripItems = conditionStripItems;
+        context.tonThuongNguHanh = tonThuongNguHanh;
 
         // Offloading context prep to a helper function
         this._prepareItems(context);

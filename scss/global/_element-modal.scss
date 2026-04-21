@@ -72,10 +72,11 @@
     /* Outer ruled border — single clean line */
     .modal-frame {
         position: absolute;
+        background: #28303b;
         inset: 7px;
         border: 1px solid $parch-mid;
         pointer-events: none;
-        z-index: 0;
+        z-index: -1;
     }
     /* Corner flourishes via clip path diamonds */
     .modal-frame::before,

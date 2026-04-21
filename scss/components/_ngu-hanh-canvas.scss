@@ -16,14 +16,17 @@
                 transform .45s cubic-bezier(.22,.9,.32,1),
                 filter .45s ease;
         z-index: -1;
-    }
 
+        &.active {
+            opacity:1;
+            transform:translate(-50%, -50%) scale(1);
+            filter:blur(0);
+            animation: energyPulse 3s ease-in-out infinite;
+        }
 
-    .energy-video.active{
-        opacity:1;
-        transform:translate(-50%, -50%) scale(1);
-        filter:blur(0);
-        animation: energyPulse 3s ease-in-out infinite;
+        &.damaged {
+            filter: grayscale(1) !important;
+        }
     }
 
     #video-kim {

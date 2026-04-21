@@ -45,6 +45,8 @@
   font-size: 0.72rem;
   font-weight: 600;
   user-select: none;
+  background: rgb(51 52 58);
+  border-radius: 15px;
 
   /* Every child overlaps in the single grid cell */
   > * { grid-area: 1 / 1; }
@@ -57,13 +59,15 @@
    * appears next to (not on top of) the pill. */
   .hv-toggle__opt-a,
   .hv-toggle__opt-b {
+    height: 100%;
     padding: 0 10px;
     min-width: 30px;
     white-space: nowrap;
     text-align: center;
     z-index: 2;
     transition: opacity 0.2s;
-    color: var(--color-beige-700);
+    color: rgb(183 185 187);
+    line-height: var(--height);
   }
 
   /* opt-b (right/default): pill is on the left, so text is pushed right */
@@ -84,7 +88,7 @@
     width: 100%;
     height: var(--height);
     border-radius: 15px;
-    background: var(--color-beige-300);
+    //background: var(--color-beige-300);
     transition: background 0.2s;
     z-index: 1;
 
@@ -96,7 +100,8 @@
       left: 0;
       height: var(--height);
       width: var(--height);
-      background: #fff;
+      background: rgb(76 93 109);
+      border: 1px solid black;
       box-shadow: 0 0 6px rgba(0, 0, 0, 0.25);
       border-radius: 15px;
       transition: left 0.2s;
@@ -105,14 +110,18 @@
 
   /* Checked state: pill teal, dot slides right, opt-a visible, opt-b hidden */
   .hv-toggle__input:checked ~ .hv-toggle__fill {
-    background: var(--color-teal);
+    //background: var(--color-teal);
+    background: rgb(87, 142, 126);
+    //background: rgb(74 90 104);
 
     &::after {
       left: calc(100% - var(--height));
     }
   }
 
-  .hv-toggle__input:checked ~ .hv-toggle__opt-a { opacity: 1; }
+  .hv-toggle__input:checked ~ .hv-toggle__opt-a {
+    opacity: 1;
+  }
   .hv-toggle__input:checked ~ .hv-toggle__opt-b { opacity: 0; }
 }
 
@@ -217,16 +226,18 @@
   display: inline-block;
   width: 15px;
   height: 15px;
-  border: 1.5px solid var(--color-beige-300);
+  //border: 1.5px solid var(--color-beige-300);
+  border: 1.5px solid rgba(221, 198, 148, 1);
   border-radius: 2px;
   padding: 2.5px;
-  background-color: var(--color-beige-200);
+  //background-color: var(--color-beige-200);
+  background: transparent;
   background-clip: content-box;  /* fill only shows in the content area (inside padding) */
   box-sizing: border-box;
-  transition: border-color 0.12s, background-color 0.12s;
+  transition: border-color 0.55s, background-color 0.55s;
 }
 
 .hv-cb.is-active .hv-cb__box {
-  border-color: var(--color-danger);
-  background-color: var(--color-danger);
+  border-color: rgb(163, 29, 29);
+  background-color: rgb(163, 29, 29);
 }

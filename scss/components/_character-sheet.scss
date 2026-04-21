@@ -272,30 +272,16 @@
     .tabs {
         border: none;
         gap: 0 5px;
+        padding: 0 0 0 15px;
 
         > a {
             position: relative;
-            border: 1px solid #272e36;
-            background: #6b757e;
-            box-shadow: inset 0 0 5px #3f484f;
+            background: transparent url("/systems/huyen-viet-vtt/assets/components/tab/default-tab-pane.png") no-repeat;
+            background-size: 100% 100%;
             flex: 1;
-            border-radius: 9px 9px 0 0;
-
-            &:before, &:after {
-                content: '';
-                position: absolute;
-                top: 0; left: 0;
-                right: 0; bottom: 0;
-                border-radius: 5px 5px 0 0;
-            }
-
-            &:before {
-                border: 1px solid #3c4349;
-                margin: 3px 3px 0;
-                box-shadow: 0 0 3px #3c2e29;
-                background: #30373d;
-                z-index: 1;
-            }
+            transition: color 180ms ease, filter 180ms ease;
+            overflow: hidden;
+            text-overflow: ellipsis;
 
             span {
                 position: relative;
@@ -304,7 +290,9 @@
             }
 
             &.active {
-                background: #f8c48d;
+                background: transparent url("/systems/huyen-viet-vtt/assets/components/tab/active-tab-pane.png") no-repeat;
+                background-size: 100% 100%;
+
 
                 &:before {
                     border: 2px solid #5b5552;
@@ -318,24 +306,21 @@
 
     .tab {
         position: relative;
-        padding: 5px;
+        background: transparent url("/systems/huyen-viet-vtt/assets/components/tab/content-tab.png") no-repeat;
+        background-size: 100% 100%;
+
+        padding: 20px 10px 20px 20px;
         z-index: 10;
         &.active {
             min-height: 250px;
-            border: 3px solid #977663;
-            background: #17120d;
+        }
+    }
 
-            &:before {
-                content: '';
-                position: absolute;
-                top: 0; left: 0;
-                right: 0; bottom: 0;
-                margin: 2px;
-                border: 2px solid #383f42;
-                background: #30373c url("/systems/huyen-viet-vtt/assets/arches.png") repeat;
-                box-shadow: inset 0 0 5px #2b3034;
-                z-index: -1;
-            }
+    .hanh-node {
+        transition: all 0.3s ease-in;
+
+        &.damaged {
+            filter: grayscale(1);
         }
     }
 }
