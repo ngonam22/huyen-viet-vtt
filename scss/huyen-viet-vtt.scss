@@ -61,11 +61,13 @@
 .boilerplate {
   @import 'components/forms';
   @import 'components/resource';
-  @import 'components/items';
+  //@import 'components/items';
   @import 'components/effects';
   @import "components/character-sheet";
   @import "components/ngu-hanh-canvas";
   @import "components/condition-strip";
+  /* Thuật Thức (techniques/spells) — tab, item sheet, chat card, picker */
+  @import 'components/thuat-thuc';
 }
 
 @import "components/ui-components";
@@ -74,5 +76,3 @@
 /* Resource modal (HP / MP management) */
 @import 'components/resource-modal';
 
-/* Thuật Thức (techniques/spells) — tab, item sheet, chat card, picker */
-@import 'components/thuat-thuc';

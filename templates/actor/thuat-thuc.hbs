@@ -28,7 +28,7 @@
       <ol class='items-list'>
         {{#each rows as |row|}}
           <li
-            class='item thuat-thuc-row flexrow'
+            class='item thuat-thuc-row'
             data-item-id='{{row.item._id}}'
             data-document-class='Item'
           >
@@ -36,9 +36,11 @@
               <img src='{{row.item.img}}' width='28' height='28' />
             </div>
             <div class='item-name' data-action='viewDoc'>
-              <strong>{{row.item.name}}</strong>
+                <div>
+                    <span class="tw:bold">{{ row.item.name }}</span>
+                     - Cấp {{row.entry.level}}
+                </div>
               <div class='row-badges'>
-                <span class='badge badge-level'>C{{row.entry.level}}</span>
                 {{#if row.entry.element}}
                   <span class='badge badge-element badge-{{row.entry.element}}'>{{localize (concat 'BOILERPLATE.Element.' row.entry.element '.label')}}</span>
                 {{/if}}

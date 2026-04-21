@@ -245,6 +245,11 @@
       "Temporary": "Temporary Effects",
       "Passive": "Passive Effects",
       "Inactive": "Inactive Effects"
+    },
+    "ThuatThuc": {
+      "hoaKhiThuc": {
+        "name": "Hỏa Khí Thức"
+      }
     }
   },
   "TYPES": {
