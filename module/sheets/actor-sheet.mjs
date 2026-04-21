@@ -86,10 +86,6 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
             template: 'systems/huyen-viet-vtt/templates/actor/biography.hbs',
             scrollable: [""],
         },
-        gear: {
-            template: 'systems/huyen-viet-vtt/templates/actor/gear.hbs',
-            scrollable: [""],
-        },
         spells: {
             template: 'systems/huyen-viet-vtt/templates/actor/spells.hbs',
             scrollable: [""],
@@ -282,10 +278,10 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
         // Control which parts show based on document subtype
         switch (this.document.type) {
             case 'character':
-                options.parts.push('features','thiToc', 'inventory', 'thuatThuc', 'gear', 'spells', 'effects');
+                options.parts.push('features','thiToc', 'inventory', 'thuatThuc', 'spells', 'effects');
                 break;
             case 'npc':
-                options.parts.push('gear', 'effects');
+                options.parts.push('effects');
                 break;
         }
     }
@@ -372,7 +368,6 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
         switch (partId) {
             case 'features':
             case 'spells':
-            case 'gear':
                 context.tab = context.tabs[partId];
                 break;
             case 'biography':
@@ -488,10 +483,6 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
                     tab.id = 'inventory';
                     tab.label += 'Inventory';
                     break;
-                case 'gear':
-                    tab.id = 'gear';
-                    tab.label += 'Gear';
-                    break;
                 case 'spells':
                     tab.id = 'spells';
                     tab.label += 'Spells';
@@ -521,7 +512,6 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
         // You can just use `this.document.itemTypes` instead
         // if you don't need to subdivide a given type like
         // this sheet does with spells
-        const gear = [];
         const features = [];
         const spells = {
             0: [],
@@ -538,12 +528,8 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
 
         // Iterate through items, allocating to containers
         for (let i of this.document.items) {
-            // Append to gear.
-            if (i.type === 'gear') {
-                gear.push(i);
-            }
             // Append to features.
-            else if (i.type === 'feature') {
+            if (i.type === 'feature') {
                 features.push(i);
             }
             // Append to spells.
@@ -559,7 +545,6 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
         }
 
         // Sort then assign
-        context.gear = gear.sort((a, b) => (a.sort || 0) - (b.sort || 0));
         context.features = features.sort((a, b) => (a.sort || 0) - (b.sort || 0));
         context.spells = spells;
     }
