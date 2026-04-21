@@ -10,6 +10,7 @@ import { BOILERPLATE } from './helpers/config.ts';
 // Import DataModel classes
 import * as models from './data/_module.mjs';
 import {registerChatHooks} from "./chat/chat-hooks";
+import {registerCombatResetHooks} from "./hooks/combat-reset";
 
 const collections = foundry.documents.collections;
 const sheets = foundry.appv1.sheets;
@@ -79,6 +80,7 @@ Hooks.once('init', function () {
     vuKhi: models.HvVuKhi,
     giapTru: models.HvGiapTru,
     trangBi: models.HvTrangBi,
+    thuatThuc: models.HvThuatThuc,
   };
 
   // Active Effects are never copied to the Actor,
@@ -99,6 +101,7 @@ Hooks.once('init', function () {
   });
 
   registerChatHooks();
+  registerCombatResetHooks();
 });
 
 /* -------------------------------------------- */

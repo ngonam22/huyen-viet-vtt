@@ -8,4 +8,5 @@ export interface ThiToc {
     linhGiap: string,
     viTri: string,
     upgrade: UpgradeRule[],
+    starterTechniques?: string[],
 }

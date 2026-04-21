@@ -1,0 +1,110 @@
+{{! Thuật Thức item sheet — per-instance view. Catalog data is looked up via system.techniqueId and passed in as `entry`. }}
+<section
+  class='tab attributes thuat-thuc-item {{tab.cssClass}}'
+  data-group='primary'
+  data-tab='attributes'
+>
+  {{#if entry}}
+    <header class='thuat-thuc-header'>
+      <h3>{{localize entry.name}}</h3>
+      <div class='badges'>
+        <span class='badge badge-level'>{{localize 'BOILERPLATE.ThuatThuc.level'}} {{entry.level}}</span>
+        <span class='badge badge-category'>{{localize (concat 'BOILERPLATE.ThuatThucCategory.' entry.category)}}</span>
+        {{#if entry.subcategory}}
+          <span class='badge badge-subcategory'>{{localize (concat 'BOILERPLATE.ThuatThucSubcategoryVoKy.' entry.subcategory)}}</span>
+        {{/if}}
+        {{#if entry.element}}
+          <span class='badge badge-element badge-{{entry.element}}'>{{localize (concat 'BOILERPLATE.Element.' entry.element '.label')}}</span>
+        {{/if}}
+        {{#if entry.maHoa}}
+          <span class='badge badge-maHoa'>{{localize 'BOILERPLATE.ThuatThuc.maHoa'}}</span>
+        {{/if}}
+        <span class='badge badge-source'>{{localize (concat 'BOILERPLATE.ThuatThucSource.' system.source)}}</span>
+      </div>
+    </header>
+
+    {{#if entry.traits.length}}
+      <div class='trait-chips'>
+        {{#each entry.traits}}
+          <span class='trait-chip'>{{localize (concat 'BOILERPLATE.ThuatThucTrait.' this)}}</span>
+        {{/each}}
+      </div>
+    {{/if}}
+
+    <dl class='thuat-thuc-details'>
+      {{#if entry.condition}}
+        <dt>{{localize 'BOILERPLATE.ThuatThuc.condition'}}</dt>
+        <dd>{{localize entry.condition}}</dd>
+      {{/if}}
+      {{#if entry.skillCheck}}
+        <dt>{{localize 'BOILERPLATE.ThuatThuc.skillCheck'}}</dt>
+        <dd>{{localize entry.skillCheck}}</dd>
+      {{/if}}
+      {{#if entry.difficulty}}
+        <dt>{{localize 'BOILERPLATE.ThuatThuc.difficulty'}}</dt>
+        <dd>{{localize entry.difficulty}}</dd>
+      {{/if}}
+      {{#if entry.range}}
+        <dt>{{localize 'BOILERPLATE.ThuatThuc.range'}}</dt>
+        <dd>{{localize entry.range}}</dd>
+      {{/if}}
+      {{#if entry.duration}}
+        <dt>{{localize 'BOILERPLATE.ThuatThuc.duration'}}</dt>
+        <dd>{{localize entry.duration}}</dd>
+      {{/if}}
+      {{#if entry.cost}}
+        <dt>{{localize 'BOILERPLATE.ThuatThuc.cost'}}</dt>
+        <dd>{{localize entry.cost}}</dd>
+      {{/if}}
+      <dt>{{localize 'BOILERPLATE.ThuatThuc.usage'}}</dt>
+      <dd>
+        {{localize (concat 'BOILERPLATE.ThuatThucFrequency.' entry.usage.frequency)}}
+        {{#unless (eq entry.usage.frequency 'unlimited')}}
+          ({{system.usesRemaining}} / {{entry.usage.maxUses}})
+        {{/unless}}
+      </dd>
+    </dl>
+
+    {{#if entry.primaryEffect}}
+      <div class='primary-effect'>
+        <h4>{{localize 'BOILERPLATE.ThuatThuc.primaryEffect'}}</h4>
+        <div>{{{localize entry.primaryEffect}}}</div>
+      </div>
+    {{/if}}
+
+    {{#if entry.sincerityEffects.length}}
+      <div class='sincerity-effects'>
+        <h4>{{localize 'BOILERPLATE.ThuatThuc.sincerityEffects'}}</h4>
+        <ul>
+          {{#each entry.sincerityEffects}}
+            <li>
+              <span class='cost-badge {{#if element}}badge-{{element}}{{/if}}'>{{cost}}</span>
+              <span>{{localize text}}</span>
+            </li>
+          {{/each}}
+        </ul>
+      </div>
+    {{/if}}
+
+    {{#if entry.prerequisites}}
+      <div class='prerequisites'>
+        <h4>{{localize 'BOILERPLATE.ThuatThuc.prerequisites'}}</h4>
+        <ul>
+          {{#each entry.prerequisites.elements}}
+            <li>{{localize (concat 'BOILERPLATE.Element.' @key '.label')}} ≥ {{this}}</li>
+          {{/each}}
+          {{#each entry.prerequisites.skills}}
+            <li>{{localize (concat 'BOILERPLATE.Skill.' @key '.long')}} ≥ {{this}}</li>
+          {{/each}}
+        </ul>
+      </div>
+    {{/if}}
+  {{else}}
+    <p class='hint'>{{localize 'BOILERPLATE.ThuatThuc.missingCatalog'}}</p>
+  {{/if}}
+
+  <div class='notes'>
+    <label>{{localize 'BOILERPLATE.ThuatThuc.notes'}}</label>
+    <textarea name='system.notes' rows='4'>{{system.notes}}</textarea>
+  </div>
+</section>

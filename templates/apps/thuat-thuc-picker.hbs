@@ -1,0 +1,60 @@
+{{! Thuật Thức Picker — see specs/spec_thuat_thuc.md §9.4 }}
+<div class='thuat-thuc-picker'>
+  <header class='picker-filters'>
+    <input
+      type='search'
+      name='q'
+      placeholder='{{localize "BOILERPLATE.ThuatThuc.searchPlaceholder"}}'
+      value='{{filters.q}}'
+    />
+    <select name='category'>
+      <option value=''>{{localize 'BOILERPLATE.ThuatThuc.allCategories'}}</option>
+      {{#each categories as |cat|}}
+        <option value='{{cat}}' {{#if (eq ../filters.category cat)}}selected{{/if}}>
+          {{localize (concat 'BOILERPLATE.ThuatThucCategory.' cat)}}
+        </option>
+      {{/each}}
+    </select>
+    <select name='level'>
+      <option value=''>{{localize 'BOILERPLATE.ThuatThuc.allLevels'}}</option>
+      {{#each levels as |lvl|}}
+        <option value='{{lvl}}' {{#if (eq ../filters.level lvl)}}selected{{/if}}>C{{lvl}}</option>
+      {{/each}}
+    </select>
+    <select name='element'>
+      <option value=''>{{localize 'BOILERPLATE.ThuatThuc.allElements'}}</option>
+      {{#each elements as |el|}}
+        <option value='{{el}}' {{#if (eq ../filters.element el)}}selected{{/if}}>
+          {{localize (concat 'BOILERPLATE.Element.' el '.label')}}
+        </option>
+      {{/each}}
+    </select>
+  </header>
+
+  <ol class='picker-list'>
+    {{#each results as |row|}}
+      <li class='picker-row' data-technique-id='{{row.entry.id}}'>
+        <div class='picker-name'>
+          <strong>{{localize row.entry.name}}</strong>
+          <div class='row-badges'>
+            <span class='badge'>C{{row.entry.level}}</span>
+            <span class='badge'>{{localize (concat 'BOILERPLATE.ThuatThucCategory.' row.entry.category)}}</span>
+            {{#if row.entry.element}}
+              <span class='badge badge-{{row.entry.element}}'>{{localize (concat 'BOILERPLATE.Element.' row.entry.element '.label')}}</span>
+            {{/if}}
+            {{#if row.prereqWarning}}
+              <span class='badge badge-warn' data-tooltip='{{localize "BOILERPLATE.ThuatThuc.prereqWarning"}}'>⚠</span>
+            {{/if}}
+          </div>
+        </div>
+        <div class='picker-actions'>
+          <button type='button' data-action='pickThuatThuc' data-technique-id='{{row.entry.id}}'>
+            {{localize 'BOILERPLATE.ThuatThuc.add'}}
+          </button>
+        </div>
+      </li>
+    {{else}}
+      <li class='picker-empty'>{{localize 'BOILERPLATE.ThuatThuc.noResults'}}</li>
+    {{/each}}
+  </ol>
+</div>

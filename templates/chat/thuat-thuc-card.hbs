@@ -1,0 +1,57 @@
+{{! Thuật Thức chat card — see specs/spec_thuat_thuc.md §9.3 }}
+<div class='thuat-thuc-card'>
+  <header>
+    <img src='{{item.img}}' width='32' height='32' />
+    <div>
+      <h3>{{localize entry.name}}</h3>
+      <div class='badges'>
+        <span class='badge'>{{localize 'BOILERPLATE.ThuatThuc.level'}} {{entry.level}}</span>
+        <span class='badge'>{{localize (concat 'BOILERPLATE.ThuatThucCategory.' entry.category)}}</span>
+        {{#if entry.subcategory}}
+          <span class='badge'>{{localize (concat 'BOILERPLATE.ThuatThucSubcategoryVoKy.' entry.subcategory)}}</span>
+        {{/if}}
+        {{#if entry.element}}
+          <span class='badge badge-{{entry.element}}'>{{localize (concat 'BOILERPLATE.Element.' entry.element '.label')}}</span>
+        {{/if}}
+        {{#if entry.maHoa}}
+          <span class='badge'>{{localize 'BOILERPLATE.ThuatThuc.maHoa'}}</span>
+        {{/if}}
+      </div>
+    </div>
+  </header>
+
+  {{#if entry.traits.length}}
+    <div class='trait-chips'>
+      {{#each entry.traits}}
+        <span class='trait-chip'>{{localize (concat 'BOILERPLATE.ThuatThucTrait.' this)}}</span>
+      {{/each}}
+    </div>
+  {{/if}}
+
+  <dl>
+    {{#if entry.condition}}<dt>{{localize 'BOILERPLATE.ThuatThuc.condition'}}</dt><dd>{{localize entry.condition}}</dd>{{/if}}
+    {{#if entry.skillCheck}}<dt>{{localize 'BOILERPLATE.ThuatThuc.skillCheck'}}</dt><dd>{{localize entry.skillCheck}}</dd>{{/if}}
+    {{#if entry.difficulty}}<dt>{{localize 'BOILERPLATE.ThuatThuc.difficulty'}}</dt><dd>{{localize entry.difficulty}}</dd>{{/if}}
+    {{#if entry.range}}<dt>{{localize 'BOILERPLATE.ThuatThuc.range'}}</dt><dd>{{localize entry.range}}</dd>{{/if}}
+    {{#if entry.duration}}<dt>{{localize 'BOILERPLATE.ThuatThuc.duration'}}</dt><dd>{{localize entry.duration}}</dd>{{/if}}
+    {{#if entry.cost}}<dt>{{localize 'BOILERPLATE.ThuatThuc.cost'}}</dt><dd>{{localize entry.cost}}</dd>{{/if}}
+  </dl>
+
+  {{#if entry.primaryEffect}}
+    <div class='primary-effect'>
+      <strong>{{localize 'BOILERPLATE.ThuatThuc.primaryEffect'}}:</strong>
+      <div>{{{localize entry.primaryEffect}}}</div>
+    </div>
+  {{/if}}
+
+  {{#if entry.sincerityEffects.length}}
+    <div class='sincerity-effects'>
+      <strong>{{localize 'BOILERPLATE.ThuatThuc.sincerityEffects'}}:</strong>
+      <ul>
+        {{#each entry.sincerityEffects}}
+          <li><em>{{cost}}</em> — {{localize text}}</li>
+        {{/each}}
+      </ul>
+    </div>
+  {{/if}}
+</div>

@@ -1,0 +1,299 @@
+// Thuật Thức tab, item sheet, chat card, and picker styles.
+// See specs/spec_thuat_thuc.md §9.
+
+.thuat-thuc {
+  padding: 0.5rem;
+
+  .thuat-thuc-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+
+    .tt-btn {
+      padding: 0.25rem 0.6rem;
+      border: 1px solid rgba(0, 0, 0, 0.25);
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.7);
+      cursor: pointer;
+      font-size: 0.85rem;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.9);
+      }
+    }
+
+    .rest-group {
+      display: flex;
+      gap: 0.25rem;
+    }
+  }
+
+  .hint {
+    font-style: italic;
+    color: rgba(0, 0, 0, 0.6);
+    padding: 0.5rem;
+  }
+
+  .thuat-thuc-category {
+    margin-bottom: 0.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    padding: 0.25rem 0.5rem;
+
+    > summary {
+      cursor: pointer;
+      font-weight: 600;
+      padding: 0.25rem 0;
+    }
+  }
+
+  .thuat-thuc-row {
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.25rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+
+    .item-image img {
+      border-radius: 4px;
+    }
+
+    .item-name {
+      flex: 1;
+      min-width: 0;
+      cursor: pointer;
+
+      strong {
+        display: block;
+      }
+    }
+
+    .row-badges,
+    .trait-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.2rem;
+      margin-top: 0.15rem;
+    }
+
+    .item-usage {
+      flex: 0 0 auto;
+      font-variant-numeric: tabular-nums;
+
+      .counter.exhausted {
+        color: var(--color-danger, #A31D1D);
+        font-weight: 600;
+      }
+    }
+
+    .item-controls {
+      display: flex;
+      gap: 0.25rem;
+
+      .tt-icon {
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        background: rgba(255, 255, 255, 0.5);
+        border-radius: 4px;
+        padding: 0.2rem 0.35rem;
+        cursor: pointer;
+
+        &:disabled {
+          opacity: 0.4;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.1rem 0.4rem;
+  border-radius: 10px;
+  font-size: 0.7rem;
+  line-height: 1.2;
+  background: rgba(0, 0, 0, 0.08);
+  color: rgba(0, 0, 0, 0.75);
+  white-space: nowrap;
+
+  &.badge-level  { background: rgba(40, 80, 140, 0.15); }
+  &.badge-source { background: rgba(80, 80, 80, 0.12); }
+  &.badge-warn   { background: rgba(200, 120, 0, 0.2); color: #a04c00; }
+  &.badge-maHoa  { background: rgba(100, 0, 100, 0.2); color: #5a005a; }
+
+  &.badge-hoa  { background: rgba(200, 50, 40, 0.18);  color: #8a2222; }
+  &.badge-tho  { background: rgba(140, 90, 40, 0.18);  color: #6d4216; }
+  &.badge-kim  { background: rgba(180, 180, 200, 0.4); color: #505060; }
+  &.badge-thuy { background: rgba(40, 100, 180, 0.18); color: #1e4f88; }
+  &.badge-moc  { background: rgba(50, 140, 60, 0.18);  color: #285a30; }
+}
+
+.trait-chip {
+  display: inline-block;
+  padding: 0.05rem 0.35rem;
+  border-radius: 3px;
+  font-size: 0.65rem;
+  background: rgba(0, 0, 0, 0.06);
+  color: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+// Item sheet (thuatThuc)
+.thuat-thuc-item {
+  padding: 0.5rem;
+
+  .thuat-thuc-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 0.75rem;
+
+    h3 { margin: 0; }
+
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+    }
+  }
+
+  dl.thuat-thuc-details {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.25rem 0.75rem;
+    margin: 0.5rem 0;
+
+    dt { font-weight: 600; }
+    dd { margin: 0; }
+  }
+
+  .primary-effect,
+  .sincerity-effects,
+  .prerequisites {
+    margin-top: 0.6rem;
+
+    h4 { margin: 0 0 0.25rem; font-size: 0.9rem; }
+    ul { margin: 0; padding-left: 1rem; }
+  }
+
+  .sincerity-effects li {
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+
+    .cost-badge {
+      flex: 0 0 auto;
+      padding: 0.05rem 0.4rem;
+      border-radius: 4px;
+      background: rgba(180, 150, 0, 0.18);
+      color: #8a6b00;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+  }
+
+  .notes {
+    margin-top: 0.75rem;
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    textarea { width: 100%; }
+  }
+}
+
+// Chat card
+.thuat-thuc-card {
+  font-size: 0.85rem;
+
+  header {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin-bottom: 0.35rem;
+
+    h3 { margin: 0; font-size: 1rem; }
+    .badges { display: flex; flex-wrap: wrap; gap: 0.2rem; margin-top: 0.15rem; }
+  }
+
+  .trait-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+    margin: 0.25rem 0;
+  }
+
+  dl {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.1rem 0.5rem;
+    margin: 0.35rem 0;
+
+    dt { font-weight: 600; }
+    dd { margin: 0; }
+  }
+
+  .primary-effect,
+  .sincerity-effects {
+    margin-top: 0.35rem;
+
+    ul { margin: 0.15rem 0 0; padding-left: 1rem; }
+  }
+}
+
+// Picker dialog
+.hv-thuat-thuc-picker {
+  padding: 0.5rem;
+
+  .picker-filters {
+    display: flex;
+    gap: 0.35rem;
+    margin-bottom: 0.5rem;
+
+    input[type='search'] { flex: 1 1 auto; min-width: 0; }
+    select { flex: 0 0 auto; }
+  }
+
+  .picker-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 480px;
+    overflow-y: auto;
+  }
+
+  .picker-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+
+    .picker-name strong { display: block; }
+    .row-badges { display: flex; flex-wrap: wrap; gap: 0.2rem; margin-top: 0.15rem; }
+
+    .picker-actions button {
+      padding: 0.2rem 0.6rem;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.7);
+      cursor: pointer;
+
+      &:hover { background: rgba(255, 255, 255, 1); }
+    }
+  }
+
+  .picker-empty {
+    padding: 0.75rem;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.55);
+    font-style: italic;
+  }
+}

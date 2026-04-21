@@ -55,6 +55,10 @@ export class BoilerplateItemSheet extends api.HandlebarsApplicationMixin(
     attributesSpell: {
       template: 'systems/boilerplate/templates/item/attribute-parts/spell.hbs',
     },
+    attributesThuatThuc: {
+      template:
+        'systems/huyen-viet-vtt/templates/item/attribute-parts/thuatThuc.hbs',
+    },
     effects: {
       template: 'systems/boilerplate/templates/item/effects.hbs',
     },
@@ -77,6 +81,9 @@ export class BoilerplateItemSheet extends api.HandlebarsApplicationMixin(
         break;
       case 'spell':
         options.parts.push('attributesSpell');
+        break;
+      case 'thuatThuc':
+        options.parts.push('attributesThuatThuc');
         break;
     }
   }
@@ -115,6 +122,11 @@ export class BoilerplateItemSheet extends api.HandlebarsApplicationMixin(
       case 'attributesSpell':
         // Necessary for preserving active tab on re-render
         context.tab = context.tabs[partId];
+        break;
+      case 'attributesThuatThuc':
+        context.tab = context.tabs[partId];
+        context.entry =
+          CONFIG.BOILERPLATE?.thuatThuc?.byId?.[this.item.system.techniqueId];
         break;
       case 'description':
         context.tab = context.tabs[partId];
@@ -174,6 +186,7 @@ export class BoilerplateItemSheet extends api.HandlebarsApplicationMixin(
         case 'attributesFeature':
         case 'attributesGear':
         case 'attributesSpell':
+        case 'attributesThuatThuc':
           tab.id = 'attributes';
           tab.label += 'Attributes';
           break;

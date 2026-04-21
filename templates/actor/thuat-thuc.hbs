@@ -1,0 +1,85 @@
+{{! Thuật Thức Tab — see specs/spec_thuat_thuc.md §9.1 }}
+<section
+  class='tab thuat-thuc scrollable {{tab.cssClass}}'
+  data-group='primary'
+  data-tab='thuatThuc'
+>
+  <header class='thuat-thuc-bar'>
+    {{#if @root.editable}}
+      <button type='button' class='tt-btn' data-action='addThuatThuc'>
+        <i class='fas fa-plus'></i>
+        {{localize 'BOILERPLATE.ThuatThuc.addTechnique'}}
+      </button>
+    {{/if}}
+    <div class='rest-group'>
+      <button type='button' class='tt-btn' data-action='restScene'>{{localize 'BOILERPLATE.ThuatThuc.restScene'}}</button>
+      <button type='button' class='tt-btn' data-action='restSession'>{{localize 'BOILERPLATE.ThuatThuc.restSession'}}</button>
+      <button type='button' class='tt-btn' data-action='restLong'>{{localize 'BOILERPLATE.ThuatThuc.restLong'}}</button>
+    </div>
+  </header>
+
+  {{#if thuatThucIsEmpty}}
+    <p class='hint'>{{localize 'BOILERPLATE.ThuatThuc.empty'}}</p>
+  {{/if}}
+
+  {{#each thuatThucByCategory as |rows category|}}
+    <details class='thuat-thuc-category' open>
+      <summary>{{localize (concat 'BOILERPLATE.ThuatThucCategory.' category)}} ({{rows.length}})</summary>
+      <ol class='items-list'>
+        {{#each rows as |row|}}
+          <li
+            class='item thuat-thuc-row flexrow'
+            data-item-id='{{row.item._id}}'
+            data-document-class='Item'
+          >
+            <div class='item-image'>
+              <img src='{{row.item.img}}' width='28' height='28' />
+            </div>
+            <div class='item-name' data-action='viewDoc'>
+              <strong>{{row.item.name}}</strong>
+              <div class='row-badges'>
+                <span class='badge badge-level'>C{{row.entry.level}}</span>
+                {{#if row.entry.element}}
+                  <span class='badge badge-element badge-{{row.entry.element}}'>{{localize (concat 'BOILERPLATE.Element.' row.entry.element '.label')}}</span>
+                {{/if}}
+                {{#if row.entry.subcategory}}
+                  <span class='badge badge-subcategory'>{{localize (concat 'BOILERPLATE.ThuatThucSubcategoryVoKy.' row.entry.subcategory)}}</span>
+                {{/if}}
+                <span class='badge badge-source' data-tooltip='{{localize (concat "BOILERPLATE.ThuatThucSource." row.item.system.source)}}'>
+                  {{localize (concat 'BOILERPLATE.ThuatThucSource.' row.item.system.source)}}
+                </span>
+              </div>
+              {{#if row.entry.traits.length}}
+                <div class='trait-chips'>
+                  {{#each row.entry.traits}}
+                    <span class='trait-chip'>{{localize (concat 'BOILERPLATE.ThuatThucTrait.' this)}}</span>
+                  {{/each}}
+                </div>
+              {{/if}}
+            </div>
+            <div class='item-usage'>
+              {{#unless row.unlimited}}
+                <span class='counter {{#if row.exhausted}}exhausted{{/if}}'>
+                  {{row.item.system.usesRemaining}} / {{row.entry.usage.maxUses}}
+                </span>
+              {{/unless}}
+            </div>
+            <div class='item-controls'>
+              <button type='button' class='tt-icon' data-action='useThuatThuc' {{#if row.exhausted}}disabled{{/if}} data-tooltip='{{localize "BOILERPLATE.ThuatThuc.use"}}'>
+                <i class='fas fa-bolt'></i>
+              </button>
+              <button type='button' class='tt-icon' data-action='chatThuatThuc' data-tooltip='{{localize "BOILERPLATE.ThuatThuc.chat"}}'>
+                <i class='fas fa-comment-dots'></i>
+              </button>
+              {{#if @root.editable}}
+                <button type='button' class='tt-icon' data-action='deleteDoc' data-tooltip='{{localize "DOCUMENT.Delete"}}'>
+                  <i class='fas fa-trash'></i>
+                </button>
+              {{/if}}
+            </div>
+          </li>
+        {{/each}}
+      </ol>
+    </details>
+  {{/each}}
+</section>

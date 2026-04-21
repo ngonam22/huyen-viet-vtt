@@ -10,6 +10,15 @@ import {removeGiaCanhFromActor, setGiaCanhForActor} from "../helpers/giaCanh";
 import { InventoryModal } from './inventory-modal.mjs';
 import { ConditionModal } from './condition-modal.mjs';
 import { CONDITIONS, ELEMENTS_FOR_WOUND, getActiveConditions, getWoundedElements } from '../helpers/conditions.ts';
+import { ThuatThucPicker } from './thuat-thuc-picker.mjs';
+import {
+    getThuatThucById,
+    useThuatThuc,
+    postThuatThucChatCard,
+    restScene as restSceneFn,
+    restSession as restSessionFn,
+    restLong as restLongFn,
+} from '../helpers/thuatThuc.ts';
 
 const { api, sheets } = foundry.applications;
 
@@ -34,6 +43,12 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
             deleteDoc: this._deleteDoc,
             toggleEffect: this._toggleEffect,
             roll: this._onRoll,
+            addThuatThuc: this._onAddThuatThuc,
+            useThuatThuc: this._onUseThuatThuc,
+            chatThuatThuc: this._onChatThuatThuc,
+            restScene: this._onRestScene,
+            restSession: this._onRestSession,
+            restLong: this._onRestLong,
         },
         // Custom property that's merged into `this.options`
         // dragDrop: [{ dragSelector: '.draggable', dropSelector: null }],
@@ -85,6 +100,10 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
         },
         effects: {
             template: 'systems/huyen-viet-vtt/templates/actor/effects.hbs',
+            scrollable: [""],
+        },
+        thuatThuc: {
+            template: 'systems/huyen-viet-vtt/templates/actor/thuat-thuc.hbs',
             scrollable: [""],
         },
     };
@@ -263,7 +282,7 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
         // Control which parts show based on document subtype
         switch (this.document.type) {
             case 'character':
-                options.parts.push('features','thiToc', 'inventory', 'gear', 'spells', 'effects');
+                options.parts.push('features','thiToc', 'inventory', 'thuatThuc', 'gear', 'spells', 'effects');
                 break;
             case 'npc':
                 options.parts.push('gear', 'effects');
@@ -398,8 +417,33 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
                     this.actor.allApplicableEffects()
                 );
                 break;
+            case 'thuatThuc':
+                context.tab = context.tabs[partId];
+                this._prepareThuatThucContext(context);
+                break;
         }
         return context;
+    }
+
+    /**
+     * Build grouped-by-category rows of Thuật Thức items for the tab.
+     * Rows carry both the item instance and the catalog entry, plus derived flags.
+     */
+    _prepareThuatThucContext(context) {
+        const grouped = {};
+        let count = 0;
+        for (const item of this.actor.items) {
+            if (item.type !== 'thuatThuc') continue;
+            const entry = getThuatThucById(item.system.techniqueId);
+            if (!entry) continue;
+            const unlimited = entry.usage.frequency === 'unlimited';
+            const exhausted = !unlimited && item.system.usesRemaining <= 0;
+            if (!grouped[entry.category]) grouped[entry.category] = [];
+            grouped[entry.category].push({ item, entry, unlimited, exhausted });
+            count += 1;
+        }
+        context.thuatThucByCategory = grouped;
+        context.thuatThucIsEmpty = count === 0;
     }
 
     /**
@@ -455,6 +499,10 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
                 case 'effects':
                     tab.id = 'effects';
                     tab.label += 'Effects';
+                    break;
+                case 'thuatThuc':
+                    tab.id = 'thuatThuc';
+                    tab.label += 'ThuatThuc';
                     break;
             }
             if (this.tabGroups[tabGroup] === tab.id) tab.cssClass = 'active';
@@ -724,6 +772,59 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
             });
             return roll;
         }
+    }
+
+    /**
+     * Open the Thuật Thức picker to manually add a technique.
+     * @this BoilerplateActorSheet
+     */
+    static async _onAddThuatThuc(event, target) {
+        event.preventDefault();
+        ThuatThucPicker.show(this.actor);
+    }
+
+    /**
+     * Use a Thuật Thức: decrement counter and post chat card.
+     * @this BoilerplateActorSheet
+     */
+    static async _onUseThuatThuc(event, target) {
+        event.preventDefault();
+        const li = target.closest('li[data-item-id]');
+        if (!li) return;
+        await useThuatThuc(this.actor, li.dataset.itemId);
+    }
+
+    /**
+     * Post the Thuật Thức rules chat card (no counter change).
+     * @this BoilerplateActorSheet
+     */
+    static async _onChatThuatThuc(event, target) {
+        event.preventDefault();
+        const li = target.closest('li[data-item-id]');
+        if (!li) return;
+        const item = this.actor.items.get(li.dataset.itemId);
+        if (!item) return;
+        const entry = getThuatThucById(item.system.techniqueId);
+        if (!entry) return;
+        await postThuatThucChatCard(this.actor, item, entry);
+    }
+
+    /** @this BoilerplateActorSheet */
+    static async _onRestScene(event, target) {
+        event.preventDefault();
+        await restSceneFn(this.actor);
+    }
+
+    /** @this BoilerplateActorSheet */
+    static async _onRestSession(event, target) {
+        event.preventDefault();
+        await restSessionFn(this.actor);
+    }
+
+    /** @this BoilerplateActorSheet */
+    static async _onRestLong(event, target) {
+        event.preventDefault();
+        await restLongFn(this.actor);
     }
 
     /** Helper Functions */

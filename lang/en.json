@@ -160,7 +160,8 @@
         "Gear": "Trang Bị",
         "Spells": "Spells",
         "Effects": "Effects",
-        "Inventory": "Kho Đồ"
+        "Inventory": "Kho Đồ",
+        "ThuatThuc": "Thuật Thức"
       },
       "base": {
         "FIELDS": {
@@ -254,7 +255,176 @@
     "Item": {
       "gear": "Gear",
       "feature": "Feature",
-      "spell": "Spell"
+      "spell": "Spell",
+      "thuatThuc": "Thuật Thức"
+    }
+  },
+  "BOILERPLATE.ThuatThucCategory": {
+    "voKy": "Võ Kỹ",
+    "tamThuat": "Tâm Thuật",
+    "linhThuat": "Linh Thuật",
+    "nghiThuc": "Nghi Thức",
+    "khiThuat": "Khí Thuật",
+    "maThuat": "Ma Thuật",
+    "amKy": "Ám Kỹ"
+  },
+  "BOILERPLATE.ThuatThucSubcategoryVoKy": {
+    "toanDung": "Toàn Dụng",
+    "canChien": "Cận Chiến",
+    "xaChien": "Xạ Chiến",
+    "thanPhap": "Thân Pháp"
+  },
+  "BOILERPLATE.ThuatThucTrait": {
+    "hanhDong": "Hành Động",
+    "congKich": "Công Kích",
+    "muuKe": "Mưu Kế",
+    "hoTro": "Hỗ Trợ",
+    "diChuyen": "Di Chuyển",
+    "dinhKy": "Đình Kỳ",
+    "chiThanh": "Chí Thành",
+    "phanUng": "Phản Ứng",
+    "hoaHanh": "Hỏa Hành",
+    "thoHanh": "Thổ Hành",
+    "kimHanh": "Kim Hành",
+    "thuyHanh": "Thủy Hành",
+    "mocHanh": "Mộc Hành",
+    "nguHanh": "Ngũ Hành",
+    "tieuHanh": "Tiểu Hành",
+    "daiHanh": "Đại Hành",
+    "nguHop": "Ngũ Hợp",
+    "hoaTinh": "Hỏa Tính",
+    "thoTinh": "Thổ Tính",
+    "kimTinh": "Kim Tính",
+    "thuyTinh": "Thủy Tính",
+    "mocTinh": "Mộc Tính",
+    "hoaKhi": "Hóa Khí",
+    "hoaThe": "Hóa Thể",
+    "nguyenChu": "Nguyền Chú",
+    "maThuat": "Ma Thuật",
+    "dacBiet": "Đặc Biệt"
+  },
+  "BOILERPLATE.ThuatThucFrequency": {
+    "unlimited": "Không giới hạn",
+    "perTurn": "Mỗi lượt",
+    "perRound": "Mỗi vòng đấu",
+    "perScene": "Mỗi cảnh",
+    "perSession": "Mỗi buổi chơi",
+    "perDay": "Mỗi ngày",
+    "perWeek": "Mỗi tuần",
+    "perCampaign": "Mỗi cuộc chơi",
+    "perOpportunity": "Theo cơ hội"
+  },
+  "BOILERPLATE.ThuatThucSource": {
+    "clan": "Thị Tộc",
+    "xp": "Tu Vi",
+    "manual": "Tự học"
+  },
+  "BOILERPLATE.ThuatThuc": {
+    "level": "Cấp",
+    "maHoa": "Ma-hóa",
+    "condition": "Điều kiện",
+    "skillCheck": "Kiểm tra",
+    "difficulty": "Độ Khó",
+    "range": "Phạm vi",
+    "duration": "Thời hạn",
+    "cost": "Tiêu hao",
+    "usage": "Tần Số Sử Dụng",
+    "primaryEffect": "Hiệu Quả Chính",
+    "sincerityEffects": "Chí Thành",
+    "prerequisites": "Yêu Cầu",
+    "notes": "Ghi chú",
+    "addTechnique": "Thêm Thuật Thức",
+    "restScene": "Nghỉ: Cảnh",
+    "restSession": "Nghỉ: Buổi",
+    "restLong": "Nghỉ: Dài",
+    "empty": "Chưa có Thuật Thức nào.",
+    "use": "Sử dụng",
+    "chat": "Gửi chat",
+    "add": "Thêm",
+    "missingCatalog": "Không tìm thấy entry trong catalog.",
+    "searchPlaceholder": "Tìm theo tên...",
+    "allCategories": "Mọi Phân Hệ",
+    "allLevels": "Mọi Cấp",
+    "allElements": "Mọi Hành",
+    "prereqWarning": "Chưa đủ yêu cầu",
+    "noResults": "Không tìm thấy Thuật Thức phù hợp.",
+    "hoaKhiThuc": {
+      "name": "Hỏa Khí Thức",
+      "condition": "Kỹ năng Võ Thuật (Hỏa hành) phù hợp với vũ khí.",
+      "desc": "Chiêu thức vận Hỏa khí vào vũ khí, tăng sát thương trong đòn kế tiếp.",
+      "sincerity": {
+        "1": "Với mỗi điểm chí thành (tối đa bằng cấp bậc Hỏa), tăng lượng sát thương kế tiếp mà đối tượng phải nhận thêm 2 điểm, tới kết thúc lượt sau của nhân vật."
+      }
+    },
+    "phiKhiThuc": {
+      "name": "Phi Khí Thức",
+      "skillCheck": "Võ Thuật",
+      "range": "6-bộ, 1 đối tượng",
+      "desc": "Ném vũ khí về phía đối tượng.",
+      "primaryEffect": "Thành công → gây sát thương của vũ khí. Thất bại → vũ khí rơi ở vị trí tối đa 6-bộ trên quỹ đạo ném.",
+      "sincerity": {
+        "1": "Mỗi điểm chí thành tăng phạm vi tối đa thêm 1-bộ."
+      }
+    },
+    "themDoanNangLuc": {
+      "name": "Thẩm Đoán Năng Lực",
+      "condition": "Tâm Ý, hoặc kỹ năng để thi đấu với một hoặc nhiều đối tượng.",
+      "desc": "Phán đoán năng lực của đối tượng thông qua quan sát.",
+      "sincerity": {
+        "1": "Chọn một đối tượng; với mỗi điểm chí thành, nhân vật nhận biết cấp bậc Binh Pháp, Võ Thuật, hoặc kỹ năng đối tượng dùng để thi đấu.",
+        "2": "Chọn một đối tượng; nhận biết tất cả Đặc Điểm tinh thần của đối tượng."
+      }
+    },
+    "nghiThucTruTa": {
+      "name": "Nghi Thức Trừ Tà",
+      "skillCheck": "Thần Học",
+      "range": "Số lượng cá thể tối đa bằng cấp bậc Hành sử dụng, phạm vi tiếp xúc.",
+      "desc": "Nghi lễ trừ khử ma khí trên cơ thể đối tượng.",
+      "primaryEffect": "Nhân vật giải trừ trạng thái \"Nhiễm Ma\" trên cơ thể của đối tượng.",
+      "sincerity": {
+        "1": "Nếu một trong các đối tượng là thực thể \"Ngoại giới\", nhân vật nhận ra (nhưng không biết cụ thể ai).",
+        "2": "+1 số lượng đối tượng mỗi chí thành.",
+        "3": "Chuyển phạm vi thành hình cầu bán kính 2-bộ. +2-bộ mỗi chí thành. Loại bỏ \"Nhiễm Tà\" của địa hình trong phạm vi 1 ngày (+1 ngày mỗi chí thành)."
+      }
+    },
+    "hoaDiemChiThuat": {
+      "name": "Hỏa Điểm Chỉ Thuật",
+      "skillCheck": "Thần Học (Hỏa hành)",
+      "range": "6-bộ, số lượng tối đa = Hỏa hành",
+      "duration": "Lập tức",
+      "desc": "Phóng điểm lửa siêu nhiên gây sát thương từ xa.",
+      "primaryEffect": "Mỗi đối tượng nhận sát thương siêu nhiên Hỏa tính bằng cấp bậc Hỏa hành (+1/chí thành).",
+      "sincerity": {
+        "1": "Tăng phạm vi tối đa thêm +2-bộ mỗi chí thành."
+      }
+    },
+    "hoaKhiQuyen": {
+      "name": "Hỏa Khí Quyền",
+      "skillCheck": "Võ Thuật",
+      "range": "1-bộ, 1 đối tượng",
+      "duration": "Kết thúc cảnh hiện tại (hoặc kích hoạt Khí thuật khác)",
+      "desc": "Công pháp nội khí Hỏa hành cường hóa quyền cước.",
+      "primaryEffect": "<em>Nội Lưu</em>: Cường hóa quyền cước với Hỏa khí. Võ thuật Hình thể bằng tay/chân có sát thương chuyển thành siêu nhiên và tăng bằng cấp bậc Hỏa hành. <em>Ngoại Phá</em>: tiêu hao 3 Hỏa chí thành → gây sát thương vật lý bằng cấp bậc Hỏa hành lên đối tượng 1-bộ; đối tượng kiểm tra Thể thuật ĐK 4 (Kim 5, Thủy 2) để không rơi \"Hoa mắt\"."
+    },
+    "maLinhNguyenChu": {
+      "name": "Ma Linh Nguyền Chú",
+      "skillCheck": "Thần Học (Hành phương bất kỳ)",
+      "difficulty": "Cảnh Giác của đối tượng",
+      "range": "1 đối tượng, phạm vi tiếp xúc",
+      "desc": "Tà thuật Ma tộc nguyền rủa Hành của đối tượng.",
+      "primaryEffect": "Đối tượng có Hành khắc xuất với Hành của bài xét rơi vào trạng thái \"Nhiễm ma\". (Ví dụ: Ma Linh Nguyền Chú (Kim) sẽ khiến Hành Mộc của đối phương \"Nhiễm ma\".)",
+      "sincerity": {
+        "1": "Tăng phạm vi lên +1-bộ.",
+        "2": "Ảnh hưởng thêm một đối tượng có Cảnh Giác ≤ đối tượng chính."
+      }
+    },
+    "tiemHanhBo": {
+      "name": "Tiềm Hành Bộ",
+      "condition": "Nhân vật trong địa hình \"Che Phủ\", nơi đông người, hoặc các trường hợp khác hỗ trợ khả năng ẩn tránh.",
+      "desc": "Ám kỹ di chuyển ẩn mình khỏi đối tượng.",
+      "sincerity": {
+        "1": "Nhân vật trở nên \"ẩn thân\" đối với một đối tượng có Cảnh Giác ≤ cấp độ Hắc Nghiệp của bản thân."
+      }
     }
   }
 }

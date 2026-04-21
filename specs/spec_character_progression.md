@@ -67,7 +67,8 @@ Nâng cấp các kỹ năng nghề nghiệp/chiến đấu như Thể Thuật, Y
 ### 3.3. Nhánh Học Luyện Thuật Thức
 Mua thêm các chiêu thức, phép thuật (Võ Kỹ, Linh Thuật, Khí Thuật, Tâm Thuật...).
 *   **Công thức chi phí:** Đồng giá **3 XP** cho mỗi Thuật Thức mới được học.
-*   **Điều kiện (Prerequisites check):** Khi mua Thuật Thức, hệ thống phải check xem nhân vật có đủ cấp độ Hành hoặc cấp độ Kỹ năng mà Thuật Thức đó yêu cầu hay không.
+*   **Điều kiện (Prerequisites check):** Khi mua Thuật Thức, hệ thống phải check xem nhân vật có đủ cấp độ Hành hoặc cấp độ Kỹ năng mà Thuật Thức đó yêu cầu hay không. Đây là **HARD CHECK** cho XP path (xem `spec_thuat_thuc.md` §7.2); clan auto-grant và manual picker bỏ qua hoặc chỉ warn.
+*   **Data model, usage tracking (Tần Số Sử Dụng), acquisition flow, UI contract:** tham chiếu `spec_thuat_thuc.md`. XP purchase UI hiện đang deferred (spec §8.3) — clan auto-grant (§8.1) và manual picker (§8.2) đã được implement trước.
 
 ---
 
