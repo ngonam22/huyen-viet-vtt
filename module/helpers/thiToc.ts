@@ -1,5 +1,9 @@
 import type { ThiToc } from "../../types/thiToc";
 import { THI_TOC } from "./config";
+import {
+    grantClanStarterTechniques,
+    removeClanGrantedTechniques,
+} from "./thuatThuc";
 
 const THI_TOC_ITEM_TYPE = "thiToc";
 
@@ -18,7 +22,7 @@ export async function setThiTocForActor(actor: Actor, clanId: string): Promise<v
         throw new Error(`Không tìm thấy Thị Tộc với clanId="${clanId}"`);
     }
 
-    // 1) Xóa thị tộc cũ
+    // 1) Xóa thị tộc cũ + các Thuật Thức do clan cũ cấp
     const oldThiTocItems = actor.items.filter((i) => i.type === THI_TOC_ITEM_TYPE);
     if (oldThiTocItems.length > 0) {
         await actor.deleteEmbeddedDocuments(
@@ -26,6 +30,7 @@ export async function setThiTocForActor(actor: Actor, clanId: string): Promise<v
             oldThiTocItems.map((i) => i.id)
         );
     }
+    await removeClanGrantedTechniques(actor);
 
     // 2) Add thị tộc mới
     await actor.createEmbeddedDocuments("Item", [
@@ -41,6 +46,9 @@ export async function setThiTocForActor(actor: Actor, clanId: string): Promise<v
     await actor.update({
         "system.identity.thiToc": clan.linhGiap
     });
+
+    // 3) Grant starter Thuật Thức (semi-auto, spec §8.1)
+    await grantClanStarterTechniques(actor, clan.linhGiap);
 }
 
 /**
@@ -52,6 +60,8 @@ export async function removeThiTocFromActor(actor: Actor): Promise<void> {
     await actor.update({
         "system.identity.thiToc": ""
     });
+
+    await removeClanGrantedTechniques(actor);
 
     if (thiTocItems.length === 0) return;
 

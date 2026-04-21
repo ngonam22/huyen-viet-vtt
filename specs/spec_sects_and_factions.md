@@ -18,7 +18,7 @@ Một Object `Môn Phái` trong Database sẽ bao gồm các trường dữ li�
 *   **`Phân Loại` (Category):** Thuộc nhóm `Thập Nhị Chính Quy` (12 Học viện quốc gia) hoặc `Giang Hồ Bách Đạo` (Thế lực phi chính quy).
 *   **`Hành Cộng Thêm` (Bonus Elements):** Mảng chứa 2 Hành được +1 điểm.
 *   **`Kỹ Năng Cộng Thêm` (Bonus Skills):** Danh sách 3 đến 5 Kỹ năng được +1 điểm.
-*   **`Giáo Trình Thuật Thức` (Techniques):** Danh sách 3 đến 5 Thuật Thức (Chiêu thức) nhập môn mà nhân vật học được (VD: Võ kỹ, Linh thuật, Tâm thuật).
+*   **`Giáo Trình Thuật Thức` (Techniques):** Danh sách 3 đến 5 Thuật Thức (Chiêu thức) nhập môn mà nhân vật học được (VD: Võ kỹ, Linh thuật, Tâm thuật). Engine implementation hiện gắn list này lên Thị Tộc (`starterTechniques: string[]` trong `THI_TOC` config) vì mỗi Thị Tộc có Môn Phái nhập môn canonical 1:1; khi sect được tách độc lập, field có thể move mà không đổi item schema Thuật Thức. Chi tiết auto-grant flow xem `spec_thuat_thuc.md` §8.1.
 *   **`Đặc Kỹ Môn Phái` (Sect Special Technique - ĐKMP):** Kỹ năng nội tại/Kích hoạt độc quyền của phái. Cơ chế của ĐKMP luôn scale (tăng tiến) theo `Cấp Bậc Môn Phái` do đó từ `Cấp Bậc Môn Phái` có thể suy ra cấp Đặc kỹ Môn Phái, về mặt hệ thống có thể coi chúng là một. 
 
 ## 3. GAME RULES: CƠ CHẾ KHỞI TẠO (Character Creation Affect)

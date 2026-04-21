@@ -216,7 +216,7 @@ Chi tiết ở các trạng thái hiệu ứng và thông tin kỹ thuật sẽ 
 ## 10. KIẾN TRÚC SỮ LIỆU ĐÍNH KÈM SẮP TỚI (Upcoming Detailed Specs)
 *(Ghi chú cho AI: Các spec file chi tiết sẽ được cung cấp ở các bước tiếp theo)*
 1.  `Spec_Character_Creation`: Quy trình 8 bước tạo nhân vật (Bối Cảnh, Gia Cảnh, Môn Phái...).
-2.  `Spec_Techniques_Magic`: Thuật Thức (Võ Kỹ, Chủ Thuật, Linh Thuật, Khí Thuật, Ma Thuật).
+2.  `SPEC_THUAT_THUC` trong file `spec_thuat_thuc.md`: Thuật Thức (Võ Kỹ, Tâm Thuật, Linh Thuật, Nghi Thức, Khí Thuật, Ma Thuật, Ám Kỹ) — data model, acquisition flow, usage tracking, UI contract.
 3.  `Spec_Equipment`: Hệ thống Item, Giáp Trụ (Kháng lực), Vũ Khí (Sát thương, Tính trạng vũ khí).
 4.  `Spec_Status_Effects`: Các trạng thái bất lợi (Choáng váng, Xuất huyết, Loạn tâm, Định thân...).
 5.  `Spec_Equipment` trong file `spec_equipment.md`: Hệ thống trang bị và vật phẩm (Vũ khí, giáp trụ, phòng cụ...).

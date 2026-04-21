@@ -77,6 +77,8 @@ Defined in `module/helpers/ability.ts`:
 - `module/data/` — DataModel schemas for all actor/item types (`.mjs` files)
 - `module/helpers/config.ts` — System constants: 5 elements, 22 skills (4 categories), clan/background configs, upgrade rules
 - `module/helpers/thiToc.ts` / `boiCanh.ts` — Clan and background bonus application logic
+- `module/helpers/thuatThuc.ts` — Thuật Thức (techniques/spells) API: learn/remove, clan auto-grant, usage + reset, chat card. See `specs/spec_thuat_thuc.md`
+- `module/hooks/combat-reset.ts` — `combatTurn` / `combatRound` hooks that reset Thuật Thức `perTurn` / `perRound` counters
 - `module/helpers/rollDice.ts` — Dice rolling with Dice So Nice module integration
 - `module/sheets/` — ApplicationV2 sheet classes for actors and items
 - `module/chat/` — Chat message hooks and roll card rendering

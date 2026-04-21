@@ -45,6 +45,12 @@
         "htmlFields": [
           "description"
         ]
+      },
+      "thuatThuc": {
+        "htmlFields": [
+          "description",
+          "notes"
+        ]
       }
     }
   },
