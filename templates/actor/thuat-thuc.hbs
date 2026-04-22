@@ -25,7 +25,7 @@
   {{#each thuatThucByCategory as |rows category|}}
     <details class='thuat-thuc-category' open>
       <summary>{{localize (concat 'BOILERPLATE.ThuatThucCategory.' category)}} ({{rows.length}})</summary>
-      <ol class='items-list'>
+      <ol class='thuat-thuc-item-list'>
         {{#each rows as |row|}}
           <li
             class='item thuat-thuc-row'
@@ -37,7 +37,7 @@
             </div>
             <div class='item-name' data-action='viewDoc'>
                 <div>
-                    <span class="tw:bold">{{ localize row.item.name }}</span>
+                    <span class="tw:font-semibold tw:text-xl">{{ localize row.item.name }}</span>
                      - Cấp {{row.entry.level}}
                 </div>
               <div class='row-badges'>
@@ -51,13 +51,6 @@
                   {{localize (concat 'BOILERPLATE.ThuatThucSource.' row.item.system.source)}}
                 </span>
               </div>
-              {{#if row.entry.traits.length}}
-                <div class='trait-chips'>
-                  {{#each row.entry.traits}}
-                    <span class='trait-chip'>{{localize (concat 'BOILERPLATE.ThuatThucTrait.' this)}}</span>
-                  {{/each}}
-                </div>
-              {{/if}}
             </div>
             <div class='item-usage'>
               {{#unless row.unlimited}}

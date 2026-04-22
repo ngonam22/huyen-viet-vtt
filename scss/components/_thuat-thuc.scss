@@ -42,7 +42,7 @@
     margin-bottom: 0.5rem;
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 4px;
-    padding: 0.25rem 0.5rem;
+    padding: 0;
 
     > summary {
       cursor: pointer;
@@ -51,12 +51,20 @@
     }
   }
 
+  .thuat-thuc-item-list {
+    padding: 0;
+    margin: 0;
+  }
+
   .thuat-thuc-row {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.4rem 0.25rem;
+    padding: 10px 15px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    min-height: 70px;
+    background: transparent url("/systems/huyen-viet-vtt/assets/card-row.png") no-repeat top left;
+    background-size: 100% 100%;
 
     .item-image img {
       border-radius: 4px;
@@ -116,12 +124,10 @@
   border-radius: 10px;
   font-size: 0.7rem;
   line-height: 1.2;
-  background: rgba(0, 0, 0, 0.08);
+  background: #fbf9fa;
   color: rgba(0, 0, 0, 0.75);
   white-space: nowrap;
 
-  &.badge-level  { background: rgba(40, 80, 140, 0.15); }
-  &.badge-source { background: rgba(80, 80, 80, 0.12); }
   &.badge-warn   { background: rgba(200, 120, 0, 0.2); color: #a04c00; }
   &.badge-maHoa  { background: rgba(100, 0, 100, 0.2); color: #5a005a; }
 
@@ -130,16 +136,6 @@
   &.badge-kim  { background: rgba(180, 180, 200, 0.4); color: #505060; }
   &.badge-thuy { background: rgba(40, 100, 180, 0.18); color: #1e4f88; }
   &.badge-moc  { background: rgba(50, 140, 60, 0.18);  color: #285a30; }
-}
-
-.trait-chip {
-  display: inline-block;
-  padding: 0.05rem 0.35rem;
-  border-radius: 3px;
-  font-size: 0.65rem;
-  background: rgba(0, 0, 0, 0.06);
-  color: rgba(0, 0, 0, 0.7);
-  border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 // Item sheet (thuatThuc)
