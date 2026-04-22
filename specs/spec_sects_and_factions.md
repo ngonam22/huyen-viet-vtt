@@ -16,14 +16,14 @@ Về mặt cốt truyện và định hướng nhân vật, Môn Phái sẽ phâ
 Một Object `Môn Phái` trong Database sẽ bao gồm các trường dữ liệu (Fields) cốt lõi sau:
 *   **`Tên Phái` (Sect Name):** Định danh của tổ chức (VD: Tịnh Lý Y Sư).
 *   **`Phân Loại` (Category):** Thuộc nhóm `Thập Nhị Chính Quy` (12 Học viện quốc gia) hoặc `Giang Hồ Bách Đạo` (Thế lực phi chính quy).
-*   **`Hành Cộng Thêm` (Bonus Elements):** Mảng chứa 2 Hành được +1 điểm.
+*   **`Hành Cộng Thêm` (Bonus Elements):** Player tự chọn 2 Hành khác nhau (bất kỳ trong Ngũ Hành) để tăng +1 mỗi hành. Không cố định theo phái — phái chỉ cung cấp quyền chọn, không chỉ định Hành cụ thể. Trong engine, field `upgrade` của `MonPhai` mã hóa điều này bằng `{ target: 'element', choose: 2, effects: [tất cả 5 hành] }`.
 *   **`Kỹ Năng Cộng Thêm` (Bonus Skills):** Danh sách 3 đến 5 Kỹ năng được +1 điểm.
 *   **`Giáo Trình Thuật Thức` (Techniques):** Danh sách 3 đến 5 Thuật Thức (Chiêu thức) nhập môn mà nhân vật học được (VD: Võ kỹ, Linh thuật, Tâm thuật). Engine implementation hiện gắn list này lên Thị Tộc (`starterTechniques: string[]` trong `THI_TOC` config) vì mỗi Thị Tộc có Môn Phái nhập môn canonical 1:1; khi sect được tách độc lập, field có thể move mà không đổi item schema Thuật Thức. Chi tiết auto-grant flow xem `spec_thuat_thuc.md` §8.1.
 *   **`Đặc Kỹ Môn Phái` (Sect Special Technique - ĐKMP):** Kỹ năng nội tại/Kích hoạt độc quyền của phái. Cơ chế của ĐKMP luôn scale (tăng tiến) theo `Cấp Bậc Môn Phái` do đó từ `Cấp Bậc Môn Phái` có thể suy ra cấp Đặc kỹ Môn Phái, về mặt hệ thống có thể coi chúng là một. 
 
 ## 3. GAME RULES: CƠ CHẾ KHỞI TẠO (Character Creation Affect)
 Khi Player chọn Môn Phái ở Bước 4 của quá trình Khởi Tạo Nhân Vật, hệ thống sẽ apply các thay đổi sau lên Character Entity:
-1.  Tự động `+1` vào 2 chỉ số Ngũ Hành được chỉ định.
+1.  Player chọn `+1` vào 2 chỉ số Ngũ Hành khác nhau.
 2.  Player chọn từ 3 đến 5 Kỹ năng trong giáo trình để `+1`.
 3.  Player nhận các Thuật Thức nhập môn (miễn phí, không tốn XP).
 4.  Nhân vật nhận được **Đặc Kỹ Môn Phái** khởi điểm ở **Cấp 1** tương đương với **Cấp Bậc Môn Phái** là 1
@@ -55,48 +55,68 @@ Dưới đây là mapping chi tiết cách `Đặc Kỹ Môn Phái` tương tác
 ### 5.1. Nhóm Thập Nhị Chính Quy (12 Học Viện Quốc Gia)
 
 *   **Tịnh Lý Y Sư (Nghệ Sư/Y Sư)**
-    *   `Bonus`: +1 Thổ, +1 Mộc.
+    *   `Bonus`: chọn 2 chỉ số Ngũ Hành khác nhau để tăng thêm 1.
+    *   `Kỹ năng Giáo Trình`: Y Thuật, Võ Thuật
     *   `ĐKMP - Tịnh Lý Y Thuật`: Khi test kỹ năng *Y Thuật*, có thể đổi xúc xắc mặt Thái Cực (Cân bằng) thành Thiếu Âm (Thất bại) hoặc Thiếu Dương (Thành công). **Số lượng tối đa = Cấp Bậc Môn Phái**.
 
 *   **Sanh Cửu Lãnh Quân (Võ Sĩ)**
-    *   `Bonus`: +1 Thổ, +1 Mộc.
+    *   `Bonus`: chọn 2 chỉ số Ngũ Hành khác nhau để tăng thêm 1.
+    *   `Kỹ năng Giáo Trình`: Binh Pháp, Lãnh Đạo
     *   `ĐKMP - Sanh Cửu Binh Pháp`: Khi Tấn Công/Hỗ Trợ thành công, hồi Tâm Lực. **Tối đa hồi = Cấp Bậc Môn Phái**. Có thể đổi 1 Sức Lực lấy 1 điểm Chí Thành (Critical).
 
 *   **Dương Tần Phục Ma Sư (Võ Sĩ/Pháp Sư)**
-    *   `Bonus`: +1 Thổ, +1 Hỏa.
+    *   `Yêu Cầu`: Linh Căn cấp 1
+    *   `Bonus`: chọn 2 chỉ số Ngũ Hành khác nhau để tăng thêm 1.
+    *   `Kỹ năng Giáo Trình`: Võ Kỹ, Linh Chú Thuật, Nghi Thức.
     *   `ĐKMP - Dương Tần Phục Ma Pháp`: 1 lần/vòng, khi test năng lực lên mục tiêu có tag `Ma tính`, được phép chuyển xúc xắc Thiếu Âm thành Thiếu Dương. **Số lượng tối đa = (Logic cần xác định theo rule phụ, thường liên kết với level)**.
 
 *   **Minh Hạo Nghệ Sư (Nghệ Sư)**
-    *   `Bonus`: +1 Kim, +1 Thủy.
+    *   `Bonus`: chọn 2 chỉ số Ngũ Hành khác nhau để tăng thêm 1.v
+    *   `Kỹ năng Giáo Trình`: Võ Kỹ, Tâm Thuật, Nghi Thức
     *   `ĐKMP - Minh Hạo Thuần Nghệ`: 1 lần/cảnh, sau khi test thành công kỹ năng nhóm Nghệ Đạo, chọn số lượng mục tiêu **tối đa = Cấp bậc Môn Phái**. Hồi cho họ 3 Tâm Lực hoặc điểm Kỹ năng.
 
 *   **Thường Liên Linh Sĩ (Pháp Sư)**
-    *   `Bonus`: +1 Hành tự chọn, +1 Hành khác.
+    *   `Bonus`: chọn 2 chỉ số Ngũ Hành khác nhau để tăng thêm 1.
+    *   `Kỹ năng Giáo Trình`: Linh Chú Thuật, Tâm Thuật, Nghi Thức
     *   `ĐKMP - Thường Liên Linh Pháp`: 1 lần/cảnh, khi test kích hoạt Linh Thuật (Phép thuật), **giảm Độ Khó (ĐK) = Cấp bậc Môn Phái**.
 
-*   **Tiên Vị Thương Sĩ / Nghị Võ Kỵ Sĩ**
-    *   `Bonus Tiên Vị`: +1 Thủy, +1 Mộc. `Bonus Nghị Võ`: +1 Hỏa, +1 Mộc.
+*   **Tiên Vị Thương Sĩ**
+    *   `Bonus`: chọn 2 chỉ số Ngũ Hành khác nhau để tăng thêm 1.
+    *   `Kỹ năng Giáo Trình`: Võ Kỹ, Tâm Thuật, Nghi Thức.
+    *   `ĐKMP - Tiên Vị Thương Hội`: Thêm 1 Chí Thành cho mỗi `2-bộ` khoảng cách di chuyển. Khi cưỡi ngựa, cự ly di chuyển được tính bằng **Gấp đôi Cấp bậc Môn Phái**.
+
+*   **Nghị Võ Kỵ Sĩ**
+    *   `Bonus`: chọn 2 chỉ số Ngũ Hành khác nhau để tăng thêm 1.
+    *   `Kỹ năng Giáo Trình`: Võ Kỹ, Tâm Thuật
     *   `ĐKMP - Nghị Võ Kỵ Phong`: Thêm 1 Chí Thành cho mỗi `2-bộ` khoảng cách di chuyển. Khi cưỡi ngựa, cự ly di chuyển được tính bằng **Gấp đôi Cấp bậc Môn Phái**.
 
-*   **Sơn Vị Thiết Tượng (Nghệ Sư)**
-    *   `Bonus`: +1 Hỏa, +1 Thổ.
+*   **Sơn Vị Thiết Tượng**
+    *   `Bonus`: chọn 2 chỉ số Ngũ Hành khác nhau để tăng thêm 1.
+    *   `Kỹ năng Giáo Trình`: Võ Kỹ, Tâm Thuật, Nghi Thức
     *   `ĐKMP - Sơn Vị Thiết Đoán Kỹ`: 1 lần/cảnh, khi chế tác/sửa vũ khí giáp trụ, cho phép gieo lại số lượng xúc xắc **bằng Cấp bậc Môn Phái**.
 
 *   **Thi Hân Thám Lâm Quân (Võ Sĩ)**
-    *   `Bonus`: +1 Thủy, +1 Mộc. Nhận 1 Thú Hữu (Pet).
-    *   `ĐKMP - Thi Huân Luyện Thú Pháp`: Tăng Sức Lực, Tâm Lực, và kỹ năng Võ Đạo của Pet thêm một lượng **bằng Cấp bậc Môn Phái**. Pet có thể tấn công ké theo chủ nhân.
+    *   `Yêu Cầu`: Linh Căn cấp 1
+    *   `Bonus`: chọn 2 chỉ số Ngũ Hành khác nhau để tăng thêm 1
+    *   `Kỹ năng Giáo Trình`: Linh Thuật, Tâm Thuật, Nghi Thức
+    *   `ĐKMP - Thi Hân Thám Linh Đồng:`: Đối với yêu tộc, tăng Cảnh Giác của nhân vật một lượng bằng với cấp bậc Môn Phái. Ngoài ra, khi thực hiện xét năng lượng để điều tra, hoặc Chủ Động trong cảnh Xung Đột với yêu tộc, thêm một lượng chí thành bằng với cấp bậc Môn Phái.
 
 *   **Diên Hậu Chính Sĩ (Văn Sĩ)**
-    *   `Bonus`: +1 Kim, +1 Mộc.
+    *   `Bonus`: chọn 2 chỉ số Ngũ Hành khác nhau để tăng thêm 1.
+    *   `Kỹ năng Giáo Trình`: Chính Trị Học, Văn Tự
     *   `ĐKMP - Mãn Ý Mặc Ngôn`: 1 lần/cảnh, khi test thuyết phục bằng ngôn từ, được cộng thẳng số lượng điểm Chí Thành **bằng Cấp bậc Môn Phái** (bất kể test thành công hay thất bại).
 
 *   **Tuyết Luật Thám Tử (Võ/Văn Sĩ)**
-    *   `Bonus`: +1 Thổ, +1 Kim.
+    *   `Bonus`: chọn 2 chỉ số Ngũ Hành khác nhau để tăng thêm 1.
+    *   `Kỹ năng Giáo Trình`: Võ Kỹ, Tâm Thuật
+    *   `Thuật Thức`: (Võ Kỹ): Tiên Đấu Thám Lược; (Tâm Thuật): Độc Tâm Thuật
     *   `ĐKMP - Biện Chứng Thám Đạo`: Khi điều tra, **thay thế cấp Kỹ năng bằng Cấp bậc Môn Phái**.
     *   `ĐKMP Phụ - Thám Tâm Tinh Đồng`: Lưu trữ số lượng xúc xắc **tối đa = Cấp bậc Môn Phái** để dùng cho lần test sau.
 
 *   **Hạo Giới Hùng Binh (Võ Sĩ)**
-    *   `Bonus`: +1 Thổ, +1 Hỏa.
+    *   `Bonus`: chọn 2 chỉ số Ngũ Hành khác nhau để tăng thêm 1.
+    *   `Kỹ năng Giáo Trình`: Võ Kỹ, Tâm Thuật
+    *   `Thuật Thức`: 2 Võ Kỹ cấp-1
     *   `ĐKMP - Hạo Giới Nộ Khí`: Khi nhận sát thương hoặc Phát Tiết, tiến vào trạng thái `Cuồng Nộ` và hồi phục Sức Lực = **Cấp bậc Môn Phái + Cấp Thể Lực**.
 
 ### 5.2. Nhóm Giang Hồ Bách Đạo (Cộng Đồng Phi Chính Quy)
@@ -105,7 +125,6 @@ Dưới đây là mapping chi tiết cách `Đặc Kỹ Môn Phái` tương tác
 *   **Thanh Phong Đoàn:** +1 Kim, +1 Mộc. Phái của lính đánh thuê/cướp.
 *   **Tầm Bảo Thương Hội:** +1 Thủy, +1 Mộc. Chuyên về khảo sát và sinh tồn.
 *   **Hồng Điệp Lâu:** +1 Kim, +1 Mộc. Mạng lưới sát thủ/thông tin, có thuật Tiềm Hành (tàng hình).
-*   **Sơn Hải Công Hội:** +1 Thổ, +1 Hỏa.
 *   **Địa Linh Sư:** Tu tập pháp thuật tâm linh, bói toán.
 *   **Lịch Thế Hành Giả:** +1 Hành tự chọn, +1 Hành khác. Tập trung vào Tu Đạo và Khí Thuật.
 
@@ -115,16 +134,22 @@ Dưới đây là mapping chi tiết cách `Đặc Kỹ Môn Phái` tương tác
 
 Về mặt dữ liệu, thông tin của 12 Đại Học Viện (và Giang Hồ Bách Đạo) được lưu trữ tại `module/helpers/config.ts` dưới biến số `MON_PHAI`. Bạn có thể tham khảo `types/monPhai.d.ts` để hiểu cấu trúc.
 
-Thay vì bắt người chơi tự gõ tay, trường `system.identity.monPhai` sẽ nhận ID (Key) của Môn phái, ví dụ `"tinhLyYSu"`. 
+Thay vì bắt người chơi tự gõ tay, trường `system.identity.monPhai` sẽ nhận ID (Key) của Môn phái, ví dụ `"tinhLyYSu"`.
 
-Để phục vụ tính năng **Tự động thăng cấp** (Auto-Leveling) dựa vào TotalXP, hệ thống sẽ chọc vào property `progressionReqs` của Môn Phái đó. 
-Ví dụ, bảng `progressionReqs` của `tinhLyYSu` sẽ có dạng:
+`MonPhai` hiện có 2 property chính phục vụ game logic:
+
+1. **`upgrade: UpgradeRule[]`** — Mô tả các bonus được áp dụng lúc Khởi Tạo Nhân Vật. Cùng interface với `ThiToc` và `BoiCanh`. Với 12 Học Viện, field này mã hóa quy tắc "player chọn 2 Hành bất kỳ để +1":
+```typescript
+upgrade: [{ target: 'element', choose: 2, mode: 'add', effects: [/* 5 hành */] }]
+```
+
+2. **`progressionReqs: Record<number, MonPhaiLevelRequirement>`** — Bảng yêu cầu kỹ năng để Đặc Kỹ Môn Phái tự thăng cấp dựa vào TotalXP. Ví dụ `tinhLyYSu`:
 ```typescript
 {
     2: { yHoc: 3, theThuat: 1 }, 
     3: { yHoc: 4, theThuat: 2, thanHoc: 1 }
 }
 ```
-Khi `totalXp` của nhân vật cán mốc Cấp 2 (20-50 XP), hệ thống sẽ lấy Object của cấp 2 ra (`{ yHoc: 3, theThuat: 1 }`) và tự động lặp qua các key này để kiểm tra xem cấp độ kỹ năng hiện tại của char có >= mức yêu cầu hay không. Nếu Đạt, cấp độ Môn phái được nâng lên 2. 
+Khi `totalXp` của nhân vật cán mốc Cấp 2 (20-50 XP), hệ thống sẽ lấy Object của cấp 2 ra (`{ yHoc: 3, theThuat: 1 }`) và tự động lặp qua các key này để kiểm tra xem cấp độ kỹ năng hiện tại của char có >= mức yêu cầu hay không. Nếu Đạt, cấp độ Môn phái được nâng lên 2.
 
-**Việc cần làm của Game Designer:** Game Designer sẽ cần mở file `module/helpers/config.ts` và dần lấp đầy các thông số yêu cầu chi tiết cho từng Phái ở bảng `progressionReqs` theo đúng chuẩn Rulebook.
+**Việc cần làm của Game Designer:** Game Designer sẽ cần mở file `module/helpers/config.ts` và dần lấp đầy các thông số yêu cầu chi tiết cho từng Phái ở bảng `progressionReqs` theo đúng chuẩn Rulebook. Field `upgrade` cho skill bonus sẽ được bổ sung sau khi Game Designer hoàn thiện giáo trình kỹ năng.

@@ -1,4 +1,5 @@
 import type { HvSkillKey } from "../module/helpers/config";
+import {UpgradeRule} from "./upgrade";
 
 /**
  * Định nghĩa cấu trúc yêu cầu của một cấp Đặc Kỹ Môn Phái.
@@ -24,6 +25,12 @@ export interface MonPhai {
      * Thuộc nhóm học viện chính quy hay giang hồ
      */
     category: 'thapNhiHocVien' | 'giangHoBachDao';
+
+    /**
+     * Các bonus được áp dụng lên nhân vật khi chọn Môn Phái này ở bước Khởi Tạo.
+     * Dùng cùng interface UpgradeRule với ThiToc và BoiCanh.
+     */
+    upgrade: UpgradeRule[];
 
     /**
      * Bảng yêu cầu kỹ năng để Đặc Kỹ Môn Phái tự thăng cấp.

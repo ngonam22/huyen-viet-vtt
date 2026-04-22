@@ -1143,6 +1143,20 @@ export const MON_PHAI: Record<string, MonPhai> = {
         id: 'tinhLyYSu',
         ten: 'BOILERPLATE.MonPhai.tinhLyYSu.label',
         category: 'thapNhiHocVien',
+        upgrade: [
+            {
+                target: 'element',
+                choose: 2,
+                mode: 'add',
+                effects: [
+                    { name: 'kim', value: 1 },
+                    { name: 'moc', value: 1 },
+                    { name: 'thuy', value: 1 },
+                    { name: 'hoa', value: 1 },
+                    { name: 'tho', value: 1 },
+                ]
+            }
+        ],
         progressionReqs: {
             2: { yHoc: 3, theThuat: 1 },
             3: { yHoc: 4, theThuat: 2, thanHoc: 1 },
@@ -1155,6 +1169,20 @@ export const MON_PHAI: Record<string, MonPhai> = {
         id: 'sanhCuuLanhQuan',
         ten: 'BOILERPLATE.MonPhai.sanhCuuLanhQuan.label',
         category: 'thapNhiHocVien',
+        upgrade: [
+            {
+                target: 'element',
+                choose: 2,
+                mode: 'add',
+                effects: [
+                    { name: 'kim', value: 1 },
+                    { name: 'moc', value: 1 },
+                    { name: 'thuy', value: 1 },
+                    { name: 'hoa', value: 1 },
+                    { name: 'tho', value: 1 },
+                ]
+            }
+        ],
         progressionReqs: {
             2: { binhPhap: 2, lanhDao: 1 },
             3: { binhPhap: 3, lanhDao: 2, theThuat: 1 },
@@ -1167,18 +1195,46 @@ export const MON_PHAI: Record<string, MonPhai> = {
         id: 'duongTanPhucMaSu',
         ten: 'BOILERPLATE.MonPhai.duongTanPhucMaSu.label',
         category: 'thapNhiHocVien',
+        upgrade: [
+            {
+                target: 'element',
+                choose: 2,
+                mode: 'add',
+                effects: [
+                    { name: 'kim', value: 1 },
+                    { name: 'moc', value: 1 },
+                    { name: 'thuy', value: 1 },
+                    { name: 'hoa', value: 1 },
+                    { name: 'tho', value: 1 },
+                ]
+            }
+        ],
         progressionReqs: {
             2: { thanHoc: 2, voThuat: 1 },
-            3: { thanHoc: 3, voThuat: 2, tamY: 1 }, 
+            3: { thanHoc: 3, voThuat: 2, tamY: 1 },
             4: { thanHoc: 4, voThuat: 3, tamY: 2 },
             5: { thanHoc: 5, voThuat: 4, tamY: 4, sinhTon: 2 },
             6: { thanHoc: 5, voThuat: 5, tamY: 5, sinhTon: 4 }
         }
     },
-    minhHaoNghiSu: {
-        id: 'minhHaoNghiSu',
-        ten: 'BOILERPLATE.MonPhai.minhHaoNghiSu.label',
+    minhHaoNgheSu: {
+        id: 'minhHaoNgheSu',
+        ten: 'BOILERPLATE.MonPhai.minhHaoNgheSu.label',
         category: 'thapNhiHocVien',
+        upgrade: [
+            {
+                target: 'element',
+                choose: 2,
+                mode: 'add',
+                effects: [
+                    { name: 'kim', value: 1 },
+                    { name: 'moc', value: 1 },
+                    { name: 'thuy', value: 1 },
+                    { name: 'hoa', value: 1 },
+                    { name: 'tho', value: 1 },
+                ]
+            }
+        ],
         progressionReqs: {
             2: { myThuat: 2, thoiTrang: 1 },
             3: { myThuat: 3, thoiTrang: 2, bieuDien: 1 },
@@ -1191,6 +1247,20 @@ export const MON_PHAI: Record<string, MonPhai> = {
         id: 'thuongLienLinhSi',
         ten: 'BOILERPLATE.MonPhai.thuongLienLinhSi.label',
         category: 'thapNhiHocVien',
+        upgrade: [
+            {
+                target: 'element',
+                choose: 2,
+                mode: 'add',
+                effects: [
+                    { name: 'kim', value: 1 },
+                    { name: 'moc', value: 1 },
+                    { name: 'thuy', value: 1 },
+                    { name: 'hoa', value: 1 },
+                    { name: 'tho', value: 1 },
+                ]
+            }
+        ],
         progressionReqs: {
             2: { thienDinh: 2, thanHoc: 1 },
             3: { thienDinh: 3, thanHoc: 2, tamY: 1 },
@@ -1203,6 +1273,20 @@ export const MON_PHAI: Record<string, MonPhai> = {
         id: 'tienViThuongSi',
         ten: 'BOILERPLATE.MonPhai.tienViThuongSi.label',
         category: 'thapNhiHocVien',
+        upgrade: [
+            {
+                target: 'element',
+                choose: 2,
+                mode: 'add',
+                effects: [
+                    { name: 'kim', value: 1 },
+                    { name: 'moc', value: 1 },
+                    { name: 'thuy', value: 1 },
+                    { name: 'hoa', value: 1 },
+                    { name: 'tho', value: 1 },
+                ]
+            }
+        ],
         progressionReqs: {
             2: { thuongNghiep: 2, leDao: 1 },
             3: { thuongNghiep: 3, leDao: 2, xaHoi: 1 },
@@ -1215,6 +1299,20 @@ export const MON_PHAI: Record<string, MonPhai> = {
         id: 'nghiVoKySi',
         ten: 'BOILERPLATE.MonPhai.nghiVoKySi.label',
         category: 'thapNhiHocVien',
+        upgrade: [
+            {
+                target: 'element',
+                choose: 2,
+                mode: 'add',
+                effects: [
+                    { name: 'kim', value: 1 },
+                    { name: 'moc', value: 1 },
+                    { name: 'thuy', value: 1 },
+                    { name: 'hoa', value: 1 },
+                    { name: 'tho', value: 1 },
+                ]
+            }
+        ],
         progressionReqs: {
             2: { theThuat: 2, sinhTon: 1 },
             3: { theThuat: 3, sinhTon: 2, voThuat: 1 },
@@ -1223,10 +1321,24 @@ export const MON_PHAI: Record<string, MonPhai> = {
             6: { theThuat: 5, sinhTon: 5, voThuat: 5, binhPhap: 4 }
         }
     },
-    thuyMinhThietTuong: {
-        id: 'thuyMinhThietTuong',
-        ten: 'BOILERPLATE.MonPhai.thuyMinhThietTuong.label',
+    sonViThietTuong: {
+        id: 'sonViThietTuong',
+        ten: 'BOILERPLATE.MonPhai.sonViThietTuong.label',
         category: 'thapNhiHocVien',
+        upgrade: [
+            {
+                target: 'element',
+                choose: 2,
+                mode: 'add',
+                effects: [
+                    { name: 'kim', value: 1 },
+                    { name: 'moc', value: 1 },
+                    { name: 'thuy', value: 1 },
+                    { name: 'hoa', value: 1 },
+                    { name: 'tho', value: 1 },
+                ]
+            }
+        ],
         progressionReqs: {
             2: { chienCu: 2, theThuat: 1 },
             3: { chienCu: 3, theThuat: 2, laoDong: 1 },
@@ -1239,6 +1351,20 @@ export const MON_PHAI: Record<string, MonPhai> = {
         id: 'thiHuanThamLamQuan',
         ten: 'BOILERPLATE.MonPhai.thiHuanThamLamQuan.label',
         category: 'thapNhiHocVien',
+        upgrade: [
+            {
+                target: 'element',
+                choose: 2,
+                mode: 'add',
+                effects: [
+                    { name: 'kim', value: 1 },
+                    { name: 'moc', value: 1 },
+                    { name: 'thuy', value: 1 },
+                    { name: 'hoa', value: 1 },
+                    { name: 'tho', value: 1 },
+                ]
+            }
+        ],
         progressionReqs: {
             2: { sinhTon: 2, theThuat: 1 },
             3: { sinhTon: 3, theThuat: 2, voThuat: 1 },
@@ -1251,6 +1377,20 @@ export const MON_PHAI: Record<string, MonPhai> = {
         id: 'dienHauChinhSi',
         ten: 'BOILERPLATE.MonPhai.dienHauChinhSi.label',
         category: 'thapNhiHocVien',
+        upgrade: [
+            {
+                target: 'element',
+                choose: 2,
+                mode: 'add',
+                effects: [
+                    { name: 'kim', value: 1 },
+                    { name: 'moc', value: 1 },
+                    { name: 'thuy', value: 1 },
+                    { name: 'hoa', value: 1 },
+                    { name: 'tho', value: 1 },
+                ]
+            }
+        ],
         progressionReqs: {
             2: { chinhTri: 2, vanTu: 1 },
             3: { chinhTri: 3, vanTu: 2, lanhDao: 1 },
@@ -1263,6 +1403,20 @@ export const MON_PHAI: Record<string, MonPhai> = {
         id: 'tuyetLuatThamTu',
         ten: 'BOILERPLATE.MonPhai.tuyetLuatThamTu.label',
         category: 'thapNhiHocVien',
+        upgrade: [
+            {
+                target: 'element',
+                choose: 2,
+                mode: 'add',
+                effects: [
+                    { name: 'kim', value: 1 },
+                    { name: 'moc', value: 1 },
+                    { name: 'thuy', value: 1 },
+                    { name: 'hoa', value: 1 },
+                    { name: 'tho', value: 1 },
+                ]
+            }
+        ],
         progressionReqs: {
             2: { hacNghiep: 2, tamY: 1 },
             3: { hacNghiep: 3, tamY: 2, chinhTri: 1 },
@@ -1271,10 +1425,24 @@ export const MON_PHAI: Record<string, MonPhai> = {
             6: { hacNghiep: 5, tamY: 5, chinhTri: 5, voThuat: 4 }
         }
     },
-    haoGioiHungSi: {
-        id: 'haoGioiHungSi',
-        ten: 'BOILERPLATE.MonPhai.haoGioiHungSi.label',
+    haoGioiHungBinh: {
+        id: 'haoGioiHungBinh',
+        ten: 'BOILERPLATE.MonPhai.haoGioiHungBinh.label',
         category: 'thapNhiHocVien',
+        upgrade: [
+            {
+                target: 'element',
+                choose: 2,
+                mode: 'add',
+                effects: [
+                    { name: 'kim', value: 1 },
+                    { name: 'moc', value: 1 },
+                    { name: 'thuy', value: 1 },
+                    { name: 'hoa', value: 1 },
+                    { name: 'tho', value: 1 },
+                ]
+            }
+        ],
         progressionReqs: {
             2: { voThuat: 2, theThuat: 1 },
             3: { voThuat: 3, theThuat: 2, sinhTon: 1 },
