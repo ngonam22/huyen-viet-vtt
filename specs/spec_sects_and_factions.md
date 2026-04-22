@@ -111,5 +111,20 @@ Dưới đây là mapping chi tiết cách `Đặc Kỹ Môn Phái` tương tác
 
 ***
 
-**⚠️ SYSTEM ARCHITECTURE NOTE FOR DEV/AI:** 
-Khi triển khai logic cho module `MonPhai`, hãy thiết lập một hàm `getMonPhaitLevel(totalXP)` trả về giá trị từ 1-6 dựa trên bảng XP quy định tại Mục 4. Tất cả các hàm tính toán của `Đặc Kỹ Môn Phái` (Sect Special Techniques) phải inject giá trị trả về của `getMonPhaiLevel` này làm `Multiplier` thay vì fix cứng một con số.
+**⚠️ SYSTEM ARCHITECTURE NOTE FOR DEV/AI (CẬP NHẬT MỚI):** 
+
+Về mặt dữ liệu, thông tin của 12 Đại Học Viện (và Giang Hồ Bách Đạo) được lưu trữ tại `module/helpers/config.ts` dưới biến số `MON_PHAI`. Bạn có thể tham khảo `types/monPhai.d.ts` để hiểu cấu trúc.
+
+Thay vì bắt người chơi tự gõ tay, trường `system.identity.monPhai` sẽ nhận ID (Key) của Môn phái, ví dụ `"tinhLyYSu"`. 
+
+Để phục vụ tính năng **Tự động thăng cấp** (Auto-Leveling) dựa vào TotalXP, hệ thống sẽ chọc vào property `progressionReqs` của Môn Phái đó. 
+Ví dụ, bảng `progressionReqs` của `tinhLyYSu` sẽ có dạng:
+```typescript
+{
+    2: { yHoc: 3, theThuat: 1 }, 
+    3: { yHoc: 4, theThuat: 2, thanHoc: 1 }
+}
+```
+Khi `totalXp` của nhân vật cán mốc Cấp 2 (20-50 XP), hệ thống sẽ lấy Object của cấp 2 ra (`{ yHoc: 3, theThuat: 1 }`) và tự động lặp qua các key này để kiểm tra xem cấp độ kỹ năng hiện tại của char có >= mức yêu cầu hay không. Nếu Đạt, cấp độ Môn phái được nâng lên 2. 
+
+**Việc cần làm của Game Designer:** Game Designer sẽ cần mở file `module/helpers/config.ts` và dần lấp đầy các thông số yêu cầu chi tiết cho từng Phái ở bảng `progressionReqs` theo đúng chuẩn Rulebook.
