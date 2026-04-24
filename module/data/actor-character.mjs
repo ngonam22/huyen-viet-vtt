@@ -161,7 +161,8 @@ export default class BoilerplateCharacter extends BoilerplateActorBase {
 
       // Append-only event log for UI timeline.
       // Each entry: { id, type, timestamp, label, field, from, to, xpCost }
-      // Types: "element_upgrade" | "skill_upgrade" | "technique_learned" | "xp_gain" | "identity_change"
+      // Types: "element_upgrade" | "skill_upgrade" | "technique_learned" | "sect_upgrade" | "xp_gain" | "xp_adjust" | "identity_change"
+      // See CHANGELOG_TYPES in config.ts for display labels, colors, and icons.
       changelog: new fields.ArrayField(new fields.ObjectField()),
 
     }

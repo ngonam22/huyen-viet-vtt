@@ -68,7 +68,9 @@ export type ChangelogEventType =
     | "element_upgrade"
     | "skill_upgrade"
     | "technique_learned"
+    | "sect_upgrade"
     | "xp_gain"
+    | "xp_adjust"
     | "identity_change";
 
 export interface ChangelogEntry {

@@ -1,0 +1,236 @@
+{{!-- Progression Modal Template --}}
+<div class="hv-progression-modal">
+
+    {{!-- Header: Tu Vi Display --}}
+    <div class="hv-progression-modal__header">
+        <div class="hv-progression-modal__xp-display">
+            <span class="hv-progression-modal__xp-icon">✨</span>
+            <span class="hv-progression-modal__xp-label">Tu Vi</span>
+            <span class="hv-progression-modal__xp-value">{{currentXp}}</span>
+            <span class="hv-progression-modal__xp-sep">/</span>
+            <span class="hv-progression-modal__xp-total">{{totalXp}}</span>
+        </div>
+        <div class="hv-progression-modal__sect-info">
+            {{#if monPhaiLabel}}
+                <span class="hv-progression-modal__sect-name">{{monPhaiLabel}}</span>
+                <span class="hv-progression-modal__sect-level">Cấp {{sectLevel}}</span>
+            {{else}}
+                <span class="hv-progression-modal__sect-none">Chưa có Môn Phái</span>
+            {{/if}}
+        </div>
+    </div>
+
+    {{!-- Tab Navigation --}}
+    <div class="hv-progression-modal__tabs">
+        <button type="button"
+                class="hv-progression-modal__tab {{#if (eq activeTab 'shop')}}active{{/if}}"
+                data-action="switch-tab" data-tab="shop">
+            <i class="fas fa-store"></i> Lĩnh Ngộ
+        </button>
+        <button type="button"
+                class="hv-progression-modal__tab {{#if (eq activeTab 'changelog')}}active{{/if}}"
+                data-action="switch-tab" data-tab="changelog">
+            <i class="fas fa-scroll"></i> Nhật Ký Tu Luyện
+        </button>
+    </div>
+
+    {{!-- Tab Content --}}
+    <div class="hv-progression-modal__body">
+
+        {{!-- ═══ TAB 1: Lĩnh Ngộ (Shop) ═══ --}}
+        {{#if (eq activeTab 'shop')}}
+        <div class="hv-progression-modal__shop">
+
+            {{!-- Sub-view: Category cards or Detail list --}}
+            {{#if (eq shopView 'categories')}}
+            <div class="hv-progression-modal__cards">
+
+                {{!-- Ngũ Hành Card --}}
+                <div class="hv-progression-modal__card hv-progression-modal__card--element"
+                     data-action="show-shop-detail" data-category="elements"
+                     role="button">
+                    <div class="hv-progression-modal__card-icon">🔥</div>
+                    <div class="hv-progression-modal__card-title">Ngũ Hành</div>
+                    <div class="hv-progression-modal__card-desc">Nâng cấp Hỏa, Thổ, Kim, Thủy, Mộc</div>
+                    {{#if canUpgradeElement}}
+                        <span class="hv-progression-modal__badge"></span>
+                    {{/if}}
+                </div>
+
+                {{!-- Kỹ Năng Card --}}
+                <div class="hv-progression-modal__card hv-progression-modal__card--skill"
+                     data-action="show-shop-detail" data-category="skills"
+                     role="button">
+                    <div class="hv-progression-modal__card-icon">📘</div>
+                    <div class="hv-progression-modal__card-title">Kỹ Năng</div>
+                    <div class="hv-progression-modal__card-desc">Nâng cấp Ngũ Đại Quốc Đạo</div>
+                    {{#if canUpgradeSkill}}
+                        <span class="hv-progression-modal__badge"></span>
+                    {{/if}}
+                </div>
+
+                {{!-- Thuật Thức Card --}}
+                <div class="hv-progression-modal__card hv-progression-modal__card--technique"
+                     data-action="show-shop-detail" data-category="techniques"
+                     role="button">
+                    <div class="hv-progression-modal__card-icon">⚡</div>
+                    <div class="hv-progression-modal__card-title">Thuật Thức</div>
+                    <div class="hv-progression-modal__card-desc">Lĩnh ngộ kỹ thuật mới</div>
+                    {{#if canLearnTechnique}}
+                        <span class="hv-progression-modal__badge"></span>
+                    {{/if}}
+                </div>
+            </div>
+
+            {{!-- Sub-view: Element Detail --}}
+            {{else if (eq shopView 'elements')}}
+            <div class="hv-progression-modal__detail">
+                <button type="button" class="hv-progression-modal__back-btn"
+                        data-action="show-shop-detail" data-category="categories">
+                    <i class="fas fa-arrow-left"></i> Quay lại
+                </button>
+                <h3 class="hv-progression-modal__detail-title">🔥 Nâng Cấp Ngũ Hành</h3>
+                <ul class="hv-progression-modal__upgrade-list">
+                    {{#each elementUpgrades as |elem|}}
+                    <li class="hv-progression-modal__upgrade-item {{#if elem.isMaxed}}maxed{{/if}}">
+                        <span class="hv-progression-modal__upgrade-name">{{elem.label}}</span>
+                        <span class="hv-progression-modal__upgrade-level">
+                            Cấp {{elem.currentLevel}}
+                            {{#unless elem.isMaxed}} → {{elem.targetLevel}}{{/unless}}
+                        </span>
+                        <span class="hv-progression-modal__upgrade-max">/6</span>
+                        {{#if elem.isMaxed}}
+                            <span class="hv-progression-modal__upgrade-status">Tối đa</span>
+                        {{else}}
+                            <span class="hv-progression-modal__upgrade-cost {{#unless elem.canAfford}}insufficient{{/unless}}">
+                                {{elem.cost}} XP
+                            </span>
+                            <button type="button"
+                                    class="hv-progression-modal__upgrade-btn"
+                                    data-action="upgrade-element"
+                                    data-key="{{elem.key}}"
+                                    {{#unless elem.canAfford}}disabled{{/unless}}>
+                                Nâng cấp
+                            </button>
+                        {{/if}}
+                    </li>
+                    {{/each}}
+                </ul>
+            </div>
+
+            {{!-- Sub-view: Skill Detail --}}
+            {{else if (eq shopView 'skills')}}
+            <div class="hv-progression-modal__detail">
+                <button type="button" class="hv-progression-modal__back-btn"
+                        data-action="show-shop-detail" data-category="categories">
+                    <i class="fas fa-arrow-left"></i> Quay lại
+                </button>
+                <h3 class="hv-progression-modal__detail-title">📘 Nâng Cấp Kỹ Năng</h3>
+                <ul class="hv-progression-modal__upgrade-list">
+                    {{#each skillUpgrades as |skill|}}
+                    <li class="hv-progression-modal__upgrade-item {{#if skill.isMaxed}}maxed{{/if}}">
+                        <span class="hv-progression-modal__upgrade-name">{{skill.label}}</span>
+                        <span class="hv-progression-modal__upgrade-level">
+                            Cấp {{skill.currentLevel}}
+                            {{#unless skill.isMaxed}} → {{skill.targetLevel}}{{/unless}}
+                        </span>
+                        <span class="hv-progression-modal__upgrade-max">/6</span>
+                        {{#if skill.isMaxed}}
+                            <span class="hv-progression-modal__upgrade-status">Tối đa</span>
+                        {{else}}
+                            <span class="hv-progression-modal__upgrade-cost {{#unless skill.canAfford}}insufficient{{/unless}}">
+                                {{skill.cost}} XP
+                            </span>
+                            <button type="button"
+                                    class="hv-progression-modal__upgrade-btn"
+                                    data-action="upgrade-skill"
+                                    data-key="{{skill.key}}"
+                                    {{#unless skill.canAfford}}disabled{{/unless}}>
+                                Nâng cấp
+                            </button>
+                        {{/if}}
+                    </li>
+                    {{/each}}
+                </ul>
+            </div>
+
+            {{!-- Sub-view: Technique Picker Placeholder --}}
+            {{else if (eq shopView 'techniques')}}
+            <div class="hv-progression-modal__detail">
+                <button type="button" class="hv-progression-modal__back-btn"
+                        data-action="show-shop-detail" data-category="categories">
+                    <i class="fas fa-arrow-left"></i> Quay lại
+                </button>
+                <h3 class="hv-progression-modal__detail-title">⚡ Lĩnh Ngộ Thuật Thức</h3>
+                <p class="hv-progression-modal__technique-info">
+                    Chi phí: <strong>3 XP</strong> mỗi Thuật Thức.
+                    Nhấn nút bên dưới để mở danh sách Thuật Thức.
+                </p>
+                <button type="button"
+                        class="hv-progression-modal__technique-picker-btn"
+                        data-action="open-technique-picker"
+                        {{#unless canAffordTechnique}}disabled{{/unless}}>
+                    <i class="fas fa-book-open"></i> Chọn Thuật Thức
+                </button>
+            </div>
+            {{/if}}
+
+        </div>
+        {{/if}}
+
+        {{!-- ═══ TAB 2: Nhật Ký Tu Luyện (Changelog) ═══ --}}
+        {{#if (eq activeTab 'changelog')}}
+        <div class="hv-progression-modal__changelog">
+            {{#if (gt changelog.length 0)}}
+            <div class="hv-timeline">
+                <button type="button" class="hv-timeline__nav hv-timeline__nav--prev"
+                        data-action="timeline-prev">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+
+                <div class="hv-timeline__track">
+                    {{#each changelog as |entry idx|}}
+                    <div class="hv-timeline__node {{#if entry.isActive}}active{{/if}}"
+                         data-action="timeline-select" data-index="{{idx}}"
+                         style="--node-color: {{entry.color}}"
+                         data-tooltip="{{entry.typeLabel}}">
+                        <span class="hv-timeline__node-icon">{{entry.icon}}</span>
+                    </div>
+                    {{/each}}
+                </div>
+
+                <button type="button" class="hv-timeline__nav hv-timeline__nav--next"
+                        data-action="timeline-next">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+
+            {{!-- Detail panel for selected event --}}
+            {{#if activeEvent}}
+            <div class="hv-timeline__detail">
+                <div class="hv-timeline__detail-header" style="border-left-color: {{activeEvent.color}}">
+                    <span class="hv-timeline__detail-icon">{{activeEvent.icon}}</span>
+                    <span class="hv-timeline__detail-type">{{activeEvent.typeLabel}}</span>
+                    <span class="hv-timeline__detail-time">{{activeEvent.timeAgo}}</span>
+                </div>
+                <div class="hv-timeline__detail-body">
+                    <div class="hv-timeline__detail-label">{{activeEvent.label}}</div>
+                    {{#if activeEvent.xpCost}}
+                        <div class="hv-timeline__detail-cost">Chi phí: {{activeEvent.xpCost}} XP</div>
+                    {{/if}}
+                    <div class="hv-timeline__detail-field">Trường: {{activeEvent.field}}</div>
+                </div>
+            </div>
+            {{/if}}
+
+            {{else}}
+            <div class="hv-progression-modal__empty">
+                <i class="fas fa-scroll"></i>
+                <p>Chưa có sự kiện nào được ghi lại.</p>
+            </div>
+            {{/if}}
+        </div>
+        {{/if}}
+
+    </div>
+</div>

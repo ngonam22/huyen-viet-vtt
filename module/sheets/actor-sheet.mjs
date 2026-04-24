@@ -9,6 +9,7 @@ import {removeBoiCanhFromActor, setBoiCanhForActor} from "../helpers/boiCanh";
 import {removeGiaCanhFromActor, setGiaCanhForActor} from "../helpers/giaCanh";
 import { InventoryModal } from './inventory-modal.mjs';
 import { ConditionModal } from './condition-modal.mjs';
+import { ProgressionModal, XpAdjustDialog } from './progression-modal.mjs';
 import { CONDITIONS, ELEMENTS_FOR_WOUND, getActiveConditions, getWoundedElements } from '../helpers/conditions.ts';
 import { ThuatThucPicker } from './thuat-thuc-picker.mjs';
 import {
@@ -129,6 +130,14 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
 
         if (action === 'open-condition-modal') {
             return ConditionModal.show(this.actor);
+        }
+
+        if (action === 'open-progression-modal') {
+            return ProgressionModal.show(this.actor);
+        }
+
+        if (action === 'open-xp-adjust') {
+            return XpAdjustDialog.show(this.actor);
         }
 
         // toggle-inventory-view is now driven by the hv-toggle change event

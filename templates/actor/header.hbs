@@ -81,6 +81,30 @@
                                                                   src="/systems/huyen-viet-vtt/assets/icons/quan.webp"/>
                             </span>
                             </div>
+
+                            {{!-- Tu Vi (XP) Widget --}}
+                            <div class="hv-tu-vi-widget">
+                                <div class="hv-tu-vi-widget__label">Tu Vi</div>
+                                <div class="hv-tu-vi-widget__value">
+                                    <span class="hv-tu-vi-widget__current">{{system.progression.currentXp}}</span>
+                                    <span class="hv-tu-vi-widget__sep">/</span>
+                                    <span class="hv-tu-vi-widget__total">{{system.progression.totalXp}}</span>
+                                </div>
+                                <div class="hv-tu-vi-widget__actions">
+                                    <button type="button"
+                                            class="hv-tu-vi-widget__edit-btn"
+                                            data-action="open-xp-adjust"
+                                            data-tooltip="Chỉnh Tu Vi">
+                                        <i class="fas fa-pen"></i>
+                                    </button>
+                                    <button type="button"
+                                            class="hv-tu-vi-widget__upgrade-btn"
+                                            data-action="open-progression-modal"
+                                            data-tooltip="Thăng Cấp">
+                                        ✨ Thăng Cấp
+                                    </button>
+                                </div>
+                            </div>
                         </div>
 
 
