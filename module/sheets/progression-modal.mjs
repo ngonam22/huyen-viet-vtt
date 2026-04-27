@@ -297,8 +297,6 @@ export class ProgressionModal extends HandlebarsApplicationMixin(ApplicationV2) 
                     <p style="color: #95a5a6; font-size: 13px;">Còn lại sau giao dịch: ${remaining} XP</p>
                 </div>
             `,
-            yes: { label: 'Xác nhận', icon: 'fas fa-check' },
-            no: { label: 'Hủy', icon: 'fas fa-times' },
         });
     }
 }
@@ -333,7 +331,7 @@ export class XpAdjustDialog {
             content,
             label: 'Xác nhận',
             callback: async (html) => {
-                const amount = parseInt(html.querySelector('#hv-xp-amount')?.value) || 0;
+                const amount = parseInt(html[0].querySelector('#hv-xp-amount')?.value) || 0;
                 if (amount !== 0) {
                     await updateXpManual(actor, amount);
                 }

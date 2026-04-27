@@ -249,8 +249,19 @@
     "ThuatThuc": {
       "hoaKhiThuc": {
         "name": "Hỏa Khí Thức"
+      },
+      "thuyKhiThuc": {
+        "name": "Thủy Khí Thức"
+      },
+      "mocKhiThuc": {
+        "name": "Mộc Khí Thức"
+      },
+      "kimKhiThuc": {
+        "name": "Kim Khí Thức"
+      },
+      "thoKhiThuc": {
+        "name": "Thổ Khí Thức"
       }
-
     }
   },
   "TYPES": {
@@ -355,6 +366,14 @@
     "prereqWarning": "Chưa đủ yêu cầu",
     "noResults": "Không tìm thấy Thuật Thức phù hợp.",
     "hoaKhiThuc": {
+      "name": "Hỏa Khí Thức",
+      "condition": "Kỹ năng Võ Thuật (Hỏa hành) phù hợp với vũ khí.",
+      "desc": "Chiêu thức vận Hỏa khí vào vũ khí, tăng sát thương trong đòn kế tiếp.",
+      "sincerity": {
+        "1": "Với mỗi điểm chí thành (tối đa bằng cấp bậc Hỏa), tăng lượng sát thương kế tiếp mà đối tượng phải nhận thêm 2 điểm, tới kết thúc lượt sau của nhân vật."
+      }
+    },
+    "thuyKhiThuc": {
       "name": "Hỏa Khí Thức",
       "condition": "Kỹ năng Võ Thuật (Hỏa hành) phù hợp với vũ khí.",
       "desc": "Chiêu thức vận Hỏa khí vào vũ khí, tăng sát thương trong đòn kế tiếp.",

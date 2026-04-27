@@ -63,8 +63,12 @@
     padding: 10px 15px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     min-height: 70px;
-    background: transparent url("/systems/huyen-viet-vtt/assets/card-row.png") no-repeat top left;
+    background: transparent url("/systems/huyen-viet-vtt/assets/components/card/row-bg.png") no-repeat top left;
     background-size: 100% 100%;
+
+    &:hover {
+      background-image: url("/systems/huyen-viet-vtt/assets/components/card/row-bg-hover.png");
+    }
 
     .item-image img {
       border-radius: 4px;

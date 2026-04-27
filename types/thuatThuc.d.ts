@@ -99,4 +99,5 @@ export interface ThuatThuc {
     xpCost: number;
 
     description?: string;
+    img?: string;
 }
