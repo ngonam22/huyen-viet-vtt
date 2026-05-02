@@ -52,6 +52,7 @@ export default class HvVuKhi extends BoilerplateItemBase {
 
         // ── UI display ──────────────────────────────────────────────────────
         schema.flavorText = new f.StringField({ initial: '' }); // short tagline shown under name
+        schema.img = new f.StringField({initial: ''});
 
         // ── Core attributes ─────────────────────────────────────────────────
         schema.weaponClass = new f.StringField({ initial: 'melee' }); // "melee" | "ranged" | "unarmed"

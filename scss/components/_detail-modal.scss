@@ -1,0 +1,323 @@
+.detail-modal {
+    $red-bordeaux: #7b1b38;
+
+    .window-content {
+        position: relative;
+        background: transparent url("/systems/huyen-viet-vtt/assets/components/dm/bg.png") no-repeat top left;
+        background-size: 100% 100%;
+        overflow-y: auto;
+
+        &:before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 0;
+            max-height: 200px;
+            background: transparent url("/systems/huyen-viet-vtt/assets/components/dm/foreground.png") no-repeat top left;
+            background-size: 100%;
+            animation: growHeight 0.7s ease forwards;
+            z-index: -1;
+            /* fade mềm ở mép trên */
+            -webkit-mask-image: linear-gradient(to top,
+                    transparent 0px,
+                    black 20px
+            );
+            mask-image: linear-gradient(to top,
+                    transparent 0px,
+                    black 20px
+            );
+        }
+    }
+    .dm-body {
+        position: relative;
+        padding: 30px 0 55px;
+        box-sizing: border-box;
+
+        > * {
+            position: relative;
+            font-family: 'Times New Roman', Times, serif;
+            z-index: 10;
+        }
+    }
+
+    .dm-banner {
+        position: absolute;
+        top: 0;
+        right: -8%;
+        width: 70%;
+        object-fit: cover;
+        display: block;
+        margin-bottom: 12px;
+        z-index: 1;
+        -webkit-mask-image: linear-gradient(to right,
+                transparent 0px,
+                black 100px
+        );
+        mask-image: linear-gradient(to right,
+                transparent 0px,
+                black 100px
+        );
+    }
+
+    .dm-name {
+        font-family: $font-heading;
+        font-size: 40px;
+        font-weight: 700;
+        margin: 0 0 4px;
+        text-shadow: 0 0 5px black;
+        letter-spacing: 3px;
+    }
+
+    .dm-summarize {
+        color: #ebc161;
+        margin: 20px 0 6px;
+        font-size: 20px;
+        text-shadow: 0 0 5px black;
+        font-family: "Times New Roman", serif;
+    }
+
+    .dm-flavor {
+        margin-top: 80px;
+        color: #522907;
+        font-style: italic;
+        font-size: 16px;
+        width: 70%;
+    }
+
+    .dm-stats-holder {
+        position: relative;
+        padding: 3px;
+        border: 2px solid $red-bordeaux;
+        margin-top: 25px;
+        box-shadow: 0 0 8px 0 #cec9c9;
+
+        &:before, &:after {
+            content: "•";
+            position: absolute;
+            width: 14px;
+            height: 13px;
+            font-size: 14px;
+            color: $red-bordeaux;
+            border: 2px solid $red-bordeaux;
+            line-height: 11px;
+            top: 4px;
+            text-align: center;
+            border-top: 0;
+            z-index: 1;
+        }
+        &:before {
+            left: 3px;
+            border-left: 0;
+        }
+        &:after {
+            right: 4px;
+            border-right: 0;
+        }
+
+        .dm-inner-stats {
+            position: relative;
+            border: 2px solid $red-bordeaux;
+            padding: 18px;
+            background: rgba(246, 234, 209, 0.85);
+
+            &:before, &:after {
+                content: "•";
+                position: absolute;
+                width: 14px;
+                height: 13px;
+                font-size: 14px;
+                color: $red-bordeaux;
+                border: 2px solid $red-bordeaux;
+                line-height: 11px;
+                bottom: -1px;
+                text-align: center;
+                border-bottom: 0;
+            }
+            &:before {
+                left: -1px;
+                border-left: 0;
+            }
+            &:after {
+                right: -1px;
+            }
+        }
+    }
+
+
+    .dm-stat-title {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: $red-bordeaux;
+        font-size: 30px;
+        margin: 0;
+        font-family: "Times New Roman", serif;
+    }
+
+    .dm-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        margin-bottom: 4px;
+    }
+
+    .dm-badge {
+        display: inline-block;
+        padding: 5px 18px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #d8ccb8;
+        text-shadow: 0 0 1px black;
+        background: transparent url("/systems/huyen-viet-vtt/assets/components/badge/default.png") no-repeat top left;
+        background-size: 100% 100%;
+        letter-spacing: 0.25px;
+
+        &.has-hover {
+            cursor: pointer;
+            &:hover {
+                background-image: url("/systems/huyen-viet-vtt/assets/components/badge/default-hover.png");
+            }
+        }
+        &.is-hover {
+            background-image: url("/systems/huyen-viet-vtt/assets/components/badge/default-hover.png");
+        }
+        &.is-active {
+            background-image: url("/systems/huyen-viet-vtt/assets/components/badge/default-active.png");
+        }
+
+        &.--slate {
+            background-image: url("/systems/huyen-viet-vtt/assets/components/badge/slate.png");
+
+            &.has-hover {
+                &:hover {
+                    background-image: url("/systems/huyen-viet-vtt/assets/components/badge/slate-hover.png");
+                }
+            }
+
+            &.is-hover {
+                background-image: url("/systems/huyen-viet-vtt/assets/components/badge/slate-hover.png");
+            }
+            &.is-active {
+                background-image: url("/systems/huyen-viet-vtt/assets/components/badge/slate-active.png");
+            }
+        }
+    }
+
+    .dm-section {
+        border-top: 1px solid $red-bordeaux;
+        margin-top: 10px;
+        padding-top: 8px;
+    }
+
+    .dm-section-title {
+        font-size: 0.7em;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.25px;
+        color: $red-bordeaux;
+        margin: 0 0 6px;
+    }
+
+    .dm-stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 2px 8px;
+        margin: 0;
+
+        dt, dd {
+            line-height: 18px;
+        }
+        dt {
+            font-size: 14px;
+            color: $red-bordeaux;
+            font-weight: 600;
+            margin: 0;
+            align-self: end;
+            text-shadow: none;
+        }
+
+        dd {
+            color: rgb(99 62 20);
+            font-size: 16px;
+            margin: 0;
+            grid-column: span 2;
+        }
+    }
+
+    .dm-traits {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .dm-trait {
+        padding: 2px 7px;
+        border: 1px solid #bbb;
+        border-radius: 4px;
+        font-size: 0.75em;
+    }
+
+    .dm-effect-html {
+        font-size: 0.9em;
+        line-height: 1.5;
+    }
+
+    .dm-sincerity-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .dm-sincerity-item {
+        display: flex;
+        gap: 8px;
+        align-items: flex-start;
+        margin-bottom: 6px;
+        font-size: 0.85em;
+    }
+
+    .dm-sincerity-cost {
+        flex-shrink: 0;
+        padding: 1px 7px;
+        border: 1px solid #888;
+        border-radius: 8px;
+        font-size: 0.8em;
+        font-weight: 600;
+    }
+
+    .dm-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        font-size: 0.85em;
+        line-height: 1.8;
+    }
+
+    .dm-passive-list {
+        list-style: disc;
+        padding-left: 16px;
+        margin: 0;
+        font-size: 0.85em;
+        line-height: 1.8;
+    }
+
+    .dm-description {
+        font-size: 0.85em;
+        line-height: 1.5;
+        color: #666;
+        font-style: italic;
+    }
+
+}
+@keyframes growHeight {
+    from {
+        height: 0;
+    }
+    to {
+        height: 33%;
+    }
+}

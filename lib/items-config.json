@@ -15,7 +15,8 @@
       "traits": [
         { "id": "kin-dao",    "label": "Kín Đáo",    "category": "utility", "description": "Dễ giấu, vượt qua kiểm tra ngụy trang và dò xét." },
         { "id": "thuong-dung","label": "Thường Dụng","category": "utility", "description": "Không gây chú ý khi mang theo nơi công cộng." }
-      ]
+      ],
+      "img": "/systems/huyen-viet-vtt/assets/vu-khi/dao-gam-hero.png"
     },
     {
       "id": "dao",
@@ -31,7 +32,8 @@
       "twoHandedEffects": [],
       "traits": [
         { "id": "thuong-dung","label": "Thường Dụng","category": "utility", "description": "Không gây chú ý khi mang theo nơi công cộng." }
-      ]
+      ],
+      "img": "/systems/huyen-viet-vtt/assets/vu-khi/dao-hero.png"
     },
     {
       "id": "kiem",
@@ -52,8 +54,8 @@
     {
       "id": "truong-kiem",
       "name": "Trường Kiếm",
-      "description": "",
-      "flavorText": "Kiếm dài uy nghi, có thể dùng một hoặc hai tay.",
+      "description": "Kiếm dài uy nghi, có thể dùng một hoặc hai tay.",
+      "flavorText": "Quân tử hành kiếm, chính đạo độc tôn",
       "weaponClass": "melee",
       "baseDamage": 7,
       "range": 1,
@@ -66,7 +68,8 @@
       "traits": [
         { "id": "sac-ben", "label": "Sắc Bén",  "category": "combat",  "description": "Nếu đòn đánh xuyên Kháng Lực, gây thêm +2 Sát thương. Nếu bị chặn hoàn toàn, mất tính trạng này đến khi mài lại." },
         { "id": "hai-tay", "label": "Hai Tay",  "category": "utility", "description": "Có thể dùng hai tay để nhận hiệu ứng Hai-tay (+2 Sát thương)." }
-      ]
+      ],
+      "img": "/systems/huyen-viet-vtt/assets/vu-khi/truong-kiem-hero.png"
     },
     {
       "id": "dai-kiem",
@@ -140,7 +143,8 @@
         { "id": "cam-na",    "label": "Cầm Nã",   "category": "combat",  "description": "Tiêu 1+ Chí Thành để gây hiệu ứng Định thân, điều kiện: Cảnh Giác mục tiêu ≤ số Chí Thành dùng." },
         { "id": "chien-nhu", "label": "Chiến Nhu", "category": "utility", "description": "Vật phẩm chuyên dụng quân đội." },
         { "id": "hai-tay",   "label": "Hai Tay",   "category": "utility", "description": "Bắt buộc dùng hai tay." }
-      ]
+      ],
+      "img": "/systems/huyen-viet-vtt/assets/vu-khi/giao-hero.png"
     },
     {
       "id": "thiet-chi",
@@ -200,7 +204,9 @@
       "passiveEffects": [],
       "traits": [
         { "id": "ben-bi", "label": "Bền Bỉ", "category": "utility", "description": "Khi chịu sát thương phá hủy, chỉ bị Hư hại thay vì Phá hủy." }
-      ]
+      ],
+      "img": "/systems/huyen-viet-vtt/assets/vu-khi/ho-tam-kinh-hero.png"
+
     },
     {
       "id": "giap-sat",

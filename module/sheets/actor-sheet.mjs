@@ -12,6 +12,7 @@ import { ConditionModal } from './condition-modal.mjs';
 import { ProgressionModal, XpAdjustDialog } from './progression-modal.mjs';
 import { CONDITIONS, ELEMENTS_FOR_WOUND, getActiveConditions, getWoundedElements } from '../helpers/conditions.ts';
 import { ThuatThucPicker } from './thuat-thuc-picker.mjs';
+import { DetailModal } from './detail-modal.mjs';
 import {
     getThuatThucById,
     useThuatThuc,
@@ -40,6 +41,7 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
         actions: {
             onEditImage: this._onEditImage,
             viewDoc: this._viewDoc,
+            viewDetail: this._viewDetail,
             createDoc: this._createDoc,
             deleteDoc: this._deleteDoc,
             toggleEffect: this._toggleEffect,
@@ -680,6 +682,11 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
     static async _viewDoc(event, target) {
         const doc = this._getEmbeddedDocument(target);
         doc.sheet.render(true);
+    }
+
+    static async _viewDetail(event, target) {
+        const item = this._getEmbeddedDocument(target);
+        DetailModal.show(item);
     }
 
     /**

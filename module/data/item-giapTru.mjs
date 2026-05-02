@@ -50,6 +50,7 @@ export default class HvGiapTru extends BoilerplateItemBase {
 
         // ── UI display ──────────────────────────────────────────────────────
         schema.flavorText = new f.StringField({ initial: '' });
+        schema.img = new f.StringField({ initial: '' });
 
         // ── Core attribute ───────────────────────────────────────────────────
         // baseResistance is stored permanently and never changes.

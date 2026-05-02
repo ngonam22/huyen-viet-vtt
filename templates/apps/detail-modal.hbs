@@ -1,0 +1,252 @@
+<div class="dm-body">
+
+    {{! ── Identity ── }}
+    <h2 class="dm-name">{{name}}</h2>
+
+    {{! ── Banner image ── }}
+    {{#if img}}
+        <img class="dm-banner" src="{{img}}" alt="{{name}} hero image"/>
+    {{/if}}
+
+    <p class="dm-summarize">
+        {{#if (eq type "thuatThuc")}}
+            {{localize (concat 'BOILERPLATE.Element.' entry.element '.label')}} Hành - Cấp {{entry.level}}
+        {{/if}}
+
+        {{#if (eq type "vuKhi")}}
+            Vũ Khí
+            {{#if (eq weaponClass "melee")}}Cận Chiến{{/if}}
+            {{#if (eq weaponClass "ranged")}}Tầm Xa{{/if}}
+            {{#if (eq weaponClass "unarmed")}}Tay Không{{/if}}
+        {{/if}}
+
+        {{#if (eq type "giapTru")}}
+            Giáp Trụ
+        {{/if}}
+
+        {{#if (eq type "trangBi")}}
+            Trang Bị
+        {{/if}}
+    </p>
+
+    {{#if flavorText}}<p class="dm-flavor">{{flavorText}}</p>{{/if}}
+    {{#if descriptionText}}<p class="dm-flavor">{{descriptionText}}</p>{{/if}}
+    {{#if description}}<p class="dm-flavor">{{description}}</p>{{/if}}
+
+
+    <div class="dm-stats-holder">
+        <div class="dm-inner-stats">
+            <h2 class="dm-stat-title">
+                {{name}}
+                {{#if isEquipped}}<span class="dm-badge --slate is-hover">Đang Trang Bị</span>{{/if}}
+
+            </h2>
+
+            {{! ── Stats grid ── }}
+            <div class="dm-section">
+                <dl class="dm-stats">
+
+                    {{#if (eq type "thuatThuc")}}
+                        {{#if costText}}
+                            <dt>Chi Phí</dt>
+                            <dd>{{costText}}</dd>{{/if}}
+                        {{#if rangeText}}
+                            <dt>Tầm Xa</dt>
+                            <dd>{{rangeText}}</dd>{{/if}}
+                        {{#if durationText}}
+                            <dt>Thời Gian</dt>
+                            <dd>{{durationText}}</dd>{{/if}}
+                        {{#if conditionText}}
+                            <dt>Điều Kiện</dt>
+                            <dd>{{conditionText}}</dd>{{/if}}
+                        {{#if skillCheckText}}
+                            <dt>Kiểm Tra</dt>
+                            <dd>{{skillCheckText}}</dd>{{/if}}
+                        {{#if difficultyText}}
+                            <dt>Độ Khó</dt>
+                            <dd>{{difficultyText}}</dd>{{/if}}
+                        {{#if entry.usage}}
+                            <dt>Tần Suất</dt>
+                            <dd>
+                                {{entry.usage.frequency}}
+                                {{#unless (eq entry.usage.frequency "unlimited")}}
+                                    ({{usesRemaining}} / {{entry.usage.maxUses}})
+                                {{/unless}}
+                            </dd>
+                        {{/if}}
+                        <dt>Chi Phí XP</dt>
+                        <dd>{{entry.xpCost}}</dd>
+                    {{/if}}
+
+                    {{#if (eq type "vuKhi")}}
+                        <dt>Sát Thương</dt>
+                        <dd>{{effectiveDamage}}</dd>
+                        <dt>Tầm Xa</dt>
+                        <dd>{{range}} bộ</dd>
+                        <dt>Tình Trạng</dt>
+                        <dd>
+                            {{#if (eq condition "normal")}}Bình thường{{/if}}
+                            {{#if (eq condition "hu-hai")}}Hư hại{{/if}}
+                            {{#if (eq condition "vo-nat")}}Vỡ nát{{/if}}
+                        </dd>
+                    {{/if}}
+
+                    {{#if (eq type "giapTru")}}
+                        <dt>Kháng Lực</dt>
+                        <dd>{{resistance}}</dd>
+                        <dt>Tình Trạng</dt>
+                        <dd>
+                            {{#if (eq condition "normal")}}Bình thường{{/if}}
+                            {{#if (eq condition "hu-hai")}}Hư hại{{/if}}
+                            {{#if (eq condition "vo-nat")}}Vỡ nát{{/if}}
+                        </dd>
+                    {{/if}}
+
+                    {{#if (eq type "trangBi")}}
+                        <dt>Số Lượng</dt>
+                        <dd>{{quantity}}</dd>
+                    {{/if}}
+
+                </dl>
+            </div>
+
+            {{! ── Traits ── }}
+            {{#if traits.length}}
+                <div class="dm-section">
+                    <p class="dm-section-title">Đặc Tính</p>
+                    {{#if (eq type "thuatThuc")}}
+                        <ul class="dm-traits">
+                            {{#each traits as |trait|}}
+                                <li class="dm-trait">{{localize (concat 'BOILERPLATE.ThuatThucTrait.' trait)}}</li>
+                            {{/each}}
+                        </ul>
+                    {{else}}
+                        <ul class="dm-traits">
+                            {{#each traits as |trait|}}
+                                <li class="dm-trait">{{trait.label}}</li>
+                            {{/each}}
+                        </ul>
+                    {{/if}}
+                </div>
+            {{/if}}
+
+            {{! ── Primary Effect (thuatThuc only) ── }}
+            {{#if primaryEffectHtml}}
+                <div class="dm-section">
+                    <p class="dm-section-title">Hiệu Ứng Chính</p>
+                    <div class="dm-effect-html">{{{primaryEffectHtml}}}</div>
+                </div>
+            {{/if}}
+
+            {{! ── Sincerity Effects (thuatThuc only) ── }}
+            {{#if sincerityEffects.length}}
+                <div class="dm-section">
+                    <p class="dm-section-title">Thành Tâm</p>
+                    <ul class="dm-sincerity-list">
+                        {{#each sincerityEffects as |eff|}}
+                            <li class="dm-sincerity-item">
+            <span class="dm-sincerity-cost">
+              {{eff.cost}}
+                {{#if eff.element}}· {{localize (concat 'BOILERPLATE.Element.' eff.element '.label')}}{{/if}}
+            </span>
+                                <span>{{eff.text}}</span>
+                            </li>
+                        {{/each}}
+                    </ul>
+                </div>
+            {{/if}}
+
+            {{! ── Prerequisites (thuatThuc only) ── }}
+            {{#if hasPrereqs}}
+                <div class="dm-section">
+                    <p class="dm-section-title">Điều Kiện Tiên Quyết</p>
+                    <ul class="dm-list">
+                        {{#each prereqElements as |req|}}
+                            <li>{{localize (concat 'BOILERPLATE.Element.' req.key '.label')}}: {{req.value}}</li>
+                        {{/each}}
+                        {{#each prereqSkills as |req|}}
+                            <li>{{localize (concat 'BOILERPLATE.Skill.' req.key)}}: {{req.value}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+            {{/if}}
+
+            {{! ── Two-Handed Effects (vuKhi only) ── }}
+            {{#if twoHandedEffects.length}}
+                <div class="dm-section">
+                    <p class="dm-section-title">Hiệu Ứng Hai Tay</p>
+                    <ul class="dm-passive-list">
+                        {{#each twoHandedEffects as |rule|}}
+                            {{#each rule.effects as |eff|}}
+                                <li>{{eff.name}} {{#if (eq rule.mode "add")}}+{{/if}}{{eff.value}}</li>
+                            {{/each}}
+                        {{/each}}
+                    </ul>
+                </div>
+            {{/if}}
+
+            {{! ── Passive Effects (items only) ── }}
+            {{#if passiveEffects.length}}
+                <div class="dm-section">
+                    <p class="dm-section-title">Hiệu Ứng Thụ Động</p>
+                    <ul class="dm-passive-list">
+                        {{#each passiveEffects as |rule|}}
+                            {{#each rule.effects as |eff|}}
+                                <li>{{eff.name}} {{#if (eq rule.mode "add")}}+{{/if}}{{eff.value}}</li>
+                            {{/each}}
+                        {{/each}}
+                    </ul>
+                </div>
+            {{/if}}
+
+            {{! ── Description ── }}
+            {{#if flavorText}}<div class="dm-section">{{flavorText}}</div>{{/if}}
+            {{#if descriptionText}}
+                <div class="dm-section">
+                    <p class="dm-description">{{descriptionText}}</p>
+                </div>
+            {{/if}}
+            {{#if description}}
+                <div class="dm-section">
+                    <div class="dm-description">{{{description}}}</div>
+                </div>
+            {{/if}}
+
+            <div class="dm-badges">
+                {{#if (eq type "thuatThuc")}}
+                    <span class="dm-badge">{{localize (concat 'BOILERPLATE.ThuatThucCategory.' entry.category)}}</span>
+                    {{#if entry.subcategory}}
+                        <span class="dm-badge">{{localize
+                                (concat 'BOILERPLATE.ThuatThucSubcategoryVoKy.' entry.subcategory)}}</span>
+                    {{/if}}
+                    <span class="dm-badge">Cấp {{entry.level}}</span>
+                    {{#if entry.element}}
+                        <span class="dm-badge">{{localize (concat 'BOILERPLATE.Element.' entry.element '.label')}}</span>
+                    {{/if}}
+                    {{#if entry.maHoa}}<span class="dm-badge">Ma Hóa</span>{{/if}}
+                    <span class="dm-badge">{{localize (concat 'BOILERPLATE.ThuatThucSource.' source)}}</span>
+                {{/if}}
+
+                {{#if (eq type "vuKhi")}}
+                    <span class="dm-badge">Vũ Khí</span>
+                    {{#if (eq weaponClass "melee")}}<span class="dm-badge">Cận Chiến</span>{{/if}}
+                    {{#if (eq weaponClass "ranged")}}<span class="dm-badge">Tầm Xa</span>{{/if}}
+                    {{#if (eq weaponClass "unarmed")}}<span class="dm-badge">Tay Không</span>{{/if}}
+                    {{#if isTwoHanded}}<span class="dm-badge">Hai Tay</span>{{/if}}
+                {{/if}}
+
+                {{#if (eq type "giapTru")}}
+                    <span class="dm-badge">Giáp Trụ</span>
+                {{/if}}
+
+                {{#if (eq type "trangBi")}}
+                    <span class="dm-badge">Trang Bị</span>
+                {{/if}}
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
