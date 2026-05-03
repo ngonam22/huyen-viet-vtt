@@ -81,10 +81,6 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
             template: 'systems/huyen-viet-vtt/templates/actor/features.hbs',
             scrollable: [""],
         },
-        thiToc: {
-            template: 'systems/huyen-viet-vtt/templates/actor/thiToc.hbs',
-            scrollable: [""],
-        },
         biography: {
             template: 'systems/huyen-viet-vtt/templates/actor/biography.hbs',
             scrollable: [""],
@@ -289,7 +285,7 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
         // Control which parts show based on document subtype
         switch (this.document.type) {
             case 'character':
-                options.parts.push('features','thiToc', 'inventory', 'thuatThuc', 'spells', 'effects');
+                options.parts.push('features', 'inventory', 'thuatThuc', 'spells', 'effects');
                 break;
             case 'npc':
                 options.parts.push('effects');
@@ -486,10 +482,6 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
                 case 'biography':
                     tab.id = 'biography';
                     tab.label += 'Biography';
-                    break;
-                case 'thiToc':
-                    tab.id = 'thiToc';
-                    tab.label += 'ThiToc';
                     break;
                 case 'features':
                     tab.id = 'features';
