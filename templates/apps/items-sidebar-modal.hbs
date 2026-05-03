@@ -1,0 +1,105 @@
+<div class="hv-item-dashboard">
+  <header class="hv-item-dashboard__header">
+    <div>
+      <p class="hv-item-dashboard__eyebrow">Danh mục vật phẩm</p>
+      <h1>VẬT PHẨM</h1>
+      <p>{{subtitle}}</p>
+    </div>
+    <div class="hv-item-dashboard__summary">
+      <strong>{{totalCount}}</strong>
+      <span>vật phẩm</span>
+    </div>
+  </header>
+
+  <div class="hv-item-dashboard__content">
+    <aside class="hv-item-dashboard__rail" aria-label="Danh mục vật phẩm">
+      {{#each categories as |category|}}
+        <button type="button"
+                class="hv-item-dashboard__category {{#if category.isActive}}is-active{{/if}}"
+                data-action="filter-category"
+                data-category="{{category.id}}">
+          <span class="hv-item-dashboard__category-icon"><i class="fas {{category.icon}}"></i></span>
+          <span class="hv-item-dashboard__category-label">{{category.label}}</span>
+          <span class="hv-item-dashboard__category-count">{{category.count}}</span>
+        </button>
+      {{/each}}
+    </aside>
+
+    <main class="hv-item-dashboard__main">
+      <div class="hv-item-dashboard__toolbar">
+        <label class="hv-item-dashboard__search-wrap">
+          <i class="fas fa-magnifying-glass"></i>
+          <input type="search"
+                 class="hv-item-dashboard__search"
+                 value="{{searchText}}"
+                 placeholder="Tìm theo tên hoặc mô tả..." />
+        </label>
+        <div class="hv-item-dashboard__result-count">
+          {{filteredCount}} kết quả
+        </div>
+      </div>
+
+      <div class="hv-item-dashboard__table" role="table" aria-label="Danh sách vật phẩm">
+        <div class="hv-item-dashboard__table-head" role="row">
+          <span>Vật phẩm</span>
+          <span>Loại</span>
+          <span>Độ hiếm</span>
+          <span>Mô tả</span>
+          <span></span>
+        </div>
+
+        {{#if hasRows}}
+          <ol class="hv-item-dashboard__rows">
+            {{#each rows as |item|}}
+              <li class="hv-item-dashboard__row" data-item-key="{{item.key}}">
+                <div class="hv-item-dashboard__item-cell">
+                  <img src="{{item.img}}" alt="{{item.name}}" />
+                  <div>
+                    <strong>{{item.name}}</strong>
+                    <span>{{item.statLabel}}</span>
+                  </div>
+                </div>
+                <span class="hv-item-dashboard__type">{{item.typeLabel}}</span>
+                <span class="hv-item-dashboard__rarity"><span></span>{{item.rarity}}</span>
+                <span class="hv-item-dashboard__description">{{item.shortDescription}}</span>
+                <button type="button"
+                        class="hv-item-dashboard__detail-btn"
+                        data-action="show-detail"
+                        data-item-key="{{item.key}}"
+                        data-tooltip="Xem chi tiết">
+                  <i class="fas fa-chevron-right"></i>
+                </button>
+              </li>
+            {{/each}}
+          </ol>
+        {{else}}
+          <div class="hv-item-dashboard__empty">
+            <i class="fas fa-box-open"></i>
+            <p>Không tìm thấy vật phẩm phù hợp.</p>
+          </div>
+        {{/if}}
+      </div>
+
+      {{#if hasPagination}}
+        <footer class="hv-item-dashboard__pagination">
+          <span>{{pageStart}}-{{pageEnd}} / {{filteredCount}}</span>
+          <div>
+            <button type="button"
+                    data-action="page-prev"
+                    {{#unless canPagePrev}}disabled{{/unless}}
+                    data-tooltip="Trang trước">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <span>Trang {{page}} / {{totalPages}}</span>
+            <button type="button"
+                    data-action="page-next"
+                    {{#unless canPageNext}}disabled{{/unless}}
+                    data-tooltip="Trang sau">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+        </footer>
+      {{/if}}
+    </main>
+  </div>
+</div>

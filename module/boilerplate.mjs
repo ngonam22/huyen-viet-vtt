@@ -11,6 +11,7 @@ import { BOILERPLATE } from './helpers/config.ts';
 import * as models from './data/_module.mjs';
 import {registerChatHooks} from "./chat/chat-hooks";
 import {registerCombatResetHooks} from "./hooks/combat-reset";
+import {registerSidebarItemsModalHook} from "./hooks/sidebar-items-modal.mjs";
 
 const collections = foundry.documents.collections;
 const sheets = foundry.appv1.sheets;
@@ -102,6 +103,7 @@ Hooks.once('init', function () {
 
   registerChatHooks();
   registerCombatResetHooks();
+  registerSidebarItemsModalHook();
 });
 
 /* -------------------------------------------- */
