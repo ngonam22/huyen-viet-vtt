@@ -13,6 +13,7 @@ import { ProgressionModal, XpAdjustDialog } from './progression-modal.mjs';
 import { CONDITIONS, ELEMENTS_FOR_WOUND, getActiveConditions, getWoundedElements } from '../helpers/conditions.ts';
 import { ThuatThucPicker } from './thuat-thuc-picker.mjs';
 import { DetailModal } from './detail-modal.mjs';
+import { CharacterCreatorPanel } from './character-creator-panel.mjs';
 import {
     getThuatThucById,
     useThuatThuc,
@@ -136,6 +137,10 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
 
         if (action === 'open-xp-adjust') {
             return XpAdjustDialog.show(this.actor);
+        }
+
+        if (action === 'open-character-creator') {
+            return CharacterCreatorPanel.show(this.actor, { mode: 'update', initialStep: 'boiCanh' });
         }
 
         // toggle-inventory-view is now driven by the hv-toggle change event

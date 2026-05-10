@@ -1,0 +1,143 @@
+<div class="hv-cc">
+  <div class="hv-cc__layout">
+    <aside class="hv-cc__steps">
+      <h2>BÁT BỘ THÀNH NHÂN</h2>
+      <nav>
+        {{#each steps as |step|}}
+          <button type="button"
+                  class="hv-cc-step {{#if step.isActive}}is-active{{/if}} {{#if step.isComplete}}is-complete{{/if}}"
+                  data-action="select-step"
+                  data-step="{{step.id}}">
+            <span class="hv-cc-step__number">{{step.number}}</span>
+            <span class="hv-cc-step__text">
+              <strong>{{step.label}}</strong>
+              <small>{{step.subtitle}}</small>
+            </span>
+          </button>
+        {{/each}}
+      </nav>
+
+      <div class="hv-cc__motto">
+          Thiên địa vạn vật, ngũ hành tương sinh.<br>Nhân giả tu tâm, thuận đạo mà hành.
+      </div>
+    </aside>
+
+    <main class="hv-cc__main">
+      {{#if isBoiCanhStep}}
+        <section class="hv-cc-boi-canh">
+          <header class="hv-cc__section-header">
+            <h2 class="title-gold">BƯỚC 1: BỐI CẢNH</h2>
+            <p class="desc-text">Bối cảnh miêu tả môi trường ngoại cảnh nơi nhân vật trưởng thành và sinh sống.<br /> Từ đó tôi luyện tính cách cũng như kỹ năng của nhân vật để sinh tồn trong môi trường đặc thù của mình</p>
+          </header>
+
+          <div class="hv-cc-table">
+            <div class="hv-cc-table__scroll">
+              <div class="hv-cc-table__head">
+                <span></span>
+                <span>Bối Cảnh</span>
+                <span>Sơ Lược</span>
+                <span>Ngũ Hành</span>
+                <span>Kỹ Năng</span>
+              </div>
+
+              <ol class="hv-cc-table__rows">
+                {{#each boiCanhRows as |row|}}
+                  <li class="hv-cc-table__row {{#if row.isSelected}}is-selected{{/if}}"
+                      data-boi-canh-id="{{row.id}}"
+                      tabindex="0"
+                      aria-label="Chọn {{row.name}}">
+                    <span class="hv-cc-table__select" aria-hidden="true">
+                      <span></span>
+                    </span>
+                    <div class="hv-cc-table__thumb" style="background-image: url('{{row.thumbnail}}');">
+                      <strong>{{row.name}}</strong>
+                    </div>
+                    <p class="hv-cc-table__desc">{{row.description}}</p>
+                    <div class="hv-cc-table__bonus hv-cc-table__bonus--{{row.element.class}}">
+                      {{#if row.element}}
+                        <img src="{{row.element.icon}}" alt="" />
+                        <div>+{{row.element.value}} {{row.element.label}} hành</div>
+                      {{/if}}
+                    </div>
+                    <div class="hv-cc-table__bonus">
+                      {{#if row.skill}}
+                        <img src="/systems/huyen-viet-vtt/assets/icons/ky-nang/{{row.skill.key}}.png" />
+                        <div>+{{row.skill.value}} {{row.skill.label}}</div>
+                      {{/if}}
+                    </div>
+                  </li>
+                {{/each}}
+              </ol>
+            </div>
+          </div>
+
+          <section class="hv-cc__effect">
+            <h3><i class="fas fa-circle-info"></i> HIỆU ỨNG</h3>
+            <p>Chọn một Bối Cảnh để nhận:</p>
+            <ul>
+              <li>+1 chỉ số Ngũ Hành tương ứng</li>
+              <li>+1 Kỹ Năng tương ứng</li>
+            </ul>
+          </section>
+        </section>
+      {{/if}}
+
+      {{#if isPlaceholderStep}}
+        <section class="hv-cc-placeholder">
+          <span>Bước {{activeStepNumber}}</span>
+          <h2>{{activeStepLabel}}</h2>
+          <p>Nội dung bước này sẽ được triển khai trong phiên bản tiếp theo của bảng khởi tạo.</p>
+        </section>
+      {{/if}}
+
+      <footer class="hv-cc__actions {{#if isFirstStep}}hv-cc__actions--first{{/if}}">
+        {{#unless isFirstStep}}
+          <button type="button" class="hv-cc__nav-btn" data-action="creator-prev">
+            <i class="fas fa-arrow-left"></i>
+            Quay Lại
+          </button>
+        {{/unless}}
+        <button type="button" class="hv-cc__continue" data-action="creator-next" {{#unless canContinue}}disabled{{/unless}}>
+          {{#if isLastStep}}Hoàn Thành{{else}}Tiếp Tục{{/if}}
+          {{#if isLastStep}}<i class="fas fa-check"></i>{{else}}<i class="fas fa-arrow-right"></i>{{/if}}
+        </button>
+      </footer>
+    </main>
+
+    <aside class="hv-cc__summary">
+      <h2>THÔNG TIN NHÂN VẬT</h2>
+      <div class="hv-cc__portrait">
+        <img src="{{summary.img}}" alt="{{summary.name}}" />
+      </div>
+
+      <dl class="hv-cc__info">
+        <dt>Tên Nhân Vật</dt>
+        <dd>{{summary.name}}</dd>
+        <dt>Xuất Thân</dt>
+        <dd>{{summary.thiToc}}</dd>
+        <dt>Môn Phái</dt>
+        <dd>{{summary.monPhai}}</dd>
+        <dt>Bối Cảnh</dt>
+        <dd>{{summary.boiCanh}}</dd>
+      </dl>
+
+      <section class="hv-cc__elements">
+        <h3>NGŨ HÀNH</h3>
+        <div class="hv-cc-elements">
+          {{#each summary.elements as |element|}}
+            <div class="hv-cc-elements__item hv-cc-elements__item--{{element.class}}">
+              <img src="{{element.icon}}" alt="" />
+              <span>{{element.label}}</span>
+              <strong>{{element.value}}</strong>
+            </div>
+          {{/each}}
+        </div>
+      </section>
+
+      <section class="hv-cc__featured-skill">
+        <h3>KỸ NĂNG NỔI BẬT</h3>
+        <p>{{summary.featuredSkill}}</p>
+      </section>
+    </aside>
+  </div>
+</div>

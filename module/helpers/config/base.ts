@@ -36,6 +36,100 @@ export const SKILL_KEYS = [
     "thienDinh"
 ] as const;
 export type HvSkillKey = (typeof SKILL_KEYS)[number];
+export const SKILLS: Record<HvSkillKey, {}>= {
+    "chinhTri": {
+        ten: 'BOILERPLATE.Skills.chinhTri.label',
+        description: 'BOILERPLATE.Skills.chinhTri.label',
+    },
+    "khoaHoc": {
+        ten: 'BOILERPLATE.Skills.khoaHoc.label',
+        description: 'BOILERPLATE.Skills.khoaHoc.label',
+    },
+    "thanHoc": {
+        ten: 'BOILERPLATE.Skills.thanHoc.label',
+        description: 'BOILERPLATE.Skills.thanHoc.label',
+    },
+    "xaHoi": {
+        ten: 'BOILERPLATE.Skills.xaHoi.label',
+        description: 'BOILERPLATE.Skills.xaHoi.label',
+    },
+    "yHoc": {
+        ten: 'BOILERPLATE.Skills.yHoc.label',
+        description: 'BOILERPLATE.Skills.yHoc.label',
+    },
+
+    "myThuat": {
+        ten: 'BOILERPLATE.Skills.myThuat.label',
+        description: 'BOILERPLATE.Skills.myThuat.label',
+    },
+    "vanTu": {
+        ten: 'BOILERPLATE.Skills.vanTu.label',
+        description: 'BOILERPLATE.Skills.vanTu.label',
+    },
+    "thoiTrang": {
+        ten: 'BOILERPLATE.Skills.thoiTrang.label',
+        description: 'BOILERPLATE.Skills.thoiTrang.label',
+    },
+    "chienCu": {
+        ten: 'BOILERPLATE.Skills.chienCu.label',
+        description: 'BOILERPLATE.Skills.chienCu.label',
+    },
+
+    "laoDong": {
+        ten: 'BOILERPLATE.Skills.laoDong.label',
+        description: 'BOILERPLATE.Skills.laoDong.label',
+    },
+    "thuongNghiep": {
+        ten: 'BOILERPLATE.Skills.thuongNghiep.label',
+        description: 'BOILERPLATE.Skills.thuongNghiep.label',
+    },
+    "haiNghiep": {
+        ten: 'BOILERPLATE.Skills.haiNghiep.label',
+        description: 'BOILERPLATE.Skills.haiNghiep.label',
+    },
+    "hacNghiep": {
+        ten: 'BOILERPLATE.Skills.hacNghiep.label',
+        description: 'BOILERPLATE.Skills.hacNghiep.label',
+    },
+    "sinhTon": {
+        ten: 'BOILERPLATE.Skills.sinhTon.label',
+        description: 'BOILERPLATE.Skills.sinhTon.label',
+    },
+
+    "lanhDao": {
+        ten: 'BOILERPLATE.Skills.lanhDao.label',
+        description: 'BOILERPLATE.Skills.lanhDao.label',
+    },
+    "leDao": {
+        ten: 'BOILERPLATE.Skills.leDao.label',
+        description: 'BOILERPLATE.Skills.leDao.label',
+    },
+    "bieuDien": {
+        ten: 'BOILERPLATE.Skills.bieuDien.label',
+        description: 'BOILERPLATE.Skills.bieuDien.label',
+    },
+    "tamY": {
+        ten: 'BOILERPLATE.Skills.tamY.label',
+        description: 'BOILERPLATE.Skills.tamY.label',
+    },
+
+    "theThuat": {
+        ten: 'BOILERPLATE.Skills.theThuat.label',
+        description: 'BOILERPLATE.Skills.theThuat.label',
+    },
+    "voThuat": {
+        ten: 'BOILERPLATE.Skills.voThuat.label',
+        description: 'BOILERPLATE.Skills.voThuat.label',
+    },
+    "binhPhap": {
+        ten: 'BOILERPLATE.Skills.binhPhap.label',
+        description: 'BOILERPLATE.Skills.binhPhap.label',
+    },
+    "thienDinh": {
+        ten: 'BOILERPLATE.Skills.thienDinh.label',
+        description: 'BOILERPLATE.Skills.thienDinh.label',
+    },
+}
 
 export const ABILITY_KEYS = [
     "sucLuc",

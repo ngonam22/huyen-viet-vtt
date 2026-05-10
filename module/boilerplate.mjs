@@ -5,6 +5,7 @@ import { BoilerplateItem } from './documents/item.mjs';
 import { BoilerplateActorSheet } from './sheets/actor-sheet.mjs';
 import { BoilerplateItemSheet } from './sheets/item-sheet.mjs';
 import { ConditionModal } from './sheets/condition-modal.mjs';
+import { CharacterCreatorPanel } from './sheets/character-creator-panel.mjs';
 // Import helper/utility classes and constants.
 import { BOILERPLATE } from './helpers/config.ts';
 // Import DataModel classes
@@ -12,6 +13,7 @@ import * as models from './data/_module.mjs';
 import {registerChatHooks} from "./chat/chat-hooks";
 import {registerCombatResetHooks} from "./hooks/combat-reset";
 import {registerSidebarItemsModalHook} from "./hooks/sidebar-items-modal.mjs";
+import {registerCharacterCreatorHooks} from "./hooks/character-creator.mjs";
 
 const collections = foundry.documents.collections;
 const sheets = foundry.appv1.sheets;
@@ -31,6 +33,7 @@ globalThis.boilerplate = {
     BoilerplateActorSheet,
     BoilerplateItemSheet,
     ConditionModal,
+    CharacterCreatorPanel,
   },
   utils: {
     rollItemMacro,
@@ -104,6 +107,7 @@ Hooks.once('init', function () {
   registerChatHooks();
   registerCombatResetHooks();
   registerSidebarItemsModalHook();
+  registerCharacterCreatorHooks();
 });
 
 /* -------------------------------------------- */

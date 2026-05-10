@@ -51,6 +51,7 @@
 @import 'utils/colors';
 @import 'utils/mixins';
 @import 'utils/variables';
+@import 'utils/url';
 
 /* Global styles */
 @import 'global/window';
@@ -75,6 +76,7 @@
 @import "components/ui-components";
 @import "components/inventory";
 @import "components/items-dashboard";
+@import "components/character-creator";
 
 /* Resource modal (HP / MP management) */
 @import 'components/resource-modal';

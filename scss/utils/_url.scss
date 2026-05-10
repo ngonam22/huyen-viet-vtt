@@ -1,0 +1,13 @@
+$hv-system-base-url: "/systems/huyen-viet-vtt" !default;
+
+@function hv_system_url($path: "") {
+  @if $path == "" {
+    @return $hv-system-base-url;
+  }
+
+  @return "#{$hv-system-base-url}/#{$path}";
+}
+
+@function hv_asset_url($path) {
+  @return hv_system_url("assets/#{$path}");
+}
