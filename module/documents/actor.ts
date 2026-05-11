@@ -116,6 +116,8 @@ export class huyenvietvttActor extends Actor {
 
         this.applyGiaCanhItems(this, totals);
 
+        this.applyXpUpgrades(system, totals);
+
         // 3) tính abilities từ totals đã được cộng bonus
         this.computeAbilities(system, totals);
 
@@ -269,6 +271,15 @@ export class huyenvietvttActor extends Actor {
         }
     }
 
+    applyXpUpgrades(system: HvCharacterSystemData, totals: HvComputedTotals): void {
+        const appliedUpgrades = system.upgrades as AppliedUpgrade[] | undefined;
+        if (!appliedUpgrades?.length) return;
+
+        for (const upgrade of appliedUpgrades) {
+            this.applyUpgradeRules(totals, [upgrade.rule]);
+        }
+    }
+
     applyUpgradeRules(totals: HvComputedTotals, rules: UpgradeRule[]): void {
 
         for (const rule of rules) {
@@ -278,8 +289,6 @@ export class huyenvietvttActor extends Actor {
                 ? rule.effects.slice(0, rule.choose)
                 : rule.effects;
 
-            console.log('+++++')
-            console.log(selectedEffects)
             for (const effect of selectedEffects) {
                 if (rule.target === "element") {
                     if (!isElementKey(effect.name)) continue;

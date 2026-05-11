@@ -98,6 +98,12 @@
                                         <i class="fas fa-pen"></i>
                                     </button>
                                     <button type="button"
+                                            class="hv-tu-vi-widget__reset-btn"
+                                            data-action="reset-upgrades"
+                                            data-tooltip="Reset nâng cấp">
+                                        <i class="fas fa-rotate-left"></i>
+                                    </button>
+                                    <button type="button"
                                             class="hv-tu-vi-widget__upgrade-btn"
                                             data-action="open-progression-modal"
                                             data-tooltip="Thăng Cấp">
@@ -226,8 +232,8 @@
                     </div>
 
 
-                    <div class="tw:grid tw:grid-cols-6 tw:mt-4 tw:grid-rows-2 tw:gap-4 tw:items-center tw:content-center">
-                        <div class="tw:row-span-3 tw:col-span-3">
+                    <div class="tw:grid tw:grid-cols-8 tw:mt-4 tw:grid-rows-2 tw:gap-2 tw:items-center tw:content-center">
+                        <div class="tw:row-span-2 tw:col-span-4">
                             <div id="ngu-hanh-canvas" style="position: relative;">
                                 {{#each elements as |element|}}
                                     <video id="video-{{element}}"
@@ -429,7 +435,7 @@
                         </div>
 
                         <!-- starts ability box -->
-                        <div class='tw:col-start-4 resource flex-group-center ability-box ability-box--resource'
+                        <div class='tw:col-start-5 tw:col-span-2 resource flex-group-center ability-box ability-box--resource'
                              data-action="open-resource-modal" data-type="sucLuc" role="button">
                             <div class='ability-box__title'>
                                 {{localize 'BOILERPLATE.Actor.base.FIELDS.nguHanh.sucLuc.label'}}
@@ -441,7 +447,7 @@
                             </div>
                         </div>
 
-                        <div class='tw:col-start-5 ability-box ability-box--resource'
+                        <div class='tw:col-start-7 tw:col-span-2 ability-box ability-box--resource'
                              data-action="open-resource-modal" data-type="tamLuc" role="button">
                             <div class='ability-box__title'>
                                 {{localize 'BOILERPLATE.Actor.base.FIELDS.nguHanh.tamLuc.label'}}
@@ -453,7 +459,7 @@
                             </div>
                         </div>
 
-                        <div class='tw:col-start-6 ability-box'>
+                        <div class='tw:col-start-5 tw:col-span-2 tw:row-start-2 ability-box'>
                             <div class='ability-box__title'>
                                 {{localize 'BOILERPLATE.Actor.base.FIELDS.nguHanh.canhGiac.label'}}
                             </div>
@@ -462,7 +468,7 @@
                             </div>
                         </div>
 
-                        <div class='tw:col-start-4 tw:row-start-2 ability-box'>
+                        <div class='tw:col-start-7 tw:col-span-2 tw:row-start-2 ability-box'>
                             <div class='ability-box__title'>
                                 {{localize 'BOILERPLATE.Actor.base.FIELDS.nguHanh.chuTam.label'}}
                             </div>
@@ -471,23 +477,14 @@
                             </div>
                         </div>
 
-                        <div class='ability-box tw:col-start-5 tw:row-start-2'>
-                            <div class='ability-box__title'>
-                                {{localize 'BOILERPLATE.Actor.base.FIELDS.nguHanh.tocDo.label'}}
-                            </div>
-                            <div class='ability-box__content'>
-                                {{system.abilities.tocDo.value}}
-                            </div>
-                        </div>
-
-                        <div class='ability-box tw:col-start-6 tw:row-start-2'>
-                            <div class='ability-box__title'>
-                                {{localize 'BOILERPLATE.Actor.base.FIELDS.nguHanh.nguHop.label'}}
-                            </div>
-                            <div class='ability-box__content'>
-                                {{system.abilities.nguHop.value}}
-                            </div>
-                        </div>
+<!--                        <div class='ability-box tw:col-start-6 tw:row-start-2'>-->
+<!--                            <div class='ability-box__title'>-->
+<!--                                {{localize 'BOILERPLATE.Actor.base.FIELDS.nguHanh.nguHop.label'}}-->
+<!--                            </div>-->
+<!--                            <div class='ability-box__content'>-->
+<!--                                {{system.abilities.nguHop.value}}-->
+<!--                            </div>-->
+<!--                        </div>-->
                     </div>
 
                     {{! ── Condition Strip ──────────────────────────────────────────────────── }}

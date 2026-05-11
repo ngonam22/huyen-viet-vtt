@@ -12,6 +12,7 @@
  */
 
 import type { ChangelogEntry, ChangelogEventType } from "../../types/actor-character";
+import type { AppliedUpgrade, UpgradeRule } from "../../types/upgrade";
 import type { HvElementKey, HvSkillKey } from "./config";
 import {
     ELEMENT_UPGRADE_COST,
@@ -25,6 +26,15 @@ import {
     isSkillKey,
 } from "./config";
 import { getThuatThucById, learnThuatThuc } from "./thuatThuc";
+
+function appendXpUpgrade(
+    upgrades: AppliedUpgrade[] | undefined,
+    sourceId: string,
+    rule: UpgradeRule
+): AppliedUpgrade[] {
+    const current = Array.isArray(upgrades) ? [...upgrades] : [];
+    return [...current, { sourceId, rule }];
+}
 
 /* ------------------------------------------------------------------ */
 /*  Changelog                                                         */
@@ -103,9 +113,16 @@ export async function upgradeElement(actor: Actor, elementKey: HvElementKey): Pr
         return false;
     }
 
-    // Execute: hard-update element value + deduct currentXp
+    const nextUpgrades = appendXpUpgrade(system.upgrades, `xp-element-${elementKey}-${generateId()}`, {
+        target: "element",
+        mode: "add",
+        effects: [{ name: elementKey, value: 1 }],
+    });
+
+    // Execute: store XP-purchased modifier + deduct currentXp.
+    // The actor prepare pipeline rebuilds element values from system.upgrades.
     await actor.update({
-        [`system.elements.${elementKey}.value`]: targetLevel,
+        "system.upgrades": nextUpgrades,
         "system.progression.currentXp": currentXp - cost,
     });
 
@@ -167,9 +184,16 @@ export async function upgradeSkill(actor: Actor, skillKey: HvSkillKey): Promise<
         return false;
     }
 
-    // Execute: hard-update skill value + deduct currentXp
+    const nextUpgrades = appendXpUpgrade(system.upgrades, `xp-skill-${skillKey}-${generateId()}`, {
+        target: "skill",
+        mode: "add",
+        effects: [{ name: skillKey, value: 1 }],
+    });
+
+    // Execute: store XP-purchased modifier + deduct currentXp.
+    // The actor prepare pipeline rebuilds skill values from system.upgrades.
     await actor.update({
-        [`system.skills.${skillKey}`]: targetLevel,
+        "system.upgrades": nextUpgrades,
         "system.progression.currentXp": currentXp - cost,
     });
 

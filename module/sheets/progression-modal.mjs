@@ -157,7 +157,7 @@ export class ProgressionModal extends HandlebarsApplicationMixin(ApplicationV2) 
         // Build changelog
         const rawChangelog = system.changelog ?? [];
         const changelog = [...rawChangelog]
-            .sort((a, b) => b.timestamp - a.timestamp)
+            // .sort((a, b) => b.timestamp - a.timestamp)
             .map((entry, idx) => {
                 const meta = CHANGELOG_TYPES[entry.type] ?? { label: entry.type, color: '#666', icon: '📌' };
                 return {

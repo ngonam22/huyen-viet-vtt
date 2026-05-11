@@ -64,7 +64,8 @@
         margin-top: 2px;
     }
 
-    &__edit-btn {
+    &__edit-btn,
+    &__reset-btn {
         background: rgba(255, 255, 255, 0.06);
         border: 1px solid rgba(255, 255, 255, 0.12);
         border-radius: 4px;
@@ -78,6 +79,16 @@
             background: rgba(212, 168, 67, 0.15);
             border-color: rgba(212, 168, 67, 0.4);
             color: #f1c40f;
+        }
+    }
+
+    &__reset-btn {
+        color: rgba(231, 76, 60, 0.75);
+
+        &:hover {
+            background: rgba(231, 76, 60, 0.14);
+            border-color: rgba(231, 76, 60, 0.45);
+            color: #ff8a80;
         }
     }
 

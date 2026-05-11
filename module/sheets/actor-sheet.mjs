@@ -139,6 +139,10 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
             return XpAdjustDialog.show(this.actor);
         }
 
+        if (action === 'reset-upgrades') {
+            return this._confirmResetUpgrades();
+        }
+
         if (action === 'open-character-creator') {
             return CharacterCreatorPanel.show(this.actor, { mode: 'update', initialStep: 'boiCanh' });
         }
@@ -284,16 +288,16 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
     _configureRenderOptions(options) {
         super._configureRenderOptions(options);
         // Not all parts always render
-        options.parts = ['header', 'tabs', 'biography'];
+        options.parts = ['header', 'tabs'];
         // Don't show the other tabs if only limited view
         if (this.document.limited) return;
         // Control which parts show based on document subtype
         switch (this.document.type) {
             case 'character':
-                options.parts.push('features', 'inventory', 'thuatThuc', 'spells', 'effects');
+                options.parts.push('inventory', 'features', 'thuatThuc', 'spells', 'effects', 'biography');
                 break;
             case 'npc':
-                options.parts.push('effects');
+                options.parts.push('effects', 'biography');
                 break;
         }
     }
@@ -458,6 +462,28 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
         context.thuatThucIsEmpty = count === 0;
     }
 
+    async _confirmResetUpgrades() {
+        const confirmed = await Dialog.confirm({
+            title: 'Reset nâng cấp',
+            content: `
+                <div style="padding: 12px;">
+                    <p><strong>Bạn có chắc muốn reset toàn bộ nâng cấp?</strong></p>
+                    <p>Thao tác này sẽ xóa toàn bộ dữ liệu trong <code>system.upgrades</code>.</p>
+                    <p style="color: #c0392b; font-weight: 600;">Điểm kinh nghiệm đã dùng sẽ không được hoàn lại.</p>
+                </div>
+            `,
+            yes: () => true,
+            no: () => false,
+            defaultYes: false,
+        });
+
+        if (!confirmed) return;
+
+        await this.actor.update({ 'system.upgrades': [] });
+        ui.notifications?.info('Đã reset toàn bộ nâng cấp. XP đã dùng không được hoàn lại.');
+        this.render();
+    }
+
     /**
      * Generates the data for the generic tab navigation template
      * @param {string[]} parts An array of named template parts to render
@@ -468,7 +494,7 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
         // If you have sub-tabs this is necessary to change
         const tabGroup = 'primary';
         // Default tab for first time it's rendered this session
-        if (!this.tabGroups[tabGroup]) this.tabGroups[tabGroup] = 'biography';
+        if (!this.tabGroups[tabGroup]) this.tabGroups[tabGroup] = 'inventory';
         return parts.reduce((tabs, partId) => {
             const tab = {
                 cssClass: '',
