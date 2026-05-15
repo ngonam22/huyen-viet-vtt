@@ -1,11 +1,11 @@
-import { BOI_CANH, ELEMENTS } from '../helpers/config.ts';
+import { BOI_CANH, ELEMENTS, SKILL_LABELS, ELEMENT_CLASS } from '../helpers/config.ts';
 import { setBoiCanhForActor } from '../helpers/boiCanh';
 
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 
 const STEP_IDS = [
   'boiCanh',
-  'xuatThan',
+  'giaCanh',
   'monPhai',
   'nguHanh',
   'kyNang',
@@ -16,7 +16,7 @@ const STEP_IDS = [
 
 const STEPS = [
   { id: 'boiCanh', label: 'Bối Cảnh', subtitle: 'Nơi nhân vật trưởng thành' },
-  { id: 'xuatThan', label: 'Xuất Thân', subtitle: 'Thân thế và quá khứ' },
+  { id: 'giaCanh', label: 'Gia Cảnh', subtitle: 'Thân thế và quá khứ' },
   { id: 'monPhai', label: 'Môn Phái', subtitle: 'Con đường tu luyện' },
   { id: 'nguHanh', label: 'Ngũ Hành', subtitle: 'Phân bổ chỉ số Ngũ Hành' },
   { id: 'kyNang', label: 'Kỹ Năng', subtitle: 'Chọn kỹ năng khởi đầu' },
@@ -25,38 +25,6 @@ const STEPS = [
   { id: 'danhXung', label: 'Danh Xưng', subtitle: 'Danh xưng và hình dung' },
 ];
 
-const SKILL_LABELS = {
-  chinhTri: 'Chính Trị',
-  khoaHoc: 'Khoa Học',
-  thanHoc: 'Thần Học',
-  xaHoi: 'Xã Hội',
-  yHoc: 'Y Học',
-  myThuat: 'Mỹ Thuật',
-  vanTu: 'Văn Tự',
-  thoiTrang: 'Thời Trang',
-  chienCu: 'Chiến Cụ',
-  laoDong: 'Lao Động',
-  thuongNghiep: 'Thương Nghiệp',
-  haiNghiep: 'Hải Nghiệp',
-  hacNghiep: 'Hắc Nghiệp',
-  sinhTon: 'Sinh Tồn',
-  lanhDao: 'Lãnh Đạo',
-  leDao: 'Lễ Đạo',
-  bieuDien: 'Biểu Diễn',
-  tamY: 'Tâm Ý',
-  theThuat: 'Thể Thuật',
-  voThuat: 'Võ Thuật',
-  binhPhap: 'Binh Pháp',
-  thienDinh: 'Thiền Định',
-};
-
-const ELEMENT_CLASS = {
-  kim: 'metal',
-  moc: 'wood',
-  thuy: 'water',
-  hoa: 'fire',
-  tho: 'earth',
-};
 
 function kebabCase(value) {
   return String(value ?? '')

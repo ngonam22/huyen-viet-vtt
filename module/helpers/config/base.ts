@@ -203,6 +203,39 @@ export function isSkillKey(value: string): value is HvSkillKey {
     return (SKILL_KEYS as readonly string[]).includes(value);
 }
 
+export const SKILL_LABELS: Record<HvSkillKey, string> = {
+    chinhTri:     'Chính Trị',
+    khoaHoc:      'Khoa Học',
+    thanHoc:      'Thần Học',
+    xaHoi:        'Xã Hội',
+    yHoc:         'Y Học',
+    myThuat:      'Mỹ Thuật',
+    vanTu:        'Văn Tự',
+    thoiTrang:    'Thời Trang',
+    chienCu:      'Chiến Cụ',
+    laoDong:      'Lao Động',
+    thuongNghiep: 'Thương Nghiệp',
+    haiNghiep:    'Hải Nghiệp',
+    hacNghiep:    'Hắc Nghiệp',
+    sinhTon:      'Sinh Tồn',
+    lanhDao:      'Lãnh Đạo',
+    leDao:        'Lễ Đạo',
+    bieuDien:     'Biểu Diễn',
+    tamY:         'Tâm Ý',
+    theThuat:     'Thể Thuật',
+    voThuat:      'Võ Thuật',
+    binhPhap:     'Binh Pháp',
+    thienDinh:    'Thiền Định',
+};
+
+export const ELEMENT_CLASS: Record<HvElementKey, string> = {
+    kim:  'metal',
+    moc:  'wood',
+    thuy: 'water',
+    hoa:  'fire',
+    tho:  'earth',
+};
+
 export const ELEMENTS = {
     kim: {
         key: "kim",

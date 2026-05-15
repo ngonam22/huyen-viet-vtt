@@ -1,18 +1,50 @@
-<div class="hv-chat-card">
-    <div class="hv-chat-card__header">
-        <div class="hv-chat-card__title">Gieo Thiên Mệnh123</div>
-        <div class="hv-chat-card__actor">{{actorName}}</div>
+<section class="hv-roll-card" data-roll-mode="{{rollMode}}">
+    <header class="hv-roll-card__header">
+        <div>
+            <h3 class="hv-roll-card__title">{{title}}</h3>
+            <div class="hv-roll-card__meta">{{actorName}} · {{time}}</div>
+        </div>
+        <div class="hv-roll-card__mode" title="{{modeLabel}}" aria-label="{{modeLabel}}">
+            {{#if isAdvantage}}
+                <i class="fa-solid fa-arrow-trend-up"></i>
+            {{else if isDisadvantage}}
+                <i class="fa-solid fa-arrow-trend-down"></i>
+            {{else}}
+                <i class="fa-solid fa-circle-dot"></i>
+            {{/if}}
+        </div>
+    </header>
+
+    <div class="hv-roll-card__summary">
+        <div class="hv-roll-card__dice-count">{{diceCount}}</div>
+        <div class="hv-roll-card__totals" aria-label="Kết quả Dương Bình Âm">
+            <div class="hv-roll-card__counter hv-roll-card__counter--duong">
+                <span>Dương</span>
+                <strong>{{duongResult}}</strong>
+            </div>
+            <div class="hv-roll-card__counter hv-roll-card__counter--binh">
+                <span>Bình</span>
+                <strong>{{binhResult}}</strong>
+            </div>
+            <div class="hv-roll-card__counter hv-roll-card__counter--am">
+                <span>Âm</span>
+                <strong>{{amResult}}</strong>
+            </div>
+        </div>
     </div>
 
-    <div class="hv-chat-card__body">
-        <div class="hv-chat-card__faces">
-            {{#each faces}}
-                <span class="hv-face">{{this}}</span>
-            {{/each}}
-        </div>
+    <button type="button" class="hv-roll-card__toggle" data-action="toggle-hv-roll-details" aria-expanded="false">
+        <span>Chi tiết xúc xắc</span>
+        <i class="fa-solid fa-chevron-down"></i>
+    </button>
 
-        <div class="hv-chat-card__total">
-            {{total}}
-        </div>
+    <div class="hv-roll-card__details" hidden>
+        {{#each diceRows}}
+            <div class="hv-roll-card__die hv-roll-card__die--{{category}}">
+                <span class="hv-roll-card__die-index">#{{index}}</span>
+                <strong class="hv-roll-card__die-value">{{value}}</strong>
+                <span class="hv-roll-card__die-label">{{label}}</span>
+            </div>
+        {{/each}}
     </div>
-</div>
+</section>

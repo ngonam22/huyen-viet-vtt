@@ -1,0 +1,160 @@
+.hv-roll-card {
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid rgba(83, 52, 29, 0.32);
+  border-radius: 8px;
+  background: transparent url("/systems/huyen-viet-vtt/assets/roll-bg.png") top left no-repeat;
+  background-size: 100% 100%;
+  color: #2d2118;
+  font-family: "Yrsa", serif;
+
+  &__header,
+  &__summary,
+  &__toggle,
+  &__die {
+    display: flex;
+    align-items: center;
+  }
+
+  &__header {
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.1;
+    color: #977c5e;
+  }
+
+  &__meta {
+    margin-top: 3px;
+    color: #977c5e;
+    font-size: 12px;
+  }
+
+  &__mode {
+    display: grid;
+    flex: 0 0 30px;
+    width: 30px;
+    height: 30px;
+    place-items: center;
+    border: 1px solid rgba(83, 52, 29, 0.24);
+    border-radius: 50%;
+    background: #fff;
+    color: #6d2323;
+  }
+
+  &__summary {
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  &__dice-count {
+    min-width: 54px;
+    padding: 5px 8px;
+    border: 1px solid rgba(83, 52, 29, 0.2);
+    border-radius: 6px;
+    background: #fff;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  &__totals {
+    display: grid;
+    flex: 1;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  &__counter {
+    display: grid;
+    gap: 1px;
+    padding: 6px 4px;
+    border-radius: 6px;
+    background: #fff;
+    text-align: center;
+
+    span {
+      color: #6d5b4f;
+      font-size: 11px;
+    }
+
+    strong {
+      font-size: 18px;
+      line-height: 1;
+    }
+  }
+
+  &__counter--duong strong,
+  &__die--duong &__die-value {
+    color: #a31d1d;
+  }
+
+  &__counter--binh strong,
+  &__die--binh &__die-value {
+    color: #7a4b32;
+  }
+
+  &__counter--am strong,
+  &__die--am &__die-value {
+    color: #305d52;
+  }
+
+  &__toggle {
+    justify-content: space-between;
+    width: 100%;
+    padding: 6px 8px;
+    border: 1px solid rgba(83, 52, 29, 0.18);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.68);
+    color: #3f3025;
+    font: inherit;
+    cursor: pointer;
+  }
+
+  &.is-expanded &__toggle i {
+    transform: rotate(180deg);
+  }
+
+  &__toggle i {
+    transition: transform 0.15s ease;
+  }
+
+  &:not(.is-expanded) &__details,
+  &__details[hidden] {
+    display: none !important;
+  }
+
+  &.is-expanded &__details {
+    display: grid;
+    gap: 6px;
+  }
+
+  &__die {
+    justify-content: space-between;
+    gap: 8px;
+    padding: 6px 8px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.76);
+  }
+
+  &__die-index {
+    color: #6d5b4f;
+    font-size: 12px;
+  }
+
+  &__die-value {
+    min-width: 24px;
+    font-size: 18px;
+    text-align: center;
+  }
+
+  &__die-label {
+    margin-left: auto;
+    color: #4b3b31;
+    font-size: 12px;
+  }
+}

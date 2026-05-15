@@ -7,6 +7,7 @@ import { HvCharacterSystemData, HvComputedTotals, isElementKey, isSkillKey, SKIL
 import { getBoiCanhById } from "../helpers/boiCanh";
 import { getGiaCanhById } from "../helpers/giaCanh";
 import { hasCondition } from "../helpers/conditions";
+import { createHvRollCard } from "../chat/hv-roll-card";
 
 /**
  * Extend the base Actor document by defining a custom roll data structure which is ideal for the Simple system.
@@ -31,32 +32,8 @@ export class huyenvietvttActor extends Actor {
     }
 
     async testDiceSoNice(numDice: number = 1): Promise<void> {
-
         const roll = await new Roll(`${numDice}d10`).evaluate();
-
-        // Lấy mặt xúc xắc thực tế từ Foundry Roll
-        const dice = roll.dice?.[0];
-        const rolls: Roll[] = (dice?.results ?? [])
-            .filter((r: any) => r.active)
-            .map((r: any): Roll => ({
-                value: Number(r.result),
-                rerollFrom: null
-            }));
-
-        const result = calculateFromRolls(rolls);
-
-        await roll.toMessage({
-            speaker: ChatMessage.getSpeaker({ actor: this }),
-            flavor: `
-                <strong>Gieo Thiên Mệnh</strong><br>
-                DSN active: ${hasDiceSoNice() ? "yes" : "no"}
-            `,
-            flags: {
-                "huyen-viet-vtt": {
-                    cardType: "hv-roll"
-                }
-            }
-        });
+        await createHvRollCard(this, roll, { mode: "normal" });
     }
 
 
@@ -444,17 +421,15 @@ export class huyenvietvttActor extends Actor {
 
         const diceResults: number[] = []
         const diceData: Roll[] = roll.dice[0].results.map((r) => {
-            diceResults.push(r.result)
+            const value = r.result === 10 ? 0 : r.result;
+            diceResults.push(value)
             return {
-                value: r.result,
+                value,
                 rerollFrom: null
             }
         });
 
-        await ChatMessage.create({
-            speaker: ChatMessage.getSpeaker({ actor: this }),
-            content: `${diceCount}d10 <==== ${diceResults.join(",")}`,
-        })
+        await createHvRollCard(this, roll, { mode: "normal" });
 
         console.log(`---You rolled the dice`)
         return calculateFromRolls(diceData)
