@@ -82,6 +82,137 @@
         </section>
       {{/if}}
 
+      {{#if isGiaCanhStep}}
+        <section class="hv-cc-gia-canh">
+          <header class="hv-cc__section-header">
+            <h2 class="title-gold">BƯỚC 2: GIA CẢNH</h2>
+            <p class="desc-text">Gia Cảnh phản ánh xuất thân và công việc của nhân vật trước khi bước vào con đường tu luyện.<br />Từ đó hình thành kỹ năng nghề nghiệp và ngũ hành cộng hưởng với cuộc sống thường nhật</p>
+          </header>
+
+          <div class="hv-cc-table hv-cc-table--gia-canh">
+            <div class="hv-cc-table__scroll">
+              <div class="hv-cc-table__head">
+                <span></span>
+                <span>Gia Cảnh</span>
+                <span>Sơ Lược</span>
+                <span>Ngũ Hành / Kỹ Năng</span>
+              </div>
+
+              <ol class="hv-cc-table__rows">
+                {{#each giaCanhRows as |row|}}
+                  <li class="hv-cc-table__row {{#if row.isSelected}}is-selected{{/if}}"
+                      data-gia-canh-id="{{row.id}}"
+                      tabindex="0"
+                      aria-label="Chọn {{row.name}}">
+                    <span class="hv-cc-table__select" aria-hidden="true">
+                      <span></span>
+                    </span>
+                    <div class="hv-cc-table__thumb" style="background-image: url('{{row.thumbnail}}');">
+                      <strong>{{row.name}}</strong>
+                    </div>
+                    <p class="hv-cc-table__desc">{{row.description}}</p>
+                    <div class="hv-cc-table__bonuses">
+                      <div class="hv-cc-element-choices">
+                        {{#each row.elements as |el|}}
+                          <button type="button"
+                                  class="hv-cc-element-choice {{#if el.isChosen}}is-chosen{{/if}} hv-cc-element-choice--{{el.class}}"
+                                  data-gia-canh-id="{{el.giaCanhId}}"
+                                  data-element-index="{{el.index}}">
+                            <img src="{{el.icon}}" alt="{{el.label}}" />
+                            <span>{{el.label}}</span>
+                          </button>
+                        {{/each}}
+                      </div>
+                      <div class="hv-cc-table__bonus-sep"></div>
+                      <div class="hv-cc-skill-list">
+                        {{#each row.skills as |skill|}}
+                          <div class="hv-cc-table__bonus-item">
+                            <img src="/systems/huyen-viet-vtt/assets/icons/ky-nang/{{skill.key}}.png" alt="" />
+                            <span>+{{skill.value}} {{skill.label}}</span>
+                          </div>
+                        {{/each}}
+                      </div>
+                    </div>
+                  </li>
+                {{/each}}
+              </ol>
+            </div>
+          </div>
+
+          <section class="hv-cc__effect">
+            <h3 class="hv-cc__effect-title">HIỆU ỨNG</h3>
+            <p>Chọn một Gia Cảnh để nhận:</p>
+            <ul>
+              <li>+1 chỉ số Ngũ Hành (chọn 1 trong các hành được cho)</li>
+              <li>+1 mỗi Kỹ Năng tương ứng</li>
+            </ul>
+          </section>
+        </section>
+      {{/if}}
+
+      {{#if isMonPhaiStep}}
+        <section class="hv-cc-mon-phai">
+          <header class="hv-cc__section-header">
+            <h2 class="title-gold">BƯỚC 3: MÔN PHÁI</h2>
+            <p class="desc-text">Môn Phái quyết định con đường tu luyện và đặc kỹ của nhân vật.<br />Chọn 2 chỉ số Ngũ Hành để nhận bonus khởi đầu</p>
+          </header>
+
+          <div class="hv-cc-table hv-cc-table--mon-phai">
+            <div class="hv-cc-table__scroll">
+              <div class="hv-cc-table__head">
+                <span></span>
+                <span>Môn Phái</span>
+                <span>Trọng Tâm</span>
+                <span>Ngũ Hành (chọn 2)</span>
+              </div>
+
+              <ol class="hv-cc-table__rows">
+                {{#each monPhaiRows as |row|}}
+                  <li class="hv-cc-table__row {{#if row.isSelected}}is-selected{{/if}}"
+                      data-mon-phai-id="{{row.id}}"
+                      tabindex="0"
+                      aria-label="Chọn {{row.name}}">
+                    <span class="hv-cc-table__select" aria-hidden="true">
+                      <span></span>
+                    </span>
+                    <div class="hv-cc-table__thumb" style="background-image: url('{{row.thumbnail}}');">
+                      <strong>{{row.name}}</strong>
+                    </div>
+                    <div class="hv-cc-table__focus-skills">
+                      {{#each row.focusSkills as |skill|}}
+                        <div class="hv-cc-table__bonus-item">
+                          <img src="/systems/huyen-viet-vtt/assets/icons/ky-nang/{{skill.key}}.png" alt="" />
+                          <span>{{skill.label}}</span>
+                        </div>
+                      {{/each}}
+                    </div>
+                    <div class="hv-cc-element-choices hv-cc-element-choices--cell">
+                      {{#each row.elements as |el|}}
+                        <button type="button"
+                                class="hv-cc-element-choice {{#if el.isChosen}}is-chosen{{/if}} hv-cc-element-choice--{{el.class}}"
+                                data-mon-phai-id="{{el.monPhaiId}}"
+                                data-element-index="{{el.index}}">
+                          <img src="{{el.icon}}" alt="{{el.label}}" />
+                          <span>{{el.label}}</span>
+                        </button>
+                      {{/each}}
+                    </div>
+                  </li>
+                {{/each}}
+              </ol>
+            </div>
+          </div>
+
+          <section class="hv-cc__effect">
+            <h3 class="hv-cc__effect-title">HIỆU ỨNG</h3>
+            <p>Chọn một Môn Phái để nhận:</p>
+            <ul>
+              <li>+1 cho 2 chỉ số Ngũ Hành tự chọn</li>
+            </ul>
+          </section>
+        </section>
+      {{/if}}
+
       {{#if isPlaceholderStep}}
         <section class="hv-cc-placeholder">
           <span>Bước {{activeStepNumber}}</span>
@@ -119,6 +250,8 @@
         <dd>{{summary.monPhai}}</dd>
         <dt>Bối Cảnh</dt>
         <dd>{{summary.boiCanh}}</dd>
+        <dt>Gia Cảnh</dt>
+        <dd>{{summary.giaCanh}}</dd>
       </dl>
 
       <section class="hv-cc__elements">

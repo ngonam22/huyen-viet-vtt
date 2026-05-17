@@ -6,6 +6,7 @@ import { AppliedUpgrade, UpgradeRule } from "../../types/upgrade";
 import { HvCharacterSystemData, HvComputedTotals, isElementKey, isSkillKey, SKILL_KEYS } from "../helpers/config";
 import { getBoiCanhById } from "../helpers/boiCanh";
 import { getGiaCanhById } from "../helpers/giaCanh";
+import { getMonPhaiById } from "../helpers/monPhai";
 import { hasCondition } from "../helpers/conditions";
 import { createHvRollCard } from "../chat/hv-roll-card";
 
@@ -92,6 +93,8 @@ export class huyenvietvttActor extends Actor {
         this.applyBoiCanhItems(this, totals);
 
         this.applyGiaCanhItems(this, totals);
+
+        this.applyMonPhaiItems(this, totals);
 
         this.applyXpUpgrades(system, totals);
 
@@ -242,6 +245,32 @@ export class huyenvietvttActor extends Actor {
                     if (rule.target === "skill") {
                         if (!isSkillKey(effect.name)) continue;
                         this.applyNumericModifier(totals.skills, effect.name, rule.mode, effect.value);
+                    }
+                }
+            }
+        }
+    }
+
+    applyMonPhaiItems(actor: Actor, totals: HvComputedTotals): void {
+        const monPhaiItems = actor.items.filter((i) => (i.type as string) === "monPhai");
+
+        for (const item of monPhaiItems) {
+            const appliedUpgrades = (item.system as any)?.appliedUpgrades as AppliedUpgrade[] | undefined;
+            if (!appliedUpgrades?.length) continue;
+
+            for (const upgrade of appliedUpgrades) {
+                const { rule, selectedIndices } = upgrade;
+
+                if (rule.choose && (!selectedIndices || selectedIndices.length === 0)) continue;
+
+                const effectsToApply = rule.choose
+                    ? selectedIndices!.map((i) => rule.effects[i]).filter(Boolean)
+                    : rule.effects;
+
+                for (const effect of effectsToApply) {
+                    if (rule.target === "element") {
+                        if (!isElementKey(effect.name)) continue;
+                        this.applyNumericModifier(totals.elements, effect.name, rule.mode, effect.value);
                     }
                 }
             }

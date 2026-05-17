@@ -135,32 +135,6 @@ export const GIA_CANH: GiaCanh[] = [
     ]
   },
   {
-    id: "tieu-phu",
-    ten: "Tiều Phu",
-    description: "Săn bắn thú rừng, thu hoạch củi gỗ, hái nhặt thảo dược",
-    upgrade: [
-      {
-        target: "element",
-        mode: "add",
-        effects: [
-          { name: "moc", value: 1 },
-          { name: "tho", value: 1 }
-        ],
-        choose: 1
-      },
-      {
-        target: "skill",
-        mode: "add",
-        effects: [{ name: "laoDong", value: 1 }]
-      },
-      {
-        target: "skill",
-        mode: "add",
-        effects: [{ name: "sinhTon", value: 1 }]
-      }
-    ]
-  },
-  {
     id: "canh-phu",
     ten: "Cảnh Phu",
     description: "Bảo vệ an ninh cộng đồng, phục vụ triều đình",
