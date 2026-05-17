@@ -210,46 +210,41 @@ export class CharacterCreatorPanel extends HandlebarsApplicationMixin(Applicatio
   async _onRender(context, options) {
     await super._onRender(context, options);
 
-    this.element.querySelectorAll('.hv-cc-table__row[data-boi-canh-id]').forEach(row => {
-      row.addEventListener('click', () => this._selectBoiCanh(row.dataset.boiCanhId));
-      row.addEventListener('keydown', event => {
-        if (event.key !== 'Enter' && event.key !== ' ') return;
-        event.preventDefault();
-        this._selectBoiCanh(row.dataset.boiCanhId);
-      });
-    });
+    // Replace previous listeners (this.element persists across renders; inner HTML does not)
+    this._eventAbort?.abort();
+    this._eventAbort = new AbortController();
+    const { signal } = this._eventAbort;
 
-    this.element.querySelectorAll('.hv-cc-table__row[data-gia-canh-id]').forEach(row => {
-      row.addEventListener('click', () => this._selectGiaCanh(row.dataset.giaCanhId));
-      row.addEventListener('keydown', event => {
-        if (event.key !== 'Enter' && event.key !== ' ') return;
-        event.preventDefault();
-        this._selectGiaCanh(row.dataset.giaCanhId);
-      });
-    });
+    this.element.addEventListener('hv:boi-canh-select', (e) => {
+      this._draft.boiCanh = e.detail.id;
+    }, { signal });
 
-    this.element.querySelectorAll('.hv-cc-element-choice[data-gia-canh-id]').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        this._selectGiaCanhElement(btn.dataset.giaCanhId, parseInt(btn.dataset.elementIndex, 10));
-      });
-    });
+    this.element.addEventListener('hv:gia-canh-select', (e) => {
+      if (this._draft.giaCanh !== e.detail.id) this._draft.giaCanhElementIndex = null;
+      this._draft.giaCanh = e.detail.id;
+    }, { signal });
 
-    this.element.querySelectorAll('.hv-cc-table__row[data-mon-phai-id]').forEach(row => {
-      row.addEventListener('click', () => this._selectMonPhai(row.dataset.monPhaiId));
-      row.addEventListener('keydown', event => {
-        if (event.key !== 'Enter' && event.key !== ' ') return;
-        event.preventDefault();
-        this._selectMonPhai(row.dataset.monPhaiId);
-      });
-    });
+    this.element.addEventListener('hv:gia-canh-element-select', (e) => {
+      this._draft.giaCanh = e.detail.giaCanhId;
+      this._draft.giaCanhElementIndex = e.detail.index;
+    }, { signal });
 
-    this.element.querySelectorAll('.hv-cc-element-choice[data-mon-phai-id]').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        this._selectMonPhaiElement(btn.dataset.monPhaiId, parseInt(btn.dataset.elementIndex, 10));
-      });
-    });
+    this.element.addEventListener('hv:mon-phai-select', (e) => {
+      if (this._draft.monPhai !== e.detail.id) this._draft.monPhaiElementIndices = [];
+      this._draft.monPhai = e.detail.id;
+    }, { signal });
+
+    this.element.addEventListener('hv:mon-phai-element-select', (e) => {
+      const { monPhaiId, index } = e.detail;
+      if (this._draft.monPhai !== monPhaiId) {
+        this._draft.monPhai = monPhaiId;
+        this._draft.monPhaiElementIndices = [];
+      }
+      const indices = this._draft.monPhaiElementIndices;
+      this._draft.monPhaiElementIndices = indices.includes(index)
+        ? indices.filter(i => i !== index)
+        : indices.length < 2 ? [...indices, index] : indices;
+    }, { signal });
   }
 
   async _prepareContext(_options) {
@@ -274,6 +269,13 @@ export class CharacterCreatorPanel extends HandlebarsApplicationMixin(Applicatio
       actor: this.actor,
       mode: this.mode,
       activeStep: this._activeStep,
+      draft: {
+        boiCanh: this._draft.boiCanh || '',
+        giaCanh: this._draft.giaCanh || '',
+        giaCanhElementIndex: this._draft.giaCanhElementIndex !== null ? this._draft.giaCanhElementIndex : -1,
+        monPhai: this._draft.monPhai || '',
+        monPhaiElementIndices: JSON.stringify(this._draft.monPhaiElementIndices),
+      },
       activeStepNumber: activeStepIndex + 1,
       activeStepLabel: STEPS[activeStepIndex]?.label ?? '',
       isFirstStep,
@@ -338,52 +340,6 @@ export class CharacterCreatorPanel extends HandlebarsApplicationMixin(Applicatio
       this.render();
       return;
     }
-  }
-
-  async _selectBoiCanh(boiCanhId) {
-    if (!boiCanhId) return;
-    this._draft.boiCanh = boiCanhId;
-    this.render();
-  }
-
-  async _selectGiaCanh(giaCanhId) {
-    if (!giaCanhId) return;
-    if (this._draft.giaCanh !== giaCanhId) {
-      this._draft.giaCanhElementIndex = null;
-    }
-    this._draft.giaCanh = giaCanhId;
-    this.render();
-  }
-
-  async _selectGiaCanhElement(giaCanhId, elementIndex) {
-    if (!giaCanhId || isNaN(elementIndex)) return;
-    this._draft.giaCanh = giaCanhId;
-    this._draft.giaCanhElementIndex = elementIndex;
-    this.render();
-  }
-
-  async _selectMonPhai(monPhaiId) {
-    if (!monPhaiId) return;
-    if (this._draft.monPhai !== monPhaiId) {
-      this._draft.monPhaiElementIndices = [];
-    }
-    this._draft.monPhai = monPhaiId;
-    this.render();
-  }
-
-  async _selectMonPhaiElement(monPhaiId, elementIndex) {
-    if (!monPhaiId || isNaN(elementIndex)) return;
-    if (this._draft.monPhai !== monPhaiId) {
-      this._draft.monPhai = monPhaiId;
-      this._draft.monPhaiElementIndices = [];
-    }
-    const indices = this._draft.monPhaiElementIndices;
-    if (indices.includes(elementIndex)) {
-      this._draft.monPhaiElementIndices = indices.filter(i => i !== elementIndex);
-    } else if (indices.length < 2) {
-      this._draft.monPhaiElementIndices = [...indices, elementIndex];
-    }
-    this.render();
   }
 
   _hasUnsavedChanges() {
