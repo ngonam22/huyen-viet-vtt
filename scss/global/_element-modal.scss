@@ -122,4 +122,32 @@
     .slider-wrap {
         margin-bottom: 20px;
     }
+
+    .roll-mode-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        padding: 8px 4px;
+        font-size: 12px;
+        color: #a89060;
+        background: #1e2a2c;
+        border: 1px solid #4a3e28;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: color 0.15s, border-color 0.15s, background 0.15s;
+
+        i { font-size: 16px; }
+
+        &:hover {
+            color: $parch-mid;
+            border-color: $parch-mid;
+        }
+
+        &.is-active {
+            color: #1a1a1a;
+            background: $parch-mid;
+            border-color: $parch-mid;
+        }
+    }
 }

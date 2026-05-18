@@ -193,7 +193,7 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
             // const result = await this.actor.rollCheck({})
             // console.log(result)
 
-            return ElementModal.show(this.actor, target.dataset.element);
+            return ElementModal.show(this.actor, skill);
         } else if (action === 'toggle-hanh-the') {
             const element = target.dataset.element;
 

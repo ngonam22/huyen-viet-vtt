@@ -5,6 +5,7 @@ type HvRollMode = "normal" | "advantage" | "disadvantage";
 interface CreateHvRollCardOptions {
     title?: string;
     mode?: HvRollMode;
+    rollMode?: string;
 }
 
 function classifyDie(value: number): { category: string; count: number; label: string } {
@@ -81,7 +82,7 @@ export async function createHvRollCard(
         }
     };
 
-    const rollModeSetting = game.settings?.get("core", "rollMode") ?? "publicroll";
+    const rollModeSetting = options.rollMode ?? game.settings?.get("core", "rollMode") ?? "publicroll";
     (ChatMessage as any).applyRollMode(chatData, rollModeSetting);
     return ChatMessage.create(chatData);
 }

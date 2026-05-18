@@ -32,9 +32,9 @@ export class huyenvietvttActor extends Actor {
 
     }
 
-    async testDiceSoNice(numDice: number = 1): Promise<void> {
+    async testDiceSoNice(numDice: number = 1, rollMode?: string): Promise<void> {
         const roll = await new Roll(`${numDice}d10`).evaluate();
-        await createHvRollCard(this, roll, { mode: "normal" });
+        await createHvRollCard(this, roll, { mode: "normal", rollMode });
     }
 
 

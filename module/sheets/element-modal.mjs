@@ -24,33 +24,52 @@ export class ElementModal extends HandlebarsApplicationMixin(ApplicationV2)
         },
     };
 
-    constructor(actor, elementKey = null, options = {}) {
+    constructor(actor, skillKey = null, options = {}) {
         super(options);
 
         this.actor = actor;
-        // this.elementKey = elementKey ?? getActorCurrentElement(actor) ?? "kim";
-        this.elementKey = "kim"
+        this.skillKey = skillKey;
+        this._selectedElement = "kim";
+        this._rollMode = game.settings?.get("core", "rollMode") ?? "publicroll";
     }
 
-    static show(actor, elementKey = null) {
-        return new this(actor, elementKey).render(true);
+    static show(actor, skillKey = null) {
+        return new this(actor, skillKey).render(true);
     }
 
     async _onRender(_context, _options) {
         await super._onRender(_context, _options);
 
         const el = this.element;
-        const $tablets = el.querySelectorAll('.elemental-tablet')
-        $tablets.forEach(btn => {
-            btn.addEventListener('click', () => {
 
+        // Element tablet selection
+        const $tablets = el.querySelectorAll('.elemental-tablet');
+        $tablets.forEach(btn => {
+            if (btn.dataset.elementKey === this._selectedElement) {
+                btn.classList.add('is-active');
+            }
+            btn.addEventListener('click', () => {
                 if (btn.classList.contains('is-active')) {
                     btn.classList.remove('is-active');
+                    this._selectedElement = null;
                     return;
                 }
-
                 $tablets.forEach(b => b.classList.remove('is-active'));
                 btn.classList.add('is-active');
+                this._selectedElement = btn.dataset.elementKey;
+            });
+        });
+
+        // Roll mode selection
+        const $rollModeBtns = el.querySelectorAll('.roll-mode-btn');
+        $rollModeBtns.forEach(btn => {
+            if (btn.dataset.rollMode === this._rollMode) {
+                btn.classList.add('is-active');
+            }
+            btn.addEventListener('click', () => {
+                $rollModeBtns.forEach(b => b.classList.remove('is-active'));
+                btn.classList.add('is-active');
+                this._rollMode = btn.dataset.rollMode;
             });
         });
     }
@@ -64,10 +83,17 @@ export class ElementModal extends HandlebarsApplicationMixin(ApplicationV2)
     async _onClickAction(event, target) {
         const action = target.dataset.action;
 
-        if (action === 'test-dsn') {
-            // event.preventDefault()
-            await this.actor.testDiceSoNice(4);
-            return
+        if (action === 'roll-dice') {
+            const skillValue = this.skillKey
+                ? (this.actor.system.skills[this.skillKey] ?? 0)
+                : 0;
+            const elementValue = this._selectedElement
+                ? (this.actor.system.elements[this._selectedElement]?.value ?? 0)
+                : 0;
+            const numDice = Math.max(1, skillValue + elementValue);
+
+            await this.actor.testDiceSoNice(numDice, this._rollMode);
+            this.close();
         }
     }
 }
