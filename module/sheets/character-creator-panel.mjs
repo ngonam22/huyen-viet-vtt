@@ -1,13 +1,15 @@
-import { BOI_CANH, GIA_CANH, MON_PHAI, ELEMENTS, SKILL_LABELS, ELEMENT_CLASS } from '../helpers/config.ts';
+import { BOI_CANH, GIA_CANH, MON_PHAI, THI_TOC, ELEMENTS, SKILL_LABELS, ELEMENT_CLASS } from '../helpers/config.ts';
 import { setBoiCanhForActor } from '../helpers/boiCanh';
 import { setGiaCanhForActor } from '../helpers/giaCanh';
 import { setMonPhaiForActor } from '../helpers/monPhai';
+import { setThiTocForActor } from '../helpers/thiToc';
 
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 
 const STEP_IDS = [
   'boiCanh',
   'giaCanh',
+  'thiToc',
   'monPhai',
   'nguHanh',
   'kyNang',
@@ -19,6 +21,7 @@ const STEP_IDS = [
 const STEPS = [
   { id: 'boiCanh', label: 'Bối Cảnh', subtitle: 'Nơi nhân vật trưởng thành' },
   { id: 'giaCanh', label: 'Gia Cảnh', subtitle: 'Thân thế và quá khứ' },
+  { id: 'thiToc', label: 'Thị Tộc', subtitle: 'Dòng tộc linh giáp' },
   { id: 'monPhai', label: 'Môn Phái', subtitle: 'Con đường tu luyện' },
   { id: 'nguHanh', label: 'Ngũ Hành', subtitle: 'Phân bổ chỉ số Ngũ Hành' },
   { id: 'kyNang', label: 'Kỹ Năng', subtitle: 'Chọn kỹ năng khởi đầu' },
@@ -57,6 +60,35 @@ function getBoiCanhRows(selectedId) {
       description: localize(entry.description),
       thumbnail: `/systems/huyen-viet-vtt/assets/character-creation/boi-canh/${kebabCase(entry.id)}.png`,
       isSelected: entry.id === selectedId,
+      element: elementKey ? {
+        key: elementKey,
+        label: localize(ELEMENTS[elementKey]?.label),
+        value: elementEffect.value,
+        icon: ELEMENTS[elementKey]?.icon,
+        class: ELEMENT_CLASS[elementKey] ?? elementKey,
+      } : null,
+      skill: skillKey ? {
+        key: skillKey,
+        label: SKILL_LABELS[skillKey] ?? skillKey,
+        value: skillEffect.value,
+      } : null,
+    };
+  });
+}
+
+function getThiTocRows(selectedId) {
+  return THI_TOC.map((entry) => {
+    const elementEffect = firstEffect(entry.upgrade ?? [], 'element');
+    const skillEffect = firstEffect(entry.upgrade ?? [], 'skill');
+    const elementKey = elementEffect?.name;
+    const skillKey = skillEffect?.name;
+
+    return {
+      id: entry.linhGiap,
+      name: localize(entry.ten),
+      description: localize(entry.viTri),
+      thumbnail: `/systems/huyen-viet-vtt/assets/character-creation/thi-toc/${entry.linhGiap}.png`,
+      isSelected: entry.linhGiap === selectedId,
       element: elementKey ? {
         key: elementKey,
         label: localize(ELEMENTS[elementKey]?.label),
@@ -180,6 +212,7 @@ export class CharacterCreatorPanel extends HandlebarsApplicationMixin(Applicatio
       boiCanh: actor.system.identity?.boiCanh ?? '',
       giaCanh: actor.system.identity?.giaCanh ?? '',
       giaCanhElementIndex: savedElementIndex,
+      thiToc: actor.system.identity?.thiToc ?? '',
       monPhai: actor.system.identity?.monPhai ?? '',
       monPhaiElementIndices: savedMonPhaiElementIndices,
     };
@@ -219,6 +252,10 @@ export class CharacterCreatorPanel extends HandlebarsApplicationMixin(Applicatio
       this._draft.boiCanh = e.detail.id;
     }, { signal });
 
+    this.element.addEventListener('hv:thi-toc-select', (e) => {
+      this._draft.thiToc = e.detail.id;
+    }, { signal });
+
     this.element.addEventListener('hv:gia-canh-select', (e) => {
       if (this._draft.giaCanh !== e.detail.id) this._draft.giaCanhElementIndex = null;
       this._draft.giaCanh = e.detail.id;
@@ -256,6 +293,10 @@ export class CharacterCreatorPanel extends HandlebarsApplicationMixin(Applicatio
     const giaCanhRows = getGiaCanhRows(selectedGiaCanhId, this._draft.giaCanhElementIndex);
     const selectedGiaCanh = summarizeSelection(giaCanhRows, selectedGiaCanhId);
 
+    const selectedThiTocId = this._draft.thiToc;
+    const thiTocRows = getThiTocRows(selectedThiTocId);
+    const selectedThiToc = summarizeSelection(thiTocRows, selectedThiTocId);
+
     const monPhaiRows = getMonPhaiRows(this._draft.monPhai, this._draft.monPhaiElementIndices);
 
     const activeStepIndex = STEP_IDS.indexOf(this._activeStep);
@@ -263,7 +304,47 @@ export class CharacterCreatorPanel extends HandlebarsApplicationMixin(Applicatio
     const isLastStep = activeStepIndex === STEP_IDS.length - 1;
     const isBoiCanhStep = this._activeStep === 'boiCanh';
     const isGiaCanhStep = this._activeStep === 'giaCanh';
+    const isThiTocStep = this._activeStep === 'thiToc';
     const isMonPhaiStep = this._activeStep === 'monPhai';
+
+    const boiCanhMap = JSON.stringify(Object.fromEntries(
+      boiCanhRows.map(({ id, name, thumbnail, description, element, skill }) => [id, {
+        name,
+        thumbnailLarge: thumbnail.replace('.png', '-large.png'),
+        description,
+        element,
+        skill,
+      }])
+    ));
+
+    const giaCanhMap = JSON.stringify(Object.fromEntries(
+      giaCanhRows.map(({ id, name, thumbnail, description, elements, skills }) => [id, {
+        name,
+        thumbnailLarge: thumbnail.replace('.png', '-large.png'),
+        description,
+        elements: elements.map(({ index, key, label, value, icon, class: cls }) => ({ index, key, label, value, icon, class: cls })),
+        skills,
+      }])
+    ));
+
+    const thiTocMap = JSON.stringify(Object.fromEntries(
+      thiTocRows.map(({ id, name, thumbnail, description, element, skill }) => [id, {
+        name,
+        thumbnailLarge: thumbnail.replace('.png', '-large.png'),
+        description,
+        element,
+        skill,
+      }])
+    ));
+
+    const monPhaiMap = JSON.stringify(Object.fromEntries(
+      monPhaiRows.map(({ id, name, thumbnail, elements, focusSkills }) => [id, {
+        name,
+        thumbnailLarge: thumbnail.replace('.png', '-large.png'),
+        elements: elements.map(({ index, key, label, value, icon, class: cls }) => ({ index, key, label, value, icon, class: cls })),
+        focusSkills,
+      }])
+    ));
 
     return {
       actor: this.actor,
@@ -273,6 +354,7 @@ export class CharacterCreatorPanel extends HandlebarsApplicationMixin(Applicatio
         boiCanh: this._draft.boiCanh || '',
         giaCanh: this._draft.giaCanh || '',
         giaCanhElementIndex: this._draft.giaCanhElementIndex !== null ? this._draft.giaCanhElementIndex : -1,
+        thiToc: this._draft.thiToc || '',
         monPhai: this._draft.monPhai || '',
         monPhaiElementIndices: JSON.stringify(this._draft.monPhaiElementIndices),
       },
@@ -282,10 +364,12 @@ export class CharacterCreatorPanel extends HandlebarsApplicationMixin(Applicatio
       isLastStep,
       isBoiCanhStep,
       isGiaCanhStep,
+      isThiTocStep,
       isMonPhaiStep,
-      isPlaceholderStep: !isBoiCanhStep && !isGiaCanhStep && !isMonPhaiStep,
+      isPlaceholderStep: !isBoiCanhStep && !isGiaCanhStep && !isThiTocStep && !isMonPhaiStep,
       canContinue: isBoiCanhStep ? Boolean(this._draft.boiCanh)
                  : isGiaCanhStep ? Boolean(this._draft.giaCanh) && this._draft.giaCanhElementIndex !== null
+                 : isThiTocStep ? Boolean(this._draft.thiToc)
                  : isMonPhaiStep ? Boolean(this._draft.monPhai) && this._draft.monPhaiElementIndices.length === 2
                  : true,
       steps: STEPS.map((step, index) => ({
@@ -294,14 +378,20 @@ export class CharacterCreatorPanel extends HandlebarsApplicationMixin(Applicatio
         isActive: step.id === this._activeStep,
         isComplete: (step.id === 'boiCanh' && Boolean(this._draft.boiCanh)) ||
                     (step.id === 'giaCanh' && Boolean(this._draft.giaCanh) && this._draft.giaCanhElementIndex !== null) ||
+                    (step.id === 'thiToc' && Boolean(this._draft.thiToc)) ||
                     (step.id === 'monPhai' && Boolean(this._draft.monPhai) && this._draft.monPhaiElementIndices.length === 2),
       })),
       boiCanhRows,
       selectedBoiCanh,
       giaCanhRows,
       selectedGiaCanh,
+      thiTocRows,
+      selectedThiToc,
       monPhaiRows,
-      summary: this._summaryContext(selectedBoiCanh, selectedGiaCanh),
+      boiCanhMap,
+      giaCanhMap,
+      thiTocMap,
+      monPhaiMap,
     };
   }
 
@@ -351,6 +441,7 @@ export class CharacterCreatorPanel extends HandlebarsApplicationMixin(Applicatio
       this._draft.boiCanh !== (this.actor.system.identity?.boiCanh ?? '') ||
       this._draft.giaCanh !== (this.actor.system.identity?.giaCanh ?? '') ||
       this._draft.giaCanhElementIndex !== this._savedGiaCanhElementIndex ||
+      this._draft.thiToc !== (this.actor.system.identity?.thiToc ?? '') ||
       this._draft.monPhai !== (this.actor.system.identity?.monPhai ?? '') ||
       mpIndicesChanged
     );
@@ -367,6 +458,10 @@ export class CharacterCreatorPanel extends HandlebarsApplicationMixin(Applicatio
       const idx = this._draft.giaCanhElementIndex;
       await setGiaCanhForActor(this.actor, this._draft.giaCanh, idx !== null ? { 0: [idx] } : {});
       this._savedGiaCanhElementIndex = idx;
+    }
+
+    if (this._draft.thiToc && this._draft.thiToc !== (this.actor.system.identity?.thiToc ?? '')) {
+      await setThiTocForActor(this.actor, this._draft.thiToc);
     }
 
     const monPhaiIdChanged = this._draft.monPhai && this._draft.monPhai !== (this.actor.system.identity?.monPhai ?? '');
@@ -406,25 +501,4 @@ export class CharacterCreatorPanel extends HandlebarsApplicationMixin(Applicatio
     });
   }
 
-  _summaryContext(selectedBoiCanh, selectedGiaCanh) {
-    const identity = this.actor.system.identity ?? {};
-    const elements = this.actor.system.elements ?? {};
-
-    return {
-      name: this.actor.name || 'Chưa đặt tên',
-      img: this.actor.img,
-      thiToc: identity.thiToc || 'Chưa chọn',
-      monPhai: identity.monPhai ? (localize(MON_PHAI[identity.monPhai]?.ten) || identity.monPhai) : 'Chưa chọn',
-      boiCanh: selectedBoiCanh?.name || 'Chưa chọn',
-      giaCanh: selectedGiaCanh?.name || 'Chưa chọn',
-      featuredSkill: selectedBoiCanh?.skill?.label || 'Chưa có kỹ năng',
-      elements: ['moc', 'hoa', 'tho', 'kim', 'thuy'].map(key => ({
-        key,
-        label: localize(ELEMENTS[key]?.label),
-        value: elements[key]?.value ?? 1,
-        icon: ELEMENTS[key]?.icon,
-        class: ELEMENT_CLASS[key] ?? key,
-      })),
-    };
-  }
 }

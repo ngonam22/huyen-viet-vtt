@@ -1,23 +1,18 @@
 <section class="hv-element-modal__wrapper">
-    <div class="modal-frame"></div>
-    <div class="corner-bl"></div>
-    <div class="corner-br"></div>
-    <div class="c-bl"></div>
-    <div class="c-br"></div>
 
     <!-- Elements -->
     <div class="tw:text-xl tw:text-beige-300">Ngũ Hành</div>
     <div class="elements-grid tw:grid tw:grid-cols-5 tw:text-center" id="elementsGrid">
-        <div id="hoa-tablet" class="elemental-tablet tw:flex tw:flex-wrap tw:justify-center tw:items-center tw:space-between">
-            <img src="/systems/huyen-viet-vtt/assets/icons/hoa-tablet-icon.webp" alt="Fire Icon" width="25" />
+        <div id="kim-tablet" class="elemental-tablet tw:flex tw:flex-wrap tw:justify-center tw:items-center tw:space-between">
+            <img src="/systems/huyen-viet-vtt/assets/icons/kim-tablet-icon.webp" alt="Fire Icon" width="25" />
             <span class="tablet-text">Kim</span>
             <div class="tw:text-beige-200 tw:text-shadow tw:font-bold tw:text-3xl">
                 {{signedNumber
                         system.elements.kim.value}}
             </div>
         </div>
-        <div id="tho-tablet" class="elemental-tablet tw:flex tw:flex-wrap tw:justify-center tw:items-center tw:space-between">
-            <img src="/systems/huyen-viet-vtt/assets/icons/hoa-tablet-icon.webp" alt="Fire Icon" width="25" />
+        <div id="moc-tablet" class="elemental-tablet tw:flex tw:flex-wrap tw:justify-center tw:items-center tw:space-between">
+            <img src="/systems/huyen-viet-vtt/assets/icons/moc-tablet-icon.webp" alt="Fire Icon" width="25" />
             <span class="tablet-text">Mộc</span>
             <div class="tw:text-beige-200 tw:text-shadow tw:font-bold tw:text-3xl">
                 {{signedNumber
@@ -25,22 +20,24 @@
             </div>
         </div>
         <div id="thuy-tablet" class="elemental-tablet tw:flex tw:flex-wrap tw:justify-center tw:items-center tw:space-between">
-            <img src="/systems/huyen-viet-vtt/assets/icons/hoa-tablet-icon.webp" alt="Water Icon" width="25" />
+            <img src="/systems/huyen-viet-vtt/assets/icons/thuy-tablet-icon.webp" alt="Water Icon" width="25" />
             <span class="tablet-text">Thủy</span>
             <div class="tw:text-beige-200 tw:text-shadow tw:font-bold tw:text-3xl">
                 {{signedNumber
                         system.elements.thuy.value}}
             </div>
         </div>
-        <div class="element-holder tw:bg-beige-800 tw:border-solid tw:border-beige-600 tw:border">
-            <span class="tw:text-xl tw:font-medium tw:text-primary tw:text-beige-400">Hỏa</span>
+        <div id="hoa-tablet" class="elemental-tablet tw:flex tw:flex-wrap tw:justify-center tw:items-center tw:space-between">
+            <img src="/systems/huyen-viet-vtt/assets/icons/hoa-tablet-icon.webp" alt="Water Icon" width="25" />
+            <span class="tablet-text">Hỏa</span>
             <div class="tw:text-beige-200 tw:text-shadow tw:font-bold tw:text-3xl">
                 {{signedNumber
                         system.elements.hoa.value}}
             </div>
         </div>
-        <div class="element-holder tw:bg-beige-800 tw:border-solid tw:border-beige-600 tw:border">
-            <span class="tw:text-xl tw:font-medium tw:text-primary tw:text-beige-400">Thổ</span>
+        <div id="tho-tablet" class="elemental-tablet tw:flex tw:flex-wrap tw:justify-center tw:items-center tw:space-between">
+            <img src="/systems/huyen-viet-vtt/assets/icons/tho-tablet-icon.webp" alt="Water Icon" width="25" />
+            <span class="tablet-text">Thổ</span>
             <div class="tw:text-beige-200 tw:text-shadow tw:font-bold tw:text-3xl">
                 {{signedNumber
                         system.elements.tho.value}}
@@ -64,14 +61,17 @@
     <!-- Advantage -->
     <div class="section-label">Ưu Thế</div>
     <div class="tw:grid tw:grid-cols-3 tw:gap-4 tw:mb-4 tw:text-center">
-        <button class="option-btn tw:text-base" onclick="selectOption('adv')">
-            <span class="opt-radio"><span class="opt-dot"></span></span>Lợi Thế
+        <button class="roll-option-btn tw:text-base" onclick="selectOption('adv')">
+            <span class="disadvantageThumb"></span>
+            <span class="opt-radio"><span class="opt-dot"></span></span>Bất Lợi
         </button>
-        <button class="option-btn tw:text-base" onclick="selectOption('norm')">
+        <button class="roll-option-btn tw:text-base" onclick="selectOption('norm')">
+            <span class="normalThumb"></span>
             <span class="opt-radio"><span class="opt-dot"></span></span>Thường
         </button>
-        <button class="option-btn tw:text-base" onclick="selectOption('dis')">
-            <span class="opt-radio"><span class="opt-dot"></span></span>Bất Lợi
+        <button class="roll-option-btn tw:text-base" onclick="selectOption('dis')">
+            <span class="advantageThumb"></span>
+            <span class="opt-radio"><span class="opt-dot"></span></span>Ưu Thế
         </button>
     </div>
 

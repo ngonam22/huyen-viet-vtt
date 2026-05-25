@@ -7,41 +7,68 @@
     }
 
     .elemental-tablet {
+        position: relative;
         height: 149px;
         padding: 25px 20px;
         cursor: pointer;
+        border-radius: 10px;
+        box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+
+        &:before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: transparent url("/systems/huyen-viet-vtt/assets/tablet-holder.png") top left no-repeat;
+            background-size: 100% 100%;
+            z-index: 5;
+        }
+        &:after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            border-radius: 10px;
+            opacity: 0.45;
+            z-index: 10;
+        }
+        &.is-active {
+            &:before {
+                background-image: url("/systems/huyen-viet-vtt/assets/tablet-holder-hover.png");
+            }
+            &:after {
+                opacity: 0.75;
+            }
+        }
+        > * {
+            position: relative;
+            z-index: 50;
+        }
     }
     #hoa-tablet {
-        background: transparent url("/systems/huyen-viet-vtt/assets/hoa-tablet.png") no-repeat center;
-
-        &:hover {
-            background-image: url("/systems/huyen-viet-vtt/assets/hoa-tablet-hover.png");
-        }
-
-        &.is-active {
-            background-image: url("/systems/huyen-viet-vtt/assets/hoa-tablet-active.png");
-        }
-    }
-    #tho-tablet {
-        background: transparent url("/systems/huyen-viet-vtt/assets/tho-tablet.png") no-repeat center;
-
-        &:hover {
-            background-image: url("/systems/huyen-viet-vtt/assets/tho-tablet-hover.png");
-        }
-
-        &.is-active {
-            background-image: url("/systems/huyen-viet-vtt/assets/tho-tablet-active.png");
+        &:after {
+            background: transparent url("/systems/huyen-viet-vtt/assets/hoa-overlay.png") top left no-repeat;
         }
     }
     #thuy-tablet {
-        background: transparent url("/systems/huyen-viet-vtt/assets/thuy-tablet.png") no-repeat center;
-
-        &:hover {
-            background-image: url("/systems/huyen-viet-vtt/assets/thuy-tablet-hover.png");
+        &:after {
+            background: transparent url("/systems/huyen-viet-vtt/assets/thuy-overlay.png") top left no-repeat;
         }
-
-        &.is-active {
-            background-image: url("/systems/huyen-viet-vtt/assets/thuy-tablet-active.png");
+    }
+    #moc-tablet {
+        &:after {
+            background: transparent url("/systems/huyen-viet-vtt/assets/moc-overlay.png") top left no-repeat;
+        }
+    }
+    #kim-tablet {
+        &:after {
+            background: transparent url("/systems/huyen-viet-vtt/assets/kim-overlay.png") top left no-repeat;
+        }
+    }
+    #tho-tablet {
+        &:after {
+            background: transparent url("/systems/huyen-viet-vtt/assets/tho-overlay.png") top left no-repeat;
         }
     }
     #hoa-tablet-icon {
@@ -54,11 +81,26 @@
     }
     .window-content {
         position: relative;
-        background: #151F21 url("/systems/huyen-viet-vtt/assets/noise.svg") repeat;
+        padding: 15px;
         color: #2b2b2b;
         font-family: $font-primary;
     }
 
+    .hv-element-modal__wrapper {
+        position: relative;
+        padding: 20px 15px;
+        background: transparent url("/systems/huyen-viet-vtt/assets/dice-holder.png") top left no-repeat;
+        background-size: 100% 100%;
+
+        &:before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: transparent url("/systems/huyen-viet-vtt/assets/dice-bg.png") top left repeat;
+            z-index: -1;
+        }
+    }
 
     .modal-title {
         font-size: 24px;
@@ -68,36 +110,6 @@
         margin-bottom: 5px;
         text-shadow: 0 0 22px rgba(196, 136, 75, 0.45);
     }
-
-    /* Outer ruled border — single clean line */
-    .modal-frame {
-        position: absolute;
-        background: #28303b;
-        inset: 7px;
-        border: 1px solid $parch-mid;
-        pointer-events: none;
-        z-index: -1;
-    }
-    /* Corner flourishes via clip path diamonds */
-    .modal-frame::before,
-    .modal-frame::after {
-        content: '';
-        position: absolute;
-        width: 8px; height: 8px;
-        background: $parch-mid;
-        transform: rotate(45deg);
-    }
-    .modal-frame::before { top: -4px; left: -4px; }
-    .modal-frame::after  { top: -4px; right: -4px; }
-    .corner-bl, .corner-br {
-        position: absolute;
-        width: 8px; height: 8px;
-        background: $parch-mid;
-        transform: rotate(45deg);
-        z-index: 1;
-    }
-    .corner-bl { bottom: 3px; left: 3px; }
-    .corner-br { bottom: 3px; right: 3px; }
 
     .modal-divider {
         height: 1px;
@@ -121,5 +133,51 @@
     }
     .slider-wrap {
         margin-bottom: 20px;
+    }
+    .roll-option-btn {
+        display: inline-block;
+        border: 0;
+        background: transparent url("/systems/huyen-viet-vtt/assets/tablet-holder.png") top left no-repeat;
+        padding: 10px 15px;
+        background-size: 100% 100%;
+        height: 120px;
+
+        span.disadvantageThumb, span.normalThumb, span.advantageThumb {
+            display: block;
+            width: 100%;
+            height: 80px;
+            margin-bottom: 5px;
+            transition: background 0.35s ease;
+        }
+        span.disadvantageThumb {
+            background: transparent url("/systems/huyen-viet-vtt/assets/dice/batLoi.png") center center no-repeat;
+            background-size: auto 80px;
+        }
+        span.normalThumb {
+            background: transparent url("/systems/huyen-viet-vtt/assets/dice/thuong.png") center center no-repeat;
+            background-size: auto 70px;
+        }
+        span.advantageThumb {
+            background: transparent url("/systems/huyen-viet-vtt/assets/dice/uuThe.png") center center no-repeat;
+            background-size: auto 80px;
+        }
+        &:hover {
+            background-image: url("/systems/huyen-viet-vtt/assets/tablet-holder-hover.png");
+
+            span.disadvantageThumb {
+                background-image: url("/systems/huyen-viet-vtt/assets/dice/batLoi-hover.png");
+                background-size: auto 80px;
+            }
+            span.normalThumb {
+                background-image: url("/systems/huyen-viet-vtt/assets/dice/thuong-hover.png");
+            }
+            span.advantageThumb {
+                background-image: url("/systems/huyen-viet-vtt/assets/dice/uuThe-hover.png");
+            }
+        }
+        img {
+            height: 80px;
+            margin: 0 auto;
+        }
     }
 }
