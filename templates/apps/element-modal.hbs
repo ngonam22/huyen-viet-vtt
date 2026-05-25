@@ -3,7 +3,7 @@
     <!-- Elements -->
     <div class="tw:text-xl tw:text-beige-300">Ngũ Hành</div>
     <div class="elements-grid tw:grid tw:grid-cols-5 tw:text-center" id="elementsGrid">
-        <div id="kim-tablet" class="elemental-tablet tw:flex tw:flex-wrap tw:justify-center tw:items-center tw:space-between">
+        <div id="kim-tablet" class="elemental-tablet tw:flex tw:flex-wrap tw:justify-center tw:items-center tw:space-between" data-element-key="kim">
             <img src="/systems/huyen-viet-vtt/assets/icons/kim-tablet-icon.webp" alt="Fire Icon" width="25" />
             <span class="tablet-text">Kim</span>
             <div class="tw:text-beige-200 tw:text-shadow tw:font-bold tw:text-3xl">
@@ -11,7 +11,7 @@
                         system.elements.kim.value}}
             </div>
         </div>
-        <div id="moc-tablet" class="elemental-tablet tw:flex tw:flex-wrap tw:justify-center tw:items-center tw:space-between">
+        <div id="moc-tablet" class="elemental-tablet tw:flex tw:flex-wrap tw:justify-center tw:items-center tw:space-between" data-element-key="moc">
             <img src="/systems/huyen-viet-vtt/assets/icons/moc-tablet-icon.webp" alt="Fire Icon" width="25" />
             <span class="tablet-text">Mộc</span>
             <div class="tw:text-beige-200 tw:text-shadow tw:font-bold tw:text-3xl">
@@ -19,7 +19,7 @@
                         system.elements.moc.value}}
             </div>
         </div>
-        <div id="thuy-tablet" class="elemental-tablet tw:flex tw:flex-wrap tw:justify-center tw:items-center tw:space-between">
+        <div id="thuy-tablet" class="elemental-tablet tw:flex tw:flex-wrap tw:justify-center tw:items-center tw:space-between" data-element-key="thuy">
             <img src="/systems/huyen-viet-vtt/assets/icons/thuy-tablet-icon.webp" alt="Water Icon" width="25" />
             <span class="tablet-text">Thủy</span>
             <div class="tw:text-beige-200 tw:text-shadow tw:font-bold tw:text-3xl">
@@ -75,6 +75,27 @@
         </button>
     </div>
 
+    <!-- Roll Mode -->
+    <div class="section-label">Phạm Vi</div>
+    <div class="tw:grid tw:grid-cols-4 tw:gap-2 tw:mb-6">
+        <button class="roll-mode-btn" data-roll-mode="publicroll">
+            <i class="fa-solid fa-users"></i>
+            <span>Công Khai</span>
+        </button>
+        <button class="roll-mode-btn" data-roll-mode="gmroll">
+            <i class="fa-solid fa-user-secret"></i>
+            <span>Chỉ GM</span>
+        </button>
+        <button class="roll-mode-btn" data-roll-mode="blindroll">
+            <i class="fa-solid fa-eye-slash"></i>
+            <span>Ẩn Mù</span>
+        </button>
+        <button class="roll-mode-btn" data-roll-mode="selfroll">
+            <i class="fa-solid fa-user"></i>
+            <span>Riêng Tư</span>
+        </button>
+    </div>
+
     <!-- Initiative -->
     <div class="tw:mb-12">
         <div class="section-label">Roll for Initiative</div>
@@ -82,7 +103,7 @@
     </div>
 
     <!-- CTA -->
-    <button class="tw:text-beige-700 tw:bg-danger  tw:mx-auto" id="ctaBtn" data-action="test-dsn">
+    <button class="tw:text-beige-700 tw:bg-danger  tw:mx-auto" id="ctaBtn" data-action="roll-dice">
         <span class="cta-orn">☰</span>Gieo Thiên Mệnh<span class="cta-orn">☷</span>
     </button>
 </section>
