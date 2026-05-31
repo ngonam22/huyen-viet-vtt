@@ -32,9 +32,23 @@ export class huyenvietvttActor extends Actor {
 
     }
 
-    async testDiceSoNice(numDice: number = 1, rollMode?: string): Promise<void> {
-        const roll = await new Roll(`${numDice}d10`).evaluate();
-        await createHvRollCard(this, roll, { mode: "normal", rollMode });
+    async testDiceSoNice(
+        numDice: number = 1,
+        rollType: 'normal' | 'advantage' | 'disadvantage' = 'normal',
+        chatMode?: string,
+        title?: string,
+        skill?: string
+    ): Promise<void> {
+        let formula: string;
+        if (rollType === 'advantage') {
+            formula = `${numDice + 1}d10kh${numDice}`;
+        } else if (rollType === 'disadvantage') {
+            formula = `${numDice + 1}d10kl${numDice}`;
+        } else {
+            formula = `${numDice}d10`;
+        }
+        const roll = await new Roll(formula).evaluate();
+        await createHvRollCard(this, roll, { rollType, chatMode, title, skill });
     }
 
 
@@ -97,6 +111,11 @@ export class huyenvietvttActor extends Actor {
         this.applyMonPhaiItems(this, totals);
 
         this.applyXpUpgrades(system, totals);
+
+        const thienTuKey = system.identity?.thienTu;
+        if (thienTuKey && isElementKey(thienTuKey)) {
+            totals.elements[thienTuKey] += 1;
+        }
 
         // 3) tính abilities từ totals đã được cộng bonus
         this.computeAbilities(system, totals);
@@ -458,7 +477,7 @@ export class huyenvietvttActor extends Actor {
             }
         });
 
-        await createHvRollCard(this, roll, { mode: "normal" });
+        await createHvRollCard(this, roll, { rollType: "normal" });
 
         console.log(`---You rolled the dice`)
         return calculateFromRolls(diceData)

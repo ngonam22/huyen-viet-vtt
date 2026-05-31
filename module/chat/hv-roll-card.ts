@@ -1,11 +1,18 @@
 import { calculateFromRolls, calculateDuongBinhAm, type Roll as HvDieRoll } from "../helpers/rollDice";
+import { SKILL_LABELS } from "../helpers/config";
 
-type HvRollMode = "normal" | "advantage" | "disadvantage";
+type HvRollType = "normal" | "advantage" | "disadvantage";
 
 interface CreateHvRollCardOptions {
+    /** Tiêu đề hiển thị trên chat card. Mặc định: "Gieo Thiên Mệnh" */
     title?: string;
-    mode?: HvRollMode;
-    rollMode?: string;
+    /** Loại roll: bình thường, ưu thế (roll thêm 1 dice giữ cao nhất), bất lợi (giữ thấp nhất). Mặc định: "normal" */
+    rollType?: HvRollType;
+    /** Phạm vi hiển thị chat message theo Foundry API: "publicroll" | "gmroll" | "blindroll" | "selfroll".
+     *  Nếu không truyền, đọc từ game.settings "core.rollMode" (setting toàn cục của Foundry). */
+    chatMode?: string;
+    /** Skill kích hoạt Roll này ở dạng String */
+    skill?: string;
 }
 
 function classifyDie(value: number): { category: string; count: number; label: string } {
@@ -46,7 +53,11 @@ export async function createHvRollCard(
         ...classifyDie(die.value)
     }));
 
-    const rollMode = options.mode ?? "normal";
+    const rollType = options.rollType ?? "normal";
+    const skillKey = options.skill ?? null;
+    const skillLabel = skillKey ? (SKILL_LABELS[skillKey as keyof typeof SKILL_LABELS] ?? null) : null;
+    const skillIcon = skillKey ? `/systems/huyen-viet-vtt/assets/icons/ky-nang/${skillKey}.png` : null;
+
     const content = await renderTemplate(
         "systems/huyen-viet-vtt/templates/chat/hv-roll-card.hbs",
         {
@@ -54,16 +65,18 @@ export async function createHvRollCard(
             actorName: actor.name,
             time: formatTime(new Date()),
             diceCount: `${diceData.length}d10`,
+            skillLabel,
+            skillIcon,
             duongResult: result.duongResult,
             binhResult: result.binhResult,
             amResult: result.amResult,
             total: result.total,
-            rollMode,
-            isAdvantage: rollMode === "advantage",
-            isDisadvantage: rollMode === "disadvantage",
-            modeLabel: rollMode === "advantage"
+            rollType,
+            isAdvantage: rollType === "advantage",
+            isDisadvantage: rollType === "disadvantage",
+            modeLabel: rollType === "advantage"
                 ? "Thuận lợi"
-                : rollMode === "disadvantage"
+                : rollType === "disadvantage"
                     ? "Bất lợi"
                     : "Bình thường",
             diceRows
@@ -77,12 +90,12 @@ export async function createHvRollCard(
         flags: {
             "huyen-viet-vtt": {
                 cardType: "hv-roll",
-                rollMode
+                rollType
             }
         }
     };
 
-    const rollModeSetting = options.rollMode ?? game.settings?.get("core", "rollMode") ?? "publicroll";
-    (ChatMessage as any).applyRollMode(chatData, rollModeSetting);
+    const chatMode = options.chatMode ?? game.settings?.get("core", "rollMode") ?? "publicroll";
+    (ChatMessage as any).applyRollMode(chatData, chatMode);
     return ChatMessage.create(chatData);
 }

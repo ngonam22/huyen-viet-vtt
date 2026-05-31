@@ -30,9 +30,31 @@
   }
 
   &__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
     margin-top: 3px;
+  }
+
+  &__meta-skill {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #7a5c3e;
+
+    img {
+      width: 15px;
+      height: 15px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+  }
+
+  &__meta-info {
     color: #977c5e;
-    font-size: 12px;
+    font-size: 11px;
   }
 
   &__mode {

@@ -27,8 +27,8 @@
         &:after {
             content: '';
             position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            top: 2.5%; left: 2.5%;
+            width: 95%; height: 95%;
             border-radius: 10px;
             opacity: 0.45;
             z-index: 10;
@@ -119,10 +119,50 @@
 
     .section-label {
         font-size: 20px;
+        color: $parch-mid;
         letter-spacing: 0.25px;
         text-transform: uppercase;
         margin-bottom: 9px;
         font-weight: 500;
+    }
+
+    .hv-em__pick-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-bottom: 20px;
+    }
+
+    .hv-em__pick-col {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+
+        .section-label { margin-bottom: 0; }
+    }
+
+    .hv-em__select {
+        width: 100%;
+        background: rgba(0, 0, 0, 0.35);
+        border: 1px solid rgba(201, 180, 126, 0.3);
+        border-radius: 6px;
+        color: #e8d9b5;
+        font-family: $font-primary;
+        font-size: 13px;
+        padding: 6px 8px;
+        cursor: pointer;
+        appearance: auto;
+
+        &:focus { outline: none; border-color: $parch-mid; }
+
+        option { background: #2a2117; color: #e8d9b5; }
+    }
+
+    .hv-em__no-weapon {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.35);
+        font-style: italic;
+        padding: 8px 0;
     }
 
     .elements-grid {
@@ -161,7 +201,7 @@
             background: transparent url("/systems/huyen-viet-vtt/assets/dice/uuThe.png") center center no-repeat;
             background-size: auto 80px;
         }
-        &:hover {
+        &:hover, &.is-active {
             background-image: url("/systems/huyen-viet-vtt/assets/tablet-holder-hover.png");
 
             span.disadvantageThumb {
@@ -178,6 +218,81 @@
         img {
             height: 80px;
             margin: 0 auto;
+        }
+    }
+
+    .hv-em__accordion {
+        margin-bottom: 20px;
+
+        &-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid rgba(201, 180, 126, 0.25);
+            border-radius: 6px;
+            background: rgba(0, 0, 0, 0.2);
+            color: $parch-mid;
+            font-family: $font-primary;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s;
+
+            &:hover {
+                background: rgba(201, 180, 126, 0.1);
+                border-color: rgba(201, 180, 126, 0.45);
+            }
+        }
+
+        &-icon {
+            font-size: 12px;
+            transition: transform 0.25s ease;
+        }
+
+        &-body {
+            display: none;
+            padding-top: 14px;
+
+            &.is-open {
+                display: block;
+            }
+        }
+
+        &.is-open &-icon {
+            transform: rotate(180deg);
+        }
+    }
+
+    .roll-mode-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        padding: 8px 6px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 6px;
+        background: rgba(0, 0, 0, 0.25);
+        color: rgba(255, 255, 255, 0.55);
+        font-family: $font-primary;
+        font-size: 12px;
+        cursor: pointer;
+        transition: background 0.2s, color 0.2s, border-color 0.2s;
+
+        i { font-size: 16px; }
+
+        &:hover {
+            background: rgba(201, 180, 126, 0.15);
+            color: rgba(255, 255, 255, 0.85);
+            border-color: rgba(201, 180, 126, 0.4);
+        }
+
+        &.is-active {
+            background: rgba(201, 180, 126, 0.25);
+            color: $parch-mid;
+            border-color: $parch-mid;
         }
     }
 }

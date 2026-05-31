@@ -1,5 +1,31 @@
 <section class="hv-element-modal__wrapper">
 
+    <!-- Skill and Weapon Selection -->
+    <div class="hv-em__pick-row">
+        <div class="hv-em__pick-col">
+            <div class="section-label">Kỹ Năng</div>
+            <select class="hv-em__select" id="skillSelect">
+                <option value="">— Không chọn —</option>
+                {{#each skillOptions}}
+                    <option value="{{key}}" {{#if isSelected}}selected{{/if}}>{{label}} ({{signedNumber value}})</option>
+                {{/each}}
+            </select>
+        </div>
+        <div class="hv-em__pick-col">
+            <div class="section-label">Vũ Khí</div>
+            {{#if equippedWeapons.length}}
+                <select class="hv-em__select" id="weaponSelect">
+                    <option value="">— Không dùng —</option>
+                    {{#each equippedWeapons}}
+                        <option value="{{id}}" {{#if isSelected}}selected{{/if}}>{{name}} (+{{effectiveDamage}} sát thương)</option>
+                    {{/each}}
+                </select>
+            {{else}}
+                <div class="hv-em__no-weapon">Không có vũ khí trang bị</div>
+            {{/if}}
+        </div>
+    </div>
+
     <!-- Elements -->
     <div class="tw:text-xl tw:text-beige-300">Ngũ Hành</div>
     <div class="elements-grid tw:grid tw:grid-cols-5 tw:text-center" id="elementsGrid">
@@ -45,33 +71,20 @@
         </div>
     </div>
 
-    <!-- Slider -->
-    <div class="slider-wrap">
-        <div class="slider-header">
-            <div class="section-label" style="margin:0">Sức Mạnh</div>
-            <div style="display:flex;align-items:baseline;gap:2px">
-                <span class="slider-value" id="sliderVal">5</span>
-                <span class="slider-max"> / 12</span>
-            </div>
-        </div>
-        <input type="range" id="mainSlider" min="1" max="12" value="5"/>
-        <div class="tick-row" id="tickRow"></div>
-    </div>
-
     <!-- Advantage -->
-    <div class="section-label">Ưu Thế</div>
+    <div class="section-label">Xúc Xắc</div>
     <div class="tw:grid tw:grid-cols-3 tw:gap-4 tw:mb-4 tw:text-center">
-        <button class="roll-option-btn tw:text-base" onclick="selectOption('adv')">
+        <button class="roll-option-btn tw:text-base" data-roll-type="disadvantage">
             <span class="disadvantageThumb"></span>
-            <span class="opt-radio"><span class="opt-dot"></span></span>Bất Lợi
+            Bất Lợi
         </button>
-        <button class="roll-option-btn tw:text-base" onclick="selectOption('norm')">
+        <button class="roll-option-btn tw:text-base" data-roll-type="normal">
             <span class="normalThumb"></span>
-            <span class="opt-radio"><span class="opt-dot"></span></span>Thường
+            Thường
         </button>
-        <button class="roll-option-btn tw:text-base" onclick="selectOption('dis')">
+        <button class="roll-option-btn tw:text-base" data-roll-type="advantage">
             <span class="advantageThumb"></span>
-            <span class="opt-radio"><span class="opt-dot"></span></span>Ưu Thế
+            Ưu Thế
         </button>
     </div>
 
@@ -100,6 +113,27 @@
     <div class="tw:mb-12">
         <div class="section-label">Roll for Initiative</div>
         <div class="initiative-list" id="initiativeList"></div>
+    </div>
+
+    <!-- Advanced Customization Accordion -->
+    <div class="hv-em__accordion">
+        <button class="hv-em__accordion-toggle" type="button" id="advancedToggle">
+            <span>Tùy Chỉnh Nâng Cao</span>
+            <i class="fa-solid fa-chevron-down hv-em__accordion-icon"></i>
+        </button>
+        <div class="hv-em__accordion-body" id="advancedBody">
+            <div class="slider-wrap">
+                <div class="slider-header">
+                    <div class="section-label" style="margin:0">Thêm Xúc Xắc</div>
+                    <div style="display:flex;align-items:baseline;gap:2px">
+                        <span class="slider-value" id="sliderVal">5</span>
+                        <span class="slider-max"> / 12</span>
+                    </div>
+                </div>
+                <input type="range" id="mainSlider" min="0" max="12" value="0"/>
+                <div class="tick-row" id="tickRow"></div>
+            </div>
+        </div>
     </div>
 
     <!-- CTA -->

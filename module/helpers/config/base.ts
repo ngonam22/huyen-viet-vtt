@@ -148,6 +148,13 @@ export interface HvCharacterIdentity {
     thiToc: string;
     ngheNghiep: string;
     tinhCach: string;
+    boiCanh?: string;
+    giaCanh?: string;
+    thienTu?: string;
+    uuDiemTitle?: string;
+    uuDiemDesc?: string;
+    khuyetDiemTitle?: string;
+    khuyetDiemDesc?: string;
 }
 
 export type HvElementField = {
@@ -242,30 +249,35 @@ export const ELEMENTS = {
         label: "BOILERPLATE.Element.kim.label",
         hanhTheLabel: "BOILERPLATE.Element.kim.hanhThe",
         icon: "/systems/huyen-viet-vtt/assets/icons/metal-element.webp",
+        ringIcon: "/systems/huyen-viet-vtt/assets/icons/metal-ring-element.png",
     },
     moc: {
         key: "moc",
         label: "BOILERPLATE.Element.moc.label",
         hanhTheLabel: "BOILERPLATE.Element.moc.hanhThe",
         icon: "/systems/huyen-viet-vtt/assets/icons/wood-element.webp",
+        ringIcon: "/systems/huyen-viet-vtt/assets/icons/wood-ring-element.png",
     },
     thuy: {
         key: "thuy",
         label: "BOILERPLATE.Element.thuy.label",
         hanhTheLabel: "BOILERPLATE.Element.thuy.hanhThe",
         icon: "/systems/huyen-viet-vtt/assets/icons/water-element.webp",
+        ringIcon: "/systems/huyen-viet-vtt/assets/icons/water-ring-element.png",
     },
     hoa: {
         key: "hoa",
         label: "BOILERPLATE.Element.hoa.label",
         hanhTheLabel: "BOILERPLATE.Element.hoa.hanhThe",
         icon: "/systems/huyen-viet-vtt/assets/icons/fire-element.webp",
+        ringIcon: "/systems/huyen-viet-vtt/assets/icons/fire-ring-element.png",
     },
     tho: {
         key: "tho",
         label: "BOILERPLATE.Element.tho.label",
         hanhTheLabel: "BOILERPLATE.Element.tho.hanhThe",
         icon: "/systems/huyen-viet-vtt/assets/icons/earth-element.webp",
+        ringIcon: "/systems/huyen-viet-vtt/assets/icons/earth-ring-element.png",
     },
 }
 

@@ -1,14 +1,22 @@
-<section class="hv-roll-card" data-roll-mode="{{rollMode}}">
+<section class="hv-roll-card" data-roll-type="{{rollType}}">
     <header class="hv-roll-card__header">
         <div>
             <h3 class="hv-roll-card__title">{{title}}</h3>
-            <div class="hv-roll-card__meta">{{actorName}} · {{time}}</div>
+            <div class="hv-roll-card__meta">
+                {{#if skillLabel}}
+                    <span class="hv-roll-card__meta-skill">
+                        <img src="{{skillIcon}}" alt="" />
+                        {{skillLabel}} ({{diceCount}})
+                    </span>
+                {{/if}}
+                <span class="hv-roll-card__meta-info">{{actorName}} · {{time}}</span>
+            </div>
         </div>
         <div class="hv-roll-card__mode" title="{{modeLabel}}" aria-label="{{modeLabel}}">
             {{#if isAdvantage}}
-                <img src="/systems/huyen-viet-vtt/assets/dice/uuThe.png" alt="Uu The Icon" />
+                <img src="/systems/huyen-viet-vtt/assets/dice/uuThe-active.png" alt="Uu The Icon" />
             {{else if isDisadvantage}}
-                <img src="/systems/huyen-viet-vtt/assets/dice/batLoi.png" alt="Bat Loi Icon" />
+                <img src="/systems/huyen-viet-vtt/assets/dice/batLoi-active.png" alt="Bat Loi Icon" />
             {{else}}
                 <img src="/systems/huyen-viet-vtt/assets/dice/thuong.png" alt="Binh Thuong Icon" />
             {{/if}}

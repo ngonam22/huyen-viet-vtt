@@ -1,4 +1,4 @@
-import { ELEMENTS } from '../helpers/config'
+import { ELEMENTS, SKILL_KEYS, SKILL_LABELS } from '../helpers/config'
 
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 
@@ -30,7 +30,10 @@ export class ElementModal extends HandlebarsApplicationMixin(ApplicationV2)
         this.actor = actor;
         this.skillKey = skillKey;
         this._selectedElement = "kim";
-        this._rollMode = game.settings?.get("core", "rollMode") ?? "publicroll";
+        this._selectedSkillKey = skillKey ?? null;
+        this._selectedWeaponId = null;
+        this._rollType = "normal";
+        this._chatMode = game.settings?.get("core", "rollMode") ?? "publicroll";
     }
 
     static show(actor, skillKey = null) {
@@ -60,39 +63,105 @@ export class ElementModal extends HandlebarsApplicationMixin(ApplicationV2)
             });
         });
 
-        // Roll mode selection
+        // Skill select
+        const $skillSelect = el.querySelector('#skillSelect');
+        if ($skillSelect) {
+            $skillSelect.addEventListener('change', () => {
+                this._selectedSkillKey = $skillSelect.value || null;
+            });
+        }
+
+        // Weapon select
+        const $weaponSelect = el.querySelector('#weaponSelect');
+        if ($weaponSelect) {
+            $weaponSelect.addEventListener('change', () => {
+                this._selectedWeaponId = $weaponSelect.value || null;
+            });
+        }
+
+        // Roll type selection (advantage / normal / disadvantage)
+        const $rollOptionBtns = el.querySelectorAll('.roll-option-btn');
+        $rollOptionBtns.forEach(btn => {
+            if (btn.dataset.rollType === this._rollType) btn.classList.add('is-active');
+            btn.addEventListener('click', () => {
+                $rollOptionBtns.forEach(b => b.classList.remove('is-active'));
+                btn.classList.add('is-active');
+                this._rollType = btn.dataset.rollType;
+            });
+        });
+
+        // Advanced accordion toggle
+        const $advancedToggle = el.querySelector('#advancedToggle');
+        const $advancedBody = el.querySelector('#advancedBody');
+        const $accordion = el.querySelector('.hv-em__accordion');
+        if ($advancedToggle && $advancedBody && $accordion) {
+            $advancedToggle.addEventListener('click', () => {
+                const isOpen = $advancedBody.classList.toggle('is-open');
+                $accordion.classList.toggle('is-open', isOpen);
+            });
+        }
+
+        // Roll mode selection (publicroll / gmroll / blindroll / selfroll)
         const $rollModeBtns = el.querySelectorAll('.roll-mode-btn');
         $rollModeBtns.forEach(btn => {
-            if (btn.dataset.rollMode === this._rollMode) {
+            if (btn.dataset.rollMode === this._chatMode) {
                 btn.classList.add('is-active');
             }
             btn.addEventListener('click', () => {
                 $rollModeBtns.forEach(b => b.classList.remove('is-active'));
                 btn.classList.add('is-active');
-                this._rollMode = btn.dataset.rollMode;
+                this._chatMode = btn.dataset.rollMode;
             });
         });
     }
 
     async _prepareContext(_options) {
+        const skillOptions = SKILL_KEYS.map(key => ({
+            key,
+            label: SKILL_LABELS[key] ?? key,
+            value: this.actor.system.skills[key] ?? 0,
+            isSelected: key === this._selectedSkillKey,
+        }));
+
+        const equippedWeapons = this.actor.items
+            .filter(i => i.type === 'vuKhi' && i.system.isEquipped && i.system.condition !== 'vo-nat')
+            .map(i => ({
+                id: i.id,
+                name: i.name,
+                effectiveDamage: i.system.effectiveDamage,
+                isSelected: i.id === this._selectedWeaponId,
+            }));
+
         return {
             system: this.actor.system,
-        }
+            skillOptions,
+            equippedWeapons,
+        };
     }
 
     async _onClickAction(event, target) {
         const action = target.dataset.action;
 
         if (action === 'roll-dice') {
-            const skillValue = this.skillKey
-                ? (this.actor.system.skills[this.skillKey] ?? 0)
+            const skillValue = this._selectedSkillKey
+                ? (this.actor.system.skills[this._selectedSkillKey] ?? 0)
                 : 0;
             const elementValue = this._selectedElement
                 ? (this.actor.system.elements[this._selectedElement]?.value ?? 0)
                 : 0;
             const numDice = Math.max(1, skillValue + elementValue);
 
-            await this.actor.testDiceSoNice(numDice, this._rollMode);
+            const selectedWeapon = this._selectedWeaponId
+                ? this.actor.items.get(this._selectedWeaponId)
+                : null;
+
+            const title = selectedWeapon
+                ? `Tấn công — ${selectedWeapon.name}`
+                : this._selectedSkillKey
+                    ? (SKILL_LABELS[this._selectedSkillKey] ? SKILL_LABELS[this._selectedSkillKey] + ` (+${skillValue})` : 'Gieo Thiên Mệnh')
+                    : 'Gieo Thiên Mệnh';
+
+            await this.actor.testDiceSoNice(numDice, this._rollType, this._chatMode, title, this._selectedSkillKey ?? undefined);
             this.close();
         }
     }
