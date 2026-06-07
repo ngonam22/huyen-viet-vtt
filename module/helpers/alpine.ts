@@ -103,6 +103,7 @@ Alpine.data('hvCharCreator', (draft: {
   thiTocMap: {} as Record<string, any>,
   monPhaiMap: {} as Record<string, any>,
   thienTuMap: {} as Record<string, any>,
+  allSkillsList: [] as { key: string; label: string }[],
 
   initMaps(el: HTMLElement) {
     const m = el.querySelector('[data-cc-maps]') as HTMLElement | null;
@@ -113,6 +114,7 @@ Alpine.data('hvCharCreator', (draft: {
     try { (this as any).monPhaiMap = JSON.parse(m.dataset.monPhai || '{}'); } catch {}
     try { (this as any).thienTuMap = JSON.parse(m.dataset.thienTu || '{}'); } catch {}
     try { (this as any).monPhaiSkillKeys = JSON.parse(m.dataset.monPhaiSkillKeys || '[]'); } catch {}
+    try { (this as any).allSkillsList = JSON.parse(m.dataset.allSkills || '[]'); } catch {}
     (this as any).uuDiemTitle = m.dataset.uuDiemTitle || '';
     (this as any).uuDiemDesc = m.dataset.uuDiemDesc || '';
     (this as any).khuyetDiemTitle = m.dataset.khuyetDiemTitle || '';
@@ -298,9 +300,8 @@ Alpine.data('hvCharCreator', (draft: {
   },
 
   availableMonPhaiSkills(position: number): any[] {
-    const pool = (this as any).summaryEntry?.skillPool ?? [];
     const others = (this.monPhaiSkillKeys as string[]).filter((_, i) => i !== position);
-    return pool.filter((skill: any) => !others.includes(skill.key));
+    return (this.allSkillsList as { key: string; label: string }[]).filter(skill => !others.includes(skill.key));
   },
 
   setMonPhaiSkillAtPosition(position: number, skillKey: string) {

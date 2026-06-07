@@ -1,7 +1,7 @@
 import { BOI_CANH, GIA_CANH, MON_PHAI, THI_TOC, ELEMENTS, SKILL_LABELS, ELEMENT_CLASS } from '../helpers/config.ts';
 import { setBoiCanhForActor, removeBoiCanhFromActor } from '../helpers/boiCanh';
 import { setGiaCanhForActor } from '../helpers/giaCanh';
-import { setMonPhaiForActor } from '../helpers/monPhai';
+import { setMonPhaiForActor, addMonPhaiInitItemsToActor } from '../helpers/monPhai';
 import { setThiTocForActor, removeThiTocFromActor } from '../helpers/thiToc';
 
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
@@ -503,6 +503,7 @@ export class CharacterCreatorPanel extends HandlebarsApplicationMixin(Applicatio
       thiTocMap,
       monPhaiMap,
       thienTuMap,
+      allSkills: JSON.stringify(Object.entries(SKILL_LABELS).map(([key, label]) => ({ key, label }))),
     };
   }
 
@@ -627,6 +628,9 @@ export class CharacterCreatorPanel extends HandlebarsApplicationMixin(Applicatio
       const indices = this._draft.monPhaiElementIndices;
       await setMonPhaiForActor(this.actor, this._draft.monPhai, indices.length > 0 ? { 0: indices } : {});
       this._savedMonPhaiElementIndices = [...indices];
+      if (monPhaiIdChanged) {
+        await addMonPhaiInitItemsToActor(this.actor, this._draft.monPhai);
+      }
     }
     if (this._draft.monPhai && (monPhaiIdChanged || mpSkillKeysChanged)) {
       await this.actor.update({ 'system.identity.monPhaiSkillKeys': this._draft.monPhaiSkillKeys });

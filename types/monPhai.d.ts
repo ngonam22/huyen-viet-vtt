@@ -7,6 +7,11 @@ import {UpgradeRule} from "./upgrade";
  */
 export type MonPhaiLevelRequirement = Partial<Record<HvSkillKey, number>>;
 
+export type MonPhaiInitItem = {
+    /** ID string của vật phẩm **/
+    id: string,
+    quantity: number
+}
 /**
  * Định nghĩa cấu trúc thông tin của một Môn Phái
  */
@@ -38,4 +43,9 @@ export interface MonPhai {
      * Khi hệ thống check TotalXP đạt ngưỡng cho Cấp N, nó sẽ gọi progressionReqs[N] để check kỹ năng.
      */
     progressionReqs: Record<number, MonPhaiLevelRequirement>;
+
+    /**
+     * Danh sách các vật phẩm được thưởng khi lần đầu chọn môn phái này
+     */
+    initItems: MonPhaiInitItem[];
 }

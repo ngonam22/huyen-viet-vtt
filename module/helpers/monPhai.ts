@@ -1,6 +1,7 @@
 import type { MonPhai } from "../../types/monPhai";
 import type { AppliedUpgrade } from "../../types/upgrade";
 import { MON_PHAI } from "./config";
+import { getWeaponById, getArmorById, getAccessoryById, addWeaponToActor, addArmorToActor, addAccessoryToActor } from "./itemCatalog";
 
 const MON_PHAI_ITEM_TYPE = "monPhai";
 
@@ -37,6 +38,21 @@ export async function setMonPhaiForActor(
   ]);
 
   await actor.update({ "system.identity.monPhai": monPhai.id });
+}
+
+export async function addMonPhaiInitItemsToActor(actor: Actor, monPhaiId: string): Promise<void> {
+  const monPhai = getMonPhaiById(monPhaiId);
+  if (!monPhai?.initItems?.length) return;
+
+  for (const { id } of monPhai.initItems) {
+    if (getWeaponById(id)) {
+      await addWeaponToActor(actor, id);
+    } else if (getArmorById(id)) {
+      await addArmorToActor(actor, id);
+    } else if (getAccessoryById(id)) {
+      await addAccessoryToActor(actor, id);
+    }
+  }
 }
 
 export async function removeMonPhaiFromActor(actor: Actor): Promise<void> {

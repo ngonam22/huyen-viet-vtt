@@ -30,7 +30,14 @@ export const MON_PHAI: Record<string, MonPhai> = {
             4: { yHoc: 5, theThuat: 3, thanHoc: 2 },
             5: { yHoc: 5, theThuat: 4, thanHoc: 4, tamY: 2 },
             6: { yHoc: 5, theThuat: 5, thanHoc: 5, tamY: 4 }
-        }
+        },
+        initItems: [
+            {id: 'hanh-phuc', quantity: 1},
+            {id: 'giap-da', quantity: 1},
+            {id: 'viet-kiem', quantity: 1},
+            {id: 'bo-hanh-tau', quantity: 1},
+            {id: 'bo-y-cu', quantity: 1},
+        ]
     },
     sanhCuuLanhQuan: {
         id: 'sanhCuuLanhQuan',
@@ -56,7 +63,16 @@ export const MON_PHAI: Record<string, MonPhai> = {
             4: { binhPhap: 4, lanhDao: 3, theThuat: 2 },
             5: { binhPhap: 5, lanhDao: 4, theThuat: 4, chienCu: 2 },
             6: { binhPhap: 5, lanhDao: 5, theThuat: 5, chienCu: 4 }
-        }
+        },
+        initItems: [
+            {id: 'hanh-phuc', quantity: 1},
+            {id: 'ao-xich', quantity: 1},
+            {id: 'viet-kiem', quantity: 1},
+            {id: 'thuong', quantity: 1},
+            {id: 'cung', quantity: 1},
+            {id: 'ten', quantity: 1},
+            {id: 'bo-hanh-tau', quantity: 1},
+        ]
     },
     duongTanPhucMaSu: {
         id: 'duongTanPhucMaSu',
@@ -82,7 +98,14 @@ export const MON_PHAI: Record<string, MonPhai> = {
             4: { thanHoc: 4, voThuat: 3, tamY: 2 },
             5: { thanHoc: 5, voThuat: 4, tamY: 4, sinhTon: 2 },
             6: { thanHoc: 5, voThuat: 5, tamY: 5, sinhTon: 4 }
-        }
+        },
+        initItems: [
+            {id: 'giao-bao', quantity: 1},
+            {id: 'viet-kiem', quantity: 1},
+            {id: 'bo-hanh-tau', quantity: 1},
+            {id: 'phu-thu', quantity: 1},
+            {id: 'bo-hoa-trang', quantity: 1},
+        ]
     },
     minhHaoNgheSu: {
         id: 'minhHaoNgheSu',
@@ -108,7 +131,14 @@ export const MON_PHAI: Record<string, MonPhai> = {
             4: { myThuat: 4, thoiTrang: 3, bieuDien: 2 },
             5: { myThuat: 5, thoiTrang: 4, bieuDien: 4, leDao: 2 },
             6: { myThuat: 5, thoiTrang: 5, bieuDien: 5, leDao: 4 }
-        }
+        },
+        initItems: [
+            {id: 'hanh-phuc', quantity: 1},
+            {id: 'le-phuc', quantity: 1},
+            {id: 'viet-kiem', quantity: 1},
+            {id: 'bo-tra-dao', quantity: 1},
+            {id: 'bo-thu-phap', quantity: 1},
+        ]
     },
     thuongLienLinhSi: {
         id: 'thuongLienLinhSi',
@@ -134,7 +164,15 @@ export const MON_PHAI: Record<string, MonPhai> = {
             4: { thienDinh: 4, thanHoc: 3, tamY: 2 },
             5: { thienDinh: 5, thanHoc: 4, tamY: 4, yHoc: 2 },
             6: { thienDinh: 5, thanHoc: 5, tamY: 5, yHoc: 4 }
-        }
+        },
+        initItems: [
+            {id: 'hanh-phuc', quantity: 1},
+            {id: 'giao-phuc', quantity: 1},
+            {id: 'viet-kiem', quantity: 1},
+            {id: 'dao-gam', quantity: 1},
+            {id: 'bo-boi-que', quantity: 1},
+            {id: 'phu-thu', quantity: 1},
+        ]
     },
     tienViThuongSi: {
         id: 'tienViThuongSi',
@@ -160,7 +198,16 @@ export const MON_PHAI: Record<string, MonPhai> = {
             4: { thuongNghiep: 4, leDao: 3, xaHoi: 2 },
             5: { thuongNghiep: 5, leDao: 4, xaHoi: 4, vanTu: 2 },
             6: { thuongNghiep: 5, leDao: 5, xaHoi: 5, vanTu: 4 }
-        }
+        },
+        initItems: [
+            {id: 'hanh-phuc', quantity: 1},
+            {id: 'le-phuc', quantity: 1},
+            {id: 'viet-kiem', quantity: 1},
+            {id: 'cung-ngan', quantity: 1},
+            {id: 'ten', quantity: 1},
+            {id: 'bo-thu-phap', quantity: 1},
+            {id: 'bo-hanh-tau', quantity: 1},
+        ]
     },
     nghiVoKySi: {
         id: 'nghiVoKySi',
@@ -186,9 +233,18 @@ export const MON_PHAI: Record<string, MonPhai> = {
             4: { theThuat: 4, sinhTon: 3, voThuat: 2 },
             5: { theThuat: 5, sinhTon: 4, voThuat: 4, binhPhap: 2 },
             6: { theThuat: 5, sinhTon: 5, voThuat: 5, binhPhap: 4 }
-        }
+        },
+        initItems: [
+            {id: 'hanh-phuc', quantity: 1},
+            {id: 'viet-kiem', quantity: 1},
+            {id: 'thuong', quantity: 1},
+            {id: 'giap-xich', quantity: 1},
+            {id: 'cung', quantity: 1},
+            {id: 'ten', quantity: 1},
+            {id: 'bo-hanh-tau', quantity: 1},
+        ]
     },
-    sonViThietTuong: {
+    thuyMinhThietTuong: {
         id: 'thuyMinhThietTuong',
         ten: 'BOILERPLATE.MonPhai.thuyMinhThietTuong.label',
         category: 'thapNhiHocVien',
@@ -212,7 +268,15 @@ export const MON_PHAI: Record<string, MonPhai> = {
             4: { chienCu: 4, theThuat: 3, laoDong: 2 },
             5: { chienCu: 5, theThuat: 4, laoDong: 4, thuongNghiep: 2 },
             6: { chienCu: 5, theThuat: 5, laoDong: 5, thuongNghiep: 4 }
-        }
+        },
+        initItems: [
+            {id: 'hanh-phuc', quantity: 1},
+            {id: 'viet-kiem', quantity: 1},
+            {id: 'bua-ren', quantity: 1},
+            {id: 'ao-xich', quantity: 1},
+            {id: 'bo-dung-cu-ren', quantity: 1},
+            {id: 'bo-hanh-tau', quantity: 1},
+        ]
     },
     thiHuanThamLamQuan: {
         id: 'thiHuanThamLamQuan',
@@ -238,7 +302,16 @@ export const MON_PHAI: Record<string, MonPhai> = {
             4: { sinhTon: 4, theThuat: 3, voThuat: 2 },
             5: { sinhTon: 5, theThuat: 4, voThuat: 4, thienDinh: 2 },
             6: { sinhTon: 5, theThuat: 5, voThuat: 5, thienDinh: 4 }
-        }
+        },
+        initItems: [
+            {id: 'hanh-phuc', quantity: 1},
+            {id: 'viet-kiem', quantity: 1},
+            {id: 'thuong', quantity: 1},
+            {id: 'ao-xich', quantity: 1},
+            {id: 'cung', quantity: 1},
+            {id: 'ten', quantity: 1},
+            {id: 'bo-hanh-tau', quantity: 1},
+        ]
     },
     dienHauChinhSi: {
         id: 'dienHauChinhSi',
@@ -264,7 +337,15 @@ export const MON_PHAI: Record<string, MonPhai> = {
             4: { chinhTri: 4, vanTu: 3, lanhDao: 2 },
             5: { chinhTri: 5, vanTu: 4, lanhDao: 4, leDao: 2 },
             6: { chinhTri: 5, vanTu: 5, lanhDao: 5, leDao: 4 }
-        }
+        },
+        initItems: [
+            {id: 'hanh-phuc', quantity: 1},
+            {id: 'le-phuc', quantity: 1},
+            {id: 'viet-kiem', quantity: 1},
+            {id: 'dao-gam', quantity: 1},
+            {id: 'bo-thu-phap', quantity: 1},
+            {id: 'bo-hanh-tau', quantity: 1},
+        ]
     },
     tuyetLuatThamTu: {
         id: 'tuyetLuatThamTu',
@@ -290,7 +371,16 @@ export const MON_PHAI: Record<string, MonPhai> = {
             4: { hacNghiep: 4, tamY: 3, chinhTri: 2 },
             5: { hacNghiep: 5, tamY: 4, chinhTri: 4, voThuat: 2 },
             6: { hacNghiep: 5, tamY: 5, chinhTri: 5, voThuat: 4 }
-        }
+        },
+        initItems: [
+            {id: 'hanh-phuc', quantity: 1},
+            {id: 'le-phuc', quantity: 1},
+            {id: 'viet-kiem', quantity: 1},
+            {id: 'doan-gam', quantity: 1},
+            {id: 'bo-thu-phap', quantity: 1},
+            {id: 'so-ghi-chep', quantity: 1},
+            {id: 'bo-hanh-tau', quantity: 1},
+        ]
     },
     haoGioiHungBinh: {
         id: 'haoGioiHungSi',
@@ -316,6 +406,15 @@ export const MON_PHAI: Record<string, MonPhai> = {
             4: { voThuat: 4, theThuat: 3, sinhTon: 2 },
             5: { voThuat: 5, theThuat: 4, sinhTon: 4, lanhDao: 2 },
             6: { voThuat: 5, theThuat: 5, sinhTon: 5, lanhDao: 4 }
-        }
+        },
+        initItems: [
+            {id: 'hanh-phuc', quantity: 1},
+            {id: 'viet-kiem', quantity: 1},
+            {id: 'dai-dao', quantity: 1},
+            {id: 'giap-xich', quantity: 1},
+            {id: 'cung', quantity: 1},
+            {id: 'ten', quantity: 1},
+            {id: 'bo-hanh-tau', quantity: 1},
+        ]
     }
 };

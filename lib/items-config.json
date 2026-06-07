@@ -1,6 +1,26 @@
 {
   "weapons": [
     {
+      "id": "kiem-go",
+      "name": "Kiếm Gỗ",
+      "description": "Kiếm gỗ bình thường, có thể dùng một hoặc hai tay.",
+      "flavorText": "Quân tử hành kiếm, chính đạo độc tôn",
+      "weaponClass": "melee",
+      "baseDamage": 4,
+      "range": 1,
+      "condition": "normal",
+      "common": 2,
+      "isTwoHanded": true,
+      "passiveEffects": [],
+      "twoHandedEffects": [
+        { "target": "damage", "mode": "add", "effects": [{ "name": "baseDamage", "value": 2 }] }
+      ],
+      "traits": [
+        { "id": "hai-tay" }
+      ],
+      "img": "/systems/huyen-viet-vtt/assets/vu-khi/truong-kiem-hero.png"
+    },
+    {
       "id": "dao-gam",
       "name": "Dao Găm",
       "description": "",
@@ -53,6 +73,39 @@
       ]
     },
     {
+      "id": "doan-kiem",
+      "name": "Đoản Kiếm",
+      "description": "",
+      "flavorText": "Kiếm hai lưỡi cân bằng giữa tấn công và phòng thủ.",
+      "weaponClass": "melee",
+      "baseDamage": 4,
+      "range": 1,
+      "common": 5,
+      "condition": "normal",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "sac-ben" },
+        { "id": "le-trong" }
+      ]
+    },
+    {
+      "id": "lieu-kiem",
+      "name": "Liễu Kiếm",
+      "description": "",
+      "flavorText": "Kiếm hai lưỡi cân bằng giữa tấn công và phòng thủ.",
+      "weaponClass": "melee",
+      "baseDamage": 5,
+      "range": 1,
+      "common": 7,
+      "condition": "normal",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": []
+    },
+    {
       "id": "truong-kiem",
       "name": "Trường Kiếm",
       "description": "Kiếm dài uy nghi, có thể dùng một hoặc hai tay.",
@@ -60,6 +113,7 @@
       "weaponClass": "melee",
       "baseDamage": 7,
       "range": 1,
+      "common": 5,
       "condition": "normal",
       "isTwoHanded": false,
       "passiveEffects": [],
@@ -68,7 +122,8 @@
       ],
       "traits": [
         { "id": "sac-ben" },
-        { "id": "hai-tay" }
+        { "id": "hai-tay" },
+        { "id": "le-trong" }
       ],
       "img": "/systems/huyen-viet-vtt/assets/vu-khi/truong-kiem-hero.png"
     },
@@ -80,6 +135,7 @@
       "weaponClass": "melee",
       "baseDamage": 9,
       "range": 1,
+      "common": 5,
       "condition": "normal",
       "isTwoHanded": true,
       "passiveEffects": [
@@ -458,6 +514,24 @@
   ],
   "accessories": [
     {
+      "id": "phu-thu",
+      "name": "Phù Thư",
+      "description": "",
+      "flavorText": "Hộp chứa Phù lục",
+      "quantity": 1,
+      "common": 4,
+      "passiveEffects": []
+    },
+    {
+      "id": "bua-may-man",
+      "name": "Bùa May Mắn",
+      "description": "",
+      "flavorText": "Bùa được cho là \"may mắn\"",
+      "quantity": 1,
+      "common": 2,
+      "passiveEffects": []
+    },
+    {
       "id": "tui-thuoc",
       "name": "Túi Thuốc",
       "description": "",
@@ -466,10 +540,141 @@
       "passiveEffects": []
     },
     {
+      "id": "day-thung",
+      "name": "Dây Thừng",
+      "description": "",
+      "flavorText": "Dây dài 10 bộ",
+      "common": 1,
+      "quantity": 1,
+      "passiveEffects": []
+    },
+    {
+      "id": "tui-ngu",
+      "name": "Túi Ngủ",
+      "description": "",
+      "flavorText": "Túi ngủ cá nhân",
+      "common": 1,
+      "quantity": 1,
+      "passiveEffects": []
+    },
+    {
+      "id": "tui-xach",
+      "name": "Túi Xách",
+      "description": "",
+      "flavorText": "Túi/cắp để chứa đồ",
+      "common": 1,
+      "quantity": 1,
+      "passiveEffects": []
+    },
+    {
+      "id": "den-dau",
+      "name": "Đèn Dầu",
+      "description": "",
+      "flavorText": "Để phát sáng trong đêm, dùng dầu 1 xị/đêm (8 tiếng)",
+      "common": 1,
+      "quantity": 1,
+      "passiveEffects": []
+    },
+    {
+      "id": "leu",
+      "name": "Lều",
+      "description": "",
+      "flavorText": "Lều nhỏ đủ dùng cho 4 người",
+      "common": 3,
+      "quantity": 1,
+      "passiveEffects": []
+    },
+    {
+      "id": "leu-trai",
+      "name": "Lều Trại",
+      "description": "",
+      "flavorText": "Lều lớn có thể chứa được 8 người",
+      "common": 5,
+      "quantity": 1,
+      "passiveEffects": []
+    },
+    {
+      "id": "binh-doc",
+      "name": "Bình Độc",
+      "description": "",
+      "flavorText": "Độc dược (Cấm phẩm)",
+      "common": 5,
+      "quantity": 1,
+      "passiveEffects": []
+    },
+    {
+      "id": "bao-ten",
+      "name": "Bao Tên",
+      "description": "",
+      "flavorText": "Bao chứa mũi tên",
+      "common": 1,
+      "quantity": 1,
+      "passiveEffects": []
+    },
+    {
       "id": "bien-the-bai",
       "name": "Biển Thẻ Bài",
       "description": "",
       "flavorText": "Thẻ bài chứng minh thân phận, tăng uy tín trong giao tiếp xã hội.",
+      "quantity": 1,
+      "passiveEffects": []
+    },
+    {
+      "id": "bo-hanh-tau",
+      "name": "Bộ Hành Tẩu",
+      "description": "",
+      "flavorText": "Bộ dụng cụ để hành tẩu giang hồ",
+      "quantity": 1,
+      "passiveEffects": []
+    },
+    {
+      "id": "bo-y-cu",
+      "name": "Bộ Y Cụ",
+      "description": "",
+      "flavorText": "Bộ y cụ dùng để cứu người",
+      "quantity": 1,
+      "passiveEffects": []
+    },
+    {
+      "id": "bo-hoa-trang",
+      "name": "Bộ Hóa Trang",
+      "description": "",
+      "flavorText": "Bộ dụng cụ dùng để hóa trang",
+      "quantity": 1,
+      "passiveEffects": []
+    },
+    {
+      "id": "bo-boi-que",
+      "name": "Bộ Bói Quẻ",
+      "description": "",
+      "flavorText": "Bộ dụng cụ dùng để bói quẻ",
+      "quantity": 1,
+      "passiveEffects": []
+    },
+    {
+      "id": "bo-tra-dao",
+      "name": "Bộ Trà Đạo",
+      "description": "",
+      "flavorText": "Bộ dụng cụ dùng để uống trà: Ấm, khay trà, chén trà",
+      "common": 5,
+      "quantity": 1,
+      "passiveEffects": []
+    },
+    {
+      "id": "bo-thu-phap",
+      "name": "Bộ Thư Pháp",
+      "description": "",
+      "flavorText": "Bộ dụng cụ dùng viết Thư Pháp",
+      "common": 5,
+      "quantity": 1,
+      "passiveEffects": []
+    },
+    {
+      "id": "bo-dung-cu-ren",
+      "name": "Bộ Dụng Cụ Rèn",
+      "description": "",
+      "flavorText": "Bộ dụng cụ dùng Rèn",
+      "common": 5,
       "quantity": 1,
       "passiveEffects": []
     }
