@@ -174,17 +174,18 @@ function getMonPhaiRows(selectedId, selectedElementIndices) {
       isChosen: entry.id === selectedId && selectedElementIndices.includes(index),
     }));
 
-    const focusSkills = Object.keys(entry.progressionReqs?.[2] ?? {})
-      .slice(0, 3)
-      .map(key => ({ key, label: SKILL_LABELS[key] ?? key }));
+    const allSkillKeys = [...new Set(
+      Object.values(entry.progressionReqs ?? {}).flatMap(lvl => Object.keys(lvl))
+    )];
+    const skillPool = allSkillKeys.map(key => ({ key, label: SKILL_LABELS[key] ?? key }));
 
     return {
       id: entry.id,
       name: localize(entry.ten),
-      thumbnail: `/systems/huyen-viet-vtt/assets/character-creation/mon-phai/${kebabCase(entry.id)}.png`,
+      thumbnail: `/systems/huyen-viet-vtt/assets/mon-phai/${entry.id}.png`,
       isSelected: entry.id === selectedId,
       elements,
-      focusSkills,
+      skillPool,
       chooseCount: elementRule?.choose ?? 1,
     };
   });
@@ -223,6 +224,7 @@ export class CharacterCreatorPanel extends HandlebarsApplicationMixin(Applicatio
     const monPhaiItem = actor.items.find(i => i.type === 'monPhai');
     const savedMpIndices = monPhaiItem?.system?.appliedUpgrades?.[0]?.selectedIndices;
     const savedMonPhaiElementIndices = Array.isArray(savedMpIndices) ? [...savedMpIndices] : [];
+    const savedMonPhaiSkillKeys = Array.isArray(actor.system.identity?.monPhaiSkillKeys) ? [...actor.system.identity.monPhaiSkillKeys] : [];
 
     this._draft = {
       boiCanh: actor.system.identity?.boiCanh ?? '',
@@ -236,6 +238,7 @@ export class CharacterCreatorPanel extends HandlebarsApplicationMixin(Applicatio
       khuyetDiemDesc: actor.system.identity?.khuyetDiemDesc ?? '',
       monPhai: actor.system.identity?.monPhai ?? '',
       monPhaiElementIndices: savedMonPhaiElementIndices,
+      monPhaiSkillKeys: savedMonPhaiSkillKeys,
       niemVuiTitle: actor.system.identity?.niemVuiTitle ?? '',
       niemVuiDesc: actor.system.identity?.niemVuiDesc ?? '',
       noiSoTitle: actor.system.identity?.noiSoTitle ?? '',
@@ -247,6 +250,7 @@ export class CharacterCreatorPanel extends HandlebarsApplicationMixin(Applicatio
     };
     this._savedGiaCanhElementIndex = savedElementIndex;
     this._savedMonPhaiElementIndices = savedMonPhaiElementIndices;
+    this._savedMonPhaiSkillKeys = savedMonPhaiSkillKeys;
     this._savedThienTu = actor.system.identity?.thienTu ?? '';
     this._forceClose = false;
   }
@@ -322,8 +326,27 @@ export class CharacterCreatorPanel extends HandlebarsApplicationMixin(Applicatio
     }, { signal });
 
     this.element.addEventListener('hv:mon-phai-select', (e) => {
-      if (this._draft.monPhai !== e.detail.id) this._draft.monPhaiElementIndices = [];
+      if (this._draft.monPhai !== e.detail.id) {
+        this._draft.monPhaiElementIndices = [];
+        this._draft.monPhaiSkillKeys = [];
+      }
       this._draft.monPhai = e.detail.id;
+    }, { signal });
+
+    this.element.addEventListener('hv:mon-phai-indices-set', (e) => {
+      const { monPhaiId, indices } = e.detail;
+      if (monPhaiId) {
+        this._draft.monPhai = monPhaiId;
+        this._draft.monPhaiElementIndices = [...indices];
+      }
+    }, { signal });
+
+    this.element.addEventListener('hv:mon-phai-skills-set', (e) => {
+      const { monPhaiId, skillKeys } = e.detail;
+      if (monPhaiId) {
+        this._draft.monPhai = monPhaiId;
+        this._draft.monPhaiSkillKeys = [...skillKeys];
+      }
     }, { signal });
 
     this.element.addEventListener('hv:mon-phai-element-select', (e) => {
@@ -404,11 +427,12 @@ export class CharacterCreatorPanel extends HandlebarsApplicationMixin(Applicatio
     ));
 
     const monPhaiMap = JSON.stringify(Object.fromEntries(
-      monPhaiRows.map(({ id, name, thumbnail, elements, focusSkills }) => [id, {
+      monPhaiRows.map(({ id, name, thumbnail, elements, skillPool }) => [id, {
         name,
-        thumbnailLarge: thumbnail.replace('.png', '-large.png'),
+        thumbnailLarge: thumbnail,
+        description: '',
         elements: elements.map(({ index, key, label, value, icon, class: cls }) => ({ index, key, label, value, icon, class: cls })),
-        focusSkills,
+        skillPool,
       }])
     ));
 
@@ -428,6 +452,7 @@ export class CharacterCreatorPanel extends HandlebarsApplicationMixin(Applicatio
         khuyetDiemDesc: this._draft.khuyetDiemDesc || '',
         monPhai: this._draft.monPhai || '',
         monPhaiElementIndices: JSON.stringify(this._draft.monPhaiElementIndices),
+        monPhaiSkillKeys: JSON.stringify(this._draft.monPhaiSkillKeys || []),
         niemVuiTitle: this._draft.niemVuiTitle || '',
         niemVuiDesc: this._draft.niemVuiDesc || '',
         noiSoTitle: this._draft.noiSoTitle || '',
@@ -523,6 +548,10 @@ export class CharacterCreatorPanel extends HandlebarsApplicationMixin(Applicatio
       this._draft.monPhaiElementIndices.length !== this._savedMonPhaiElementIndices.length ||
       this._draft.monPhaiElementIndices.some((idx, i) => idx !== this._savedMonPhaiElementIndices[i]);
 
+    const mpSkillKeysChanged =
+      this._draft.monPhaiSkillKeys.length !== this._savedMonPhaiSkillKeys.length ||
+      this._draft.monPhaiSkillKeys.some((key, i) => key !== this._savedMonPhaiSkillKeys[i]);
+
     return (
       this._draft.boiCanh !== (this.actor.system.identity?.boiCanh ?? '') ||
       this._draft.giaCanh !== (this.actor.system.identity?.giaCanh ?? '') ||
@@ -535,6 +564,7 @@ export class CharacterCreatorPanel extends HandlebarsApplicationMixin(Applicatio
       this._draft.khuyetDiemDesc !== (this.actor.system.identity?.khuyetDiemDesc ?? '') ||
       this._draft.monPhai !== (this.actor.system.identity?.monPhai ?? '') ||
       mpIndicesChanged ||
+      mpSkillKeysChanged ||
       this._draft.niemVuiTitle !== (this.actor.system.identity?.niemVuiTitle ?? '') ||
       this._draft.niemVuiDesc !== (this.actor.system.identity?.niemVuiDesc ?? '') ||
       this._draft.noiSoTitle !== (this.actor.system.identity?.noiSoTitle ?? '') ||
@@ -590,10 +620,17 @@ export class CharacterCreatorPanel extends HandlebarsApplicationMixin(Applicatio
     const mpIndicesChanged =
       this._draft.monPhaiElementIndices.length !== this._savedMonPhaiElementIndices.length ||
       this._draft.monPhaiElementIndices.some((idx, i) => idx !== this._savedMonPhaiElementIndices[i]);
+    const mpSkillKeysChanged =
+      this._draft.monPhaiSkillKeys.length !== this._savedMonPhaiSkillKeys.length ||
+      this._draft.monPhaiSkillKeys.some((key, i) => key !== this._savedMonPhaiSkillKeys[i]);
     if (this._draft.monPhai && (monPhaiIdChanged || mpIndicesChanged)) {
       const indices = this._draft.monPhaiElementIndices;
       await setMonPhaiForActor(this.actor, this._draft.monPhai, indices.length > 0 ? { 0: indices } : {});
       this._savedMonPhaiElementIndices = [...indices];
+    }
+    if (this._draft.monPhai && (monPhaiIdChanged || mpSkillKeysChanged)) {
+      await this.actor.update({ 'system.identity.monPhaiSkillKeys': this._draft.monPhaiSkillKeys });
+      this._savedMonPhaiSkillKeys = [...this._draft.monPhaiSkillKeys];
     }
 
     const niemVuiNoiSoChanged =

@@ -13,8 +13,8 @@
       "passiveEffects": [],
       "twoHandedEffects": [],
       "traits": [
-        { "id": "kin-dao",    "label": "Kín Đáo",    "category": "utility", "description": "Dễ giấu, vượt qua kiểm tra ngụy trang và dò xét." },
-        { "id": "thuong-dung","label": "Thường Dụng","category": "utility", "description": "Không gây chú ý khi mang theo nơi công cộng." }
+        { "id": "kin-dao" },
+        { "id": "thuong-dung" }
       ],
       "img": "/systems/huyen-viet-vtt/assets/vu-khi/dao-gam-hero.png"
     },
@@ -31,24 +31,25 @@
       "passiveEffects": [],
       "twoHandedEffects": [],
       "traits": [
-        { "id": "thuong-dung","label": "Thường Dụng","category": "utility", "description": "Không gây chú ý khi mang theo nơi công cộng." }
+        { "id": "thuong-dung" }
       ],
       "img": "/systems/huyen-viet-vtt/assets/vu-khi/dao-hero.png"
     },
     {
-      "id": "kiem",
-      "name": "Kiếm",
+      "id": "viet-kiem",
+      "name": "Việt Kiếm",
       "description": "",
       "flavorText": "Kiếm hai lưỡi cân bằng giữa tấn công và phòng thủ.",
       "weaponClass": "melee",
-      "baseDamage": 6,
+      "baseDamage": 3,
       "range": 1,
       "condition": "normal",
       "isTwoHanded": false,
       "passiveEffects": [],
       "twoHandedEffects": [],
       "traits": [
-        { "id": "sac-ben","label": "Sắc Bén","category": "combat", "description": "Nếu đòn đánh xuyên Kháng Lực, gây thêm +2 Sát thương. Nếu bị chặn hoàn toàn, mất tính trạng này đến khi mài lại." }
+        { "id": "sac-ben" },
+        { "id": "le-trong" }
       ]
     },
     {
@@ -66,8 +67,8 @@
         { "target": "damage", "mode": "add", "effects": [{ "name": "baseDamage", "value": 2 }] }
       ],
       "traits": [
-        { "id": "sac-ben", "label": "Sắc Bén",  "category": "combat",  "description": "Nếu đòn đánh xuyên Kháng Lực, gây thêm +2 Sát thương. Nếu bị chặn hoàn toàn, mất tính trạng này đến khi mài lại." },
-        { "id": "hai-tay", "label": "Hai Tay",  "category": "utility", "description": "Có thể dùng hai tay để nhận hiệu ứng Hai-tay (+2 Sát thương)." }
+        { "id": "sac-ben" },
+        { "id": "hai-tay" }
       ],
       "img": "/systems/huyen-viet-vtt/assets/vu-khi/truong-kiem-hero.png"
     },
@@ -86,9 +87,9 @@
       ],
       "twoHandedEffects": [],
       "traits": [
-        { "id": "sac-ben",   "label": "Sắc Bén",   "category": "combat",  "description": "Nếu đòn đánh xuyên Kháng Lực, gây thêm +2 Sát thương. Nếu bị chặn hoàn toàn, mất tính trạng này đến khi mài lại." },
-        { "id": "cong-kenh", "label": "Cồng Kềnh", "category": "utility", "description": "Trừ Tốc Độ -1. Nếu di chuyển trước tấn công trong cùng lượt, ĐK Công Kích +1." },
-        { "id": "hai-tay",   "label": "Hai Tay",   "category": "utility", "description": "Bắt buộc dùng hai tay." }
+        { "id": "sac-ben" },
+        { "id": "cong-kenh" },
+        { "id": "hai-tay", "description": "Bắt buộc dùng hai tay." }
       ]
     },
     {
@@ -104,7 +105,7 @@
       "passiveEffects": [],
       "twoHandedEffects": [],
       "traits": [
-        { "id": "tu-dap", "label": "Tù / Đập", "category": "combat", "description": "Tiêu 2 Chí Thành khi tấn công để ép giáp trụ địch vào trạng thái Hư hại." }
+        { "id": "tu-dap" }
       ]
     },
     {
@@ -122,9 +123,9 @@
         { "target": "damage", "mode": "add", "effects": [{ "name": "baseDamage", "value": 2 }] }
       ],
       "traits": [
-        { "id": "tu-dap",    "label": "Tù / Đập",   "category": "combat",  "description": "Tiêu 2 Chí Thành khi tấn công để ép giáp trụ địch vào trạng thái Hư hại." },
-        { "id": "chien-nhu", "label": "Chiến Nhu",  "category": "utility", "description": "Vật phẩm chuyên dụng quân đội, phù hợp chiến trường." },
-        { "id": "hai-tay",   "label": "Hai Tay",    "category": "utility", "description": "Có thể dùng hai tay để nhận hiệu ứng Hai-tay (+2 Sát thương)." }
+        { "id": "tu-dap" },
+        { "id": "chien-nhu", "description": "Vật phẩm chuyên dụng quân đội, phù hợp chiến trường." },
+        { "id": "hai-tay" }
       ]
     },
     {
@@ -140,9 +141,9 @@
       "passiveEffects": [],
       "twoHandedEffects": [],
       "traits": [
-        { "id": "cam-na",    "label": "Cầm Nã",   "category": "combat",  "description": "Tiêu 1+ Chí Thành để gây hiệu ứng Định thân, điều kiện: Cảnh Giác mục tiêu ≤ số Chí Thành dùng." },
-        { "id": "chien-nhu", "label": "Chiến Nhu", "category": "utility", "description": "Vật phẩm chuyên dụng quân đội." },
-        { "id": "hai-tay",   "label": "Hai Tay",   "category": "utility", "description": "Bắt buộc dùng hai tay." }
+        { "id": "cam-na" },
+        { "id": "chien-nhu" },
+        { "id": "hai-tay", "description": "Bắt buộc dùng hai tay." }
       ],
       "img": "/systems/huyen-viet-vtt/assets/vu-khi/giao-hero.png"
     },
@@ -159,8 +160,8 @@
       "passiveEffects": [],
       "twoHandedEffects": [],
       "traits": [
-        { "id": "cam-na",  "label": "Cầm Nã",  "category": "combat",  "description": "Tiêu 1+ Chí Thành để gây hiệu ứng Định thân, điều kiện: Cảnh Giác mục tiêu ≤ số Chí Thành dùng." },
-        { "id": "kin-dao", "label": "Kín Đáo", "category": "utility", "description": "Dễ giấu, vượt qua kiểm tra ngụy trang và dò xét." }
+        { "id": "cam-na" },
+        { "id": "kin-dao" }
       ]
     },
     {
@@ -176,22 +177,156 @@
       "passiveEffects": [],
       "twoHandedEffects": [],
       "traits": [
-        { "id": "chien-nhu", "label": "Chiến Nhu", "category": "utility", "description": "Vật phẩm chuyên dụng quân đội." },
-        { "id": "hai-tay",   "label": "Hai Tay",   "category": "utility", "description": "Bắt buộc dùng hai tay." }
+        { "id": "chien-nhu" },
+        { "id": "hai-tay", "description": "Bắt buộc dùng hai tay." }
       ]
     }
   ],
   "armor": [
     {
+      "id": "ao-vai",
+      "name": "Áo Vải",
+      "description": "",
+      "flavorText": "",
+      "baseResistance": 0,
+      "condition": "normal",
+      "passiveEffects": [],
+      "common": 1,
+      "traits": []
+    },
+    {
+      "id": "da-phuc",
+      "name": "Dạ Phuc",
+      "description": "",
+      "flavorText": "",
+      "baseResistance": 0,
+      "condition": "normal",
+      "passiveEffects": [],
+      "common": 2,
+      "traits": []
+    },
+    {
+      "id": "thuong-phuc",
+      "name": "Thường Phuc",
+      "description": "",
+      "flavorText": "",
+      "baseResistance": 1,
+      "condition": "normal",
+      "passiveEffects": [],
+      "common": 1,
+      "traits": [
+        { "id": "thuong-dung", "description": "Không gây chú ý khi mang theo." }
+      ]
+    },
+    {
+      "id": "le-bao",
+      "name": "Lễ Bào",
+      "description": "",
+      "flavorText": "",
+      "baseResistance": 1,
+      "condition": "normal",
+      "passiveEffects": [],
+      "common": 4,
+      "traits": [
+        { "id": "thuong-dung", "description": "Không gây chú ý khi mang theo." }
+      ]
+    },
+    {
+      "id": "giao-bao",
+      "name": "Giáo Phục",
+      "description": "",
+      "flavorText": "",
+      "baseResistance": 1,
+      "condition": "normal",
+      "passiveEffects": [],
+      "common": 7,
+      "traits": [
+        { "id": "le-trong" }
+      ]
+    },
+    {
+      "id": "hanh-phuc",
+      "name": "Hành Phục (Áo Hành Tẩu)",
+      "description": "",
+      "flavorText": "Giáp làm từ da thuộc, nhẹ và linh hoạt.",
+      "baseResistance": 2,
+      "common": 2,
+      "condition": "normal",
+      "passiveEffects": [],
+      "traits": [
+        { "id": "thuong-dung", "description": "Không gây chú ý khi mang theo." },
+        { "id": "ben-bi" }
+      ]
+    },
+    {
       "id": "giap-da",
       "name": "Giáp Da",
       "description": "",
       "flavorText": "Giáp làm từ da thuộc, nhẹ và linh hoạt.",
+      "baseResistance": 3,
+      "common": 3,
+      "condition": "normal",
+      "passiveEffects": [],
+      "traits": []
+    },
+    {
+      "id": "ao-xich",
+      "name": "Áo Xích",
+      "description": "",
+      "flavorText": "",
       "baseResistance": 2,
+      "common": 4,
       "condition": "normal",
       "passiveEffects": [],
       "traits": [
-        { "id": "thuong-dung", "label": "Thường Dụng", "category": "utility", "description": "Không gây chú ý khi mang theo." }
+        { "id": "chien-nhu" }
+      ]
+    },
+    {
+      "id": "giap-dem",
+      "name": "Giáp Đệm",
+      "description": "",
+      "flavorText": "",
+      "baseResistance": 3,
+      "common": 3,
+      "condition": "normal",
+      "passiveEffects": [],
+      "traits": []
+    },
+    {
+      "id": "giap-kin-noi-giap",
+      "name": "Giáp Kín Nội Giáp",
+      "description": "",
+      "flavorText": "",
+      "baseResistance": 3,
+      "common": 4,
+      "condition": "normal",
+      "passiveEffects": [],
+      "traits": [
+        { "id": "kin-dao" }
+      ]
+    },
+    {
+      "id": "giap-may",
+      "name": "Giáp May",
+      "description": "",
+      "flavorText": "",
+      "baseResistance": 3,
+      "common": 3,
+      "condition": "normal",
+      "passiveEffects": [],
+      "traits": []
+    },
+    {
+      "id": "giap-xich",
+      "name": "Giáp Xích",
+      "description": "",
+      "flavorText": "Giáp xích tiêu chuẩn của binh sĩ, bảo vệ toàn thân.",
+      "baseResistance": 4,
+      "condition": "normal",
+      "passiveEffects": [],
+      "traits": [
+        { "id": "chien-nhu" }
       ]
     },
     {
@@ -199,14 +334,40 @@
       "name": "Hộ Tâm Kính",
       "description": "",
       "flavorText": "Tấm giáp bảo vệ vùng ngực, cân bằng giữa phòng thủ và cơ động.",
-      "baseResistance": 3,
+      "baseResistance": 2,
+      "common": 4,
       "condition": "normal",
       "passiveEffects": [],
       "traits": [
-        { "id": "ben-bi", "label": "Bền Bỉ", "category": "utility", "description": "Khi chịu sát thương phá hủy, chỉ bị Hư hại thay vì Phá hủy." }
+        { "id": "ben-bi" }
       ],
       "img": "/systems/huyen-viet-vtt/assets/vu-khi/ho-tam-kinh-hero.png"
-
+    },
+    {
+      "id": "giap-vay-lan-giap",
+      "name": "Giáp Vảy - Lân Giáp",
+      "description": "",
+      "flavorText": "Giáp vảy, lân giáp",
+      "baseResistance": 4,
+      "common": 5,
+      "condition": "normal",
+      "passiveEffects": [],
+      "traits": [
+        { "id": "chien-nhu" }
+      ]
+    },
+    {
+      "id": "giap-nguc-giap-hung",
+      "name": "Giáp ngực - Giáp hung",
+      "description": "",
+      "flavorText": "Giáp Ngực, lân giáp",
+      "baseResistance": 4,
+      "common": 4,
+      "condition": "normal",
+      "passiveEffects": [],
+      "traits": [
+        { "id": "chien-nhu" }
+      ]
     },
     {
       "id": "giap-sat",
@@ -214,10 +375,67 @@
       "description": "",
       "flavorText": "Giáp sắt tiêu chuẩn của binh sĩ, bảo vệ toàn thân.",
       "baseResistance": 4,
+      "common": 4,
       "condition": "normal",
       "passiveEffects": [],
       "traits": [
-        { "id": "chien-nhu", "label": "Chiến Nhu", "category": "utility", "description": "Vật phẩm chuyên dụng quân đội." }
+        { "id": "chien-nhu" }
+      ]
+    },
+    {
+      "id": "giap-hoan",
+      "name": "Giáp Hoàn",
+      "description": "",
+      "flavorText": "Giáp Hoan",
+      "baseResistance": 4,
+      "common": 5,
+      "condition": "normal",
+      "passiveEffects": [],
+      "traits": [
+        { "id": "chien-nhu" }
+      ]
+    },
+    {
+      "id": "giap-ban-nep",
+      "name": "Giáp Bản Nép",
+      "description": "",
+      "flavorText": "Giáp Bản Nép",
+      "baseResistance": 5,
+      "common": 5,
+      "condition": "normal",
+      "passiveEffects": [],
+      "traits": [
+        { "id": "chien-nhu" },
+        { "id": "cong-kenh" }
+      ]
+    },
+    {
+      "id": "giap-ban-than",
+      "name": "Giáp Bán Thân",
+      "description": "",
+      "flavorText": "Giáp Bán Thân",
+      "baseResistance": 5,
+      "common": 6,
+      "condition": "normal",
+      "passiveEffects": [],
+      "traits": [
+        { "id": "chien-nhu" },
+        { "id": "cong-kenh" }
+      ]
+    },
+    {
+      "id": "giap-son",
+      "name": "Giáp Sơn",
+      "description": "",
+      "flavorText": "Giáp Sơn",
+      "baseResistance": 5,
+      "common": 7,
+      "condition": "normal",
+      "passiveEffects": [],
+      "traits": [
+        { "id": "chien-nhu" },
+        { "id": "le-trong" },
+        { "id": "cong-kenh" }
       ]
     },
     {
@@ -226,14 +444,15 @@
       "description": "",
       "flavorText": "Bộ giáp bao phủ toàn thân, phòng thủ tối đa nhưng hạn chế cơ động.",
       "baseResistance": 6,
+      "common": 8,
       "condition": "normal",
       "passiveEffects": [
         { "target": "ability", "mode": "add", "effects": [{ "name": "tocDo", "value": -1 }] }
       ],
       "traits": [
-        { "id": "cong-kenh", "label": "Cồng Kềnh", "category": "utility", "description": "Trừ Tốc Độ -1. Nếu di chuyển trước tấn công trong cùng lượt, ĐK Công Kích +1." },
-        { "id": "ben-bi",    "label": "Bền Bỉ",    "category": "utility", "description": "Khi chịu sát thương phá hủy, chỉ bị Hư hại thay vì Phá hủy." },
-        { "id": "chien-nhu", "label": "Chiến Nhu",  "category": "utility", "description": "Vật phẩm chuyên dụng quân đội." }
+        { "id": "cong-kenh" },
+        { "id": "ben-bi" },
+        { "id": "chien-nhu" }
       ]
     }
   ],

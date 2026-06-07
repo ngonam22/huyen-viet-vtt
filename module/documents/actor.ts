@@ -294,6 +294,15 @@ export class huyenvietvttActor extends Actor {
                 }
             }
         }
+
+        // Apply player-selected skill bonuses (+1 each) stored in identity
+        if (monPhaiItems.length > 0) {
+            const skillKeys = (actor.system as any)?.identity?.monPhaiSkillKeys as string[] | undefined;
+            for (const key of (skillKeys ?? [])) {
+                if (!isSkillKey(key as any)) continue;
+                this.applyNumericModifier(totals.skills, key as any, "add", 1);
+            }
+        }
     }
 
     applyXpUpgrades(system: HvCharacterSystemData, totals: HvComputedTotals): void {

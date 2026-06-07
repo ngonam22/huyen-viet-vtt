@@ -1,4 +1,5 @@
 import itemsConfig from '../../lib/items-config.json';
+import traitsConfig from '../../lib/traits-config.json';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -9,11 +10,17 @@ interface UpgradeRuleEntry {
     choose?: number;
 }
 
-interface TraitEntry {
+export interface TraitEntry {
     id: string;
     label: string;
     category: string;
     description: string;
+}
+
+interface TraitRef {
+    id: string;
+    label?: string;
+    description?: string;
 }
 
 export interface WeaponEntry {
@@ -51,14 +58,32 @@ export interface AccessoryEntry {
     passiveEffects: UpgradeRuleEntry[];
 }
 
+// ── Trait resolution ───────────────────────────────────────────────────────────
+
+const traitDefaults = new Map<string, TraitEntry>(
+    (traitsConfig.traits as TraitEntry[]).map((t) => [t.id, t])
+);
+
+export function resolveTraits(refs: TraitRef[]): TraitEntry[] {
+    return refs.map((ref) => {
+        const base = traitDefaults.get(ref.id);
+        if (!base) throw new Error(`Unknown trait id: "${ref.id}"`);
+        return { ...base, ...ref } as TraitEntry;
+    });
+}
+
 // ── Lookup helpers ─────────────────────────────────────────────────────────────
 
 export function getWeaponById(id: string): WeaponEntry | undefined {
-    return (itemsConfig.weapons as WeaponEntry[]).find((w) => w.id === id);
+    const raw = (itemsConfig.weapons as (Omit<WeaponEntry, 'traits'> & { traits: TraitRef[] })[]).find((w) => w.id === id);
+    if (!raw) return undefined;
+    return { ...raw, traits: resolveTraits(raw.traits) };
 }
 
 export function getArmorById(id: string): ArmorEntry | undefined {
-    return (itemsConfig.armor as ArmorEntry[]).find((a) => a.id === id);
+    const raw = (itemsConfig.armor as (Omit<ArmorEntry, 'traits'> & { traits: TraitRef[] })[]).find((a) => a.id === id);
+    if (!raw) return undefined;
+    return { ...raw, traits: resolveTraits(raw.traits) };
 }
 
 export function getAccessoryById(id: string): AccessoryEntry | undefined {

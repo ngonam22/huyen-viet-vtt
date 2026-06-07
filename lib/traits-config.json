@@ -1,0 +1,64 @@
+{
+  "traits": [
+    {
+      "id": "kin-dao",
+      "label": "Kín Đáo",
+      "category": "utility",
+      "description": "Dễ giấu, vượt qua kiểm tra ngụy trang và dò xét."
+    },
+    {
+      "id": "thuong-dung",
+      "label": "Thường Dụng",
+      "category": "utility",
+      "description": "Không gây chú ý khi mang theo nơi công cộng."
+    },
+    {
+      "id": "sac-ben",
+      "label": "Sắc Bén",
+      "category": "combat",
+      "description": "Nếu đòn đánh xuyên Kháng Lực, gây thêm +2 Sát thương. Nếu bị chặn hoàn toàn, mất tính trạng này đến khi mài lại."
+    },
+    {
+      "id": "le-trong",
+      "label": "Lễ Trọng",
+      "category": "utility",
+      "description": "Vật phẩm có giá trị văn hóa và xã hội cao, được chế tác tinh xảo bởi những nghệ sư. Chúng thường được sử dụng trong những nghi lễ quan trọng hoặc thể hiện địa vị của chủ sơ hữu."
+    },
+    {
+      "id": "hai-tay",
+      "label": "Hai Tay",
+      "category": "utility",
+      "description": "Có thể dùng hai tay để nhận hiệu ứng Hai-tay (+2 Sát thương)."
+    },
+    {
+      "id": "tu-dap",
+      "label": "Tù / Đập",
+      "category": "combat",
+      "description": "Tiêu 2 Chí Thành khi tấn công để ép giáp trụ địch vào trạng thái Hư hại."
+    },
+    {
+      "id": "chien-nhu",
+      "label": "Chiến Nhu",
+      "category": "utility",
+      "description": "Vật phẩm chuyên dụng quân đội."
+    },
+    {
+      "id": "cam-na",
+      "label": "Cầm Nã",
+      "category": "combat",
+      "description": "Tiêu 1+ Chí Thành để gây hiệu ứng Định thân, điều kiện: Cảnh Giác mục tiêu ≤ số Chí Thành dùng."
+    },
+    {
+      "id": "cong-kenh",
+      "label": "Cồng Kềnh",
+      "category": "utility",
+      "description": "Trừ Tốc Độ -1. Nếu di chuyển trước tấn công trong cùng lượt, ĐK Công Kích +1."
+    },
+    {
+      "id": "ben-bi",
+      "label": "Bền Bỉ",
+      "category": "utility",
+      "description": "Khi chịu sát thương phá hủy, chỉ bị Hư hại thay vì Phá hủy."
+    }
+  ]
+}

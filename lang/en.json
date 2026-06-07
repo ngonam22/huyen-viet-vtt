@@ -148,6 +148,44 @@
         "hanhThe": "Thổ Hành Thế"
       }
     },
+    "MonPhai": {
+      "sanhCuuLanhQuan": {
+        "label": "Sanh Cửu Lãnh Quân Sư"
+      },
+      "tinhLyYSu": {
+        "label": "Tịnh Lý Y Sư"
+      },
+      "duongTanPhucMaSu": {
+        "label": "Dương Tần Phục Ma Sư"
+      },
+      "minhHaoNgheSu": {
+        "label": "Minh Hạo Cao Nghệ Sư"
+      },
+      "thuongLienLinhSi": {
+        "label": "Thường Liên Linh Sĩ"
+      },
+      "tienViThuongSi": {
+        "label": "Tiên Vị Thương Sĩ"
+      },
+      "nghiVoKySi": {
+        "label": "Nghị Võ Kỵ Sĩ"
+      },
+      "thuyMinhThietTuong": {
+        "label": "Thùy Minh Thiết Tượng"
+      },
+      "thiHuanThamLamQuan": {
+        "label": "Thi Huân Thám Lâm Quân"
+      },
+      "dienHauChinhSi": {
+        "label": "Diên Hậu Chính Sĩ"
+      },
+      "tuyetLuatThamTu": {
+        "label": "Tuyết Luật Thám Tử"
+      },
+      "haoGioiHungSi": {
+        "label": "Hạo Giới Hùng Sĩ"
+      }
+    },
     "SheetLabels": {
       "Actor": "Boilerplate Actor Sheet",
       "Item": "Boilerplate Item Sheet"

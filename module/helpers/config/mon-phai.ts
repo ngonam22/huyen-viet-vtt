@@ -189,8 +189,8 @@ export const MON_PHAI: Record<string, MonPhai> = {
         }
     },
     sonViThietTuong: {
-        id: 'sonViThietTuong',
-        ten: 'BOILERPLATE.MonPhai.sonViThietTuong.label',
+        id: 'thuyMinhThietTuong',
+        ten: 'BOILERPLATE.MonPhai.thuyMinhThietTuong.label',
         category: 'thapNhiHocVien',
         upgrade: [
             {
@@ -293,8 +293,8 @@ export const MON_PHAI: Record<string, MonPhai> = {
         }
     },
     haoGioiHungBinh: {
-        id: 'haoGioiHungBinh',
-        ten: 'BOILERPLATE.MonPhai.haoGioiHungBinh.label',
+        id: 'haoGioiHungSi',
+        ten: 'BOILERPLATE.MonPhai.haoGioiHungSi.label',
         category: 'thapNhiHocVien',
         upgrade: [
             {

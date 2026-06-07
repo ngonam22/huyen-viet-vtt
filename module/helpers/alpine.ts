@@ -95,6 +95,7 @@ Alpine.data('hvCharCreator', (draft: {
   nghiaVuTemplates: NGHIA_VU_TEMPLATES,
   monPhai: draft.monPhai || null as string | null,
   monPhaiElementIndices: draft.monPhaiElementIndices || [] as number[],
+  monPhaiSkillKeys: [] as string[],
   activeStep: draft.activeStep || 'boiCanhThiToc',
   boiCanhThiTocMode: (draft.boiCanh ? 'boiCanh' : draft.thiToc ? 'thiToc' : null) as string | null,
   boiCanhMap: {} as Record<string, any>,
@@ -111,6 +112,7 @@ Alpine.data('hvCharCreator', (draft: {
     try { (this as any).thiTocMap = JSON.parse(m.dataset.thiToc || '{}'); } catch {}
     try { (this as any).monPhaiMap = JSON.parse(m.dataset.monPhai || '{}'); } catch {}
     try { (this as any).thienTuMap = JSON.parse(m.dataset.thienTu || '{}'); } catch {}
+    try { (this as any).monPhaiSkillKeys = JSON.parse(m.dataset.monPhaiSkillKeys || '[]'); } catch {}
     (this as any).uuDiemTitle = m.dataset.uuDiemTitle || '';
     (this as any).uuDiemDesc = m.dataset.uuDiemDesc || '';
     (this as any).khuyetDiemTitle = m.dataset.khuyetDiemTitle || '';
@@ -266,9 +268,51 @@ Alpine.data('hvCharCreator', (draft: {
   },
 
   selectMonPhai(id: string) {
-    if (this.monPhai !== id) this.monPhaiElementIndices = [];
+    if (this.monPhai !== id) {
+      this.monPhaiElementIndices = [];
+      this.monPhaiSkillKeys = [];
+    }
     this.monPhai = id;
     this.$dispatch('hv:mon-phai-select', { id });
+  },
+
+  availableMonPhaiElements(position: number): any[] {
+    const elements = (this as any).summaryEntry?.elements ?? [];
+    const otherPos = position === 0 ? 1 : 0;
+    const excluded = (this.monPhaiElementIndices as number[])[otherPos];
+    if (excluded === undefined || excluded === null || isNaN(Number(excluded))) return elements;
+    return elements.filter((el: any) => el.index !== excluded);
+  },
+
+  setMonPhaiElementAtPosition(position: number, valueStr: string) {
+    if (!this.monPhai) return;
+    const index = parseInt(valueStr);
+    const newIndices = [...(this.monPhaiElementIndices as number[])];
+    if (isNaN(index)) {
+      newIndices.splice(position, 1);
+    } else {
+      newIndices[position] = index;
+    }
+    this.monPhaiElementIndices = newIndices.filter((v: any) => v !== undefined && !isNaN(v));
+    this.$dispatch('hv:mon-phai-indices-set', { monPhaiId: this.monPhai, indices: this.monPhaiElementIndices });
+  },
+
+  availableMonPhaiSkills(position: number): any[] {
+    const pool = (this as any).summaryEntry?.skillPool ?? [];
+    const others = (this.monPhaiSkillKeys as string[]).filter((_, i) => i !== position);
+    return pool.filter((skill: any) => !others.includes(skill.key));
+  },
+
+  setMonPhaiSkillAtPosition(position: number, skillKey: string) {
+    if (!this.monPhai) return;
+    const newKeys = [...(this.monPhaiSkillKeys as string[])];
+    if (!skillKey) {
+      newKeys.splice(position, 1);
+    } else {
+      newKeys[position] = skillKey;
+    }
+    this.monPhaiSkillKeys = newKeys.filter(k => k);
+    this.$dispatch('hv:mon-phai-skills-set', { monPhaiId: this.monPhai, skillKeys: this.monPhaiSkillKeys });
   },
 
   selectMonPhaiElement(monPhaiId: string, index: number) {

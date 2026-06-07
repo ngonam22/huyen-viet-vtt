@@ -1,4 +1,5 @@
 import itemsConfig from '../../lib/items-config.json';
+import { resolveTraits } from '../helpers/itemCatalog.ts';
 import { DetailModal } from './detail-modal.mjs';
 
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
@@ -51,6 +52,7 @@ function buildRows() {
         searchText: normalizeText(`${item.name} ${item.flavorText ?? ''}`),
         system: {
           ...item,
+          traits: item.traits ? resolveTraits(item.traits) : [],
           img,
           isEquipped: false,
           effectiveDamage: item.baseDamage,

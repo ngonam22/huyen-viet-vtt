@@ -95,7 +95,15 @@ export async function createHvRollCard(
         }
     };
 
-    const chatMode = options.chatMode ?? game.settings?.get("core", "rollMode") ?? "publicroll";
-    (ChatMessage as any).applyRollMode(chatData, chatMode);
+    const resolvedMode = options.chatMode ?? (game.settings?.get("core", "rollMode") as string) ?? "publicroll";
+    if (resolvedMode === "gmroll" || resolvedMode === "blindroll") {
+        chatData.whisper = (game.users?.filter((u: any) => u.isGM && u.active) ?? [])
+            .map((u: any) => u.id);
+    } else if (resolvedMode === "selfroll") {
+        chatData.whisper = [(game as any).user?.id].filter(Boolean);
+    }
+    if (resolvedMode === "blindroll") {
+        chatData.blind = true;
+    }
     return ChatMessage.create(chatData);
 }

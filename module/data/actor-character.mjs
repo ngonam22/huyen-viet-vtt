@@ -79,6 +79,7 @@ export default class BoilerplateCharacter extends BoilerplateActorBase {
         tamNguyenDesc: new fields.StringField({ initial: "" }),
         nghiaVuTitle: new fields.StringField({ initial: "" }),
         nghiaVuDesc: new fields.StringField({ initial: "" }),
+        monPhaiSkillKeys: new fields.ArrayField(new fields.StringField(), { initial: [] }),
       }),
 
       elements: new fields.SchemaField({
