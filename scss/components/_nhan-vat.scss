@@ -1,0 +1,164 @@
+.hv-nv {
+    padding: 12px 16px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    &__header {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    &__edit-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px 14px;
+        background: rgba(212, 168, 67, 0.1);
+        border: 1px solid rgba(212, 168, 67, 0.35);
+        border-radius: 6px;
+        color: #c9a84c;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        cursor: pointer;
+        transition: background 0.15s, border-color 0.15s;
+
+        &:hover {
+            background: rgba(212, 168, 67, 0.2);
+            border-color: rgba(212, 168, 67, 0.6);
+            color: #d4b860;
+        }
+    }
+
+    // ── Section wrapper ─────────────────────────────────────────
+    &__section {
+        background: rgba(0, 0, 0, 0.18);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        border-radius: 10px;
+        padding: 14px 16px 16px;
+    }
+
+    &__section-label {
+        margin: 0 0 12px 0;
+        padding-bottom: 8px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-family: 'Crimson Pro', serif;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1.8px;
+        text-transform: uppercase;
+        color: #a09880;
+
+        i { opacity: 0.65; font-size: 11px; }
+    }
+
+    &__empty {
+        margin: 0;
+        color: #5a5a6a;
+        font-style: italic;
+        font-size: 12px;
+    }
+
+    // ── Thiên Tư ────────────────────────────────────────────────
+    &__thien-tu {
+        border-left: 3px solid rgba(184, 169, 138, 0.3);
+
+        &--metal { border-left-color: #c8bfa0; }
+        &--wood  { border-left-color: #6db87a; }
+        &--water { border-left-color: #5ba3d4; }
+        &--fire  { border-left-color: #e07b4a; }
+        &--earth { border-left-color: #c49a5a; }
+    }
+
+    &__thien-tu-body {
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+    }
+
+    &__thien-tu-icon {
+        width: 48px;
+        height: 48px;
+        flex-shrink: 0;
+        filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.12));
+    }
+
+    &__thien-tu-text {
+        flex: 1;
+        min-width: 0;
+    }
+
+    &__thien-tu-name {
+        display: block;
+        font-family: 'Crimson Pro', serif;
+        font-size: 17px;
+        font-weight: 700;
+        color: #e4dcc8;
+        margin-bottom: 5px;
+    }
+
+    &__thien-tu-desc {
+        margin: 0;
+        font-size: 12px;
+        line-height: 1.65;
+        color: #8c8678;
+    }
+
+    // ── Two-column card layout ───────────────────────────────────
+    &__cards {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    &__card {
+        background: rgba(0, 0, 0, 0.14);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-top-width: 2px;
+        border-radius: 8px;
+        padding: 11px 13px 13px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+
+        &--advantage { border-top-color: rgba(212, 168, 67, 0.55); }
+        &--weakness  { border-top-color: rgba(140, 100, 220, 0.55); }
+        &--joy       { border-top-color: rgba(220, 90, 100, 0.55);  }
+        &--fear      { border-top-color: rgba(80, 95, 130, 0.55);   }
+        &--goal      { border-top-color: rgba(70, 150, 210, 0.55);  }
+        &--duty      { border-top-color: rgba(90, 175, 110, 0.55);  }
+    }
+
+    &__card-hd {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 1.2px;
+        text-transform: uppercase;
+        color: #7a7468;
+
+        i { opacity: 0.75; font-size: 10px; }
+    }
+
+    &__card-title {
+        display: block;
+        font-family: 'Crimson Pro', serif;
+        font-size: 15px;
+        font-weight: 700;
+        color: #d4c9a8;
+        line-height: 1.3;
+    }
+
+    &__card-body {
+        margin: 0;
+        font-size: 12px;
+        line-height: 1.6;
+        color: #8c8678;
+    }
+}

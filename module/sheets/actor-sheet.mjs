@@ -1,6 +1,6 @@
 import { prepareActiveEffectCategories } from '../helpers/effects.mjs';
 import { upgrade, applyUpgradeRule, removeUpgradeSource } from "../helpers/upgrade.ts";
-import {BOI_CANH, ELEMENTS, GIA_CANH, THI_TOC} from "../helpers/config.ts";
+import {BOI_CANH, ELEMENT_CLASS, ELEMENTS, GIA_CANH, THI_TOC, THIEN_TU_DESCRIPTIONS} from "../helpers/config.ts";
 import { ElementModal } from './element-modal.mjs'
 import { ResourceModal } from './resource-modal.mjs'
 import {removeThiTocFromActor, setThiTocForActor} from "../helpers/thiToc";
@@ -391,22 +391,26 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
             case 'spells':
                 context.tab = context.tabs[partId];
                 break;
-            case 'biography':
+            case 'biography': {
                 context.tab = context.tabs[partId];
-                // Enrich biography info for display
-                // Enrichment turns text like `[[/r 1d20]]` into buttons
-                context.enrichedBiography = await TextEditor.enrichHTML(
-                    this.actor.system.biography,
-                    {
-                        // Whether to show secret blocks in the finished html
-                        secrets: this.document.isOwner,
-                        // Data to fill in for inline rolls
-                        rollData: this.actor.getRollData(),
-                        // Relative UUID resolution
-                        relativeTo: this.actor,
-                    }
-                );
+                const identity = this.actor.system.identity;
+                context.identity = identity;
+                const thienTuKey = identity?.thienTu;
+                if (thienTuKey && ELEMENTS[thienTuKey]) {
+                    const el = ELEMENTS[thienTuKey];
+                    context.thienTuElement = {
+                        key: thienTuKey,
+                        label: game.i18n.localize(el.label),
+                        icon: el.icon,
+                        description: THIEN_TU_DESCRIPTIONS[thienTuKey] ?? '',
+                    };
+                    context.thienTuClass = ELEMENT_CLASS[thienTuKey] ?? thienTuKey;
+                } else {
+                    context.thienTuElement = null;
+                    context.thienTuClass = '';
+                }
                 break;
+            }
             case 'inventory':
                 context.tab = context.tabs[partId];
                 context.inventoryView        = this._inventoryView;

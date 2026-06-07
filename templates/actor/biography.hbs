@@ -1,16 +1,134 @@
-{{! Biography Tab }}
-<section
-  class='tab biography scrollable {{tab.cssClass}}'
-  data-group='primary'
-  data-tab='biography'
-  style="min-height: 250px"
->
-    Nội dung tiểu sử ở đây
-  {{! Editors must receive enriched text data from getData to properly handle rolls, UUID links, etc. }}
-  {{#if editable}} 
-    <prose-mirror name="system.biography" data-document-uuid="{{actor.uuid}}" value="{{system.biography}}" collaborate="true" toggled="true">
-      {{{enrichedBiography}}}
-    </prose-mirror>
-  {{else}} {{{enrichedBiography}}}
-  {{/if}}
+{{! Nhân Vật Tab }}
+<section class='tab biography scrollable {{tab.cssClass}}' data-group='primary' data-tab='biography'>
+  <div class="hv-nv">
+
+    <div class="hv-nv__header">
+      <button type="button" class="hv-nv__edit-btn" data-action="open-character-creator"
+              data-tooltip="Mở bảng Khởi Tạo Nhân Vật">
+        <i class="fas fa-scroll"></i> Chỉnh Sửa
+      </button>
+    </div>
+
+    {{! ── THIÊN TƯ ──────────────────────────────────────── }}
+    <div class="hv-nv__section hv-nv__thien-tu{{#if thienTuClass}} hv-nv__thien-tu--{{thienTuClass}}{{/if}}">
+      <h3 class="hv-nv__section-label">
+        <i class="fas fa-yin-yang"></i>
+        Thiên Tư
+      </h3>
+      {{#if thienTuElement}}
+        <div class="hv-nv__thien-tu-body">
+          <img class="hv-nv__thien-tu-icon" src="{{thienTuElement.icon}}" alt="{{thienTuElement.label}}"/>
+          <div class="hv-nv__thien-tu-text">
+            <span class="hv-nv__thien-tu-name">{{thienTuElement.label}} Hành</span>
+            <p class="hv-nv__thien-tu-desc">{{thienTuElement.description}}</p>
+          </div>
+        </div>
+      {{else}}
+        <p class="hv-nv__empty">Chưa chọn Thiên Tư — nhấn <em>Chỉnh Sửa</em> để cài đặt.</p>
+      {{/if}}
+    </div>
+
+    {{! ── TÍNH CÁCH ─────────────────────────────────────── }}
+    <div class="hv-nv__section">
+      <h3 class="hv-nv__section-label">
+        <i class="fas fa-masks-theater"></i>
+        Tính Cách
+      </h3>
+      <div class="hv-nv__cards">
+        <div class="hv-nv__card hv-nv__card--advantage">
+          <div class="hv-nv__card-hd">
+            <i class="fas fa-sun"></i>
+            <span>Ưu Điểm</span>
+          </div>
+          {{#if identity.uuDiemTitle}}
+            <strong class="hv-nv__card-title">{{identity.uuDiemTitle}}</strong>
+            <p class="hv-nv__card-body">{{identity.uuDiemDesc}}</p>
+          {{else}}
+            <p class="hv-nv__empty">Chưa điền</p>
+          {{/if}}
+        </div>
+        <div class="hv-nv__card hv-nv__card--weakness">
+          <div class="hv-nv__card-hd">
+            <i class="fas fa-moon"></i>
+            <span>Khuyết Điểm</span>
+          </div>
+          {{#if identity.khuyetDiemTitle}}
+            <strong class="hv-nv__card-title">{{identity.khuyetDiemTitle}}</strong>
+            <p class="hv-nv__card-body">{{identity.khuyetDiemDesc}}</p>
+          {{else}}
+            <p class="hv-nv__empty">Chưa điền</p>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+
+    {{! ── NIỀM VUI & NỖI SỢ ─────────────────────────────── }}
+    <div class="hv-nv__section">
+      <h3 class="hv-nv__section-label">
+        <i class="fas fa-heart-crack"></i>
+        Niềm Vui & Nỗi Sợ
+      </h3>
+      <div class="hv-nv__cards">
+        <div class="hv-nv__card hv-nv__card--joy">
+          <div class="hv-nv__card-hd">
+            <i class="fas fa-heart"></i>
+            <span>Niềm Vui</span>
+          </div>
+          {{#if identity.niemVuiTitle}}
+            <strong class="hv-nv__card-title">{{identity.niemVuiTitle}}</strong>
+            <p class="hv-nv__card-body">{{identity.niemVuiDesc}}</p>
+          {{else}}
+            <p class="hv-nv__empty">Chưa điền</p>
+          {{/if}}
+        </div>
+        <div class="hv-nv__card hv-nv__card--fear">
+          <div class="hv-nv__card-hd">
+            <i class="fas fa-skull"></i>
+            <span>Nỗi Sợ</span>
+          </div>
+          {{#if identity.noiSoTitle}}
+            <strong class="hv-nv__card-title">{{identity.noiSoTitle}}</strong>
+            <p class="hv-nv__card-body">{{identity.noiSoDesc}}</p>
+          {{else}}
+            <p class="hv-nv__empty">Chưa điền</p>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+
+    {{! ── TÂM NGUYỆN & NGHĨA VỤ ─────────────────────────── }}
+    <div class="hv-nv__section">
+      <h3 class="hv-nv__section-label">
+        <i class="fas fa-scroll"></i>
+        Tâm Nguyện & Nghĩa Vụ
+      </h3>
+      <div class="hv-nv__cards">
+        <div class="hv-nv__card hv-nv__card--goal">
+          <div class="hv-nv__card-hd">
+            <i class="fas fa-star"></i>
+            <span>Tâm Nguyện</span>
+          </div>
+          {{#if identity.tamNguyenTitle}}
+            <strong class="hv-nv__card-title">{{identity.tamNguyenTitle}}</strong>
+            <p class="hv-nv__card-body">{{identity.tamNguyenDesc}}</p>
+          {{else}}
+            <p class="hv-nv__empty">Chưa điền</p>
+          {{/if}}
+        </div>
+        <div class="hv-nv__card hv-nv__card--duty">
+          <div class="hv-nv__card-hd">
+            <i class="fas fa-shield-halved"></i>
+            <span>Nghĩa Vụ</span>
+          </div>
+          {{#if identity.nghiaVuTitle}}
+            <strong class="hv-nv__card-title">{{identity.nghiaVuTitle}}</strong>
+            <p class="hv-nv__card-body">{{identity.nghiaVuDesc}}</p>
+          {{else}}
+            <p class="hv-nv__empty">Chưa điền</p>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+
+  </div>
 </section>

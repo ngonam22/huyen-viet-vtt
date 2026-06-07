@@ -1,4 +1,6 @@
-import { BOI_CANH, GIA_CANH, MON_PHAI, THI_TOC, ELEMENTS, SKILL_LABELS, ELEMENT_CLASS } from '../helpers/config.ts';
+import {
+  BOI_CANH, GIA_CANH, MON_PHAI, THI_TOC, ELEMENTS, SKILL_LABELS, ELEMENT_CLASS, THIEN_TU_DESCRIPTIONS
+} from '../helpers/config.ts';
 import { setBoiCanhForActor, removeBoiCanhFromActor } from '../helpers/boiCanh';
 import { setGiaCanhForActor } from '../helpers/giaCanh';
 import { setMonPhaiForActor, addMonPhaiInitItemsToActor } from '../helpers/monPhai';
@@ -27,14 +29,6 @@ const STEPS = [
   { id: 'tamNguyenNghiaVu', label: 'Tâm Nguyện & Nghĩa Vụ', subtitle: 'Mục tiêu và trách nhiệm' },
   { id: 'thuatThuc', label: 'Thuật Thức', subtitle: 'Chọn thuật thức khởi đầu' },
 ];
-
-const THIEN_TU_DESCRIPTIONS = {
-  kim: 'Cứng rắn từ bên trong, khí chất như kim loại được tôi luyện qua muôn trận. Người mang Thiên Tư Kim Hành thiên về sức chịu đựng và ý chí kiên cường bất khuất trước mọi thử thách.',
-  moc: 'Bén rễ sâu trong đất, vươn cành đón ánh sáng. Người mang Thiên Tư Mộc Hành gần gũi với sinh khí muôn loài, thấu cảm lẽ trời đất và sức mạnh của sự hồi sinh.',
-  thuy: 'Chảy không ngừng, thấm qua mọi kẽ hở. Người mang Thiên Tư Thủy Hành sở hữu linh giác nhạy bén và khả năng thích nghi xuất sắc trước mọi biến cố khó lường.',
-  hoa: 'Bùng cháy trong từng nhịp tim, nhiệt huyết chẳng bao giờ lụi tàn. Người mang Thiên Tư Hỏa Hành tỏa sáng nhất trong khoảnh khắc quyết định, sức mạnh bùng phát bất ngờ.',
-  tho: 'Tựa núi vững, tựa đất rộng. Người mang Thiên Tư Thổ Hành là trụ cột vững chắc, sức nặng của họ chở che và giữ vững tất cả những người xung quanh.',
-};
 
 
 function kebabCase(value) {
