@@ -79,7 +79,7 @@ export class ProgressionModal extends HandlebarsApplicationMixin(ApplicationV2) 
         tag: 'section',
         classes: ['huyen-viet-vtt', 'progression-modal'],
         position: {
-            width: 560,
+            width: 760,
             height: 580,
         },
         window: {
@@ -156,6 +156,19 @@ export class ProgressionModal extends HandlebarsApplicationMixin(ApplicationV2) 
 
         // Build changelog
         const rawChangelog = system.changelog ?? [];
+
+        // Tổng XP đã dùng theo từng loại nâng cấp
+        const totalXpSpentOnElements = rawChangelog
+            .filter(e => e.type === 'element_upgrade')
+            .reduce((sum, e) => sum + (e.xpCost ?? 0), 0);
+        const totalXpSpentOnSkills = rawChangelog
+            .filter(e => e.type === 'skill_upgrade')
+            .reduce((sum, e) => sum + (e.xpCost ?? 0), 0);
+        const totalXpSpentOnTechniques = rawChangelog
+            .filter(e => e.type === 'technique_learned')
+            .reduce((sum, e) => sum + (e.xpCost ?? 0), 0);
+        const totalXpSpent = totalXpSpentOnElements + totalXpSpentOnSkills + totalXpSpentOnTechniques;
+
         const changelog = [...rawChangelog]
             // .sort((a, b) => b.timestamp - a.timestamp)
             .map((entry, idx) => {
@@ -192,6 +205,10 @@ export class ProgressionModal extends HandlebarsApplicationMixin(ApplicationV2) 
             canAffordTechnique,
             changelog,
             activeEvent,
+            totalXpSpentOnElements,
+            totalXpSpentOnSkills,
+            totalXpSpentOnTechniques,
+            totalXpSpent,
         };
     }
 

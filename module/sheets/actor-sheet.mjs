@@ -402,6 +402,7 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
                         key: thienTuKey,
                         label: game.i18n.localize(el.label),
                         icon: el.icon,
+                        ringIcon: el.ringIcon,
                         description: THIEN_TU_DESCRIPTIONS[thienTuKey] ?? '',
                     };
                     context.thienTuClass = ELEMENT_CLASS[thienTuKey] ?? thienTuKey;
@@ -483,7 +484,7 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
 
         if (!confirmed) return;
 
-        await this.actor.update({ 'system.upgrades': [] });
+        await this.actor.update({ 'system.upgrades': [], 'system.changelog': [] });
         ui.notifications?.info('Đã reset toàn bộ nâng cấp. XP đã dùng không được hoàn lại.');
         this.render();
     }

@@ -4,52 +4,53 @@
     <svg width="0" height="0" style="position:absolute" aria-hidden="true">
         <defs>
             <filter id="border-filter" x="0" y="0" width="525" height="199" filterUnits="userSpaceOnUse"
-                    color-interpolation-filters="sRGB">
-                <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                color-interpolation-filters="sRGB">
+                <feFlood flood-opacity="0" result="BackgroundImageFix" />
                 <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                               result="hardAlpha"/>
-                <feMorphology radius="2" operator="dilate" in="SourceAlpha" result="effect1_dropShadow"/>
-                <feOffset/>
-                <feGaussianBlur stdDeviation="3"/>
-                <feComposite in2="hardAlpha" operator="out"/>
-                <feColorMatrix type="matrix" values="0 0 0 0 0.105882 0 0 0 0 0.12549 0 0 0 0 0.121569 0 0 0 1 0"/>
-                <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
-                <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+                    result="hardAlpha" />
+                <feMorphology radius="2" operator="dilate" in="SourceAlpha" result="effect1_dropShadow" />
+                <feOffset />
+                <feGaussianBlur stdDeviation="3" />
+                <feComposite in2="hardAlpha" operator="out" />
+                <feColorMatrix type="matrix" values="0 0 0 0 0.105882 0 0 0 0 0.12549 0 0 0 0 0.121569 0 0 0 1 0" />
+                <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow" />
+                <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape" />
                 <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                               result="hardAlpha2"/>
-                <feMorphology radius="4" operator="erode" in="SourceAlpha" result="effect2_innerShadow"/>
-                <feOffset/>
-                <feGaussianBlur stdDeviation="5"/>
-                <feComposite in2="hardAlpha2" operator="arithmetic" k2="-1" k3="1"/>
-                <feColorMatrix type="matrix" values="0 0 0 0 0.168627 0 0 0 0 0.172549 0 0 0 0 0.145098 0 0 0 1 0"/>
-                <feBlend mode="normal" in2="shape" result="effect2_innerShadow"/>
+                    result="hardAlpha2" />
+                <feMorphology radius="4" operator="erode" in="SourceAlpha" result="effect2_innerShadow" />
+                <feOffset />
+                <feGaussianBlur stdDeviation="5" />
+                <feComposite in2="hardAlpha2" operator="arithmetic" k2="-1" k3="1" />
+                <feColorMatrix type="matrix" values="0 0 0 0 0.168627 0 0 0 0 0.172549 0 0 0 0 0.145098 0 0 0 1 0" />
+                <feBlend mode="normal" in2="shape" result="effect2_innerShadow" />
             </filter>
 
             <mask id="border-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="525" height="199">
                 <path fill="white"
-                      d="M501 8.5C501 14.8513 507.94 20 516.5 20C516.667 20 516.834 19.9941 517 19.9902V176.009C516.834 176.005 516.667 176 516.5 176C507.94 176 501 181.149 501 187.5C501 188.721 501.258 189.896 501.732 191H23.9844C23.9939 190.834 24 190.668 24 190.5C24 184.149 17.0604 179 8.5 179C8.33268 179 8.16604 179.005 8 179.009V19.9902C8.16605 19.9941 8.33267 20 8.5 20C17.0604 20 24 14.8513 24 8.5C24 8.33245 23.9939 8.16581 23.9844 8H250.675L252.032 9.14648L261.506 17.1465L262.526 18.0078L263.5 17.0938L272.026 9.09375L273.192 8H501.016C501.006 8.16581 501 8.33245 501 8.5Z"/>
+                    d="M501 8.5C501 14.8513 507.94 20 516.5 20C516.667 20 516.834 19.9941 517 19.9902V176.009C516.834 176.005 516.667 176 516.5 176C507.94 176 501 181.149 501 187.5C501 188.721 501.258 189.896 501.732 191H23.9844C23.9939 190.834 24 190.668 24 190.5C24 184.149 17.0604 179 8.5 179C8.33268 179 8.16604 179.005 8 179.009V19.9902C8.16605 19.9941 8.33267 20 8.5 20C17.0604 20 24 14.8513 24 8.5C24 8.33245 23.9939 8.16581 23.9844 8H250.675L252.032 9.14648L261.506 17.1465L262.526 18.0078L263.5 17.0938L272.026 9.09375L273.192 8H501.016C501.006 8.16581 501 8.33245 501 8.5Z" />
             </mask>
 
             <!-- Clip for the strain image: same path as the border outline, so the
                  strain is trimmed to the interior of the border shape only. -->
             <clipPath id="border-clip" clipPathUnits="userSpaceOnUse">
-                <path d="M501 8.5C501 14.8513 507.94 20 516.5 20C516.667 20 516.834 19.9941 517 19.9902V176.009C516.834 176.005 516.667 176 516.5 176C507.94 176 501 181.149 501 187.5C501 188.721 501.258 189.896 501.732 191H23.9844C23.9939 190.834 24 190.668 24 190.5C24 184.149 17.0604 179 8.5 179C8.33268 179 8.16604 179.005 8 179.009V19.9902C8.16605 19.9941 8.33267 20 8.5 20C17.0604 20 24 14.8513 24 8.5C24 8.33245 23.9939 8.16581 23.9844 8H250.675L252.032 9.14648L261.506 17.1465L262.526 18.0078L263.5 17.0938L272.026 9.09375L273.192 8H501.016C501.006 8.16581 501 8.33245 501 8.5Z"/>
+                <path
+                    d="M501 8.5C501 14.8513 507.94 20 516.5 20C516.667 20 516.834 19.9941 517 19.9902V176.009C516.834 176.005 516.667 176 516.5 176C507.94 176 501 181.149 501 187.5C501 188.721 501.258 189.896 501.732 191H23.9844C23.9939 190.834 24 190.668 24 190.5C24 184.149 17.0604 179 8.5 179C8.33268 179 8.16604 179.005 8 179.009V19.9902C8.16605 19.9941 8.33267 20 8.5 20C17.0604 20 24 14.8513 24 8.5C24 8.33245 23.9939 8.16581 23.9844 8H250.675L252.032 9.14648L261.506 17.1465L262.526 18.0078L263.5 17.0938L272.026 9.09375L273.192 8H501.016C501.006 8.16581 501 8.33245 501 8.5Z" />
             </clipPath>
 
             <g id="border-shape">
                 <g filter="url(#border-filter)">
-                    <path d="M501 8.5C501 14.8513 507.94 20 516.5 20C516.667 20 516.834 19.9941 517 19.9902V176.009C516.834 176.005 516.667 176 516.5 176C507.94 176 501 181.149 501 187.5C501 188.721 501.258 189.896 501.732 191H23.9844C23.9939 190.834 24 190.668 24 190.5C24 184.149 17.0604 179 8.5 179C8.33268 179 8.16604 179.005 8 179.009V19.9902C8.16605 19.9941 8.33267 20 8.5 20C17.0604 20 24 14.8513 24 8.5C24 8.33245 23.9939 8.16581 23.9844 8H250.675L252.032 9.14648L261.506 17.1465L262.526 18.0078L263.5 17.0938L272.026 9.09375L273.192 8H501.016C501.006 8.16581 501 8.33245 501 8.5Z"
-                          fill="#2B3638"/>
+                    <path
+                        d="M501 8.5C501 14.8513 507.94 20 516.5 20C516.667 20 516.834 19.9941 517 19.9902V176.009C516.834 176.005 516.667 176 516.5 176C507.94 176 501 181.149 501 187.5C501 188.721 501.258 189.896 501.732 191H23.9844C23.9939 190.834 24 190.668 24 190.5C24 184.149 17.0604 179 8.5 179C8.33268 179 8.16604 179.005 8 179.009V19.9902C8.16605 19.9941 8.33267 20 8.5 20C17.0604 20 24 14.8513 24 8.5C24 8.33245 23.9939 8.16581 23.9844 8H250.675L252.032 9.14648L261.506 17.1465L262.526 18.0078L263.5 17.0938L272.026 9.09375L273.192 8H501.016C501.006 8.16581 501 8.33245 501 8.5Z"
+                        fill="#2B3638" />
                     <!-- STRAIN: lives inside the shared symbol, so EVERY slice renders
                          it from the same (0,0 → 525,199) coord system. Seams at y=24
                          and y=175 land on the exact same image rows in neighboring
                          slices, so there's no visible step. Clipped to the border
                          path so it can't leak outside the bumps/V-notch. -->
                     <image href="/systems/huyen-viet-vtt/assets/strain-effect.png" x="0" y="0" width="525" height="199"
-                           preserveAspectRatio="none" opacity="0.10"
-                           clip-path="url(#border-clip)"/>
+                        preserveAspectRatio="none" opacity="0.10" clip-path="url(#border-clip)" />
                     <path mask="url(#border-mask)" fill="#7A766A"
-                          d="M517 19.9902H520V16.9189L516.929 16.9911L517 19.9902ZM517 176.009L516.929 179.008L520 179.08V176.009H517ZM501.732 191V194H506.289L504.488 189.814L501.732 191ZM23.9844 191L20.9894 190.827L20.8064 194H23.9844V191ZM8 179.009H5V182.08L8.07053 182.008L8 179.009ZM8 19.9902L8.07053 16.9911L5 16.9189V19.9902H8ZM23.9844 8V5H20.8064L20.9894 8.17271L23.9844 8ZM250.675 8L252.611 5.70809L251.772 5H250.675V8ZM252.032 9.14648L250.096 11.4384L250.097 11.4386L252.032 9.14648ZM261.506 17.1465L259.57 19.4386L259.571 19.4391L261.506 17.1465ZM262.526 18.0078L260.591 20.3004L262.632 22.0231L264.58 20.195L262.526 18.0078ZM263.5 17.0938L261.447 14.906L261.447 14.9066L263.5 17.0938ZM272.026 9.09375L269.974 6.90571L269.974 6.90597L272.026 9.09375ZM273.192 8V5H272.006L271.14 5.81196L273.192 8ZM501.016 8L504.011 8.17271L504.194 5H501.016V8ZM501 8.5H498C498 12.8457 500.381 16.5396 503.752 19.041C507.124 21.5427 511.641 23 516.5 23V20V17C512.799 17 509.565 15.8829 507.327 14.2224C505.089 12.5617 504 10.5056 504 8.5H501ZM516.5 20V23C516.714 23 516.951 22.9922 517.071 22.9894L517 19.9902L516.929 16.9911C516.717 16.9961 516.62 17 516.5 17V20ZM517 19.9902H514V176.009H517H520V19.9902H517ZM517 176.009L517.071 173.01C516.929 173.006 516.713 173 516.5 173V176V179C516.622 179 516.739 179.003 516.929 179.008L517 176.009ZM516.5 176V173C511.641 173 507.124 174.457 503.752 176.959C500.381 179.46 498 183.154 498 187.5H501H504C504 185.494 505.089 183.438 507.327 181.778C509.565 180.117 512.799 179 516.5 179V176ZM501 187.5H498C498 189.15 498.35 190.728 498.977 192.186L501.732 191L504.488 189.814C504.165 189.064 504 188.291 504 187.5H501ZM501.732 191V188H23.9844V191V194H501.732V191ZM23.9844 191L26.9794 191.173C26.9914 190.965 27 190.739 27 190.5H24H21C21 190.596 20.9965 190.703 20.9894 190.827L23.9844 191ZM24 190.5H27C27 186.154 24.6192 182.46 21.2477 179.959C17.8759 177.457 13.359 176 8.5 176V179V182C12.2014 182 15.4345 183.117 17.6726 184.778C19.911 186.438 21 188.494 21 190.5H24ZM8.5 179V176C8.28719 176 8.07099 176.006 7.92947 176.01L8 179.009L8.07053 182.008C8.2611 182.003 8.37817 182 8.5 182V179ZM8 179.009H11V19.9902H8H5V179.009H8ZM8 19.9902L7.92947 22.9894C8.04911 22.9922 8.28564 23 8.5 23V20V17C8.3797 17 8.28299 16.9961 8.07053 16.9911L8 19.9902ZM8.5 20V23C13.359 23 17.8759 21.5427 21.2477 19.041C24.6192 16.5396 27 12.8457 27 8.5H24H21C21 10.5056 19.911 12.5617 17.6726 14.2224C15.4345 15.8829 12.2014 17 8.5 17V20ZM24 8.5H27C27 8.26091 26.9914 8.03478 26.9794 7.82729L23.9844 8L20.9894 8.17271C20.9965 8.29683 21 8.40398 21 8.5H24ZM23.9844 8V11H250.675V8V5H23.9844V8ZM250.675 8L248.739 10.2919L250.096 11.4384L252.032 9.14648L253.968 6.85458L252.611 5.70809L250.675 8ZM252.032 9.14648L250.097 11.4386L259.57 19.4386L261.506 17.1465L263.441 14.8544L253.968 6.8544L252.032 9.14648ZM261.506 17.1465L259.571 19.4391L260.591 20.3004L262.526 18.0078L264.461 15.7152L263.441 14.8539L261.506 17.1465ZM262.526 18.0078L264.58 20.195L265.553 19.2809L263.5 17.0938L261.447 14.9066L260.473 15.8206L262.526 18.0078ZM263.5 17.0938L265.553 19.2815L274.079 11.2815L272.026 9.09375L269.974 6.90597L261.447 14.906L263.5 17.0938ZM272.026 9.09375L274.079 11.2818L275.245 10.188L273.192 8L271.14 5.81196L269.974 6.90571L272.026 9.09375ZM273.192 8V11H501.016V8V5H273.192V8ZM501.016 8L498.021 7.82729C498.009 8.03478 498 8.26091 498 8.5H501H504C504 8.40398 504.003 8.29683 504.011 8.17271L501.016 8Z"/>
+                        d="M517 19.9902H520V16.9189L516.929 16.9911L517 19.9902ZM517 176.009L516.929 179.008L520 179.08V176.009H517ZM501.732 191V194H506.289L504.488 189.814L501.732 191ZM23.9844 191L20.9894 190.827L20.8064 194H23.9844V191ZM8 179.009H5V182.08L8.07053 182.008L8 179.009ZM8 19.9902L8.07053 16.9911L5 16.9189V19.9902H8ZM23.9844 8V5H20.8064L20.9894 8.17271L23.9844 8ZM250.675 8L252.611 5.70809L251.772 5H250.675V8ZM252.032 9.14648L250.096 11.4384L250.097 11.4386L252.032 9.14648ZM261.506 17.1465L259.57 19.4386L259.571 19.4391L261.506 17.1465ZM262.526 18.0078L260.591 20.3004L262.632 22.0231L264.58 20.195L262.526 18.0078ZM263.5 17.0938L261.447 14.906L261.447 14.9066L263.5 17.0938ZM272.026 9.09375L269.974 6.90571L269.974 6.90597L272.026 9.09375ZM273.192 8V5H272.006L271.14 5.81196L273.192 8ZM501.016 8L504.011 8.17271L504.194 5H501.016V8ZM501 8.5H498C498 12.8457 500.381 16.5396 503.752 19.041C507.124 21.5427 511.641 23 516.5 23V20V17C512.799 17 509.565 15.8829 507.327 14.2224C505.089 12.5617 504 10.5056 504 8.5H501ZM516.5 20V23C516.714 23 516.951 22.9922 517.071 22.9894L517 19.9902L516.929 16.9911C516.717 16.9961 516.62 17 516.5 17V20ZM517 19.9902H514V176.009H517H520V19.9902H517ZM517 176.009L517.071 173.01C516.929 173.006 516.713 173 516.5 173V176V179C516.622 179 516.739 179.003 516.929 179.008L517 176.009ZM516.5 176V173C511.641 173 507.124 174.457 503.752 176.959C500.381 179.46 498 183.154 498 187.5H501H504C504 185.494 505.089 183.438 507.327 181.778C509.565 180.117 512.799 179 516.5 179V176ZM501 187.5H498C498 189.15 498.35 190.728 498.977 192.186L501.732 191L504.488 189.814C504.165 189.064 504 188.291 504 187.5H501ZM501.732 191V188H23.9844V191V194H501.732V191ZM23.9844 191L26.9794 191.173C26.9914 190.965 27 190.739 27 190.5H24H21C21 190.596 20.9965 190.703 20.9894 190.827L23.9844 191ZM24 190.5H27C27 186.154 24.6192 182.46 21.2477 179.959C17.8759 177.457 13.359 176 8.5 176V179V182C12.2014 182 15.4345 183.117 17.6726 184.778C19.911 186.438 21 188.494 21 190.5H24ZM8.5 179V176C8.28719 176 8.07099 176.006 7.92947 176.01L8 179.009L8.07053 182.008C8.2611 182.003 8.37817 182 8.5 182V179ZM8 179.009H11V19.9902H8H5V179.009H8ZM8 19.9902L7.92947 22.9894C8.04911 22.9922 8.28564 23 8.5 23V20V17C8.3797 17 8.28299 16.9961 8.07053 16.9911L8 19.9902ZM8.5 20V23C13.359 23 17.8759 21.5427 21.2477 19.041C24.6192 16.5396 27 12.8457 27 8.5H24H21C21 10.5056 19.911 12.5617 17.6726 14.2224C15.4345 15.8829 12.2014 17 8.5 17V20ZM24 8.5H27C27 8.26091 26.9914 8.03478 26.9794 7.82729L23.9844 8L20.9894 8.17271C20.9965 8.29683 21 8.40398 21 8.5H24ZM23.9844 8V11H250.675V8V5H23.9844V8ZM250.675 8L248.739 10.2919L250.096 11.4384L252.032 9.14648L253.968 6.85458L252.611 5.70809L250.675 8ZM252.032 9.14648L250.097 11.4386L259.57 19.4386L261.506 17.1465L263.441 14.8544L253.968 6.8544L252.032 9.14648ZM261.506 17.1465L259.571 19.4391L260.591 20.3004L262.526 18.0078L264.461 15.7152L263.441 14.8539L261.506 17.1465ZM262.526 18.0078L264.58 20.195L265.553 19.2809L263.5 17.0938L261.447 14.9066L260.473 15.8206L262.526 18.0078ZM263.5 17.0938L265.553 19.2815L274.079 11.2815L272.026 9.09375L269.974 6.90597L261.447 14.906L263.5 17.0938ZM272.026 9.09375L274.079 11.2818L275.245 10.188L273.192 8L271.14 5.81196L269.974 6.90571L272.026 9.09375ZM273.192 8V11H501.016V8V5H273.192V8ZM501.016 8L498.021 7.82729C498.009 8.03478 498 8.26091 498 8.5H501H504C504 8.40398 504.003 8.29683 504.011 8.17271L501.016 8Z" />
                 </g>
             </g>
         </defs>
@@ -66,20 +67,19 @@
 
                     <div class="tw:grid tw:grid-cols-3 tw:items-start">
                         <div class="resource tw:text-center">
-                            <img class='profile-img tw:mx-auto'
-                                 src='{{actor.img}}' data-edit='img' data-action='onEditImage'
-                                 data-tooltip='{{actor.name}}' height='160' width='160'/>
+                            <img class='profile-img tw:mx-auto' src='{{actor.img}}' data-edit='img'
+                                data-action='onEditImage' data-tooltip='{{actor.name}}' height='160' width='160' />
 
                             <div class="grid col-span-2">
                                 <div>
                                     Túi tiền:
                                 </div>
                                 <span class="tw:flex tw:items-center tw:justify-right tw:gap-2">
-                                {{system.currency.tien}} <img width="15px" alt="Tien currency"
-                                                              src="/systems/huyen-viet-vtt/assets/icons/tien.webp"/>
+                                    {{system.currency.tien}} <img width="15px" alt="Tien currency"
+                                        src="/systems/huyen-viet-vtt/assets/icons/tien.webp" />
                                     {{system.currency.quan}} <img width="35px" alt="Quan currency"
-                                                                  src="/systems/huyen-viet-vtt/assets/icons/quan.webp"/>
-                            </span>
+                                        src="/systems/huyen-viet-vtt/assets/icons/quan.webp" />
+                                </span>
                             </div>
 
                             {{!-- Tu Vi (XP) Widget --}}
@@ -91,28 +91,20 @@
                                     <span class="hv-tu-vi-widget__total">{{system.progression.totalXp}}</span>
                                 </div>
                                 <div class="hv-tu-vi-widget__actions">
-                                    <button type="button"
-                                            class="hv-tu-vi-widget__edit-btn"
-                                            data-action="open-xp-adjust"
-                                            data-tooltip="Chỉnh Tu Vi">
+                                    <button type="button" class="hv-tu-vi-widget__edit-btn" data-action="open-xp-adjust"
+                                        data-tooltip="Chỉnh Tu Vi">
                                         <i class="fas fa-pen"></i>
                                     </button>
-                                    <button type="button"
-                                            class="hv-tu-vi-widget__reset-btn"
-                                            data-action="reset-upgrades"
-                                            data-tooltip="Reset nâng cấp">
+                                    <button type="button" class="hv-tu-vi-widget__reset-btn"
+                                        data-action="reset-upgrades" data-tooltip="Reset nâng cấp">
                                         <i class="fas fa-rotate-left"></i>
                                     </button>
-                                    <button type="button"
-                                            class="hv-tu-vi-widget__upgrade-btn"
-                                            data-action="open-progression-modal"
-                                            data-tooltip="Thăng Cấp">
-                                        ✨ Thăng Cấp
+                                    <button type="button" class="hv-tu-vi-widget__upgrade-btn"
+                                        data-action="open-progression-modal" data-tooltip="Thăng Cấp">
+                                        Thăng Cấp
                                     </button>
-                                    <button type="button"
-                                            class="hv-character-creator-open"
-                                            data-action="open-character-creator"
-                                            data-tooltip="Bát Bộ Thành Nhân">
+                                    <button type="button" class="hv-character-creator-open"
+                                        data-action="open-character-creator" data-tooltip="Bát Bộ Thành Nhân">
                                         <i class="fas fa-scroll"></i>
                                     </button>
                                 </div>
@@ -126,7 +118,7 @@
                                     Tên
                                 </label>
                                 <div class='resource-content flexrow flex-center flex-between'>
-                                    <input name='name' type='text' value='{{actor.name}}' placeholder='Name'/>
+                                    <input name='name' type='text' value='{{actor.name}}' placeholder='Name' />
                                 </div>
                             </div>
 
@@ -135,21 +127,17 @@
                                     Thị Tộc
                                 </label>
                                 <div class='resource-content flexrow flex-center flex-between'>
-                                    <select
-                                            id="hv-thi-toc-select"
-                                            name="demo"
-                                            class="hv-thi-toc-select"
-                                            {{#unless editable}}disabled{{/unless}}
-                                    >
-                                        <option value="" disabled
-                                                {{#unless document.system.identity.thiToc}}selected{{/unless}}>
+                                    <select id="hv-thi-toc-select" name="demo" class="hv-thi-toc-select" {{#unless
+                                        editable}}disabled{{/unless}}>
+                                        <option value="" disabled {{#unless
+                                            document.system.identity.thiToc}}selected{{/unless}}>
                                             -- Chọn Thị Tộc --
                                         </option>
 
                                         {{#each thiTocOptions as |option|}}
-                                            <option value="{{option.value}}" {{#if option.selected}}selected{{/if}}>
-                                                {{localize option.label }}
-                                            </option>
+                                        <option value="{{option.value}}" {{#if option.selected}}selected{{/if}}>
+                                            {{localize option.label }}
+                                        </option>
                                         {{/each}}
                                     </select>
                                 </div>
@@ -160,21 +148,17 @@
                                     Bối Cảnh
                                 </label>
                                 <div class='resource-content flexrow flex-center flex-between'>
-                                    <select
-                                            id="hv-boi-canh-select"
-                                            name="boi-canh"
-                                            class="hv-boi-canh-select"
-                                            {{#unless editable}}disabled{{/unless}}
-                                    >
-                                        <option value="" disabled
-                                                {{#unless document.system.identity.boiCanh}}selected{{/unless}}>
+                                    <select id="hv-boi-canh-select" name="boi-canh" class="hv-boi-canh-select" {{#unless
+                                        editable}}disabled{{/unless}}>
+                                        <option value="" disabled {{#unless
+                                            document.system.identity.boiCanh}}selected{{/unless}}>
                                             -- Chọn Bối Cảnh --
                                         </option>
 
                                         {{#each boiCanhOptions as |option|}}
-                                            <option value="{{option.value}}" {{#if option.selected}}selected{{/if}}>
-                                                {{localize option.label }}
-                                            </option>
+                                        <option value="{{option.value}}" {{#if option.selected}}selected{{/if}}>
+                                            {{localize option.label }}
+                                        </option>
                                         {{/each}}
                                     </select>
                                 </div>
@@ -185,21 +169,17 @@
                                     Gia Cảnh
                                 </label>
                                 <div class='resource-content flexrow flex-center flex-between'>
-                                    <select
-                                            id="hv-gia-canh-select"
-                                            name="gia-canh"
-                                            class="hv-gia-canh-select"
-                                            {{#unless editable}}disabled{{/unless}}
-                                    >
-                                        <option value="" disabled
-                                                {{#unless document.system.identity.giaCanh}}selected{{/unless}}>
+                                    <select id="hv-gia-canh-select" name="gia-canh" class="hv-gia-canh-select" {{#unless
+                                        editable}}disabled{{/unless}}>
+                                        <option value="" disabled {{#unless
+                                            document.system.identity.giaCanh}}selected{{/unless}}>
                                             -- Chọn Gia Cảnh --
                                         </option>
 
                                         {{#each giaCanhOptions as |option|}}
-                                            <option value="{{option.id}}" {{#if option.selected}}selected{{/if}}>
-                                                {{localize option.ten }}
-                                            </option>
+                                        <option value="{{option.id}}" {{#if option.selected}}selected{{/if}}>
+                                            {{localize option.ten }}
+                                        </option>
                                         {{/each}}
                                     </select>
                                 </div>
@@ -232,202 +212,194 @@
                     </div>
 
 
-                    <div class="tw:grid tw:grid-cols-8 tw:mt-4 tw:grid-rows-2 tw:gap-2 tw:items-center tw:content-center">
+                    <div
+                        class="tw:grid tw:grid-cols-8 tw:mt-4 tw:grid-rows-2 tw:gap-2 tw:items-center tw:content-center">
                         <div class="tw:row-span-2 tw:col-span-4">
                             <div id="ngu-hanh-canvas" style="position: relative;">
                                 {{#each elements as |element|}}
-                                    <video id="video-{{element}}"
-                                           class="energy-video {{#if (eq ../hanhThe element)}}active{{/if}} {{element}} {{#if (lookup ../tonThuongNguHanh element)}}damaged{{/if}}"
-                                           autoplay loop muted playsinline>
-                                        <source src="systems/huyen-viet-vtt/assets/{{element}}-energy.webm"
-                                                type="video/webm">
-                                    </video>
+                                <video id="video-{{element}}"
+                                    class="energy-video {{#if (eq ../hanhThe element)}}active{{/if}} {{element}} {{#if (lookup ../tonThuongNguHanh element)}}damaged{{/if}}"
+                                    autoplay loop muted playsinline>
+                                    <source src="systems/huyen-viet-vtt/assets/{{element}}-energy.webm"
+                                        type="video/webm">
+                                </video>
                                 {{/each}}
 
                                 <div id="ngu-hanh-holder">
                                     <svg id="nguHanhSVG" viewBox="0 0 460 355" xmlns="http://www.w3.org/2000/svg"
-                                         fill="none">
+                                        fill="none">
                                         <defs>
                                             <!-- Sinh arrow: gold -->
                                             <marker id="mSinh" markerWidth="9" markerHeight="9" refX="7" refY="3.5"
-                                                    orient="auto">
-                                                <path d="M0,0 L0,7 L9,3.5 z" fill="rgba(212,168,67,0.85)"/>
+                                                orient="auto">
+                                                <path d="M0,0 L0,7 L9,3.5 z" fill="rgba(212,168,67,0.85)" />
                                             </marker>
                                             <!-- Khắc arrow: red -->
                                             <marker id="mKhac" markerWidth="8" markerHeight="8" refX="6" refY="3"
-                                                    orient="auto">
-                                                <path d="M0,0 L0,6 L8,3 z" fill="rgba(220,80,80,0.9)"/>
+                                                orient="auto">
+                                                <path d="M0,0 L0,6 L8,3 z" fill="rgba(220,80,80,0.9)" />
                                             </marker>
 
                                             <radialGradient id="bgKim" cx="50%" cy="35%" r="65%">
-                                                <stop offset="0%" stop-color="#e8e0c8" stop-opacity=".22"/>
-                                                <stop offset="100%" stop-color="#d4c9a8" stop-opacity=".03"/>
+                                                <stop offset="0%" stop-color="#e8e0c8" stop-opacity=".22" />
+                                                <stop offset="100%" stop-color="#d4c9a8" stop-opacity=".03" />
                                             </radialGradient>
                                             <radialGradient id="bgThuy" cx="50%" cy="35%" r="65%">
-                                                <stop offset="0%" stop-color="#5ba3d4" stop-opacity=".22"/>
-                                                <stop offset="100%" stop-color="#2e6a9e" stop-opacity=".03"/>
+                                                <stop offset="0%" stop-color="#5ba3d4" stop-opacity=".22" />
+                                                <stop offset="100%" stop-color="#2e6a9e" stop-opacity=".03" />
                                             </radialGradient>
                                             <radialGradient id="bgMoc" cx="50%" cy="35%" r="65%">
-                                                <stop offset="0%" stop-color="#6db87a" stop-opacity=".22"/>
-                                                <stop offset="100%" stop-color="#3d7a48" stop-opacity=".03"/>
+                                                <stop offset="0%" stop-color="#6db87a" stop-opacity=".22" />
+                                                <stop offset="100%" stop-color="#3d7a48" stop-opacity=".03" />
                                             </radialGradient>
                                             <radialGradient id="bgHoa" cx="50%" cy="35%" r="65%">
-                                                <stop offset="0%" stop-color="#e07b4a" stop-opacity=".22"/>
-                                                <stop offset="100%" stop-color="#a04020" stop-opacity=".03"/>
+                                                <stop offset="0%" stop-color="#e07b4a" stop-opacity=".22" />
+                                                <stop offset="100%" stop-color="#a04020" stop-opacity=".03" />
                                             </radialGradient>
                                             <radialGradient id="bgTho" cx="50%" cy="35%" r="65%">
-                                                <stop offset="0%" stop-color="#c49a5a" stop-opacity=".22"/>
-                                                <stop offset="100%" stop-color="#8a6030" stop-opacity=".03"/>
+                                                <stop offset="0%" stop-color="#c49a5a" stop-opacity=".22" />
+                                                <stop offset="100%" stop-color="#8a6030" stop-opacity=".03" />
                                             </radialGradient>
                                         </defs>
 
                                         <!-- ══ LAYER 1: TƯƠNG SINH circle (bottom) ══ -->
                                         <circle cx="230" cy="183" r="131" stroke="rgba(212,168,67,0.08)"
-                                                stroke-width="6"
-                                                fill="none"/>
+                                            stroke-width="6" fill="none" />
                                         <path id="circle-sinh" d="M 241,53 A 131,131 0 1 1 219,53"
-                                              stroke="rgba(212,168,67,0.62)"
-                                              stroke-width="1.8" fill="none" marker-end="url(#mSinh)"/>
+                                            stroke="rgba(212,168,67,0.62)" stroke-width="1.8" fill="none"
+                                            marker-end="url(#mSinh)" />
 
                                         <!-- ══ LAYER 2: TƯƠNG KHẮC diagonals ══ -->
                                         <line id="khac-kim-moc" x1="243" y1="93" x2="294" y2="253"
-                                              stroke="rgba(220,80,80,.6)"
-                                              stroke-width="1.3" stroke-dasharray="4 3.5" marker-end="url(#mKhac)"/>
+                                            stroke="rgba(220,80,80,.6)" stroke-width="1.3" stroke-dasharray="4 3.5"
+                                            marker-end="url(#mKhac)" />
                                         <line id="khac-moc-tho" x1="273" y1="268" x2="142" y2="167"
-                                              stroke="rgba(220,80,80,.6)"
-                                              stroke-width="1.3" stroke-dasharray="4 3.5" marker-end="url(#mKhac)"/>
+                                            stroke="rgba(220,80,80,.6)" stroke-width="1.3" stroke-dasharray="4 3.5"
+                                            marker-end="url(#mKhac)" />
                                         <line id="khac-tho-thuy" x1="151" y1="141" x2="309" y2="141"
-                                              stroke="rgba(220,80,80,.6)"
-                                              stroke-width="1.3" stroke-dasharray="4 3.5" marker-end="url(#mKhac)"/>
+                                            stroke="rgba(220,80,80,.6)" stroke-width="1.3" stroke-dasharray="4 3.5"
+                                            marker-end="url(#mKhac)" />
                                         <line id="khac-thuy-hoa" x1="318" y1="167" x2="187" y2="268"
-                                              stroke="rgba(220,80,80,.6)"
-                                              stroke-width="1.3" stroke-dasharray="4 3.5" marker-end="url(#mKhac)"/>
+                                            stroke="rgba(220,80,80,.6)" stroke-width="1.3" stroke-dasharray="4 3.5"
+                                            marker-end="url(#mKhac)" />
                                         <line id="khac-hoa-kim" x1="166" y1="253" x2="217" y2="93"
-                                              stroke="rgba(220,80,80,.6)"
-                                              stroke-width="1.3" stroke-dasharray="4 3.5" marker-end="url(#mKhac)"/>
+                                            stroke="rgba(220,80,80,.6)" stroke-width="1.3" stroke-dasharray="4 3.5"
+                                            marker-end="url(#mKhac)" />
 
                                         <!-- ══ LAYER 3: NODES (on top) ══ -->
 
 
                                         <!-- KIM -->
-                                        <g class="hanh-node {{#if tonThuongNguHanh.kim}}damaged{{/if}}" id="node-kim" data-action="toggle-hanh-the"
-                                           data-element="kim"
-                                           role="button" aria-label="Kim">
-                                            <circle cx="230" cy="52" r="40" fill="#162030"/>
+                                        <g class="hanh-node {{#if tonThuongNguHanh.kim}}damaged{{/if}}" id="node-kim"
+                                            data-action="toggle-hanh-the" data-element="kim" role="button"
+                                            aria-label="Kim">
+                                            <circle cx="230" cy="52" r="40" fill="#162030" />
                                             <circle cx="230" cy="52" r="40" fill="url(#bgKim)" stroke="#d4c9a8"
-                                                    stroke-width="1.5"
-                                                    stroke-opacity=".7"/>
+                                                stroke-width="1.5" stroke-opacity=".7" />
                                             <circle cx="230" cy="52" r="40" fill="none" stroke="#d4c9a8"
-                                                    stroke-width=".5"
-                                                    stroke-opacity=".2" stroke-dasharray="3 6"/>
+                                                stroke-width=".5" stroke-opacity=".2" stroke-dasharray="3 6" />
                                             <text x="230" y="38" text-anchor="middle" font-size="15" fill="#d4c9a8">⚙
                                             </text>
                                             <text x="230" y="55" text-anchor="middle" font-family="'Crimson Pro',serif"
-                                                  font-size="13" font-weight="600" fill="#e8e0c8" letter-spacing=".5">
+                                                font-size="13" font-weight="600" fill="#e8e0c8" letter-spacing=".5">
                                                 Kim
                                             </text>
                                             <text x="230" y="69" text-anchor="middle" font-family="'Crimson Pro',serif"
-                                                  font-size="12" font-weight="700" fill="#d4c9a8">{{signedNumber
-                                                    system.elements.kim.value}}</text>
+                                                font-size="12" font-weight="700" fill="#d4c9a8">{{signedNumber
+                                                system.elements.kim.value}}</text>
                                         </g>
 
                                         <!-- THỦY -->
-                                        <g class="hanh-node {{#if tonThuongNguHanh.thuy}}damaged{{/if}}" id="node-thuy" data-action="toggle-hanh-the"
-                                           data-element="thuy"
-                                           role="button" aria-label="Thủy">
-                                            <circle cx="352" cy="141" r="40" fill="#162030"/>
+                                        <g class="hanh-node {{#if tonThuongNguHanh.thuy}}damaged{{/if}}" id="node-thuy"
+                                            data-action="toggle-hanh-the" data-element="thuy" role="button"
+                                            aria-label="Thủy">
+                                            <circle cx="352" cy="141" r="40" fill="#162030" />
                                             <circle cx="352" cy="141" r="40" fill="url(#bgThuy)" stroke="#5ba3d4"
-                                                    stroke-width="1.5"
-                                                    stroke-opacity=".7"/>
+                                                stroke-width="1.5" stroke-opacity=".7" />
                                             <circle cx="352" cy="141" r="40" fill="none" stroke="#5ba3d4"
-                                                    stroke-width=".5"
-                                                    stroke-opacity=".2" stroke-dasharray="3 6"/>
+                                                stroke-width=".5" stroke-opacity=".2" stroke-dasharray="3 6" />
                                             <image href="/systems/huyen-viet-vtt/assets/icons/thuy-tablet-icon.webp"
-                                                   x="340" y="105" width="28" height="28"></image>
+                                                x="340" y="105" width="28" height="28"></image>
                                             <text x="352" y="145" text-anchor="middle" font-family="'Crimson Pro',serif"
-                                                  font-size="13" font-weight="600" fill="#a8d4f0" letter-spacing=".5">
+                                                font-size="13" font-weight="600" fill="#a8d4f0" letter-spacing=".5">
                                                 Thủy
                                             </text>
                                             <text x="352" y="165" text-anchor="middle" font-family="'Crimson Pro',serif"
-                                                  font-size="16" font-weight="700" fill="#5ba3d4">{{signedNumber
-                                                    system.elements.thuy.value}}</text>
+                                                font-size="16" font-weight="700" fill="#5ba3d4">{{signedNumber
+                                                system.elements.thuy.value}}</text>
                                         </g>
 
                                         <!-- MỘC -->
-                                        <g class="hanh-node {{#if tonThuongNguHanh.moc}}damaged{{/if}}" id="node-moc" data-action="toggle-hanh-the"
-                                           data-element="moc"
-                                           role="button" aria-label="Mộc">
-                                            <circle cx="307" cy="294" r="40" fill="#162030"/>
+                                        <g class="hanh-node {{#if tonThuongNguHanh.moc}}damaged{{/if}}" id="node-moc"
+                                            data-action="toggle-hanh-the" data-element="moc" role="button"
+                                            aria-label="Mộc">
+                                            <circle cx="307" cy="294" r="40" fill="#162030" />
                                             <circle cx="307" cy="294" r="40" fill="url(#bgMoc)" stroke="#6db87a"
-                                                    stroke-width="1.5"
-                                                    stroke-opacity=".7"/>
+                                                stroke-width="1.5" stroke-opacity=".7" />
                                             <circle cx="307" cy="294" r="40" fill="none" stroke="#6db87a"
-                                                    stroke-width=".5"
-                                                    stroke-opacity=".2" stroke-dasharray="3 6"/>
+                                                stroke-width=".5" stroke-opacity=".2" stroke-dasharray="3 6" />
                                             <text x="307" y="280" text-anchor="middle" font-size="15" fill="#6db87a">🌿
                                             </text>
                                             <text x="307" y="298" text-anchor="middle" font-family="'Crimson Pro',serif"
-                                                  font-size="13" font-weight="600" fill="#a8d4b0" letter-spacing=".5">
+                                                font-size="13" font-weight="600" fill="#a8d4b0" letter-spacing=".5">
                                                 Mộc
                                             </text>
                                             <text x="307" y="312" text-anchor="middle" font-family="'Crimson Pro',serif"
-                                                  font-size="12" font-weight="700" fill="#6db87a">{{signedNumber
-                                                    system.elements.moc.value}}</text>
+                                                font-size="12" font-weight="700" fill="#6db87a">{{signedNumber
+                                                system.elements.moc.value}}</text>
                                         </g>
 
                                         <!-- HỎA -->
-                                        <g class="hanh-node {{#if tonThuongNguHanh.hoa}}damaged{{/if}}" id="node-hoa" data-action="toggle-hanh-the"
-                                           data-element="hoa" role="button" aria-label="Hỏa">
+                                        <g class="hanh-node {{#if tonThuongNguHanh.hoa}}damaged{{/if}}" id="node-hoa"
+                                            data-action="toggle-hanh-the" data-element="hoa" role="button"
+                                            aria-label="Hỏa">
                                             <circle cx="153" cy="294" r="40" fill="#162030"></circle>
                                             <circle cx="153" cy="294" r="40" fill="url(#bgHoa)" stroke="#e07b4a"
-                                                    stroke-width="1.5" stroke-opacity=".7"></circle>
+                                                stroke-width="1.5" stroke-opacity=".7"></circle>
                                             <circle cx="153" cy="294" r="40" fill="none" stroke="#e07b4a"
-                                                    stroke-width=".5" stroke-opacity=".2"
-                                                    stroke-dasharray="3 6"></circle>
+                                                stroke-width=".5" stroke-opacity=".2" stroke-dasharray="3 6"></circle>
                                             <image href="/systems/huyen-viet-vtt/assets/icons/hoa-tablet-icon.webp"
-                                                   x="140" y="255" width="28" height="28"></image>
+                                                x="140" y="255" width="28" height="28"></image>
                                             <text x="153" y="298" text-anchor="middle" font-family="'Crimson Pro',serif"
-                                                  font-size="13" font-weight="600" fill="#f0b890" letter-spacing=".5">
+                                                font-size="13" font-weight="600" fill="#f0b890" letter-spacing=".5">
                                                 Hỏa
                                             </text>
                                             <text x="153" y="317" text-anchor="middle" font-family="'Crimson Pro',serif"
-                                                  font-size="16" font-weight="700" fill="#e07b4a">
+                                                font-size="16" font-weight="700" fill="#e07b4a">
                                                 {{signedNumber
-                                                        system.elements.hoa.value}}
+                                                system.elements.hoa.value}}
                                             </text>
                                         </g>
 
                                         <!-- THỔ -->
-                                        <g class="hanh-node {{#if tonThuongNguHanh.tho}}damaged{{/if}}" id="node-tho" data-action="toggle-hanh-the"
-                                           data-element="tho"
-                                           role="button" aria-label="Thổ">
-                                            <circle cx="108" cy="141" r="40" fill="#162030"/>
+                                        <g class="hanh-node {{#if tonThuongNguHanh.tho}}damaged{{/if}}" id="node-tho"
+                                            data-action="toggle-hanh-the" data-element="tho" role="button"
+                                            aria-label="Thổ">
+                                            <circle cx="108" cy="141" r="40" fill="#162030" />
                                             <circle cx="108" cy="141" r="40" fill="url(#bgTho)" stroke="#c49a5a"
-                                                    stroke-width="1.5"
-                                                    stroke-opacity=".7"/>
+                                                stroke-width="1.5" stroke-opacity=".7" />
                                             <circle cx="108" cy="141" r="40" fill="none" stroke="#c49a5a"
-                                                    stroke-width=".5"
-                                                    stroke-opacity=".2" stroke-dasharray="3 6"/>
+                                                stroke-width=".5" stroke-opacity=".2" stroke-dasharray="3 6" />
                                             <image href="/systems/huyen-viet-vtt/assets/icons/tho-tablet-icon.webp"
-                                                   x="95" y="107" width="28" height="28"></image>
+                                                x="95" y="107" width="28" height="28"></image>
                                             <text x="108" y="150" text-anchor="middle" font-family="'Crimson Pro',serif"
-                                                  font-size="13" font-weight="600" fill="#e0c890" letter-spacing=".5">
+                                                font-size="13" font-weight="600" fill="#e0c890" letter-spacing=".5">
                                                 Thổ
                                             </text>
                                             <text x="108" y="168" text-anchor="middle" font-family="'Crimson Pro',serif"
-                                                  font-size="16" font-weight="700" fill="#c49a5a">{{signedNumber
-                                                    system.elements.tho.value}}</text>
+                                                font-size="16" font-weight="700" fill="#c49a5a">{{signedNumber
+                                                system.elements.tho.value}}</text>
                                         </g>
 
                                         {{#if (eq hanhThe "tho")}}
-                                            <image href="/systems/huyen-viet-vtt/assets/icons/tho-tablet-icon.webp"
-                                                   x="210" y="160" width="40" height="40"></image>
+                                        <image href="/systems/huyen-viet-vtt/assets/icons/tho-tablet-icon.webp" x="210"
+                                            y="160" width="40" height="40"></image>
                                         {{else if (eq hanhThe "hoa")}}
-                                            <image href="/systems/huyen-viet-vtt/assets/icons/hoa-tablet-icon.webp"
-                                                   x="210" y="160" width="40" height="40"></image>
+                                        <image href="/systems/huyen-viet-vtt/assets/icons/hoa-tablet-icon.webp" x="210"
+                                            y="160" width="40" height="40"></image>
                                         {{else if (eq hanhThe "thuy")}}
-                                            <image href="/systems/huyen-viet-vtt/assets/icons/thuy-tablet-icon.webp"
-                                                   x="207" y="157" width="43" height="43"></image>
+                                        <image href="/systems/huyen-viet-vtt/assets/icons/thuy-tablet-icon.webp" x="207"
+                                            y="157" width="43" height="43"></image>
                                         {{/if}}
                                     </svg>
                                 </div>
@@ -436,7 +408,7 @@
 
                         <!-- starts ability box -->
                         <div class='tw:col-start-5 tw:col-span-2 resource flex-group-center ability-box ability-box--resource'
-                             data-action="open-resource-modal" data-type="sucLuc" role="button">
+                            data-action="open-resource-modal" data-type="sucLuc" role="button">
                             <div class='ability-box__title'>
                                 {{localize 'BOILERPLATE.Actor.base.FIELDS.nguHanh.sucLuc.label'}}
                             </div>
@@ -448,7 +420,7 @@
                         </div>
 
                         <div class='tw:col-start-7 tw:col-span-2 ability-box ability-box--resource'
-                             data-action="open-resource-modal" data-type="tamLuc" role="button">
+                            data-action="open-resource-modal" data-type="tamLuc" role="button">
                             <div class='ability-box__title'>
                                 {{localize 'BOILERPLATE.Actor.base.FIELDS.nguHanh.tamLuc.label'}}
                             </div>
@@ -477,37 +449,34 @@
                             </div>
                         </div>
 
-<!--                        <div class='ability-box tw:col-start-6 tw:row-start-2'>-->
-<!--                            <div class='ability-box__title'>-->
-<!--                                {{localize 'BOILERPLATE.Actor.base.FIELDS.nguHanh.nguHop.label'}}-->
-<!--                            </div>-->
-<!--                            <div class='ability-box__content'>-->
-<!--                                {{system.abilities.nguHop.value}}-->
-<!--                            </div>-->
-<!--                        </div>-->
+                        <!--                        <div class='ability-box tw:col-start-6 tw:row-start-2'>-->
+                        <!--                            <div class='ability-box__title'>-->
+                        <!--                                {{localize 'BOILERPLATE.Actor.base.FIELDS.nguHanh.nguHop.label'}}-->
+                        <!--                            </div>-->
+                        <!--                            <div class='ability-box__content'>-->
+                        <!--                                {{system.abilities.nguHop.value}}-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
                     </div>
 
                     {{! ── Condition Strip ──────────────────────────────────────────────────── }}
-                    {{! Shows one icon pill per active condition. Tổn Thương Ngũ Hành shows     }}
+                    {{! Shows one icon pill per active condition. Tổn Thương Ngũ Hành shows }}
                     {{! one icon per wounded element. The "+" button opens the condition picker. }}
                     <div class="hv-cond-strip">
                         {{#each conditionStripItems as |item|}}
-                            {{#if item.isElement}}
-                                <span class="hv-cond-strip__icon hv-cond-strip__icon--element"
-                                      style="--elem-color: {{item.color}}"
-                                      data-tooltip="{{item.label}}">
-                                <i class="fas {{item.faIcon}}"></i>
-                            </span>
-                            {{else}}
-                                <span class="hv-cond-strip__icon" data-tooltip="{{item.label}}">
-                                <i class="fas {{item.faIcon}}"></i>
-                            </span>
-                            {{/if}}
+                        {{#if item.isElement}}
+                        <span class="hv-cond-strip__icon hv-cond-strip__icon--element"
+                            style="--elem-color: {{item.color}}" data-tooltip="{{item.label}}">
+                            <i class="fas {{item.faIcon}}"></i>
+                        </span>
+                        {{else}}
+                        <span class="hv-cond-strip__icon" data-tooltip="{{item.label}}">
+                            <i class="fas {{item.faIcon}}"></i>
+                        </span>
+                        {{/if}}
                         {{/each}}
-                        <button type="button"
-                                class="hv-cond-strip__open-btn"
-                                data-action="open-condition-modal"
-                                data-tooltip="Quản lý Hiệu Ứng">
+                        <button type="button" class="hv-cond-strip__open-btn" data-action="open-condition-modal"
+                            data-tooltip="Quản lý Hiệu Ứng">
                             <i class="fas fa-plus"></i>
                         </button>
                     </div>
@@ -530,8 +499,7 @@
                 <ul class="ability-block__list">
                     <li class="ability-block__ability-item" data-action="roll-skill" data-target="chinhTri">
                         <span class="ability-block__ability-name">Chính Trị</span>
-                        <span
-                                class="ability-block__ability-score ability-block__score-{{scoreClass
+                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
                                         system.skills.chinhTri}}">
                             {{signedNumber system.skills.chinhTri}}
                         </span>
@@ -539,8 +507,7 @@
 
                     <li class="ability-block__ability-item" data-action="roll-skill" data-target="khoaHoc">
                         <span class="ability-block__ability-name">Khoa Học</span>
-                        <span
-                                class="ability-block__ability-score ability-block__score-{{scoreClass
+                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
                                         system.skills.khoaHoc}}">
                             {{signedNumber system.skills.khoaHoc}}
                         </span>
@@ -548,16 +515,14 @@
 
                     <li class="ability-block__ability-item" data-action="roll-skill" data-target="thanHoc">
                         <span class="ability-block__ability-name">Thần Học</span>
-                        <span
-                                class="ability-block__ability-score ability-block__score-{{scoreClass
+                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
                                         system.skills.thanHoc}}">
                             {{signedNumber system.skills.thanHoc}}
                         </span>
                     </li>
                     <li class="ability-block__ability-item" data-action="roll-skill" data-target="xaHoi">
                         <span class="ability-block__ability-name">Xã Hội</span>
-                        <span
-                                class="ability-block__ability-score ability-block__score-{{scoreClass
+                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
                                         system.skills.xaHoi}}">
                             {{signedNumber system.skills.xaHoi}}
                         </span>
@@ -565,8 +530,7 @@
 
                     <li class="ability-block__ability-item" data-action="roll-skill" data-target="yHoc">
                         <span class="ability-block__ability-name">Y Học</span>
-                        <span
-                                class="ability-block__ability-score ability-block__score-{{scoreClass
+                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
                                         system.skills.yHoc}}">
                             {{signedNumber system.skills.yHoc}}
                         </span>
@@ -584,8 +548,7 @@
                 <ul class="ability-block__list">
                     <li class="ability-block__ability-item" data-action="roll-skill" data-target="myThuat">
                         <span class="ability-block__ability-name">Mỹ Thuật</span>
-                        <span
-                                class="ability-block__ability-score ability-block__score-{{scoreClass
+                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
                                         system.skills.myThuat}}">
                             {{signedNumber system.skills.myThuat}}
                         </span>
@@ -593,8 +556,7 @@
 
                     <li class="ability-block__ability-item" data-action="roll-skill" data-target="vanTu">
                         <span class="ability-block__ability-name">Văn Tự</span>
-                        <span
-                                class="ability-block__ability-score ability-block__score-{{scoreClass
+                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
                                         system.skills.vanTu}}">
                             {{signedNumber system.skills.vanTu}}
                         </span>
@@ -602,8 +564,7 @@
 
                     <li class="ability-block__ability-item" data-action="roll-skill" data-target="thoiTrang">
                         <span class="ability-block__ability-name">Thời Trang</span>
-                        <span
-                                class="ability-block__ability-score ability-block__score-{{scoreClass
+                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
                                         system.skills.thoiTrang}}">
                             {{signedNumber system.skills.thoiTrang}}
                         </span>
@@ -611,8 +572,7 @@
 
                     <li class="ability-block__ability-item" data-action="roll-skill" data-target="chienCu">
                         <span class="ability-block__ability-name">Chiến cụ</span>
-                        <span
-                                class="ability-block__ability-score ability-block__score-{{scoreClass
+                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
                                         system.skills.chienCu}}">
                             {{signedNumber system.skills.chienCu}}
                         </span>
@@ -631,16 +591,14 @@
                 <ul class="ability-block__list">
                     <li class="ability-block__ability-item" data-action="roll-skill" data-target="laoDong">
                         <span class="ability-block__ability-name">Lao Động</span>
-                        <span
-                                class="ability-block__ability-score ability-block__score-{{scoreClass
+                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
                                         system.skills.laoDong}}">
                             {{signedNumber system.skills.laoDong}}
                         </span>
                     </li>
                     <li class="ability-block__ability-item" data-action="roll-skill" data-target="thuongNghiep">
                         <span class="ability-block__ability-name">Thương Nghiệp</span>
-                        <span
-                                class="ability-block__ability-score ability-block__score-{{scoreClass
+                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
                                         system.skills.thuongNghiep}}">
                             {{signedNumber system.skills.thuongNghiep}}
                         </span>
@@ -648,8 +606,7 @@
 
                     <li class="ability-block__ability-item" data-action="roll-skill" data-target="haiNghiep">
                         <span class="ability-block__ability-name">Hải Nghiệp</span>
-                        <span
-                                class="ability-block__ability-score ability-block__score-{{scoreClass
+                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
                                         system.skills.haiNghiep}}">
                             {{signedNumber system.skills.haiNghiep}}
                         </span>
@@ -657,8 +614,7 @@
 
                     <li class="ability-block__ability-item" data-action="roll-skill" data-target="hacNghiep">
                         <span class="ability-block__ability-name">Hắc Nghiệp</span>
-                        <span
-                                class="ability-block__ability-score ability-block__score-{{scoreClass
+                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
                                         system.skills.hacNghiep}}">
                             {{signedNumber system.skills.hacNghiep}}
                         </span>
@@ -666,8 +622,7 @@
 
                     <li class="ability-block__ability-item" data-action="roll-skill" data-target="sinhTon">
                         <span class="ability-block__ability-name">Sinh Tồn</span>
-                        <span
-                                class="ability-block__ability-score ability-block__score-{{scoreClass
+                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
                                         system.skills.sinhTon}}">
                             {{signedNumber system.skills.sinhTon}}
                         </span>
@@ -685,32 +640,28 @@
                 <ul class="ability-block__list" data-action="roll-skill" data-target="lanhDao">
                     <li class="ability-block__ability-item">
                         <span class="ability-block__ability-name">Lãnh Đạo</span>
-                        <span
-                                class="ability-block__ability-score ability-block__score-{{scoreClass
+                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
                                         system.skills.lanhDao}}">
                             {{signedNumber system.skills.lanhDao}}
                         </span>
                     </li>
                     <li class="ability-block__ability-item" data-action="roll-skill" data-target="leDao">
                         <span class="ability-block__ability-name">Lễ Đạo</span>
-                        <span
-                                class="ability-block__ability-score ability-block__score-{{scoreClass
+                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
                                         system.skills.leDao}}">
                             {{signedNumber system.skills.leDao}}
                         </span>
                     </li>
                     <li class="ability-block__ability-item" data-action="roll-skill" data-target="bieuDien">
                         <span class="ability-block__ability-name">Biểu Diễn</span>
-                        <span
-                                class="ability-block__ability-score ability-block__score-{{scoreClass
+                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
                                         system.skills.bieuDien}}">
                             {{signedNumber system.skills.bieuDien}}
                         </span>
                     </li>
                     <li class="ability-block__ability-item" data-action="roll-skill" data-target="tamY">
                         <span class="ability-block__ability-name">Tâm Ý</span>
-                        <span
-                                class="ability-block__ability-score ability-block__score-{{scoreClass
+                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
                                         system.skills.tamY}}">
                             {{signedNumber system.skills.tamY}}
                         </span>
@@ -729,32 +680,28 @@
                 <ul class="ability-block__list">
                     <li class="ability-block__ability-item" data-action="roll-skill" data-target="theThuat">
                         <span class="ability-block__ability-name">Thể Thuật</span>
-                        <span
-                                class="ability-block__ability-score ability-block__score-{{scoreClass
+                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
                                         system.skills.theThuat}}">
                             {{signedNumber system.skills.theThuat}}
                         </span>
                     </li>
                     <li class="ability-block__ability-item" data-action="roll-skill" data-target="voThuat">
                         <span class="ability-block__ability-name">Võ Thuật</span>
-                        <span
-                                class="ability-block__ability-score ability-block__score-{{scoreClass
+                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
                                         system.skills.voThuat}}">
                             {{signedNumber system.skills.voThuat}}
                         </span>
                     </li>
                     <li class="ability-block__ability-item" data-action="roll-skill" data-target="binhPhap">
                         <span class="ability-block__ability-name">Binh Pháp</span>
-                        <span
-                                class="ability-block__ability-score ability-block__score-{{scoreClass
+                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
                                         system.skills.binhPhap}}">
                             {{signedNumber system.skills.binhPhap}}
                         </span>
                     </li>
                     <li class="ability-block__ability-item" data-action="roll-skill" data-target="thienDinh">
                         <span class="ability-block__ability-name">Thiền Định</span>
-                        <span
-                                class="ability-block__ability-score ability-block__score-{{scoreClass
+                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
                                         system.skills.thienDinh}}">
                             {{signedNumber system.skills.thienDinh}}
                         </span>

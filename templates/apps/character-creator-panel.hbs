@@ -679,6 +679,7 @@
                 <img x-show="summaryEntry"
                      :src="summaryEntry?.thumbnailLarge ?? ''"
                      :alt="summaryEntry?.name ?? ''"/>
+                <div class="hv-cc__portrait-name" x-show="summaryEntry" x-text="summaryEntry?.name ?? ''"></div>
             </div>
 
             <div class="hv-cc__info" x-show="summaryEntry">

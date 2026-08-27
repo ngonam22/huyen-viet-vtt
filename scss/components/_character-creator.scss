@@ -758,6 +758,50 @@
   }
 }
 
+.hv-cc__portrait-name {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 6;
+  padding: 80px 14px 16px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(8, 5, 2, 0.45) 25%,
+    rgba(8, 5, 2, 0.82) 58%,
+    rgba(8, 5, 2, 0.97) 100%
+  );
+  color: var(--cc-gold);
+  font-family: "Cinzel", "Times New Roman", serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  line-height: 1.45;
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow:
+    0 0 22px rgba(202, 166, 108, 0.45),
+    0 1px 8px rgba(0, 0, 0, 1),
+    0 3px 18px rgba(0, 0, 0, 0.85);
+  word-break: break-word;
+
+  &::before {
+    content: '';
+    display: block;
+    height: 1px;
+    margin-bottom: 11px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(202, 166, 108, 0.5) 25%,
+      rgba(202, 166, 108, 0.85) 50%,
+      rgba(202, 166, 108, 0.5) 75%,
+      transparent 100%
+    );
+  }
+}
+
 .hv-cc__info {
   position: relative;
   grid-template-columns: auto 1fr;

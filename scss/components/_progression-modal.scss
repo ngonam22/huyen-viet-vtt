@@ -116,10 +116,55 @@
 /* ── Progression Modal ── */
 .hv-progression-modal {
     display: flex;
-    flex-direction: column;
     height: 100%;
     color: #d4c9a8;
     font-family: 'Crimson Pro', serif;
+
+    &__sidebar {
+        width: 190px;
+        min-width: 190px;
+        background: transparent url("/systems/huyen-viet-vtt/assets/thang-cap/left-sidebar.png") no-repeat top left;
+        background-size: 100% 100%;
+        height: 100%;
+    }
+    &__xp-overview {
+        margin-top: 120px;
+        padding: 0 30px 0;
+        color: #16130F;
+        font-size: 16px;
+        width: 100%;
+        text-align: center;
+    }
+    &__ring {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        background: transparent url("/systems/huyen-viet-vtt/assets/thang-cap/ring.png") no-repeat top left;
+        background-size: 100% 100%;
+        width: 100%;
+        aspect-ratio: 0.872204473;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 15px;
+
+        h4 {
+            font-size: 35px;
+            letter-spacing: 1.5px;
+            font-weight: bold;
+            color: #36312A;
+            font-family: $font-heading;
+            margin-bottom: 8px;
+        }
+    }
+
+    &__container {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+        background: transparent url("/systems/huyen-viet-vtt/assets/thang-cap/content-bar.png") no-repeat top left;
+        background-size: 100% 100%;
+    }
 
     /* Header */
     &__header {
@@ -127,50 +172,22 @@
         justify-content: space-between;
         align-items: center;
         padding: 12px 16px;
-        background: linear-gradient(135deg, rgba(30, 40, 35, 0.9), rgba(22, 32, 48, 0.9));
-        border-bottom: 1px solid rgba(212, 168, 67, 0.2);
-    }
-
-    &__xp-display {
-        display: flex;
-        align-items: baseline;
-        gap: 6px;
-    }
-
-    &__xp-icon { font-size: 20px; }
-
-    &__xp-label {
-        font-size: 12px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        color: rgba(212, 168, 67, 0.6);
-    }
-
-    &__xp-value {
-        font-size: 24px;
-        font-weight: 700;
-        color: #f1c40f;
-        text-shadow: 0 0 10px rgba(241, 196, 15, 0.3);
-    }
-
-    &__xp-sep {
-        color: rgba(212, 168, 67, 0.3);
-        font-size: 16px;
-    }
-
-    &__xp-total {
-        font-size: 14px;
-        color: rgba(212, 168, 67, 0.5);
+        margin-top: 50px;
     }
 
     &__sect-info {
-        text-align: right;
+        margin: 0 auto;
     }
 
     &__sect-name {
         display: block;
-        font-size: 13px;
-        color: #d4c9a8;
+        font-family: $font-serif;
+        font-weight: 500;
+        font-size: 35px;
+        letter-spacing: 0.08em;
+        color: #1a1209;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
     }
 
     &__sect-level {
@@ -189,34 +206,38 @@
     &__tabs {
         display: flex;
         border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding-left: 20px;
+        padding-right: 20px;
     }
 
     &__tab {
-        flex: 1;
-        padding: 10px 16px;
-        background: transparent;
+        position: relative;
+        padding: 10px 25px;
+        background: transparent url("/systems/huyen-viet-vtt/assets/thang-cap/tab.png") no-repeat top left;
+        background-size: 100% 100%;
         border: none;
-        border-bottom: 2px solid transparent;
-        color: rgba(212, 168, 67, 0.5);
+        height: 45px;
+        color: #1a1209;
         cursor: pointer;
-        font-family: 'Crimson Pro', serif;
-        font-size: 13px;
+        font-family: $font-serif;
+        font-size: 17px;
         font-weight: 600;
         letter-spacing: 0.5px;
         transition: all 0.2s;
+        margin-left: -15px;
+        z-index: 5;
 
-        &:hover {
-            color: rgba(212, 168, 67, 0.8);
-            background: rgba(212, 168, 67, 0.04);
+        &:hover, &.active {
+            outline: none;
+            color: #d4c9a8;
+            background-image: url("/systems/huyen-viet-vtt/assets/thang-cap/tab-active.png");
+            box-shadow: none;
         }
-
         &.active {
-            color: #f1c40f;
-            border-bottom-color: #f1c40f;
+            z-index: 15;
         }
-
-        i {
-            margin-right: 6px;
+        &:first-child {
+            margin: 0;
         }
     }
 
@@ -238,36 +259,17 @@
         position: relative;
         padding: 20px 14px;
         text-align: center;
-        border-radius: 10px;
         cursor: pointer;
         transition: all 0.25s;
         border: 1px solid rgba(255, 255, 255, 0.08);
-        background: rgba(255, 255, 255, 0.03);
+        width: 100%;
+        height: 110%;
+        background: transparent url("/systems/huyen-viet-vtt/assets/thang-cap/card-bg.png") top left no-repeat;
+        background-size: 100% 100%;
+        border-radius: 15px;
 
         &:hover {
-            transform: translateY(-3px);
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        &--element {
-            &:hover {
-                border-color: rgba(231, 76, 60, 0.5);
-                background: rgba(231, 76, 60, 0.06);
-            }
-        }
-
-        &--skill {
-            &:hover {
-                border-color: rgba(52, 152, 219, 0.5);
-                background: rgba(52, 152, 219, 0.06);
-            }
-        }
-
-        &--technique {
-            &:hover {
-                border-color: rgba(155, 89, 182, 0.5);
-                background: rgba(155, 89, 182, 0.06);
-            }
         }
     }
 
@@ -277,14 +279,19 @@
     }
 
     &__card-title {
-        font-size: 16px;
-        font-weight: 700;
+        margin-top: 15px;
         margin-bottom: 4px;
+        font-family: $font-serif;
+        font-weight: 600;
+        font-size: 18px;
+        color: #1a1209;
     }
 
     &__card-desc {
-        font-size: 11px;
-        color: rgba(212, 168, 67, 0.5);
+        font-family: $font-serif;
+        font-weight: 500;
+        font-size: 15px;
+        color: #1a1209;
     }
 
     /* Notification badge (golden glow dot) */
@@ -319,10 +326,12 @@
     }
 
     &__detail-title {
+        background: #AC9981;
         font-size: 16px;
         font-weight: 700;
-        margin-bottom: 12px;
-        color: #d4c9a8;
+        padding: 12px 10px;
+        color: black;
+        margin: 0;
     }
 
     /* ── Upgrade List ── */
@@ -332,7 +341,11 @@
         margin: 0;
         display: flex;
         flex-direction: column;
+        border: 1px solid #AD9C83;
+        color: black;
+        border-radius: 3px;
         gap: 6px;
+        text-transform: uppercase;
     }
 
     &__upgrade-item {
@@ -340,9 +353,7 @@
         align-items: center;
         gap: 8px;
         padding: 8px 12px;
-        border-radius: 6px;
-        border: 1px solid rgba(255, 255, 255, 0.06);
-        background: rgba(255, 255, 255, 0.02);
+        border-bottom: 1px solid #AD9C83;
         transition: all 0.2s;
 
         &:hover:not(.maxed) {
@@ -353,12 +364,16 @@
         &.maxed {
             opacity: 0.45;
         }
+        &:nth-last-child {
+            border: none;
+        }
     }
 
     &__upgrade-name {
         flex: 1;
         font-size: 13px;
         font-weight: 600;
+        font-family: $font-serif;
     }
 
     &__upgrade-level {
@@ -379,11 +394,14 @@
     }
 
     &__upgrade-cost {
+        display: flex;
         font-size: 12px;
         font-weight: 600;
-        color: #f1c40f;
+        color: rgb(13, 11, 10);
         min-width: 50px;
-        text-align: right;
+        justify-content: center;
+        align-items: center;
+        gap: 6px;
 
         &.insufficient {
             color: #e74c3c;
@@ -391,19 +409,16 @@
     }
 
     &__upgrade-btn {
-        background: linear-gradient(135deg, rgba(46, 204, 113, 0.2), rgba(39, 174, 96, 0.3));
-        border: 1px solid rgba(46, 204, 113, 0.5);
+        background: #45423b;
         border-radius: 4px;
-        color: #2ecc71;
+        color: #CCAF82;
         padding: 4px 12px;
         cursor: pointer;
         font-size: 11px;
         font-weight: 600;
-        transition: all 0.2s;
 
         &:hover:not(:disabled) {
-            background: linear-gradient(135deg, rgba(46, 204, 113, 0.35), rgba(39, 174, 96, 0.5));
-            box-shadow: 0 0 8px rgba(46, 204, 113, 0.25);
+            background: rgb(101, 95, 83);
         }
 
         &:disabled {
@@ -460,6 +475,55 @@
         }
 
         p { font-size: 14px; }
+    }
+}
+
+/* ── Changelog XP Summary ── */
+.hv-changelog-summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 16px;
+
+    &__item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        padding: 10px 8px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+
+        &--element { border-color: rgba(231, 76, 60, 0.3); }
+        &--skill    { border-color: rgba(52, 152, 219, 0.3); }
+        &--technique { border-color: rgba(155, 89, 182, 0.3); }
+        &--total {
+            border-color: rgba(212, 168, 67, 0.4);
+            background: rgba(212, 168, 67, 0.06);
+        }
+    }
+
+    &__icon { font-size: 16px; line-height: 1; }
+
+    &__label {
+        font-size: 10px;
+        color: rgba(180, 170, 140, 0.7);
+        text-align: center;
+        line-height: 1.2;
+    }
+
+    &__value {
+        font-size: 13px;
+        font-weight: 700;
+        color: #d4c9a8;
+
+        .hv-changelog-summary__item--total & {
+            color: #f1c40f;
+            font-size: 14px;
+            justify-content: center;
+            align-items: center;
+        }
     }
 }
 
