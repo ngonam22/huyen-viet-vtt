@@ -7,21 +7,22 @@
             <select class="hv-em__select" id="skillSelect">
                 <option value="">— Không chọn —</option>
                 {{#each skillOptions}}
-                    <option value="{{key}}" {{#if isSelected}}selected{{/if}}>{{label}} ({{signedNumber value}})</option>
+                <option value="{{key}}" {{#if isSelected}}selected{{/if}}>{{label}} ({{signedNumber value}})</option>
                 {{/each}}
             </select>
         </div>
         <div class="hv-em__pick-col">
             <div class="section-label">Vũ Khí</div>
             {{#if equippedWeapons.length}}
-                <select class="hv-em__select" id="weaponSelect">
-                    <option value="">— Không dùng —</option>
-                    {{#each equippedWeapons}}
-                        <option value="{{id}}" {{#if isSelected}}selected{{/if}}>{{name}} (+{{effectiveDamage}} sát thương)</option>
-                    {{/each}}
-                </select>
+            <select class="hv-em__select" id="weaponSelect">
+                <option value="">— Không dùng —</option>
+                {{#each equippedWeapons}}
+                <option value="{{id}}" {{#if isSelected}}selected{{/if}}>{{name}} (+{{effectiveDamage}} sát thương)
+                </option>
+                {{/each}}
+            </select>
             {{else}}
-                <div class="hv-em__no-weapon">Không có vũ khí trang bị</div>
+            <div class="hv-em__no-weapon">Không có vũ khí trang bị</div>
             {{/if}}
         </div>
     </div>
@@ -29,51 +30,59 @@
     <!-- Elements -->
     <div class="section-label">Ngũ Hành</div>
     <div class="elements-grid tw:grid tw:grid-cols-5 tw:text-center" id="elementsGrid">
-        <div id="kim-tablet" class="elemental-tablet tw:flex tw:flex-wrap tw:justify-center tw:items-center tw:space-between" data-element-key="kim">
+        <div id="kim-tablet"
+            class="elemental-tablet tw:flex tw:flex-wrap tw:justify-center tw:items-center tw:space-between"
+            data-element-key="kim">
             <img src="/systems/huyen-viet-vtt/assets/icons/kim-tablet-icon.webp" alt="Fire Icon" width="25" />
             <span class="tablet-text">Kim</span>
             <div class="tw:text-beige-200 tw:text-shadow tw:font-bold tw:text-3xl">
                 {{signedNumber
-                        system.elements.kim.value}}
+                system.elements.kim.value}}
             </div>
         </div>
-        <div id="moc-tablet" class="elemental-tablet tw:flex tw:flex-wrap tw:justify-center tw:items-center tw:space-between" data-element-key="moc">
+        <div id="moc-tablet"
+            class="elemental-tablet tw:flex tw:flex-wrap tw:justify-center tw:items-center tw:space-between"
+            data-element-key="moc">
             <img src="/systems/huyen-viet-vtt/assets/icons/moc-tablet-icon.webp" alt="Fire Icon" width="25" />
             <span class="tablet-text">Mộc</span>
             <div class="tw:text-beige-200 tw:text-shadow tw:font-bold tw:text-3xl">
                 {{signedNumber
-                        system.elements.moc.value}}
+                system.elements.moc.value}}
             </div>
         </div>
-        <div id="thuy-tablet" class="elemental-tablet tw:flex tw:flex-wrap tw:justify-center tw:items-center tw:space-between" data-element-key="thuy">
+        <div id="thuy-tablet"
+            class="elemental-tablet tw:flex tw:flex-wrap tw:justify-center tw:items-center tw:space-between"
+            data-element-key="thuy">
             <img src="/systems/huyen-viet-vtt/assets/icons/thuy-tablet-icon.webp" alt="Water Icon" width="25" />
             <span class="tablet-text">Thủy</span>
             <div class="tw:text-beige-200 tw:text-shadow tw:font-bold tw:text-3xl">
                 {{signedNumber
-                        system.elements.thuy.value}}
+                system.elements.thuy.value}}
             </div>
         </div>
-        <div id="hoa-tablet" class="elemental-tablet tw:flex tw:flex-wrap tw:justify-center tw:items-center tw:space-between">
+        <div id="hoa-tablet"
+            class="elemental-tablet tw:flex tw:flex-wrap tw:justify-center tw:items-center tw:space-between">
             <img src="/systems/huyen-viet-vtt/assets/icons/hoa-tablet-icon.webp" alt="Water Icon" width="25" />
             <span class="tablet-text">Hỏa</span>
             <div class="tw:text-beige-200 tw:text-shadow tw:font-bold tw:text-3xl">
                 {{signedNumber
-                        system.elements.hoa.value}}
+                system.elements.hoa.value}}
             </div>
         </div>
-        <div id="tho-tablet" class="elemental-tablet tw:flex tw:flex-wrap tw:justify-center tw:items-center tw:space-between">
+        <div id="tho-tablet"
+            class="elemental-tablet tw:flex tw:flex-wrap tw:justify-center tw:items-center tw:space-between">
             <img src="/systems/huyen-viet-vtt/assets/icons/tho-tablet-icon.webp" alt="Water Icon" width="25" />
             <span class="tablet-text">Thổ</span>
             <div class="tw:text-beige-200 tw:text-shadow tw:font-bold tw:text-3xl">
                 {{signedNumber
-                        system.elements.tho.value}}
+                system.elements.tho.value}}
             </div>
         </div>
     </div>
 
     <!-- Advantage -->
-    <div class="section-label">Xúc Xắc</div>
-    <div class="tw:grid tw:grid-cols-3 tw:gap-4 tw:mb-4 tw:text-center">
+    <div class="section-label tw:hidden">Xúc Xắc</div>
+    <div class="tw:grid tw:grid-cols-3 tw:gap-4 tw:mb-4 tw:text-center tw:hidden">
         <button class="roll-option-btn tw:text-base" data-roll-type="disadvantage">
             <span class="disadvantageThumb"></span>
             Bất Lợi
@@ -109,12 +118,6 @@
         </button>
     </div>
 
-    <!-- Initiative -->
-    <div class="tw:mb-12">
-        <div class="section-label">Roll for Initiative</div>
-        <div class="initiative-list" id="initiativeList"></div>
-    </div>
-
     <!-- Advanced Customization Accordion -->
     <div class="hv-em__accordion">
         <button class="hv-em__accordion-toggle" type="button" id="advancedToggle">
@@ -130,14 +133,14 @@
                         <span class="slider-max"> / 12</span>
                     </div>
                 </div>
-                <input type="range" id="mainSlider" min="0" max="12" value="0"/>
+                <input type="range" id="mainSlider" min="0" max="12" value="0" />
                 <div class="tick-row" id="tickRow"></div>
             </div>
         </div>
     </div>
 
     <!-- CTA -->
-    <button class="tw:text-beige-700 tw:bg-danger  tw:mx-auto" id="ctaBtn" data-action="roll-dice">
+    <button class="tw:text-beige-700 tw:bg-danger tw:mx-auto tw:text-white" id="ctaBtn" data-action="roll-dice">
         <span class="cta-orn">☰</span>Gieo Thiên Mệnh<span class="cta-orn">☷</span>
     </button>
 </section>
