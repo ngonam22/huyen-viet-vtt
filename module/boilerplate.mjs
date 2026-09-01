@@ -14,6 +14,7 @@ import {registerChatHooks} from "./chat/chat-hooks";
 import {registerCombatResetHooks} from "./hooks/combat-reset";
 import {registerSidebarItemsModalHook} from "./hooks/sidebar-items-modal.mjs";
 import {registerCharacterCreatorHooks} from "./hooks/character-creator.mjs";
+import { registerTokenHanhTheHooks } from "./hooks/token-hanh-the";
 
 const collections = foundry.documents.collections;
 const sheets = foundry.appv1.sheets;
@@ -108,6 +109,7 @@ Hooks.once('init', function () {
   registerCombatResetHooks();
   registerSidebarItemsModalHook();
   registerCharacterCreatorHooks();
+  registerTokenHanhTheHooks();
 });
 
 /* -------------------------------------------- */
