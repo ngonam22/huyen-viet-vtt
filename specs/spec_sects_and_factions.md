@@ -146,10 +146,10 @@ upgrade: [{ target: 'element', choose: 2, mode: 'add', effects: [/* 5 hành */] 
 2. **`progressionReqs: Record<number, MonPhaiLevelRequirement>`** — Bảng yêu cầu kỹ năng để Đặc Kỹ Môn Phái tự thăng cấp dựa vào TotalXP. Ví dụ `tinhLyYSu`:
 ```typescript
 {
-    2: { yHoc: 3, theThuat: 1 }, 
-    3: { yHoc: 4, theThuat: 2, thanHoc: 1 }
+    2: { yDuoc: 3, theThuat: 1 }, 
+    3: { yDuoc: 4, theThuat: 2, thanHoc: 1 }
 }
 ```
-Khi `totalXp` của nhân vật cán mốc Cấp 2 (20-50 XP), hệ thống sẽ lấy Object của cấp 2 ra (`{ yHoc: 3, theThuat: 1 }`) và tự động lặp qua các key này để kiểm tra xem cấp độ kỹ năng hiện tại của char có >= mức yêu cầu hay không. Nếu Đạt, cấp độ Môn phái được nâng lên 2.
+Khi `totalXp` của nhân vật cán mốc Cấp 2 (20-50 XP), hệ thống sẽ lấy Object của cấp 2 ra (`{ yDuoc: 3, theThuat: 1 }`) và tự động lặp qua các key này để kiểm tra xem cấp độ kỹ năng hiện tại của char có >= mức yêu cầu hay không. Nếu Đạt, cấp độ Môn phái được nâng lên 2.
 
 **Việc cần làm của Game Designer:** Game Designer sẽ cần mở file `module/helpers/config.ts` và dần lấp đầy các thông số yêu cầu chi tiết cho từng Phái ở bảng `progressionReqs` theo đúng chuẩn Rulebook. Field `upgrade` cho skill bonus sẽ được bổ sung sau khi Game Designer hoàn thiện giáo trình kỹ năng.

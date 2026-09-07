@@ -494,7 +494,7 @@ Mười hai địa phận thành được chia thành ba vòng, mỗi vòng bố
 1. Tịnh Lý Thị Tộc (Tý)
 Linh Giáp: Chuột
 Vị Trí: Nội Bắc
-Cơ chế: +1 bậc Thủy Hành, +1 bậc Y ThuậtTịnh Lý thị tộc quản lý vùng nội tỉnh phía bắc Đế Đô Đại Việt. Họ điều hành hệ thống y tế của Đế Quốc, và đồng thời nghiên cứu phát triển ngành y học của đất nước. Người Tịnh Lý thường có chủ trương đồng cảm và tinh thần đoàn kết rất cao, vì thế mà họ được giao trách nhiệm bảo hộ cư dân Đế Quốc khỏi các nguy cơ dịch bệnh và tập trung mũi nhọn y tế.
+Cơ chế: +1 bậc Thủy Hành, +1 bậc Y ThuậtTịnh Lý thị tộc quản lý vùng nội tỉnh phía bắc Đế Đô Đại Việt. Họ điều hành hệ thống y tế của Đế Quốc, và đồng thời nghiên cứu phát triển ngành y dược của đất nước. Người Tịnh Lý thường có chủ trương đồng cảm và tinh thần đoàn kết rất cao, vì thế mà họ được giao trách nhiệm bảo hộ cư dân Đế Quốc khỏi các nguy cơ dịch bệnh và tập trung mũi nhọn y tế.
 Tịnh Lý thế giaTịnh Lý thế gia là chính tộc của Tịnh Lý, cũng là hậu duệ của Tịnh Lý linh giáp xưa kia. Họ được thừa hưởng và phát dương kiến thức Y Thuật nổi tiếng của ngài để phục vụ toàn cõi Đế Quốc.
 Ngũ Hành: +1 bậc Kim Hành hoặc Mộc Hành
 Kỹ Năng: +1 Y Thuật và +1 Khoa Học
@@ -954,7 +954,7 @@ Các học sĩ tập trung nghiên cứu và phát triển hệ thống kiến t
 - Thần Học
 - Xã Hội Học
 - Chính Trị Học
-- Y Học
+- Y Dược
 - Khoa Học
 Sinh Đạo
 Nhóm các kỹ năng nghề nghiệp lớn có công năng tạo nên của cải của xã hội và sự vận động của nền kinh tế.
@@ -1116,7 +1116,7 @@ Giáp trụ
 Vũ khí công thành
 Y Thuật
 Ở Đại Việt, Y thuật được coi là một nghề nghiệp quan trọng và cao quý, vì nó liên quan đến mạng sống của con người. Nó là một phần không thể thiếu của xã hội để duy trì sức khỏe và phòng ngừa bệnh tật cho bách tín, quan lại, binh sĩ cũng như hoàng quyền. Vì thế mà mặt trái của y thuật cũng có tác hại tương ứng mà nhận được sự khinh bỉ của xã hội, ví dụ như độc dược hay lây nhiễm bệnh tật, ôn dịch.
-Y thuật còn là một nghệ thuật phải cần sự học tập và nghiên cứu bên cạnh các kỹ năng áp dụng thực thế. Vì thế mà một số hoạt động trong lĩnh vực Y thuật có liên quan đến y học có thể vận dụng các phương pháp của giới Học Thuật, thay vì Cao Nghệ.
+Y thuật còn là một nghệ thuật phải cần sự học tập và nghiên cứu bên cạnh các kỹ năng áp dụng thực thế. Vì thế mà một số hoạt động trong lĩnh vực Y thuật có liên quan đến y dược có thể vận dụng các phương pháp của giới Học Thuật, thay vì Cao Nghệ.
 Ngũ hành trong Y Thuật
 Hỏa hành (Sáng Chế)
 -Thử nghiệm các loại dược liệu mới, chưa biết công dụng
@@ -1127,7 +1127,7 @@ Thổ hành (Phục Hồi)
 -Cầm máu vết thương
 -Chế tạo bông băng và dụng cụ y tế
 -Chữa trị vết thương
-- (Kiến thức): Truy vấn kiến thức y học và phương pháp trị liệu
+- (Kiến thức): Truy vấn kiến thức y dược và phương pháp trị liệu
 Kim hành (Tinh Luyện)
 -Thực hiện phẫu thuật, giải phẫu
 -Cung cấp và điều phối độc, dược liệu theo liều lượng chuẩn xác
@@ -1512,7 +1512,7 @@ Tổng Quát:
 Học thuật ở Đại Việt đóng vai trò rất quan trọng trong đời sống xã hội và chính trị của đất nước. Học thuật không chỉ đóng vai trò giám sát và kiểm soát hoạt động của triều đình, mà còn là một phần cốt lõi trong văn hóa truyền thống và lịch sử Đại Việt.
 Được coi là một tầng lớp có kiến thức và đạo đức cao trong xã hội, các nhà học thuật thời được triều đình trọng thưởng và thường được mời tham gia vào việc lập pháp và quản lý đế quốc. Họ cũng thường đóng vai trò quan trọng trong việc giáo dục và hướng dẫn các quan lại và dân chúng về các giá trị đạo đức và tôn giáo.
 Ngoài ra, học thuật còn là một phần không thể thiếu trong văn hóa truyền thống của Đại Việt Các tác phẩm văn học, triết học, lịch sử và khoa học của các nhà học thuật đã góp phần tạo nên văn hóa phong phú và đa dạng của đế quốc.
-Các đại sĩ đều nói biển học là vô bờ. Tuy vật, để tiện quản lý và lưu giữ, Học thuật được các học sĩ chia thành năm lĩnh vực lớn là Xã Hội Học, Chính Trị Học, Y Học, Tâm Lý Học và Thần Học
+Các đại sĩ đều nói biển học là vô bờ. Tuy vật, để tiện quản lý và lưu giữ, Học thuật được các học sĩ chia thành năm lĩnh vực lớn là Xã Hội Học, Chính Trị Học, Y Dược, Tâm Lý Học và Thần Học
 Học Thuật và Ngũ Hành
 Mỗi hành trong Ngũ hành tương ứng với một phương thức hoạt động trong lĩnh vực Học Thuật
 Hỏa hành (Sáng Kiến)

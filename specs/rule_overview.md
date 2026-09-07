@@ -77,7 +77,7 @@ system: {
   }
   skills: {
     // Học Đạo
-    chinhTri, khoaHoc, thanHoc, xaHoi, yHoc: int 0–6
+    chinhTri, khoaHoc, thanHoc, xaHoi, yDuoc: int 0–6
     // Nghệ Đạo
     myThuat, vanTu, thoiTrang, renDuc: int 0–6
     // Sinh/Hắc Đạo
@@ -116,7 +116,7 @@ system: {
 ### 3.4. Kỹ Năng (Skills - Ngũ Đại Quốc Đạo)
 Chấm điểm từ 0–6 (thực tế), chia làm 5 nhóm:
 1.  **Võ Đạo:** Thể Thuật, Võ Thuật, Binh Pháp, Thiền Định.
-2.  **Học Đạo:** Chính Trị, Khoa Học, Thần Học, Xã Hội, Y Học.
+2.  **Học Đạo:** Chính Trị, Khoa Học, Thần Học, Xã Hội, Y Dược.
 3.  **Nghệ Đạo:** Mỹ Thuật, Văn Tự, Thời Trang, Rèn Đúc (tên cũ là Chiến Cụ).
 4.  **Tâm Đạo:** Lãnh Đạo, Lễ Đạo, Biểu Diễn, Tâm Ý.
 5.  **Sinh/Hắc Đạo:** Lao Động, Thương Nghiệp, Hải Nghiệp, Hắc Nghiệp, Sinh Tồn.

@@ -3,7 +3,7 @@ import {UpgradeRule} from "./upgrade";
 
 /**
  * Định nghĩa cấu trúc yêu cầu của một cấp Đặc Kỹ Môn Phái.
- * Key là mã ID của kỹ năng (VD: yHoc, theThuat), Value là cấp độ kỹ năng tối thiểu yêu cầu.
+ * Key là mã ID của kỹ năng (VD: yDuoc, theThuat), Value là cấp độ kỹ năng tối thiểu yêu cầu.
  */
 export type MonPhaiLevelRequirement = Partial<Record<HvSkillKey, number>>;
 

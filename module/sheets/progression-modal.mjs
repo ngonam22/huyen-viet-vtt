@@ -39,7 +39,7 @@ const SKILL_LABELS = {
     khoaHoc:      'Khoa Học',
     thanHoc:      'Thần Học',
     xaHoi:        'Xã Hội',
-    yHoc:         'Y Học',
+    yDuoc:         'Y Dược',
     myThuat:      'Mỹ Thuật',
     vanTu:        'Văn Tự',
     thoiTrang:    'Thời Trang',

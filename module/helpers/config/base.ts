@@ -12,7 +12,7 @@ export const SKILL_KEYS = [
     "khoaHoc",
     "thanHoc",
     "xaHoi",
-    "yHoc",
+    "yDuoc",
 
     "myThuat",
     "vanTu",
@@ -53,9 +53,9 @@ export const SKILLS: Record<HvSkillKey, {}>= {
         ten: 'BOILERPLATE.Skills.xaHoi.label',
         description: 'BOILERPLATE.Skills.xaHoi.label',
     },
-    "yHoc": {
-        ten: 'BOILERPLATE.Skills.yHoc.label',
-        description: 'BOILERPLATE.Skills.yHoc.label',
+    "yDuoc": {
+        ten: 'BOILERPLATE.Skills.yDuoc.label',
+        description: 'BOILERPLATE.Skills.yDuoc.label',
     },
 
     "myThuat": {
@@ -215,7 +215,7 @@ export const SKILL_LABELS: Record<HvSkillKey, string> = {
     khoaHoc:      'Khoa Học',
     thanHoc:      'Thần Học',
     xaHoi:        'Xã Hội',
-    yHoc:         'Y Học',
+    yDuoc:         'Y Dược',
     myThuat:      'Mỹ Thuật',
     vanTu:        'Văn Tự',
     thoiTrang:    'Thời Trang',

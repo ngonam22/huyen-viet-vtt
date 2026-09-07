@@ -15,7 +15,7 @@ export interface CharacterSkills {
     khoaHoc: number;
     thanHoc: number;
     xaHoi: number;
-    yHoc: number;
+    yDuoc: number;
 
     // Nghe Dao Skills
     myThuat: number;

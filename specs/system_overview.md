@@ -96,7 +96,7 @@ Clan animal signs (Thập Nhị Linh Giáp): Chuột, Trâu, Hổ, Mèo, Thìn, 
 | **Võ Đạo**   | Thể Thuật, Võ Thuật, Binh Pháp, Thiền Định               |
 | **Văn Đạo**  | Lễ Đạo, Xã Hội, Chính Trị, Văn Tự                       |
 | **Nghệ Đạo** | Mỹ Thuật, Thời Trang, Chiến Cụ, Biểu Diễn               |
-| **Tu Đạo**   | Thần Học, Y Học, Lãnh Đạo, Tâm Ý                        |
+| **Tu Đạo**   | Thần Học, Y Dược, Lãnh Đạo, Tâm Ý                        |
 | **Sinh/Hắc** | Lao Động, Thương Nghiệp, Hải Nghiệp, Hắc Nghiệp, Sinh Tồn |
 
 ---

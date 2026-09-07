@@ -25,11 +25,11 @@ export const MON_PHAI: Record<string, MonPhai> = {
             }
         ],
         progressionReqs: {
-            2: { yHoc: 3, theThuat: 1 },
-            3: { yHoc: 4, theThuat: 2, thanHoc: 1 },
-            4: { yHoc: 5, theThuat: 3, thanHoc: 2 },
-            5: { yHoc: 5, theThuat: 4, thanHoc: 4, tamY: 2 },
-            6: { yHoc: 5, theThuat: 5, thanHoc: 5, tamY: 4 }
+            2: { yDuoc: 3, theThuat: 1 },
+            3: { yDuoc: 4, theThuat: 2, thanHoc: 1 },
+            4: { yDuoc: 5, theThuat: 3, thanHoc: 2 },
+            5: { yDuoc: 5, theThuat: 4, thanHoc: 4, tamY: 2 },
+            6: { yDuoc: 5, theThuat: 5, thanHoc: 5, tamY: 4 }
         },
         initItems: [
             {id: 'hanh-phuc', quantity: 1},
@@ -162,8 +162,8 @@ export const MON_PHAI: Record<string, MonPhai> = {
             2: { thienDinh: 2, thanHoc: 1 },
             3: { thienDinh: 3, thanHoc: 2, tamY: 1 },
             4: { thienDinh: 4, thanHoc: 3, tamY: 2 },
-            5: { thienDinh: 5, thanHoc: 4, tamY: 4, yHoc: 2 },
-            6: { thienDinh: 5, thanHoc: 5, tamY: 5, yHoc: 4 }
+            5: { thienDinh: 5, thanHoc: 4, tamY: 4, yDuoc: 2 },
+            6: { thienDinh: 5, thanHoc: 5, tamY: 5, yDuoc: 4 }
         },
         initItems: [
             {id: 'hanh-phuc', quantity: 1},

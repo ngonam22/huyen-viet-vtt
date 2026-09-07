@@ -26,7 +26,7 @@ export const THI_TOC: ThiToc[] = [
                 mode: 'add',
                 effects: [
                     {
-                        name: 'yHoc',
+                        name: 'yDuoc',
                         value: 1
                     }
                 ]
