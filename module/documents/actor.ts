@@ -377,15 +377,17 @@ export class huyenvietvttActor extends Actor {
         // thay bằng công thức rulebook
         system.abilities.sucLuc.base = 5 + moc + hoa + tho;
         system.abilities.tamLuc.base = thuy + tho + kim;
-        system.abilities.canhGiac.value = Math.ceil((hoa + kim + tho) / 3);
-        system.abilities.chuTam.value = kim + thuy + moc;
-        system.abilities.tocDo.value = Math.ceil((thuy + moc + hoa) / 2);
+        system.abilities.canhGiac.value = Math.ceil((thuy + kim + moc) / 3);
+        system.abilities.chuTam.value = kim + hoa + tho;
+        system.abilities.tocDo.value = Math.ceil((thuy + moc + hoa) / 3);
+
+        // update NguHop = min 5 hanh 07/09/2026
         system.abilities.nguHop.value = Math.min(
-            system.abilities.sucLuc.base,
-            system.abilities.tamLuc.base,
-            system.abilities.canhGiac.value,
-            system.abilities.chuTam.value,
-            system.abilities.tocDo.value
+            hoa,
+            tho,
+            kim,
+            thuy,
+            moc
         );
 
         // update skills vao lai trong system

@@ -32,6 +32,7 @@ export class ElementModal extends HandlebarsApplicationMixin(ApplicationV2)
         this._selectedElement = "kim";
         this._selectedSkillKey = skillKey ?? null;
         this._selectedWeaponId = null;
+        this._additionalDice = 0;
         this._rollType = "normal";
         this._chatMode = game.settings?.get("core", "rollMode") ?? "publicroll";
     }
@@ -101,6 +102,16 @@ export class ElementModal extends HandlebarsApplicationMixin(ApplicationV2)
             });
         }
 
+        // Keep the displayed value and roll count in sync with the slider.
+        const $diceSlider = el.querySelector('#mainSlider');
+        const $sliderValue = el.querySelector('#sliderVal');
+        if ($diceSlider && $sliderValue) {
+            $diceSlider.addEventListener('input', () => {
+                this._additionalDice = Number($diceSlider.value);
+                $sliderValue.textContent = $diceSlider.value + 'D10';
+            });
+        }
+
         // Roll mode selection (publicroll / gmroll / blindroll / selfroll)
         const $rollModeBtns = el.querySelectorAll('.roll-mode-btn');
         $rollModeBtns.forEach(btn => {
@@ -149,7 +160,7 @@ export class ElementModal extends HandlebarsApplicationMixin(ApplicationV2)
             const elementValue = this._selectedElement
                 ? (this.actor.system.elements[this._selectedElement]?.value ?? 0)
                 : 0;
-            const numDice = Math.max(1, skillValue + elementValue);
+            const numDice = Math.max(1, skillValue + elementValue + this._additionalDice);
 
             const selectedWeapon = this._selectedWeaponId
                 ? this.actor.items.get(this._selectedWeaponId)

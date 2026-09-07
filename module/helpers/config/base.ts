@@ -219,7 +219,7 @@ export const SKILL_LABELS: Record<HvSkillKey, string> = {
     myThuat:      'Mỹ Thuật',
     vanTu:        'Văn Tự',
     thoiTrang:    'Thời Trang',
-    renDuc:      'Chiến Cụ',
+    renDuc:      'Rèn Đúc',
     laoDong:      'Lao Động',
     thuongNghiep: 'Thương Nghiệp',
     haiNghiep:    'Hải Nghiệp',
