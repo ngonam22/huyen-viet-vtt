@@ -379,7 +379,7 @@ export class huyenvietvttActor extends Actor {
         system.abilities.tamLuc.base = thuy + tho + kim;
         system.abilities.canhGiac.value = Math.ceil((hoa + kim + tho) / 3);
         system.abilities.chuTam.value = kim + thuy + moc;
-        system.abilities.tocDo.value = (thuy + moc + hoa) / 2;
+        system.abilities.tocDo.value = Math.ceil((thuy + moc + hoa) / 2);
         system.abilities.nguHop.value = Math.min(
             system.abilities.sucLuc.base,
             system.abilities.tamLuc.base,

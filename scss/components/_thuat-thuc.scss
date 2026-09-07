@@ -17,12 +17,12 @@
       padding: 0.25rem 0.6rem;
       border: 1px solid rgba(0, 0, 0, 0.25);
       border-radius: 4px;
-      background: rgba(255, 255, 255, 0.7);
+      background: #1c1b1b;
       cursor: pointer;
       font-size: 0.85rem;
 
       &:hover {
-        background: rgba(255, 255, 255, 0.9);
+        background: #3d3d3d;
       }
     }
 
@@ -44,7 +44,7 @@
     border-radius: 4px;
     padding: 0;
 
-    > summary {
+    >summary {
       cursor: pointer;
       font-weight: 600;
       padding: 0.25rem 0;
@@ -132,14 +132,40 @@
   color: rgba(0, 0, 0, 0.75);
   white-space: nowrap;
 
-  &.badge-warn   { background: rgba(200, 120, 0, 0.2); color: #a04c00; }
-  &.badge-maHoa  { background: rgba(100, 0, 100, 0.2); color: #5a005a; }
+  &.badge-warn {
+    background: rgba(200, 120, 0, 0.2);
+    color: #a04c00;
+  }
 
-  &.badge-hoa  { background: rgba(200, 50, 40, 0.18);  color: #8a2222; }
-  &.badge-tho  { background: rgba(140, 90, 40, 0.18);  color: #6d4216; }
-  &.badge-kim  { background: rgba(180, 180, 200, 0.4); color: #505060; }
-  &.badge-thuy { background: rgba(40, 100, 180, 0.18); color: #1e4f88; }
-  &.badge-moc  { background: rgba(50, 140, 60, 0.18);  color: #285a30; }
+  &.badge-maHoa {
+    background: rgba(100, 0, 100, 0.2);
+    color: #5a005a;
+  }
+
+  &.badge-hoa {
+    background: rgba(200, 50, 40, 0.18);
+    color: #8a2222;
+  }
+
+  &.badge-tho {
+    background: rgba(140, 90, 40, 0.18);
+    color: #6d4216;
+  }
+
+  &.badge-kim {
+    background: rgba(180, 180, 200, 0.4);
+    color: #505060;
+  }
+
+  &.badge-thuy {
+    background: rgba(40, 100, 180, 0.18);
+    color: #1e4f88;
+  }
+
+  &.badge-moc {
+    background: rgba(50, 140, 60, 0.18);
+    color: #285a30;
+  }
 }
 
 // Item sheet (thuatThuc)
@@ -152,7 +178,9 @@
     gap: 0.4rem;
     margin-bottom: 0.75rem;
 
-    h3 { margin: 0; }
+    h3 {
+      margin: 0;
+    }
 
     .badges {
       display: flex;
@@ -167,8 +195,13 @@
     gap: 0.25rem 0.75rem;
     margin: 0.5rem 0;
 
-    dt { font-weight: 600; }
-    dd { margin: 0; }
+    dt {
+      font-weight: 600;
+    }
+
+    dd {
+      margin: 0;
+    }
   }
 
   .primary-effect,
@@ -176,8 +209,15 @@
   .prerequisites {
     margin-top: 0.6rem;
 
-    h4 { margin: 0 0 0.25rem; font-size: 0.9rem; }
-    ul { margin: 0; padding-left: 1rem; }
+    h4 {
+      margin: 0 0 0.25rem;
+      font-size: 0.9rem;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 1rem;
+    }
   }
 
   .sincerity-effects li {
@@ -205,7 +245,9 @@
       margin-bottom: 0.25rem;
     }
 
-    textarea { width: 100%; }
+    textarea {
+      width: 100%;
+    }
   }
 }
 
@@ -219,8 +261,17 @@
     align-items: center;
     margin-bottom: 0.35rem;
 
-    h3 { margin: 0; font-size: 1rem; }
-    .badges { display: flex; flex-wrap: wrap; gap: 0.2rem; margin-top: 0.15rem; }
+    h3 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.2rem;
+      margin-top: 0.15rem;
+    }
   }
 
   .trait-chips {
@@ -236,15 +287,23 @@
     gap: 0.1rem 0.5rem;
     margin: 0.35rem 0;
 
-    dt { font-weight: 600; }
-    dd { margin: 0; }
+    dt {
+      font-weight: 600;
+    }
+
+    dd {
+      margin: 0;
+    }
   }
 
   .primary-effect,
   .sincerity-effects {
     margin-top: 0.35rem;
 
-    ul { margin: 0.15rem 0 0; padding-left: 1rem; }
+    ul {
+      margin: 0.15rem 0 0;
+      padding-left: 1rem;
+    }
   }
 }
 
@@ -257,8 +316,14 @@
     gap: 0.35rem;
     margin-bottom: 0.5rem;
 
-    input[type='search'] { flex: 1 1 auto; min-width: 0; }
-    select { flex: 0 0 auto; }
+    input[type='search'] {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    select {
+      flex: 0 0 auto;
+    }
   }
 
   .picker-list {
@@ -277,8 +342,16 @@
     padding: 0.35rem 0.5rem;
     border-bottom: 1px solid rgba(0, 0, 0, 0.07);
 
-    .picker-name strong { display: block; }
-    .row-badges { display: flex; flex-wrap: wrap; gap: 0.2rem; margin-top: 0.15rem; }
+    .picker-name strong {
+      display: block;
+    }
+
+    .row-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.2rem;
+      margin-top: 0.15rem;
+    }
 
     .picker-actions button {
       padding: 0.2rem 0.6rem;
@@ -287,7 +360,9 @@
       background: rgba(255, 255, 255, 0.7);
       cursor: pointer;
 
-      &:hover { background: rgba(255, 255, 255, 1); }
+      &:hover {
+        background: rgba(255, 255, 255, 1);
+      }
     }
   }
 
