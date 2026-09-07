@@ -86,10 +86,6 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
             template: 'systems/huyen-viet-vtt/templates/actor/biography.hbs',
             scrollable: [""],
         },
-        spells: {
-            template: 'systems/huyen-viet-vtt/templates/actor/spells.hbs',
-            scrollable: [""],
-        },
         inventory: {
             template: 'systems/huyen-viet-vtt/templates/actor/inventory.hbs',
             scrollable: [""],
@@ -294,7 +290,7 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
         // Control which parts show based on document subtype
         switch (this.document.type) {
             case 'character':
-                options.parts.push('inventory', 'features', 'thuatThuc', 'spells', 'effects', 'biography');
+                options.parts.push('inventory', 'features', 'thuatThuc', 'effects', 'biography');
                 break;
             case 'npc':
                 options.parts.push('effects', 'biography');
@@ -388,9 +384,6 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
     async _preparePartContext(partId, context) {
         switch (partId) {
             case 'features':
-            case 'spells':
-                context.tab = context.tabs[partId];
-                break;
             case 'biography': {
                 context.tab = context.tabs[partId];
                 const identity = this.actor.system.identity;
@@ -526,10 +519,6 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
                 case 'inventory':
                     tab.id = 'inventory';
                     tab.label += 'Inventory';
-                    break;
-                case 'spells':
-                    tab.id = 'spells';
-                    tab.label += 'Spells';
                     break;
                 case 'effects':
                     tab.id = 'effects';
