@@ -934,7 +934,7 @@ Phần lớn nghệ nhân sống ở những làng nghề đặc trưng hoặc n
 - Mỹ Thuật
 - Văn Tự
 - Thời Trang
-- Chiến Cụ
+- Rèn Đúc (tên cũ là Chiến Cụ)
 Võ Đạo
 Nhóm các kỹ năng chiến đấu và tu thân kiện thể.
 Phần lớn giới nhân sĩ võ lâm và con nhà binh gia đều tập luyện thành thạo ít nhất một trong các kỹ năng này.
@@ -1087,10 +1087,9 @@ Y phục
 Trang sức/hoàn kim
 Hóa trang
 Chiến Cụ
-Ở Đại Việt, Chiến Cụ bao gồm các kỹ thuật chế tạo vũ khí và giáp trụ, dùng trong chiến trường trận mạc cũng như các nghi lễ long trọng.
+Ở Đại Việt, Rèn đúc bao gồm các kỹ thuật chế tạo vũ khí và giáp trụ, dùng trong chiến trường trận mạc cũng như các nghi lễ long trọng.
 Các tuyệt phẩm binh khí nổi danh luôn sở hữu trong nó sự hợp nhất đỉnh cao của cả tính thực dụng lẫn tính nghệ thuật. Những tuyệt phẩm này thường là bảo vật được chế tác bởi các đại nghệ nhân mà trở thành gia bảo được truyền từ đời này sang đời khác. Chúng được cất giữ và trưng bày nơi đại sảnh quan trọng để thể hiện tối đa tính thẩm mỹ nghệ thuật cũng như khí chất của gia tộc.
-Ngũ Hành trong Chiến Cụ
-Ngũ hành trong Chiến Cụ
+Ngũ Hành trong Rèn Đúc
 Hỏa hành (Sáng Chế)
 -Chế tạo vũ khí và giáp trụ mới; 
 -Lên ý tưởng và chế tạo một loại binh khí hoặc giáp trụ mới.

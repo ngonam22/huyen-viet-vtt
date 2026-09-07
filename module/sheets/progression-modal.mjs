@@ -43,7 +43,7 @@ const SKILL_LABELS = {
     myThuat:      'Mỹ Thuật',
     vanTu:        'Văn Tự',
     thoiTrang:    'Thời Trang',
-    chienCu:      'Chiến Cụ',
+    renDuc:      'Chiến Cụ',
     laoDong:      'Lao Động',
     thuongNghiep: 'Thương Nghiệp',
     haiNghiep:    'Hải Nghiệp',

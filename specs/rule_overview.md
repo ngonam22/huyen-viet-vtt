@@ -79,7 +79,7 @@ system: {
     // Học Đạo
     chinhTri, khoaHoc, thanHoc, xaHoi, yHoc: int 0–6
     // Nghệ Đạo
-    myThuat, vanTu, thoiTrang, chienCu: int 0–6
+    myThuat, vanTu, thoiTrang, renDuc: int 0–6
     // Sinh/Hắc Đạo
     laoDong, thuongNghiep, haiNghiep, hacNghiep, sinhTon: int 0–6
     // Tâm Đạo
@@ -117,7 +117,7 @@ system: {
 Chấm điểm từ 0–6 (thực tế), chia làm 5 nhóm:
 1.  **Võ Đạo:** Thể Thuật, Võ Thuật, Binh Pháp, Thiền Định.
 2.  **Học Đạo:** Chính Trị, Khoa Học, Thần Học, Xã Hội, Y Học.
-3.  **Nghệ Đạo:** Mỹ Thuật, Văn Tự, Thời Trang, Chiến Cụ.
+3.  **Nghệ Đạo:** Mỹ Thuật, Văn Tự, Thời Trang, Rèn Đúc (tên cũ là Chiến Cụ).
 4.  **Tâm Đạo:** Lãnh Đạo, Lễ Đạo, Biểu Diễn, Tâm Ý.
 5.  **Sinh/Hắc Đạo:** Lao Động, Thương Nghiệp, Hải Nghiệp, Hắc Nghiệp, Sinh Tồn.
 

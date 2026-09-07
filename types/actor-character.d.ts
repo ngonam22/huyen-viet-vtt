@@ -21,7 +21,7 @@ export interface CharacterSkills {
     myThuat: number;
     vanTu: number;
     thoiTrang: number;
-    chienCu: number;
+    renDuc: number;
 
     // Sinh Dao Skills
     laoDong: number;

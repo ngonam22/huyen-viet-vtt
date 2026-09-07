@@ -61,8 +61,8 @@ export const MON_PHAI: Record<string, MonPhai> = {
             2: { binhPhap: 2, lanhDao: 1 },
             3: { binhPhap: 3, lanhDao: 2, theThuat: 1 },
             4: { binhPhap: 4, lanhDao: 3, theThuat: 2 },
-            5: { binhPhap: 5, lanhDao: 4, theThuat: 4, chienCu: 2 },
-            6: { binhPhap: 5, lanhDao: 5, theThuat: 5, chienCu: 4 }
+            5: { binhPhap: 5, lanhDao: 4, theThuat: 4, renDuc: 2 },
+            6: { binhPhap: 5, lanhDao: 5, theThuat: 5, renDuc: 4 }
         },
         initItems: [
             {id: 'hanh-phuc', quantity: 1},
@@ -263,11 +263,11 @@ export const MON_PHAI: Record<string, MonPhai> = {
             }
         ],
         progressionReqs: {
-            2: { chienCu: 2, theThuat: 1 },
-            3: { chienCu: 3, theThuat: 2, laoDong: 1 },
-            4: { chienCu: 4, theThuat: 3, laoDong: 2 },
-            5: { chienCu: 5, theThuat: 4, laoDong: 4, thuongNghiep: 2 },
-            6: { chienCu: 5, theThuat: 5, laoDong: 5, thuongNghiep: 4 }
+            2: { renDuc: 2, theThuat: 1 },
+            3: { renDuc: 3, theThuat: 2, laoDong: 1 },
+            4: { renDuc: 4, theThuat: 3, laoDong: 2 },
+            5: { renDuc: 5, theThuat: 4, laoDong: 4, thuongNghiep: 2 },
+            6: { renDuc: 5, theThuat: 5, laoDong: 5, thuongNghiep: 4 }
         },
         initItems: [
             {id: 'hanh-phuc', quantity: 1},

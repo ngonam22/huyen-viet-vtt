@@ -153,7 +153,7 @@ export class huyenvietvttActor extends Actor {
         system.skills.myThuat = 0;
         system.skills.vanTu = 0;
         system.skills.thoiTrang = 0;
-        system.skills.chienCu = 0;
+        system.skills.renDuc = 0;
         system.skills.laoDong = 0;
         system.skills.thuongNghiep = 0;
         system.skills.haiNghiep = 0;
@@ -188,7 +188,7 @@ export class huyenvietvttActor extends Actor {
                 myThuat: system.skills.myThuat,
                 vanTu: system.skills.vanTu,
                 thoiTrang: system.skills.thoiTrang,
-                chienCu: system.skills.chienCu,
+                renDuc: system.skills.renDuc,
 
                 laoDong: system.skills.laoDong,
                 thuongNghiep: system.skills.thuongNghiep,

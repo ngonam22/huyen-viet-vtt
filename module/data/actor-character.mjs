@@ -102,7 +102,7 @@ export default class BoilerplateCharacter extends BoilerplateActorBase {
         myThuat: intField(0, 0, 6),
         vanTu: intField(0, 0, 6),
         thoiTrang: intField(0, 0, 6),
-        chienCu: intField(0, 0, 6),
+        renDuc: intField(0, 0, 6),
 
         // Sinh Dao Skills
         laoDong: intField(0, 0, 6),
