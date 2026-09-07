@@ -4,21 +4,21 @@
             <h3 class="hv-roll-card__title">{{title}}</h3>
             <div class="hv-roll-card__meta">
                 {{#if skillLabel}}
-                    <span class="hv-roll-card__meta-skill">
-                        <img src="{{skillIcon}}" alt="" />
-                        {{skillLabel}} ({{diceCount}})
-                    </span>
+                <span class="hv-roll-card__meta-skill">
+                    <img src="{{skillIcon}}" alt="" />
+                    {{skillLabel}} ({{diceCount}})
+                </span>
                 {{/if}}
                 <span class="hv-roll-card__meta-info">{{actorName}} · {{time}}</span>
             </div>
         </div>
         <div class="hv-roll-card__mode" title="{{modeLabel}}" aria-label="{{modeLabel}}">
             {{#if isAdvantage}}
-                <img src="/systems/huyen-viet-vtt/assets/dice/uuThe-active.png" alt="Uu The Icon" />
+            <img src="/systems/huyen-viet-vtt/assets/dice/uuThe-active.png" alt="Uu The Icon" />
             {{else if isDisadvantage}}
-                <img src="/systems/huyen-viet-vtt/assets/dice/batLoi-active.png" alt="Bat Loi Icon" />
+            <img src="/systems/huyen-viet-vtt/assets/dice/batLoi-active.png" alt="Bat Loi Icon" />
             {{else}}
-                <img src="/systems/huyen-viet-vtt/assets/dice/thuong.png" alt="Binh Thuong Icon" />
+            <img src="/systems/huyen-viet-vtt/assets/dice/thuong.png" alt="Binh Thuong Icon" />
             {{/if}}
         </div>
     </header>
@@ -27,7 +27,7 @@
         <div class="hv-roll-card__dice-count">{{diceCount}}</div>
         <div class="hv-roll-card__totals" aria-label="Kết quả Dương Bình Âm">
             <div class="hv-roll-card__counter hv-roll-card__counter--duong">
-                <span>Dương</span>
+                <span>Thành</span>
                 <strong>{{duongResult}}</strong>
             </div>
             <div class="hv-roll-card__counter hv-roll-card__counter--binh">
@@ -35,7 +35,7 @@
                 <strong>{{binhResult}}</strong>
             </div>
             <div class="hv-roll-card__counter hv-roll-card__counter--am">
-                <span>Âm</span>
+                <span>Bại</span>
                 <strong>{{amResult}}</strong>
             </div>
         </div>
@@ -48,11 +48,11 @@
 
     <div class="hv-roll-card__details" hidden>
         {{#each diceRows}}
-            <div class="hv-roll-card__die hv-roll-card__die--{{category}}">
-                <span class="hv-roll-card__die-index">#{{index}}</span>
-                <strong class="hv-roll-card__die-value">{{value}}</strong>
-                <span class="hv-roll-card__die-label">{{label}}</span>
-            </div>
+        <div class="hv-roll-card__die hv-roll-card__die--{{category}}">
+            <span class="hv-roll-card__die-index">#{{index}}</span>
+            <strong class="hv-roll-card__die-value">{{value}}</strong>
+            <span class="hv-roll-card__die-label">{{label}}</span>
+        </div>
         {{/each}}
     </div>
 </section>

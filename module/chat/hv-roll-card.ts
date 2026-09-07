@@ -18,9 +18,9 @@ interface CreateHvRollCardOptions {
 function classifyDie(value: number): { category: string; count: number; label: string } {
     const { duongCount, binhCount, amCount } = calculateDuongBinhAm(value);
 
-    if (duongCount) return { category: "duong", count: duongCount, label: `Dương x${duongCount}` };
+    if (duongCount) return { category: "duong", count: duongCount, label: `Thành x${duongCount}` };
     if (binhCount) return { category: "binh", count: binhCount, label: `Bình x${binhCount}` };
-    return { category: "am", count: amCount, label: `Âm x${amCount}` };
+    return { category: "am", count: amCount, label: `Bại x${amCount}` };
 }
 
 // Mặt D10 sẽ hiển thị là 0
