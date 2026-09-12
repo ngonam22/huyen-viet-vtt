@@ -489,186 +489,6 @@
         </div>
 
         <div class="tw:grid tw:grid-cols-5 tw:gap-3 tw:mt-4">
-            <div class="ability-block">
-                <div class="ability-block__header">
-                    <div class="ability-block__ornament"></div>
-                    <span class="ability-block__section-title">Học Đạo</span>
-                    <span class="ability-block__section-icon">⚖</span>
-                </div>
-
-                <ul class="ability-block__list">
-                    <li class="ability-block__ability-item" data-action="roll-skill" data-target="chinhTri">
-                        <span class="ability-block__ability-name">Chính Trị</span>
-                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
-                                        system.skills.chinhTri}}">
-                            {{signedNumber system.skills.chinhTri}}
-                        </span>
-                    </li>
-
-                    <li class="ability-block__ability-item" data-action="roll-skill" data-target="khoaHoc">
-                        <span class="ability-block__ability-name">Khoa Học</span>
-                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
-                                        system.skills.khoaHoc}}">
-                            {{signedNumber system.skills.khoaHoc}}
-                        </span>
-                    </li>
-
-                    <li class="ability-block__ability-item" data-action="roll-skill" data-target="thanHoc">
-                        <span class="ability-block__ability-name">Thần Học</span>
-                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
-                                        system.skills.thanHoc}}">
-                            {{signedNumber system.skills.thanHoc}}
-                        </span>
-                    </li>
-                    <li class="ability-block__ability-item" data-action="roll-skill" data-target="xaHoi">
-                        <span class="ability-block__ability-name">Xã Hội</span>
-                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
-                                        system.skills.xaHoi}}">
-                            {{signedNumber system.skills.xaHoi}}
-                        </span>
-                    </li>
-
-                    <li class="ability-block__ability-item" data-action="roll-skill" data-target="yDuoc">
-                        <span class="ability-block__ability-name">Y Dược</span>
-                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
-                                        system.skills.yDuoc}}">
-                            {{signedNumber system.skills.yDuoc}}
-                        </span>
-                    </li>
-                </ul>
-            </div>
-
-            <section class="ability-block">
-                <div class="ability-block__header">
-                    <div class="ability-block__ornament"></div>
-                    <span class="ability-block__section-title">Nghệ Đạo</span>
-                    <span class="ability-block__section-icon">⚖</span>
-                </div>
-
-                <ul class="ability-block__list">
-                    <li class="ability-block__ability-item" data-action="roll-skill" data-target="myThuat">
-                        <span class="ability-block__ability-name">Mỹ Thuật</span>
-                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
-                                        system.skills.myThuat}}">
-                            {{signedNumber system.skills.myThuat}}
-                        </span>
-                    </li>
-
-                    <li class="ability-block__ability-item" data-action="roll-skill" data-target="vanTu">
-                        <span class="ability-block__ability-name">Văn Tự</span>
-                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
-                                        system.skills.vanTu}}">
-                            {{signedNumber system.skills.vanTu}}
-                        </span>
-                    </li>
-
-                    <li class="ability-block__ability-item" data-action="roll-skill" data-target="thoiTrang">
-                        <span class="ability-block__ability-name">Thời Trang</span>
-                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
-                                        system.skills.thoiTrang}}">
-                            {{signedNumber system.skills.thoiTrang}}
-                        </span>
-                    </li>
-
-                    <li class="ability-block__ability-item" data-action="roll-skill" data-target="renDuc">
-                        <span class="ability-block__ability-name">Rèn đúc</span>
-                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
-                                        system.skills.renDuc}}">
-                            {{signedNumber system.skills.renDuc}}
-                        </span>
-                    </li>
-                </ul>
-
-            </section>
-
-            <div class="ability-block">
-                <div class="ability-block__header">
-                    <div class="ability-block__ornament"></div>
-                    <span class="ability-block__section-title">Sinh Đạo</span>
-                    <span class="ability-block__section-icon">⚖</span>
-                </div>
-
-                <ul class="ability-block__list">
-                    <li class="ability-block__ability-item" data-action="roll-skill" data-target="laoDong">
-                        <span class="ability-block__ability-name">Lao Động</span>
-                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
-                                        system.skills.laoDong}}">
-                            {{signedNumber system.skills.laoDong}}
-                        </span>
-                    </li>
-                    <li class="ability-block__ability-item" data-action="roll-skill" data-target="thuongNghiep">
-                        <span class="ability-block__ability-name">Thương Nghiệp</span>
-                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
-                                        system.skills.thuongNghiep}}">
-                            {{signedNumber system.skills.thuongNghiep}}
-                        </span>
-                    </li>
-
-                    <li class="ability-block__ability-item" data-action="roll-skill" data-target="haiNghiep">
-                        <span class="ability-block__ability-name">Hải Nghiệp</span>
-                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
-                                        system.skills.haiNghiep}}">
-                            {{signedNumber system.skills.haiNghiep}}
-                        </span>
-                    </li>
-
-                    <li class="ability-block__ability-item" data-action="roll-skill" data-target="hacNghiep">
-                        <span class="ability-block__ability-name">Hắc Nghiệp</span>
-                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
-                                        system.skills.hacNghiep}}">
-                            {{signedNumber system.skills.hacNghiep}}
-                        </span>
-                    </li>
-
-                    <li class="ability-block__ability-item" data-action="roll-skill" data-target="sinhTon">
-                        <span class="ability-block__ability-name">Sinh Tồn</span>
-                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
-                                        system.skills.sinhTon}}">
-                            {{signedNumber system.skills.sinhTon}}
-                        </span>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="ability-block">
-                <div class="ability-block__header">
-                    <div class="ability-block__ornament"></div>
-                    <span class="ability-block__section-title">Tâm Đạo</span>
-                    <span class="ability-block__section-icon">⚖</span>
-                </div>
-
-                <ul class="ability-block__list" data-action="roll-skill" data-target="lanhDao">
-                    <li class="ability-block__ability-item">
-                        <span class="ability-block__ability-name">Lãnh Đạo</span>
-                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
-                                        system.skills.lanhDao}}">
-                            {{signedNumber system.skills.lanhDao}}
-                        </span>
-                    </li>
-                    <li class="ability-block__ability-item" data-action="roll-skill" data-target="leDao">
-                        <span class="ability-block__ability-name">Lễ Đạo</span>
-                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
-                                        system.skills.leDao}}">
-                            {{signedNumber system.skills.leDao}}
-                        </span>
-                    </li>
-                    <li class="ability-block__ability-item" data-action="roll-skill" data-target="bieuDien">
-                        <span class="ability-block__ability-name">Biểu Diễn</span>
-                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
-                                        system.skills.bieuDien}}">
-                            {{signedNumber system.skills.bieuDien}}
-                        </span>
-                    </li>
-                    <li class="ability-block__ability-item" data-action="roll-skill" data-target="tamY">
-                        <span class="ability-block__ability-name">Tâm Ý</span>
-                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
-                                        system.skills.tamY}}">
-                            {{signedNumber system.skills.tamY}}
-                        </span>
-                    </li>
-                </ul>
-            </div>
-
             <div class="ability-block" data-action="roll-skill">
 
                 <div class="ability-block__header">
@@ -699,6 +519,118 @@
                             {{signedNumber system.skills.binhPhap}}
                         </span>
                     </li>
+                    <li class="ability-block__ability-item">
+                        <span class="ability-block__ability-name">Lãnh Đạo</span>
+                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
+                                        system.skills.lanhDao}}">
+                            {{signedNumber system.skills.lanhDao}}
+                        </span>
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="ability-block">
+                <div class="ability-block__header">
+                    <div class="ability-block__ornament"></div>
+                    <span class="ability-block__section-title">Văn Đạo</span>
+                    <span class="ability-block__section-icon">⚖</span>
+                </div>
+
+                <ul class="ability-block__list">
+                    <li class="ability-block__ability-item" data-action="roll-skill" data-target="xaHoi">
+                        <span class="ability-block__ability-name">Xã Hội</span>
+                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
+                                        system.skills.xaHoi}}">
+                            {{signedNumber system.skills.xaHoi}}
+                        </span>
+                    </li>
+
+                    <li class="ability-block__ability-item" data-action="roll-skill" data-target="vanTu">
+                        <span class="ability-block__ability-name">Văn Tự</span>
+                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
+                                        system.skills.vanTu}}">
+                            {{signedNumber system.skills.vanTu}}
+                        </span>
+                    </li>
+
+                    <li class="ability-block__ability-item" data-action="roll-skill" data-target="chinhTri">
+                        <span class="ability-block__ability-name">Chính Trị</span>
+                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
+                                        system.skills.chinhTri}}">
+                            {{signedNumber system.skills.chinhTri}}
+                        </span>
+                    </li>
+                    <li class="ability-block__ability-item" data-action="roll-skill" data-target="leDao">
+                        <span class="ability-block__ability-name">Lễ Đạo</span>
+                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
+                                        system.skills.leDao}}">
+                            {{signedNumber system.skills.leDao}}
+                        </span>
+                    </li>
+
+                    <li class="ability-block__ability-item" data-action="roll-skill" data-target="khoaHoc">
+                        <span class="ability-block__ability-name">Khoa Học</span>
+                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
+                                        system.skills.khoaHoc}}">
+                            {{signedNumber system.skills.khoaHoc}}
+                        </span>
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="ability-block">
+                <div class="ability-block__header">
+                    <div class="ability-block__ornament"></div>
+                    <span class="ability-block__section-title">Nghệ Đạo</span>
+                    <span class="ability-block__section-icon">⚖</span>
+                </div>
+
+                <ul class="ability-block__list">
+                    <li class="ability-block__ability-item" data-action="roll-skill" data-target="renDuc">
+                        <span class="ability-block__ability-name">Rèn đúc</span>
+                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
+                                        system.skills.renDuc}}">
+                            {{signedNumber system.skills.renDuc}}
+                        </span>
+                    </li>
+
+                    <li class="ability-block__ability-item" data-action="roll-skill" data-target="myThuat">
+                        <span class="ability-block__ability-name">Mỹ Thuật</span>
+                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
+                                        system.skills.myThuat}}">
+                            {{signedNumber system.skills.myThuat}}
+                        </span>
+                    </li>
+
+                    <li class="ability-block__ability-item" data-action="roll-skill" data-target="thoiTrang">
+                        <span class="ability-block__ability-name">Thời Trang</span>
+                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
+                                        system.skills.thoiTrang}}">
+                            {{signedNumber system.skills.thoiTrang}}
+                        </span>
+                    </li>
+                    <li class="ability-block__ability-item" data-action="roll-skill" data-target="bieuDien">
+                        <span class="ability-block__ability-name">Biểu Diễn</span>
+                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
+                                        system.skills.bieuDien}}">
+                            {{signedNumber system.skills.bieuDien}}
+                        </span>
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <div class="ability-block">
+                <div class="ability-block__header">
+                    <div class="ability-block__ornament"></div>
+                    <span class="ability-block__section-title">Tu Đạo</span>
+                    <span class="ability-block__section-icon">⚖</span>
+                </div>
+
+                <ul class="ability-block__list" data-action="roll-skill" data-target="lanhDao">
                     <li class="ability-block__ability-item" data-action="roll-skill" data-target="thienDinh">
                         <span class="ability-block__ability-name">Thiền Định</span>
                         <span class="ability-block__ability-score ability-block__score-{{scoreClass
@@ -706,6 +638,80 @@
                             {{signedNumber system.skills.thienDinh}}
                         </span>
                     </li>
+
+                    <li class="ability-block__ability-item" data-action="roll-skill" data-target="yDuoc">
+                        <span class="ability-block__ability-name">Y Dược</span>
+                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
+                                        system.skills.yDuoc}}">
+                            {{signedNumber system.skills.yDuoc}}
+                        </span>
+                    </li>
+
+                    <li class="ability-block__ability-item" data-action="roll-skill" data-target="thanHoc">
+                        <span class="ability-block__ability-name">Thần Học</span>
+                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
+                                        system.skills.thanHoc}}">
+                            {{signedNumber system.skills.thanHoc}}
+                        </span>
+                    </li>
+
+                    <li class="ability-block__ability-item" data-action="roll-skill" data-target="tamY">
+                        <span class="ability-block__ability-name">Tâm Ý</span>
+                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
+                                        system.skills.tamY}}">
+                            {{signedNumber system.skills.tamY}}
+                        </span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="ability-block">
+                <div class="ability-block__header">
+                    <div class="ability-block__ornament"></div>
+                    <span class="ability-block__section-title">Sinh Đạo</span>
+                    <span class="ability-block__section-icon">⚖</span>
+                </div>
+
+                <ul class="ability-block__list">
+                    <li class="ability-block__ability-item" data-action="roll-skill" data-target="laoDong">
+                        <span class="ability-block__ability-name">Lao Động</span>
+                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
+                                        system.skills.laoDong}}">
+                            {{signedNumber system.skills.laoDong}}
+                        </span>
+                    </li>
+                    <li class="ability-block__ability-item" data-action="roll-skill" data-target="haiNghiep">
+                        <span class="ability-block__ability-name">Hải Nghiệp</span>
+                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
+                                        system.skills.haiNghiep}}">
+                            {{signedNumber system.skills.haiNghiep}}
+                        </span>
+                    </li>
+                    <li class="ability-block__ability-item" data-action="roll-skill" data-target="sinhTon">
+                        <span class="ability-block__ability-name">Sinh Tồn</span>
+                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
+                                        system.skills.sinhTon}}">
+                            {{signedNumber system.skills.sinhTon}}
+                        </span>
+                    </li>
+
+                    <li class="ability-block__ability-item" data-action="roll-skill" data-target="thuongNghiep">
+                        <span class="ability-block__ability-name">Thương Nghiệp</span>
+                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
+                                        system.skills.thuongNghiep}}">
+                            {{signedNumber system.skills.thuongNghiep}}
+                        </span>
+                    </li>
+
+                    <li class="ability-block__ability-item" data-action="roll-skill" data-target="hacNghiep">
+                        <span class="ability-block__ability-name">Hắc Nghiệp</span>
+                        <span class="ability-block__ability-score ability-block__score-{{scoreClass
+                                        system.skills.hacNghiep}}">
+                            {{signedNumber system.skills.hacNghiep}}
+                        </span>
+                    </li>
+
+
                 </ul>
             </div>
         </div>

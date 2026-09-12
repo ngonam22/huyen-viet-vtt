@@ -115,7 +115,7 @@
         },
         "vanTu": {
           "label": "Văn Tự",
-          "group": "ngheDao",
+          "group": "vanDao",
           "value": 0
         },
         "thoiTrang": {
@@ -128,9 +128,9 @@
           "group": "ngheDao",
           "value": 0
         },
-        "yThuat": {
-          "label": "Y Thuật",
-          "group": "ngheDao",
+        "yDuoc": {
+          "label": "Y Dược",
+          "group": "tuDao",
           "value": 0
         },
         "theThuat": {
@@ -150,47 +150,42 @@
         },
         "thienDinh": {
           "label": "Thiền Định",
-          "group": "voDao",
+          "group": "tuDao",
           "value": 0
         },
         "lanhDao": {
           "label": "Lãnh Đạo",
-          "group": "tamDao",
+          "group": "voDao",
           "value": 0
         },
         "leDao": {
           "label": "Lễ Đạo",
-          "group": "tamDao",
+          "group": "vanDao",
           "value": 0
         },
         "bieuDien": {
           "label": "Biểu Diễn",
-          "group": "tamDao",
+          "group": "ngheDao",
           "value": 0
         },
         "tamY": {
           "label": "Tâm Ý",
-          "group": "tamDao",
+          "group": "tuDao",
           "value": 0
         },
         "thanHoc": {
           "label": "Thần Học",
-          "group": "hocDao",
+          "group": "tuDao",
           "value": 0
         },
         "chinhTri": {
-          "label": "Chính Trị Học",
-          "group": "hocDao",
+          "label": "Chính Trị",
+          "group": "vanDao",
           "value": 0
         },
         "xaHoi": {
-          "label": "Xã Hội Học",
-          "group": "hocDao",
-          "value": 0
-        },
-        "khoaHoc": {
-          "label": "Khoa Học",
-          "group": "hocDao",
+          "label": "Xã Hội",
+          "group": "vanDao",
           "value": 0
         },
         "laoDong": {
@@ -226,8 +221,8 @@
       ],
       "domains": {
         "ngheDao": 0,
-        "tamDao": 0,
-        "hocDao": 0,
+        "vanDao": 0,
+        "tuDao": 0,
         "voDao": 0,
         "sinhDao": 0
       },
