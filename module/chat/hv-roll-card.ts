@@ -13,6 +13,8 @@ interface CreateHvRollCardOptions {
     chatMode?: string;
     /** Skill kích hoạt Roll này ở dạng String */
     skill?: string;
+    /** Độ khó của roll. Mặc định: 1 */
+    difficulty?: number;
 }
 
 function classifyDie(value: number): { category: string; count: number; label: string } {
@@ -79,6 +81,7 @@ export async function createHvRollCard(
                 : rollType === "disadvantage"
                     ? "Bất lợi"
                     : "Bình thường",
+            difficulty: options.difficulty ?? 1,
             diceRows
         }
     );

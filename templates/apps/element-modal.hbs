@@ -12,6 +12,14 @@
             </select>
         </div>
         <div class="hv-em__pick-col">
+            <div class="section-label">Độ Khó (DC)</div>
+            <select class="hv-em__select" id="difficultySelect">
+                {{#each difficultyOptions}}
+                <option value="{{value}}" {{#if isSelected}}selected{{/if}}>{{value}}</option>
+                {{/each}}
+            </select>
+        </div>
+        <div class="hv-em__pick-col">
             <div class="section-label">Vũ Khí</div>
             {{#if equippedWeapons.length}}
             <select class="hv-em__select" id="weaponSelect">

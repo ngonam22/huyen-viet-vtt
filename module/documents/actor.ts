@@ -37,7 +37,8 @@ export class huyenvietvttActor extends Actor {
         rollType: 'normal' | 'advantage' | 'disadvantage' = 'normal',
         chatMode?: string,
         title?: string,
-        skill?: string
+        skill?: string,
+        difficulty: number = 1
     ): Promise<void> {
         let formula: string;
         if (rollType === 'advantage') {
@@ -48,7 +49,7 @@ export class huyenvietvttActor extends Actor {
             formula = `${numDice}d10`;
         }
         const roll = await new Roll(formula).evaluate();
-        await createHvRollCard(this, roll, { rollType, chatMode, title, skill });
+        await createHvRollCard(this, roll, { rollType, chatMode, title, skill, difficulty });
     }
 
 

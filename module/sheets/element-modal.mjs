@@ -32,6 +32,7 @@ export class ElementModal extends HandlebarsApplicationMixin(ApplicationV2)
         this._selectedElement = "kim";
         this._selectedSkillKey = skillKey ?? null;
         this._selectedWeaponId = null;
+        this._difficulty = 1;
         this._additionalDice = 0;
         this._rollType = "normal";
         this._chatMode = game.settings?.get("core", "rollMode") ?? "publicroll";
@@ -69,6 +70,13 @@ export class ElementModal extends HandlebarsApplicationMixin(ApplicationV2)
         if ($skillSelect) {
             $skillSelect.addEventListener('change', () => {
                 this._selectedSkillKey = $skillSelect.value || null;
+            });
+        }
+
+        const $difficultySelect = el.querySelector('#difficultySelect');
+        if ($difficultySelect) {
+            $difficultySelect.addEventListener('change', () => {
+                this._difficulty = Number($difficultySelect.value);
             });
         }
 
@@ -146,6 +154,10 @@ export class ElementModal extends HandlebarsApplicationMixin(ApplicationV2)
         return {
             system: this.actor.system,
             skillOptions,
+            difficultyOptions: Array.from({ length: 10 }, (_, index) => ({
+                value: index + 1,
+                isSelected: index + 1 === this._difficulty,
+            })),
             equippedWeapons,
         };
     }
@@ -172,7 +184,7 @@ export class ElementModal extends HandlebarsApplicationMixin(ApplicationV2)
                     ? (SKILL_LABELS[this._selectedSkillKey] ? SKILL_LABELS[this._selectedSkillKey] + ` (+${skillValue})` : 'Gieo Thiên Mệnh')
                     : 'Gieo Thiên Mệnh';
 
-            await this.actor.testDiceSoNice(numDice, this._rollType, this._chatMode, title, this._selectedSkillKey ?? undefined);
+            await this.actor.testDiceSoNice(numDice, this._rollType, this._chatMode, title, this._selectedSkillKey ?? undefined, this._difficulty);
             this.close();
         }
     }
