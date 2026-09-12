@@ -20,7 +20,10 @@
             {{else}}
             <img src="/systems/huyen-viet-vtt/assets/dice/thuong.png" alt="Binh Thuong Icon" />
             {{/if}} --}}
-            DK: {{difficulty}}
+            <span>DK: {{difficulty}}</span>
+            {{#each rollEvents}}
+            <span>{{this}}</span>
+            {{/each}}
         </div>
     </header>
 

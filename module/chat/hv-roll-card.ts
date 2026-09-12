@@ -40,12 +40,16 @@ export async function createHvRollCard(
     options: CreateHvRollCardOptions = {}
 ): Promise<ChatMessage | undefined> {
     const diceTerm = roll.dice?.[0];
-    const diceData: HvDieRoll[] = (diceTerm?.results ?? [])
-        .filter((result: any) => result.active)
+    const activeDice = (diceTerm?.results ?? []).filter((result: any) => result.active);
+    const diceData: HvDieRoll[] = activeDice
         .map((result: any) => ({
             value: normalizeD10Face(Number(result.result)),
             rerollFrom: null
         }));
+    const rollEvents = [
+        ...(activeDice.some((result: any) => Number(result.result) === 9) ? ["Cơ duyên (9)"] : []),
+        ...(activeDice.some((result: any) => Number(result.result) === 10) ? ["Biến cố (0)"] : []),
+    ];
 
     const result = calculateFromRolls(diceData);
     const diceRows = result.rolls.map((die, index) => ({
@@ -82,6 +86,7 @@ export async function createHvRollCard(
                     ? "Bất lợi"
                     : "Bình thường",
             difficulty: options.difficulty ?? 1,
+            rollEvents,
             diceRows
         }
     );

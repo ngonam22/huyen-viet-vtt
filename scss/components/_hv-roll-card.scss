@@ -58,14 +58,17 @@
   }
 
   &__mode {
-    display: grid;
-    flex: 0 0 50px;
-    width: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    flex: 0 0 100px;
     height: 50px;
-    place-items: center;
     border: 1px solid rgba(83, 52, 29, 0.24);
     border-radius: 50%;
-    color: #6d2323;
+    color: #977c5e;
+    line-height: 1.1;
+    text-align: center;
   }
 
   &__summary {
