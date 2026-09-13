@@ -40,18 +40,23 @@
             the strip. That guarantees seamless joins at y=24 and y=175 because every
             slice computes the inner shadow / drop shadow against the same full geometry.
           */
-        &__top, &__bottom {
+        &__top,
+        &__bottom {
             display: block;
             width: 100%;
-            height: auto;       /* preserves aspect → corners stay perfect at any width */
+            height: auto;
+            /* preserves aspect → corners stay perfect at any width */
             flex-shrink: 0;
         }
+
         &__middle {
             position: relative;
-            flex: 1 1 auto;     /* ⟵ this is what makes panel height dynamic */
+            flex: 1 1 auto;
+            /* ⟵ this is what makes panel height dynamic */
             min-height: 30px;
             display: flex;
         }
+
         &__middle-svg {
             position: absolute;
             inset: 0;
@@ -59,6 +64,7 @@
             height: 100%;
             display: block;
         }
+
         &__content {
             position: relative;
             z-index: 1;
@@ -68,52 +74,55 @@
             overflow: hidden;
         }
 
-        input, select {
+        input,
+        select {
             background: rgba(51, 58, 65, 0.7);
             border: 2px solid rgba(28, 37, 44, 0.85);
             border-radius: 8px;
             box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.45);
         }
     }
+
     /* ══════════════════════════════════════════════════════
        ABILITY SECTION COMPONENT
     ══════════════════════════════════════════════════════ */
     .ability-block {
         position: relative;
-        background: linear-gradient(
-                        160deg,
-                        #1c2a3a 0%,
-                        #162030 60%,
-                        #0f1923 100%
-        );
+        background: linear-gradient(160deg,
+                #1c2a3a 0%,
+                #162030 60%,
+                #0f1923 100%);
         border: 1px solid rgba(212, 168, 67, 0.28);
         border-radius: 10px;
         overflow: hidden;
         box-shadow:
-                0 0 0 1px rgba(212,168,67,0.06) inset,
-                0 4px 24px rgba(0,0,0,0.45),
-                0 1px 0 rgba(212,168,67,0.12) inset;
+            0 0 0 1px rgba(212, 168, 67, 0.06) inset,
+            0 4px 24px rgba(0, 0, 0, 0.45),
+            0 1px 0 rgba(212, 168, 67, 0.12) inset;
 
 
-        &:before, &:after {
+        &:before,
+        &:after {
             content: '';
             position: absolute;
             width: 18px;
             height: 18px;
-            border-color: rgba(212,168,67,0.45);
+            border-color: rgba(212, 168, 67, 0.45);
             border-style: solid;
             pointer-events: none;
             z-index: 1;
         }
 
         &:before {
-            top: 6px; left: 6px;
+            top: 6px;
+            left: 6px;
             border-width: 1.5px 0 0 1.5px;
             border-radius: 3px 0 0 0;
         }
 
         &:after {
-            bottom: 6px; right: 6px;
+            bottom: 6px;
+            right: 6px;
             border-width: 0 1.5px 1.5px 0;
             border-radius: 0 0 3px 0;
         }
@@ -121,12 +130,10 @@
         &__header {
             width: 100%;
             padding: 10px 16px 9px;
-            background: linear-gradient(
-                            90deg,
-                            rgba(212, 168, 67, 0.14) 0%,
-                            rgba(212, 168, 67, 0.06) 60%,
-                            transparent 100%
-            );
+            background: linear-gradient(90deg,
+                    rgba(212, 168, 67, 0.14) 0%,
+                    rgba(212, 168, 67, 0.06) 60%,
+                    transparent 100%);
             border-bottom: 1px solid rgba(212, 168, 67, 0.22);
             display: flex;
             align-items: center;
@@ -148,7 +155,7 @@
             font-weight: 600;
             letter-spacing: 0.06em;
             color: #e8c96a;
-            text-shadow: 0 0 18px rgba(212,168,67,0.35);
+            text-shadow: 0 0 18px rgba(212, 168, 67, 0.35);
             flex: 1;
         }
 
@@ -166,13 +173,26 @@
             position: relative;
             transition: background 0.18s ease;
             cursor: pointer;
+
+            &.hacNghiep {
+                background-image: url("/systems/huyen-viet-vtt/assets/ink-plash.png") !important;
+                background-size: 100% 100% !important;
+                background-position: 0 0 !important;
+                opacity: 0.75;
+
+                .ability-block__ability-name {
+                    color: #efefef !important;
+                }
+            }
         }
 
         &__ability-item:not(:last-child) {
-            border-bottom: 1px solid rgba(255,255,255,0.04);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
         }
+
         &__ability-item:hover {
             background: rgba(212, 168, 67, 0.045);
+            opacity: 1;
 
             .ability-block__ability-name {
                 color: #b8ccd9;
@@ -210,7 +230,7 @@
         &__score-positive {
             color: #7ecfa8;
             background: rgba(126, 207, 168, 0.1);
-            text-shadow: 0 0 10px rgba(126,207,168,0.3);
+            text-shadow: 0 0 10px rgba(126, 207, 168, 0.3);
         }
 
         &__score-negative {
@@ -221,7 +241,7 @@
         &__score-high {
             color: #e8c96a;
             background: rgba(212, 168, 67, 0.1);
-            text-shadow: 0 0 10px rgba(212,168,67,0.3);
+            text-shadow: 0 0 10px rgba(212, 168, 67, 0.3);
         }
     }
 
@@ -241,14 +261,19 @@
         &::before {
             content: '';
             position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: transparent url("/systems/huyen-viet-vtt/assets/ability-box-bg.png") top left no-repeat;
             background-size: 100% 100%;
             z-index: -1;
         }
 
-        &__title, &__current, &__sep, &__base {
+        &__title,
+        &__current,
+        &__sep,
+        &__base {
             font-family: "EB Garamond", "Cormorant Garamond", "Garamond", "Times New Roman", serif;
             font-weight: 700;
             font-size: 30px;
@@ -256,12 +281,10 @@
             line-height: 1;
 
             /* Mostly uniform warm champagne/tan with a slight darken at the bottom */
-            background: linear-gradient(
-                            to bottom,
-                            #c9b58a 0%,
-                            #c4b083 55%,
-                            #b09a6e 100%
-            );
+            background: linear-gradient(to bottom,
+                    #c9b58a 0%,
+                    #c4b083 55%,
+                    #b09a6e 100%);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -289,9 +312,10 @@
                 left: 0;
                 width: 100%;
                 height: 2px;
-                background: linear-gradient(90deg,transparent,rgba(160,100,20,0.44),transparent)
+                background: linear-gradient(90deg, transparent, rgba(160, 100, 20, 0.44), transparent)
             }
         }
+
         &__content {
             height: 100%;
             display: flex;
@@ -309,7 +333,7 @@
         gap: 0 5px;
         padding: 0 0 0 15px;
 
-        > a {
+        >a {
             position: relative;
             background: transparent url("/systems/huyen-viet-vtt/assets/components/tab/default-tab-pane.png") no-repeat;
             background-size: 100% 100%;
@@ -346,6 +370,7 @@
 
         padding: 20px 10px 20px 20px;
         z-index: 10;
+
         &.active {
             min-height: 250px;
         }
@@ -359,6 +384,3 @@
         }
     }
 }
-
-
-
