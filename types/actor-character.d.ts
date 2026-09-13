@@ -12,7 +12,6 @@ export interface CharacterIdentity {
 export interface CharacterSkills {
     // Hoc Dao Skills
     chinhTri: number;
-    khoaHoc: number;
     thanHoc: number;
     xaHoi: number;
     yDuoc: number;

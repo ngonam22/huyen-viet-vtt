@@ -9,7 +9,6 @@ export type HvElementKey = (typeof ELEMENT_KEYS)[number];
 
 export const SKILL_KEYS = [
     "chinhTri",
-    "khoaHoc",
     "thanHoc",
     "xaHoi",
     "yDuoc",
@@ -40,10 +39,6 @@ export const SKILLS: Record<HvSkillKey, {}>= {
     "chinhTri": {
         ten: 'BOILERPLATE.Skills.chinhTri.label',
         description: 'BOILERPLATE.Skills.chinhTri.label',
-    },
-    "khoaHoc": {
-        ten: 'BOILERPLATE.Skills.khoaHoc.label',
-        description: 'BOILERPLATE.Skills.khoaHoc.label',
     },
     "thanHoc": {
         ten: 'BOILERPLATE.Skills.thanHoc.label',
@@ -212,7 +207,6 @@ export function isSkillKey(value: string): value is HvSkillKey {
 
 export const SKILL_LABELS: Record<HvSkillKey, string> = {
     chinhTri:     'Chính Trị',
-    khoaHoc:      'Khoa Học',
     thanHoc:      'Thần Học',
     xaHoi:        'Xã Hội',
     yDuoc:         'Y Dược',

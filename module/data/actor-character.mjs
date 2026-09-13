@@ -93,7 +93,6 @@ export default class BoilerplateCharacter extends BoilerplateActorBase {
       skills: new fields.SchemaField({
         // Hoc Dao Skills
         chinhTri: intField(0, 0, 6),
-        khoaHoc: intField(0, 0, 6),
         thanHoc: intField(0, 0, 6),
         xaHoi: intField(0, 0, 6),
         yDuoc: intField(0, 0, 6),

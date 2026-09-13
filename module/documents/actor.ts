@@ -153,7 +153,6 @@ export class huyenvietvttActor extends Actor {
         system.elements.moc.value = 1;
 
         system.skills.chinhTri = 0;
-        system.skills.khoaHoc = 0;
         system.skills.thanHoc = 0;
         system.skills.xaHoi = 0;
         system.skills.yDuoc = 0;
@@ -187,7 +186,6 @@ export class huyenvietvttActor extends Actor {
             },
             skills: {
                 chinhTri: system.skills.chinhTri,
-                khoaHoc: system.skills.khoaHoc,
                 thanHoc: system.skills.thanHoc,
                 xaHoi: system.skills.xaHoi,
                 yDuoc: system.skills.yDuoc,

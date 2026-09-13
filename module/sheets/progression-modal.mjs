@@ -36,7 +36,6 @@ const ELEMENT_LABELS = {
 
 const SKILL_LABELS = {
     chinhTri:     'Chính Trị',
-    khoaHoc:      'Khoa Học',
     thanHoc:      'Thần Học',
     xaHoi:        'Xã Hội',
     yDuoc:         'Y Dược',

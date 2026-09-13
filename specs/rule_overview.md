@@ -85,7 +85,7 @@ system: {
   }
   skills: {
     // Học Đạo
-    chinhTri, khoaHoc, thanHoc, xaHoi, yDuoc: int 0–6
+    chinhTri, thanHoc, xaHoi, yDuoc: int 0–6
     // Nghệ Đạo
     myThuat, vanTu, thoiTrang, renDuc: int 0–6
     // Sinh/Hắc Đạo
