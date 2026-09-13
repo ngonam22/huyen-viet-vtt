@@ -182,7 +182,8 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
 
             if (hanhThe) {
                 this.actor.testDiceSoNice(
-                    this.actor.system.skills[skill] + this.actor.system.elements?.[hanhThe]?.value
+                    this.actor.system.elements?.[hanhThe]?.value ?? 1,
+                    this.actor.system.skills[skill] ?? 0
                 );
                 return;
             }

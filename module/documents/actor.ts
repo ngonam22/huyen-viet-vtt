@@ -33,21 +33,27 @@ export class huyenvietvttActor extends Actor {
     }
 
     async testDiceSoNice(
-        numDice: number = 1,
+        elementDice: number = 1,
+        skillDice: number = 0,
         rollType: 'normal' | 'advantage' | 'disadvantage' = 'normal',
         chatMode?: string,
         title?: string,
         skill?: string,
         difficulty: number = 1
     ): Promise<void> {
-        let formula: string;
-        if (rollType === 'advantage') {
-            formula = `${numDice + 1}d10kh${numDice}`;
-        } else if (rollType === 'disadvantage') {
-            formula = `${numDice + 1}d10kl${numDice}`;
-        } else {
-            formula = `${numDice}d10`;
-        }
+        const pools = [
+            { count: elementDice, faces: 10 },
+            { count: skillDice, faces: 8 },
+        ].filter(pool => pool.count > 0);
+
+        const formula = pools
+            .map(({ count, faces }) => {
+                if (rollType === 'advantage') return `${count + 1}d${faces}kh${count}`;
+                if (rollType === 'disadvantage') return `${count + 1}d${faces}kl${count}`;
+                return `${count}d${faces}`;
+            })
+            .join(' + ') || '1d10';
+
         const roll = await new Roll(formula).evaluate();
         await createHvRollCard(this, roll, { rollType, chatMode, title, skill, difficulty });
     }

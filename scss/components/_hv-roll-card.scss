@@ -84,6 +84,26 @@
     background: #fff;
     font-weight: 700;
     text-align: center;
+
+    &--split {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 6px;
+      text-align: left;
+    }
+  }
+
+  &__dice-count-plus {
+    color: #977c5e;
+    font-size: 16px;
+  }
+
+  &__dice-count-rows {
+    display: grid;
+    gap: 2px;
+    font-size: 13px;
+    line-height: 1.15;
   }
 
   &__totals {
@@ -175,6 +195,12 @@
     min-width: 24px;
     font-size: 18px;
     text-align: center;
+  }
+
+  &__die-type {
+    color: #6d5b4f;
+    font-size: 11px;
+    text-transform: uppercase;
   }
 
   &__die-label {

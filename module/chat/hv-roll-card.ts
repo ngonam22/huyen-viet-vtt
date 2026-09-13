@@ -39,22 +39,39 @@ export async function createHvRollCard(
     roll: foundry.dice.Roll,
     options: CreateHvRollCardOptions = {}
 ): Promise<ChatMessage | undefined> {
-    const diceTerm = roll.dice?.[0];
-    const activeDice = (diceTerm?.results ?? []).filter((result: any) => result.active);
-    const diceData: HvDieRoll[] = activeDice
-        .map((result: any) => ({
-            value: normalizeD10Face(Number(result.result)),
-            rerollFrom: null
-        }));
+    const diceTerms = roll.dice ?? [];
+    const rawDice: { value: number; faces: number }[] = [];
+    let elementDiceCount = 0;
+    let skillDiceCount = 0;
+    let hasCoDuyen = false;
+    let hasBienCo = false;
+
+    for (const term of diceTerms as any[]) {
+        const isD10 = term.faces === 10;
+        const activeDice = (term?.results ?? []).filter((result: any) => result.active);
+
+        for (const result of activeDice) {
+            const raw = Number(result.result);
+            rawDice.push({ value: isD10 ? normalizeD10Face(raw) : raw, faces: term.faces });
+            if (isD10 && raw === 9) hasCoDuyen = true;
+            if (isD10 && raw === 10) hasBienCo = true;
+        }
+
+        if (isD10) elementDiceCount += activeDice.length;
+        else skillDiceCount += activeDice.length;
+    }
+
     const rollEvents = [
-        ...(activeDice.some((result: any) => Number(result.result) === 9) ? ["Cơ duyên (9)"] : []),
-        ...(activeDice.some((result: any) => Number(result.result) === 10) ? ["Biến cố (0)"] : []),
+        ...(hasCoDuyen ? ["Cơ duyên (9)"] : []),
+        ...(hasBienCo ? ["Biến cố (0)"] : []),
     ];
 
+    const diceData: HvDieRoll[] = rawDice.map(die => ({ value: die.value, rerollFrom: null }));
     const result = calculateFromRolls(diceData);
     const diceRows = result.rolls.map((die, index) => ({
         index: index + 1,
         value: die.value,
+        dieType: `D${rawDice[index].faces}`,
         rerollFrom: die.rerollFrom,
         ...classifyDie(die.value)
     }));
@@ -70,7 +87,13 @@ export async function createHvRollCard(
             title: options.title ?? "Gieo Thiên Mệnh",
             actorName: actor.name,
             time: formatTime(new Date()),
-            diceCount: `${diceData.length}d10`,
+            diceCount: [
+                elementDiceCount ? `${elementDiceCount}d10` : null,
+                skillDiceCount ? `${skillDiceCount}d8` : null,
+            ].filter(Boolean).join(' + '),
+            elementDiceCount,
+            skillDiceCount,
+            hasBothDiceTypes: elementDiceCount > 0 && skillDiceCount > 0,
             skillLabel,
             skillIcon,
             duongResult: result.duongResult,

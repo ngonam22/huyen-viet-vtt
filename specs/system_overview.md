@@ -138,10 +138,13 @@ See `specs/spec_character_progression.md` for XP cost formulas and sect auto-lev
 
 ## Dice Resolution
 
-Rolls use a **d10 dice pool** (Gộp Xúc Xắc):
+Rolls use a mixed dice pool (Gộp Xúc Xắc) split by bonus source:
 
-- **Pool size** = Skill rank + Elemental rank (Hành Phương)
-- Each die reads as: `0` → 2 Bại | `1–3` → 1 Bại | `4–5` → 0 | `6–8` → 1 Thành | `9` → 2 Thành
+- **d10 pool size** = Elemental rank (Hành Phương)
+- **d8 pool size** = Skill rank
+- Both pools are rolled together and their Thành/Bại totals combined, e.g. Kim +4 & Xã Hội +1 → `4d10 + 1d8`
+- d10 reads as: `0` → 2 Bại | `1–3` → 1 Bại | `4–5` → 0 | `6–8` → 1 Thành | `9` → 2 Thành
+- d8 reads as: `1–3` → 1 Bại | `4–5` → 0 | `6–8` → 1 Thành (no crit tiers — only Ngũ Hành dice can crit)
 - **Success** when total Thành ≥ Difficulty (ĐK)
 - Surplus Thành = **Chí Thành** (crit success); shortfall = **Chí Bại** (crit failure)
 - Spend 1 Tâm Lực to flip a neutral die (4 or 5) to Thành or Bại

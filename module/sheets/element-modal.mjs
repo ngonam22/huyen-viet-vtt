@@ -172,7 +172,9 @@ export class ElementModal extends HandlebarsApplicationMixin(ApplicationV2)
             const elementValue = this._selectedElement
                 ? (this.actor.system.elements[this._selectedElement]?.value ?? 0)
                 : 0;
-            const numDice = Math.max(1, skillValue + elementValue + this._additionalDice);
+            // Ngũ Hành -> d10, Kỹ Năng -> d8 (xem specs/rule_overview.md §2.1)
+            const elementDice = Math.max(1, elementValue + this._additionalDice);
+            const skillDice = Math.max(0, skillValue);
 
             const selectedWeapon = this._selectedWeaponId
                 ? this.actor.items.get(this._selectedWeaponId)
@@ -184,7 +186,7 @@ export class ElementModal extends HandlebarsApplicationMixin(ApplicationV2)
                     ? (SKILL_LABELS[this._selectedSkillKey] ? SKILL_LABELS[this._selectedSkillKey] + ` (+${skillValue})` : 'Gieo Thiên Mệnh')
                     : 'Gieo Thiên Mệnh';
 
-            await this.actor.testDiceSoNice(numDice, this._rollType, this._chatMode, title, this._selectedSkillKey ?? undefined, this._difficulty);
+            await this.actor.testDiceSoNice(elementDice, skillDice, this._rollType, this._chatMode, title, this._selectedSkillKey ?? undefined, this._difficulty);
             this.close();
         }
     }

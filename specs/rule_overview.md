@@ -6,11 +6,14 @@
 Huyền Việt RPG là một hệ thống Tabletop RPG có bối cảnh cổ đại huyền ảo (Đại Việt Thần Quốc). Engine của game không sử dụng các chỉ số sinh lý phương Tây (STR, DEX, INT) mà hoàn toàn dựa trên triết lý **Ngũ Hành (Hỏa, Thổ, Kim, Thủy, Mộc)**. Trò chơi tập trung vào quản lý tài nguyên, sự cân bằng tâm lý và tính tương sinh - tương khắc.
 
 ## 2. CORE RESOLUTION ENGINE (Cơ chế Đổ Xúc Xắc / Xét Năng Lực)
-Hệ thống sử dụng xúc xắc 10 mặt (d10) dưới dạng Dice Pool (Gộp xúc xắc).
+Hệ thống dùng Dice Pool (Gộp xúc xắc) trộn hai loại xúc xắc theo nguồn gốc điểm cộng:
+*   **d10** — từ Cấp bậc Hành Phương (Ngũ Hành).
+*   **d8** — từ Cấp bậc Kỹ Năng.
 
 ### 2.1. Logic Số Lượng Xúc Xắc (Dice Pool)
-*   **Công thức:** `Số lượng d10 = Cấp bậc Kỹ Năng + Cấp bậc Hành Phương (Ngũ Hành)`.
-*   **Độ Khó (ĐK - Difficulty):** Số lượng điểm "Thành" tối thiểu cần đạt để hành động thành công.
+*   **Công thức:** `Số lượng d10 = Cấp bậc Hành Phương (Ngũ Hành)` và `Số lượng d8 = Cấp bậc Kỹ Năng`, gieo cùng lúc.
+*   **Ví dụ:** Ngũ Hành Kim +4 và Kỹ Năng Xã Hội +1 → gieo `4d10 + 1d8`.
+*   **Độ Khó (ĐK - Difficulty):** Số lượng điểm "Thành" tối thiểu cần đạt để hành động thành công (cộng dồn Thành từ cả hai loại xúc xắc).
 
 ### 2.2. Logic Tính Điểm Xúc Xắc (Dice Values)
 Các mặt của d10 được map theo hệ Âm - Dương:
@@ -19,6 +22,11 @@ Các mặt của d10 được map theo hệ Âm - Dương:
 *   **Mặt 4, 5:** 0 điểm (Cân Bằng / Thái Cực)
 *   **Mặt 6, 7, 8:** 1 Thành (Thành / Thiếu Dương)
 *   **Mặt 9:** 2 Thành (Đại Thành / Thái Dương)
+
+Mặt của d8 (Kỹ Năng) dùng chung thang điểm trên nhưng không có 2 mức "Đại" do d8 không có mặt 0 hay mặt 9 — Kỹ Năng ổn định, không crit, chỉ Ngũ Hành mới có Đại Thành/Đại Bại:
+*   **Mặt 1, 2, 3:** 1 Bại
+*   **Mặt 4, 5:** 0 điểm (Cân Bằng)
+*   **Mặt 6, 7, 8:** 1 Thành
 
 ### 2.3. Resolution Logic
 *   **Thành công (Success):** Khi `Tổng điểm Thành >= ĐK`.

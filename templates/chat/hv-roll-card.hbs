@@ -6,7 +6,7 @@
                 {{#if skillLabel}}
                 <span class="hv-roll-card__meta-skill">
                     <img src="{{skillIcon}}" alt="" />
-                    {{skillLabel}} ({{diceCount}})
+                    {{skillLabel}}
                 </span>
                 {{/if}}
                 <span class="hv-roll-card__meta-info">{{actorName}} · {{time}}</span>
@@ -28,7 +28,17 @@
     </header>
 
     <div class="hv-roll-card__summary">
-        <div class="hv-roll-card__dice-count">{{diceCount}}</div>
+        <div class="hv-roll-card__dice-count{{#if hasBothDiceTypes}} hv-roll-card__dice-count--split{{/if}}">
+            {{#if hasBothDiceTypes}}
+            <span class="hv-roll-card__dice-count-plus">+</span>
+            <div class="hv-roll-card__dice-count-rows">
+                <span>{{elementDiceCount}}d10</span>
+                <span>{{skillDiceCount}}d8</span>
+            </div>
+            {{else}}
+            {{diceCount}}
+            {{/if}}
+        </div>
         <div class="hv-roll-card__totals" aria-label="Kết quả Dương Bình Âm">
             <div class="hv-roll-card__counter hv-roll-card__counter--duong">
                 <span>Thành</span>
@@ -55,6 +65,7 @@
         <div class="hv-roll-card__die hv-roll-card__die--{{category}}">
             <span class="hv-roll-card__die-index">#{{index}}</span>
             <strong class="hv-roll-card__die-value">{{value}}</strong>
+            <span class="hv-roll-card__die-type">{{dieType}}</span>
             <span class="hv-roll-card__die-label">{{label}}</span>
         </div>
         {{/each}}
