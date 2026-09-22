@@ -4,7 +4,7 @@ import {BOI_CANH, ELEMENT_CLASS, ELEMENTS, GIA_CANH, THI_TOC, THIEN_TU_DESCRIPTI
 import { ElementModal } from './element-modal.mjs'
 import { ResourceModal } from './resource-modal.mjs'
 import {removeThiTocFromActor, setThiTocForActor} from "../helpers/thiToc";
-import {layHanhThe} from "../helpers/element";
+import {layHanhThe, buildRollTitle} from "../helpers/element";
 import {removeBoiCanhFromActor, setBoiCanhForActor} from "../helpers/boiCanh";
 import {removeGiaCanhFromActor, setGiaCanhForActor} from "../helpers/giaCanh";
 import { InventoryModal } from './inventory-modal.mjs';
@@ -181,9 +181,16 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
             // await setThiTocForActor(this.actor, 'ga')
 
             if (hanhThe) {
+                const elementValue = this.actor.system.elements?.[hanhThe]?.value ?? 1;
+                const skillValue = this.actor.system.skills[skill] ?? 0;
+
                 this.actor.testDiceSoNice(
-                    this.actor.system.elements?.[hanhThe]?.value ?? 1,
-                    this.actor.system.skills[skill] ?? 0
+                    elementValue,
+                    skillValue,
+                    'normal',
+                    undefined,
+                    buildRollTitle(hanhThe, elementValue, skill, skillValue),
+                    skill
                 );
                 return;
             }

@@ -1,4 +1,5 @@
-import { ELEMENTS, SKILL_KEYS, SKILL_LABELS } from '../helpers/config'
+import { SKILL_KEYS, SKILL_LABELS } from '../helpers/config'
+import { buildRollTitle } from '../helpers/element'
 
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 
@@ -182,9 +183,7 @@ export class ElementModal extends HandlebarsApplicationMixin(ApplicationV2)
 
             const title = selectedWeapon
                 ? `Tấn công — ${selectedWeapon.name}`
-                : this._selectedSkillKey
-                    ? (SKILL_LABELS[this._selectedSkillKey] ? SKILL_LABELS[this._selectedSkillKey] + ` (+${skillValue})` : 'Gieo Thiên Mệnh')
-                    : 'Gieo Thiên Mệnh';
+                : buildRollTitle(this._selectedElement, elementValue, this._selectedSkillKey, skillValue);
 
             await this.actor.testDiceSoNice(elementDice, skillDice, this._rollType, this._chatMode, title, this._selectedSkillKey ?? undefined, this._difficulty);
             this.close();
