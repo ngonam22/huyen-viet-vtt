@@ -1,5 +1,6 @@
 import type { ThiToc } from "../../types/thiToc";
 import { BOI_CANH } from "./config";
+import { removeXuatThanItems } from "./thiToc";
 
 const BOI_CANH_ITEM_TYPE = "boiCanh";
 
@@ -9,8 +10,9 @@ export function getBoiCanhById(id: string): ThiToc | undefined {
 
 /**
  * Set Bối Cảnh cho actor:
- * - xóa bối cảnh cũ nếu có
+ * - xóa thị tộc / bối cảnh cũ nếu có
  * - add bối cảnh mới dưới dạng Item(type="boiCanh")
+ * - ID lưu chung ở system.identity.thiToc
  */
 export async function setBoiCanhForActor(actor: Actor, id: string): Promise<void> {
     const boiCanh = getBoiCanhById(id);
@@ -18,10 +20,10 @@ export async function setBoiCanhForActor(actor: Actor, id: string): Promise<void
         throw new Error(`Không tìm thấy Bối Cảnh với Id="${id}"`);
     }
 
-    // 1) Xóa Bối cẢNH cũ
-    removeBoiCanhFromActor(actor)
+    // 1) Xóa thị tộc / bối cảnh cũ
+    await removeXuatThanItems(actor);
 
-    // 2) Add thị tộc mới
+    // 2) Add bối cảnh mới
     await actor.createEmbeddedDocuments("Item", [
         {
             name: boiCanh.ten,
@@ -33,34 +35,6 @@ export async function setBoiCanhForActor(actor: Actor, id: string): Promise<void
     ]);
 
     await actor.update({
-        "system.identity.boiCanh": boiCanh.id
+        "system.identity.thiToc": boiCanh.id
     });
-}
-
-/**
- * Remove Boi Canh hiện tại khỏi actor
- */
-export async function removeBoiCanhFromActor(actor: Actor): Promise<void> {
-    // store all ids of Boi Canh (if any) into an array, then we can remove it later
-    const oldBoiCanhIds: string[] = []
-    const oldBoiCanhItems = actor.items.filter((i) => {
-        if (i.type === BOI_CANH_ITEM_TYPE) {
-            oldBoiCanhIds.push(i.id);
-            return true;
-        }
-
-        return false;
-    });
-
-    await actor.update({
-        "system.identity.boiCanh": ""
-    });
-
-    if (oldBoiCanhItems.length === 0) return;
-
-    await actor.deleteEmbeddedDocuments(
-        "Item",
-        oldBoiCanhIds
-    );
-
 }

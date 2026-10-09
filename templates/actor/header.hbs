@@ -70,16 +70,17 @@
                             <img class='profile-img tw:mx-auto' src='{{actor.img}}' data-edit='img'
                                 data-action='onEditImage' data-tooltip='{{actor.name}}' height='160' width='160' />
 
-                            <div class="grid col-span-2">
-                                <div>
-                                    Túi tiền:
-                                </div>
-                                <span class="tw:flex tw:items-center tw:justify-right tw:gap-2">
-                                    {{system.currency.tien}} <img width="15px" alt="Tien currency"
-                                        src="/systems/huyen-viet-vtt/assets/icons/tien.webp" />
-                                    {{system.currency.quan}} <img width="35px" alt="Quan currency"
-                                        src="/systems/huyen-viet-vtt/assets/icons/quan.webp" />
-                                </span>
+                            <div class="tw:flex tw:items-center tw:gap-2 tw:my-2">
+                                <label for="hv-tai-phu-select">
+                                    Tài Phú:
+                                </label>
+                                <select id="hv-tai-phu-select" name="system.taiPhu" {{#unless editable}}disabled{{/unless}}>
+                                    {{#each taiPhuOptions as |option|}}
+                                    <option value="{{option.value}}" {{#if option.selected}}selected{{/if}}>
+                                        {{option.value}}
+                                    </option>
+                                    {{/each}}
+                                </select>
                             </div>
 
                             {{!-- Tu Vi (XP) Widget --}}
@@ -124,42 +125,43 @@
 
                             <div class='resource'>
                                 <label for='hv-thi-toc-select' class='resource-label'>
-                                    Thị Tộc
+                                    Thị Tộc / Bối Cảnh
                                 </label>
                                 <div class='resource-content flexrow flex-center flex-between'>
                                     <select id="hv-thi-toc-select" name="demo" class="hv-thi-toc-select" {{#unless
                                         editable}}disabled{{/unless}}>
                                         <option value="" disabled {{#unless
                                             document.system.identity.thiToc}}selected{{/unless}}>
-                                            -- Chọn Thị Tộc --
+                                            -- Chọn Thị Tộc / Bối Cảnh --
                                         </option>
 
-                                        {{#each thiTocOptions as |option|}}
-                                        <option value="{{option.value}}" {{#if option.selected}}selected{{/if}}>
-                                            {{localize option.label }}
-                                        </option>
-                                        {{/each}}
+                                        <optgroup label="Thị Tộc">
+                                            {{#each thiTocOptions as |option|}}
+                                            <option value="{{option.value}}" {{#if option.selected}}selected{{/if}}>
+                                                {{localize option.label }}
+                                            </option>
+                                            {{/each}}
+                                        </optgroup>
+
+                                        <optgroup label="Bối Cảnh">
+                                            {{#each boiCanhOptions as |option|}}
+                                            <option value="{{option.value}}" {{#if option.selected}}selected{{/if}}>
+                                                {{localize option.label }}
+                                            </option>
+                                            {{/each}}
+                                        </optgroup>
                                     </select>
                                 </div>
                             </div>
 
                             <div class='resource'>
-                                <label for='hv-boi-canh-select' class='resource-label'>
-                                    Bối Cảnh
+                                <label for='hv-dia-vi-select' class='resource-label'>
+                                    Địa Vị
                                 </label>
                                 <div class='resource-content flexrow flex-center flex-between'>
-                                    <select id="hv-boi-canh-select" name="boi-canh" class="hv-boi-canh-select" {{#unless
+                                    <select id="hv-dia-vi-select" name="system.diaVi" {{#unless
                                         editable}}disabled{{/unless}}>
-                                        <option value="" disabled {{#unless
-                                            document.system.identity.boiCanh}}selected{{/unless}}>
-                                            -- Chọn Bối Cảnh --
-                                        </option>
-
-                                        {{#each boiCanhOptions as |option|}}
-                                        <option value="{{option.value}}" {{#if option.selected}}selected{{/if}}>
-                                            {{localize option.label }}
-                                        </option>
-                                        {{/each}}
+                                        {{selectOptions diaViOptions selected=document.system.diaVi}}
                                     </select>
                                 </div>
                             </div>

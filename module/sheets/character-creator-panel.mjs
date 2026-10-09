@@ -1,10 +1,10 @@
 import {
   BOI_CANH, GIA_CANH, MON_PHAI, THI_TOC, ELEMENTS, SKILL_LABELS, ELEMENT_CLASS, THIEN_TU_DESCRIPTIONS
 } from '../helpers/config.ts';
-import { setBoiCanhForActor, removeBoiCanhFromActor } from '../helpers/boiCanh';
+import { setBoiCanhForActor } from '../helpers/boiCanh';
 import { setGiaCanhForActor } from '../helpers/giaCanh';
 import { setMonPhaiForActor, addMonPhaiInitItemsToActor } from '../helpers/monPhai';
-import { setThiTocForActor, removeThiTocFromActor } from '../helpers/thiToc';
+import { setThiTocForActor } from '../helpers/thiToc';
 
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 
@@ -45,6 +45,13 @@ function firstEffect(upgrades, target) {
   return upgrades
     .find(rule => rule.target === target)
     ?.effects?.[0] ?? null;
+}
+
+// identity.thiToc chứa ID Thị Tộc HOẶC Bối Cảnh → tách ra cho draft của creator
+function splitXuatThan(actor) {
+  const id = actor.system.identity?.thiToc ?? '';
+  const isBoiCanh = BOI_CANH.some(b => b.id === id);
+  return { boiCanh: isBoiCanh ? id : '', thiToc: isBoiCanh ? '' : id };
 }
 
 function getBoiCanhRows(selectedId) {
@@ -221,10 +228,9 @@ export class CharacterCreatorPanel extends HandlebarsApplicationMixin(Applicatio
     const savedMonPhaiSkillKeys = Array.isArray(actor.system.identity?.monPhaiSkillKeys) ? [...actor.system.identity.monPhaiSkillKeys] : [];
 
     this._draft = {
-      boiCanh: actor.system.identity?.boiCanh ?? '',
+      ...splitXuatThan(actor),
       giaCanh: actor.system.identity?.giaCanh ?? '',
       giaCanhElementIndex: savedElementIndex,
-      thiToc: actor.system.identity?.thiToc ?? '',
       thienTu: actor.system.identity?.thienTu ?? '',
       uuDiemTitle: actor.system.identity?.uuDiemTitle ?? '',
       uuDiemDesc: actor.system.identity?.uuDiemDesc ?? '',
@@ -547,11 +553,13 @@ export class CharacterCreatorPanel extends HandlebarsApplicationMixin(Applicatio
       this._draft.monPhaiSkillKeys.length !== this._savedMonPhaiSkillKeys.length ||
       this._draft.monPhaiSkillKeys.some((key, i) => key !== this._savedMonPhaiSkillKeys[i]);
 
+    const saved = splitXuatThan(this.actor);
+
     return (
-      this._draft.boiCanh !== (this.actor.system.identity?.boiCanh ?? '') ||
+      this._draft.boiCanh !== saved.boiCanh ||
       this._draft.giaCanh !== (this.actor.system.identity?.giaCanh ?? '') ||
       this._draft.giaCanhElementIndex !== this._savedGiaCanhElementIndex ||
-      this._draft.thiToc !== (this.actor.system.identity?.thiToc ?? '') ||
+      this._draft.thiToc !== saved.thiToc ||
       this._draft.thienTu !== this._savedThienTu ||
       this._draft.uuDiemTitle !== (this.actor.system.identity?.uuDiemTitle ?? '') ||
       this._draft.uuDiemDesc !== (this.actor.system.identity?.uuDiemDesc ?? '') ||
@@ -574,13 +582,13 @@ export class CharacterCreatorPanel extends HandlebarsApplicationMixin(Applicatio
   async _commitDraft() {
     this._syncTextStepsFromDOM();
     if (!this._hasUnsavedChanges()) return;
-    if (this._draft.boiCanh && this._draft.boiCanh !== (this.actor.system.identity?.boiCanh ?? '')) {
-      if (this.actor.system.identity?.thiToc) await removeThiTocFromActor(this.actor);
+    // set*ForActor tự xóa xuất thân cũ (Thị Tộc / Bối Cảnh loại trừ nhau)
+    const savedXuatThan = splitXuatThan(this.actor);
+    if (this._draft.boiCanh && this._draft.boiCanh !== savedXuatThan.boiCanh) {
       await setBoiCanhForActor(this.actor, this._draft.boiCanh);
     }
 
-    if (this._draft.thiToc && this._draft.thiToc !== (this.actor.system.identity?.thiToc ?? '')) {
-      if (this.actor.system.identity?.boiCanh) await removeBoiCanhFromActor(this.actor);
+    if (this._draft.thiToc && this._draft.thiToc !== savedXuatThan.thiToc) {
       await setThiTocForActor(this.actor, this._draft.thiToc);
     }
 

@@ -1,5 +1,6 @@
 import BoilerplateActorBase from './base-actor.mjs';
 import { recalculateCharacterStats } from '../helpers/upgrade.ts';
+import { DIA_VI, DIA_VI_DEFAULT } from '../helpers/config.ts';
 
 /** @typedef {import("../../types/actor-character").CharacterSchema} CharacterSchema */
 
@@ -61,10 +62,10 @@ export default class BoilerplateCharacter extends BoilerplateActorBase {
       identity: new fields.SchemaField({
         giaToc: new fields.StringField({ initial: "" }),
         monPhai: new fields.StringField({ initial: "" }),
+        // ID Thị Tộc HOẶC Bối Cảnh (loại trừ nhau, chung 1 field)
         thiToc: new fields.StringField({ initial: "" }),
         ngheNghiep: new fields.StringField({ initial: "" }),
         tinhCach: new fields.StringField({ initial: "" }),
-        boiCanh: new fields.StringField({ initial: "" }),
         giaCanh: new fields.StringField({ initial: "" }),
         thienTu: new fields.StringField({ initial: "" }),
         uuDiemTitle: new fields.StringField({ initial: "" }),
@@ -156,6 +157,16 @@ export default class BoilerplateCharacter extends BoilerplateActorBase {
           value: intField(1)
         })
       }),
+
+      // Bậc Địa Vị — mã khoảng string, xem DIA_VI trong config
+      diaVi: new fields.StringField({
+        required: true,
+        initial: DIA_VI_DEFAULT,
+        choices: DIA_VI.map((d) => d.value),
+      }),
+
+      // Bậc Tài Phú (tài lực trừu tượng) 0–9
+      taiPhu: intField(0, 0, 9),
 
       currency: new fields.SchemaField({
         quan: intField(0, 0, 999999),

@@ -49,7 +49,7 @@ Implementation: `module/documents/actor.ts` → `computeAbilities()`
 
 1. **Reset** — elements reset to base value (1), skills reset to 0
 2. **Apply Thị Tộc (Clan)** — each grants +1 to an element and +1 to a skill
-3. **Apply Bối Cảnh (Background)** — each grants +1 to an element and +1 to a skill
+3. **Apply Bối Cảnh (Background)** — each grants +1 to an element and +1 to a skill (a character has a Thị Tộc **or** a Bối Cảnh, never both — see Identity Layers)
 4. **Apply Gia Cảnh (Family Background)** — additional element/skill bonuses; deferred rules (no selection yet) are skipped
 5. **Recalculate abilities** — run the six formulas above
 6. **Apply equipped item effects** — `passiveEffects` (target:`ability` only) from all equipped `vuKhi`, `giapTru`, and `trangBi` items are applied on top of the computed ability values. Unequipped inventory items are fully ignored.
@@ -82,6 +82,8 @@ A character is assembled from several stacked identity items, each contributing 
 | **Thị Tộc** (Clan)  | Item      | `linhGiap`   | +1 element, +1 skill (12 clans, one per zodiac) |
 | **Bối Cảnh** (Background) | Item | `id`        | +1 element, +1 skill (10 backgrounds) |
 | **Gia Cảnh** (Family) | Item   | `id`         | +1–2 elements (choose 1), +2 skills  |
+
+**Thị Tộc và Bối Cảnh loại trừ nhau** — nhân vật chỉ có 1 trong 2. ID đã chọn (dù là `linhGiap` hay Bối Cảnh `id`) lưu chung ở `system.identity.thiToc`; không còn field `identity.boiCanh`. `setThiTocForActor` / `setBoiCanhForActor` luôn xóa item `thiToc` + `boiCanh` cũ (và Thuật Thức `source === 'clan'`) trước khi tạo item mới, qua `removeXuatThanItems()` trong `module/helpers/thiToc.ts`. Character sheet hiển thị 1 select gộp (`hv-thi-toc-select`) với 2 optgroup.
 
 Clan animal signs (Thập Nhị Linh Giáp): Chuột, Trâu, Hổ, Mèo, Thìn, Rắn, Ngựa, Dê, Khỉ, Gà, Sói, Heo.
 

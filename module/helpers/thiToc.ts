@@ -6,14 +6,29 @@ import {
 } from "./thuatThuc";
 
 const THI_TOC_ITEM_TYPE = "thiToc";
+// Thị Tộc và Bối Cảnh loại trừ nhau, cùng lưu ID ở system.identity.thiToc
+const XUAT_THAN_ITEM_TYPES = [THI_TOC_ITEM_TYPE, "boiCanh"];
 
 export function getThiTocById(clanId: string): ThiToc | undefined {
     return THI_TOC.find((c) => c.linhGiap === clanId);
 }
 
 /**
+ * Xóa toàn bộ item Thị Tộc / Bối Cảnh + các Thuật Thức do clan cấp
+ */
+export async function removeXuatThanItems(actor: Actor): Promise<void> {
+    const ids = actor.items
+        .filter((i) => XUAT_THAN_ITEM_TYPES.includes(i.type as string))
+        .map((i) => i.id);
+    if (ids.length > 0) {
+        await actor.deleteEmbeddedDocuments("Item", ids);
+    }
+    await removeClanGrantedTechniques(actor);
+}
+
+/**
  * Set Thị Tộc cho actor:
- * - xóa thị tộc cũ nếu có
+ * - xóa thị tộc / bối cảnh cũ nếu có
  * - add thị tộc mới dưới dạng Item(type="thiToc")
  */
 export async function setThiTocForActor(actor: Actor, clanId: string): Promise<void> {
@@ -22,15 +37,8 @@ export async function setThiTocForActor(actor: Actor, clanId: string): Promise<v
         throw new Error(`Không tìm thấy Thị Tộc với clanId="${clanId}"`);
     }
 
-    // 1) Xóa thị tộc cũ + các Thuật Thức do clan cũ cấp
-    const oldThiTocItems = actor.items.filter((i) => i.type === THI_TOC_ITEM_TYPE);
-    if (oldThiTocItems.length > 0) {
-        await actor.deleteEmbeddedDocuments(
-            "Item",
-            oldThiTocItems.map((i) => i.id)
-        );
-    }
-    await removeClanGrantedTechniques(actor);
+    // 1) Xóa thị tộc / bối cảnh cũ + các Thuật Thức do clan cũ cấp
+    await removeXuatThanItems(actor);
 
     // 2) Add thị tộc mới
     await actor.createEmbeddedDocuments("Item", [
@@ -52,21 +60,12 @@ export async function setThiTocForActor(actor: Actor, clanId: string): Promise<v
 }
 
 /**
- * Remove Thị Tộc hiện tại khỏi actor
+ * Remove Thị Tộc / Bối Cảnh hiện tại khỏi actor
  */
 export async function removeThiTocFromActor(actor: Actor): Promise<void> {
-    const thiTocItems = actor.items.filter((i) => i.type === THI_TOC_ITEM_TYPE);
-
     await actor.update({
         "system.identity.thiToc": ""
     });
 
-    await removeClanGrantedTechniques(actor);
-
-    if (thiTocItems.length === 0) return;
-
-    await actor.deleteEmbeddedDocuments(
-        "Item",
-        thiTocItems.map((i) => i.id)
-    );
+    await removeXuatThanItems(actor);
 }

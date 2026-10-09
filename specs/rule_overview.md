@@ -74,10 +74,9 @@ system: {
   identity: {
     giaToc: string        // Gia tộc (clan name, free text)
     monPhai: string       // Môn phái (sect)
-    thiToc: string        // ID Thị Tộc đã chọn (ref → THI_TOC config)
+    thiToc: string        // ID Thị Tộc HOẶC Bối Cảnh (loại trừ nhau; ref → THI_TOC / BOI_CANH config)
     ngheNghiep: string    // Nghề nghiệp (free text)
     tinhCach: string      // Tính cách (free text)
-    boiCanh: string       // ID Bối Cảnh đã chọn (ref → BOI_CANH config)
     giaCanh: string       // ID Gia Cảnh đã chọn (ref → GIA_CANH config)
   }
   elements: {
@@ -107,6 +106,10 @@ system: {
   attributes: {
     level: { value: int }   // nhân vật cấp (hiện chưa dùng)
   }
+  diaVi: string     // Bậc Địa Vị, mã khoảng trên thang 0–99 (ref → DIA_VI config), default "4049" (Hạ sĩ)
+                    // "99" Hoàng đế | "7098" Quý tộc | "6069" Thượng sĩ | "5059" Trung sĩ | "4049" Hạ sĩ
+                    // "3039" Nông dân | "2029" Công nhân | "1019" Thương nhân | "09" Tiện dân
+  taiPhu: int 0–9   // Bậc Tài Phú: chi trả thoải mái vật phẩm/dịch vụ có cấp ≤ taiPhu (chọn trên sheet, thay cho hiển thị Túi tiền)
   currency: {
     quan: int   // 1 quan = 10 tiền
     tien: int   // 1 tiền = 100 đồng

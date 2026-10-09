@@ -225,7 +225,7 @@ Cả 3 path đều tạo ra item type `thuatThuc` trên actor, phân biệt bằ
 - Khi player chọn Thị Tộc, `setThiTocForActor(actor, clanId)` được gọi. Sau khi tạo item `thiToc`, nó gọi thêm `grantClanStarterTechniques(actor, clanId)`:
   1. Đọc `starterTechniques` của clan.
   2. Với mỗi technique ID, gọi `learnThuatThuc(actor, id, 'clan')`.
-- Khi player đổi hoặc xóa Thị Tộc, `removeThiTocFromActor(actor)` xóa các item `thuatThuc` có `source === 'clan'` (không động đến `manual` / `xp`).
+- Khi player đổi hoặc xóa Thị Tộc, **hoặc chọn Bối Cảnh** (Thị Tộc / Bối Cảnh loại trừ nhau, chung field `identity.thiToc`), `removeXuatThanItems(actor)` xóa các item `thuatThuc` có `source === 'clan'` (không động đến `manual` / `xp`). Hàm này được gọi bởi `setThiTocForActor`, `setBoiCanhForActor` và `removeThiTocFromActor`.
 
 **Note về rulebook wording:** sách ghi "3 Thuật Thức trong giáo trình của Môn Phái". Codebase hiện tại đi qua `identity.thiToc`. Mỗi Thị Tộc có Môn Phái canonical 1:1 ở cấp nhập môn → attach `starterTechniques` vào clan acceptable. Nếu tách sect khỏi clan sau này, field có thể move mà không đổi item schema.
 

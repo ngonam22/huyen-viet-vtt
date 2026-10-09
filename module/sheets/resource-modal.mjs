@@ -12,7 +12,7 @@ export class ResourceModal extends HandlebarsApplicationMixin(ApplicationV2) {
             height: "auto",
         },
         window: {
-            resizable: false,
+            resizable: true,
         },
     };
 

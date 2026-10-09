@@ -1,11 +1,11 @@
 import { prepareActiveEffectCategories } from '../helpers/effects.mjs';
 import { upgrade, applyUpgradeRule, removeUpgradeSource } from "../helpers/upgrade.ts";
-import {BOI_CANH, ELEMENT_CLASS, ELEMENTS, GIA_CANH, THI_TOC, THIEN_TU_DESCRIPTIONS} from "../helpers/config.ts";
+import {BOI_CANH, DIA_VI, ELEMENT_CLASS, ELEMENTS, GIA_CANH, THI_TOC, THIEN_TU_DESCRIPTIONS} from "../helpers/config.ts";
 import { ElementModal } from './element-modal.mjs'
 import { ResourceModal } from './resource-modal.mjs'
 import {removeThiTocFromActor, setThiTocForActor} from "../helpers/thiToc";
 import {layHanhThe, buildRollTitle} from "../helpers/element";
-import {removeBoiCanhFromActor, setBoiCanhForActor} from "../helpers/boiCanh";
+import {setBoiCanhForActor} from "../helpers/boiCanh";
 import {removeGiaCanhFromActor, setGiaCanhForActor} from "../helpers/giaCanh";
 import { InventoryModal } from './inventory-modal.mjs';
 import { ConditionModal } from './condition-modal.mjs';
@@ -53,6 +53,9 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
             restScene: this._onRestScene,
             restSession: this._onRestSession,
             restLong: this._onRestLong,
+        },
+        window: {
+            resizable: true,
         },
         // Custom property that's merged into `this.options`
         // dragDrop: [{ dragSelector: '.draggable', dropSelector: null }],
@@ -320,6 +323,8 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
             limited: this.document.limited,
             // Add the actors document.
             actor: this.actor,
+            // Template dùng `document.system...` (VD selectOptions của Địa Vị)
+            document: this.document,
             // Add the actors's data to context.data for easier access, as well as flags.
             system: this.actor.system,
             flags: this.actor.flags,
@@ -343,7 +348,15 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
             boiCanhOptions: BOI_CANH.map((boiCanh) => ({
                 value: boiCanh.id,
                 label: boiCanh.ten,
-                selected: boiCanh.id === this.actor.system.identity.boiCanh
+                selected: boiCanh.id === this.actor.system.identity.thiToc
+            })),
+
+            diaViOptions: DIA_VI,
+
+            // Bậc Tài Phú 0–9
+            taiPhuOptions: Array.from({ length: 10 }, (_, i) => ({
+                value: i,
+                selected: i === this.actor.system.taiPhu
             })),
 
             giaCanhOptions: GIA_CANH.map(val => ({
@@ -625,23 +638,13 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
                 return;
             }
 
-            await setThiTocForActor(actor, clanId);
-        });
-
-        const boiCanhSelect = this.element?.querySelector(".hv-boi-canh-select");
-        boiCanhSelect.addEventListener("change", async (event) => {
-            const target = event.currentTarget;
-            const actor = this.actor;
-            const boiCanhId = target.value;
-
-            console.log('--- Boi Canh CHange')
-            console.log(boiCanhId)
-            if (!boiCanhId) {
-                await removeBoiCanhFromActor(actor);
+            // Select gộp: ID có thể là Thị Tộc hoặc Bối Cảnh
+            if (BOI_CANH.some((b) => b.id === clanId)) {
+                await setBoiCanhForActor(actor, clanId);
                 return;
             }
 
-            await setBoiCanhForActor(actor, boiCanhId);
+            await setThiTocForActor(actor, clanId);
         });
 
 
@@ -1035,7 +1038,8 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
                 const val = (typeof v === 'number') ? v : parseInt(v);
                 submitData[k] = isNaN(val) ? 0 : Math.floor(val);
             }
-            else if (typeof v === "string" && v.trim() !== "" && !isNaN(Number(v))) {
+            // diaVi là mã string ("09" phải giữ nguyên số 0 đầu) → không ép sang number
+            else if (k !== 'system.diaVi' && typeof v === "string" && v.trim() !== "" && !isNaN(Number(v))) {
                 submitData[k] = Number(v);
             }
         }

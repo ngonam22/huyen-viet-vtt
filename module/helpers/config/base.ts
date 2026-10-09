@@ -143,7 +143,6 @@ export interface HvCharacterIdentity {
     thiToc: string;
     ngheNghiep: string;
     tinhCach: string;
-    boiCanh?: string;
     giaCanh?: string;
     thienTu?: string;
     uuDiemTitle?: string;
@@ -305,3 +304,19 @@ export const THIEN_TU_DESCRIPTIONS = {
     hoa: 'Bùng cháy trong từng nhịp tim, nhiệt huyết chẳng bao giờ lụi tàn. Người mang Thiên Tư Hỏa Hành tỏa sáng nhất trong khoảnh khắc quyết định, sức mạnh bùng phát bất ngờ.',
     tho: 'Tựa núi vững, tựa đất rộng. Người mang Thiên Tư Thổ Hành là trụ cột vững chắc, sức nặng của họ chở che và giữ vững tất cả những người xung quanh.',
 };
+
+/**
+ * Bậc Địa Vị (thang 0–99). value = mã khoảng dạng string, VD "7098" = 70–98, "09" = 0–9.
+ */
+export const DIA_VI = [
+    { value: '99', label: 'Hoàng đế' },
+    { value: '7098', label: 'Quý tộc' },
+    { value: '6069', label: 'Thượng sĩ' },
+    { value: '5059', label: 'Trung sĩ' },
+    { value: '4049', label: 'Hạ sĩ' },
+    { value: '3039', label: 'Nông dân' },
+    { value: '2029', label: 'Công nhân' },
+    { value: '1019', label: 'Thương nhân' },
+    { value: '09', label: 'Tiện dân' },
+];
+export const DIA_VI_DEFAULT = '4049';
