@@ -117,7 +117,7 @@ Dưới đây là mapping chi tiết cách `Đặc Kỹ Môn Phái` tương tác
     *   `Bonus`: chọn 2 chỉ số Ngũ Hành khác nhau để tăng thêm 1.
     *   `Kỹ năng Giáo Trình`: Võ Kỹ, Tâm Thuật
     *   `Thuật Thức`: 2 Võ Kỹ cấp-1
-    *   `ĐKMP - Hạo Giới Nộ Khí`: Khi nhận sát thương hoặc Phát Tiết, tiến vào trạng thái `Cuồng Nộ` và hồi phục Sức Lực = **Cấp bậc Môn Phái + Cấp Thể Lực**.
+    *   `ĐKMP - Hạo Giới Nộ Khí`: Khi nhận Sát Lực hoặc Phát Tiết, tiến vào trạng thái `Cuồng Nộ` và hồi phục Sức Lực = **Cấp bậc Môn Phái + Cấp Thể Lực**.
 
 ### 5.2. Nhóm Giang Hồ Bách Đạo (Cộng Đồng Phi Chính Quy)
 Đây là các phái không thuộc quản lý của nhà nước, thường có bộ bonus đa dạng hơn để phục vụ kỹ năng Sinh Tồn và Hắc Đạo:

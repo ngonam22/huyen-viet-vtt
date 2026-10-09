@@ -31,7 +31,7 @@ Mặt của d8 (Kỹ Năng) dùng chung thang điểm trên nhưng không có 2 
 ### 2.3. Resolution Logic
 *   **Thành công (Success):** Khi `Tổng điểm Thành >= ĐK`.
 *   **Thất bại (Failure):** Khi `Tổng điểm Thành < ĐK`.
-*   **Chí Thành (Critical Success):** Điểm Thành dư ra (`Tổng Thành - ĐK`). Dùng để kích hoạt hiệu ứng phụ, thêm sát thương.
+*   **Chí Thành (Critical Success):** Điểm Thành dư ra (`Tổng Thành - ĐK`). Dùng để kích hoạt hiệu ứng phụ, thêm Sát Lực.
 *   **Chí Bại (Critical Failure):** Điểm hụt so với ĐK (`ĐK - Tổng Thành`). Gây hiệu ứng tiêu cực.
 *   **Mechanic Can Thiệp (Tâm Lực):** Người chơi có thể tiêu hao **1 điểm Tâm Lực** để đổi một mặt xúc xắc 4 hoặc 5 (Cân Bằng) thành 1 Thành hoặc 1 Bại.
 
@@ -53,7 +53,7 @@ Tất cả các chỉ số này đều **không lưu trong database** — chúng
 #### Chỉ số tài nguyên (có `base` và `value`)
 *   `sucLuc` — Sức Lực (HP/Stamina):
     - `base` = `5 + (moc + hoa + tho)` — tính lại mỗi lần.
-    - `value` — **lưu trong DB**, chỉ thay đổi khi nhận sát thương hoặc hồi phục. Không bị ghi đè bởi công thức.
+    - `value` — **lưu trong DB**, chỉ thay đổi khi nhận Sát Lực hoặc hồi phục. Không bị ghi đè bởi công thức.
 *   `tamLuc` — Tâm Lực (Mental/Sanity):
     - `base` = `tho + kim + thuy` — tính lại mỗi lần.
     - `value` — **lưu trong DB**, bị giảm khi tiêu hao. Khi = 0 → trạng thái "Loạn Tâm".
@@ -66,7 +66,7 @@ Tất cả các chỉ số này đều **không lưu trong database** — chúng
 *   `khangLuc` — Khang Lực (Defense / Damage Reduction): `value` = tổng `resistance` của tất cả item `giapTru` đang được trang bị (`isEquipped = true`), cộng thêm các buff tạm từ ActiveEffect. **Không lưu DB** — luôn tính lại trong `applyEquippedItemEffects()`.
 
 #### Damage Pipeline (xem §5.3)
-Khi bị tấn công: `Sát Thương - khangLuc.value` → phần dư trừ `sucLuc.value`.
+Khi bị tấn công: `Sát Lực - khangLuc.value` → phần dư trừ `sucLuc.value`.
 
 ### 3.3. Schema Đầy Đủ (actor-character DataModel)
 ```
@@ -155,26 +155,26 @@ Trong lượt, một character có thể di chuyển bằng `Tốc độ` (khôn
 ### 5.2. Ngũ Hành Thế (Elemental Stances)
 Trong combat, character phải chọn 1 Hành làm "Thế" (Stance), cung cấp Passive buff:
 *   `Hỏa Thế`: Trả Tâm lực để đổi lấy Chí Thành.
-*   `Thổ Thế`: Miễn nhiễm sát thương chí mạng/hiệu ứng từ Chí Thành của địch. Hoặc Giảm chí thành của địch.
+*   `Thổ Thế`: Miễn nhiễm Sát Lực chí mạng/hiệu ứng từ Chí Thành của địch. Hoặc Giảm chí thành của địch.
 *   `Kim Thế`: Tăng +1 (hoặc +2) ĐK cho kẻ địch đánh vào mình.
 *   `Thủy Thế`: Địch tấn công bị trừ Tâm Lực bằng cấp Thủy Hành.
 *   `Mộc Thế`: Có thêm 1 free action (không yêu cầu test).
 
-### 5.3. Damage Pipeline (Luồng xử lý Sát Thương)
+### 5.3. Damage Pipeline (Luồng xử lý Sát Lực)
 Khi một Character bị tấn công, Game Rule xử lý theo thứ tự:
-1.  **Armor Mitigation:** `Sát Thương` - `khangLuc.value` (tổng Kháng Lực từ giáp + buff tạm). Giá trị này luôn được tính lại từ item, không lưu DB. Giá trị Sát Thương sau khi trừ Kháng Lực > 0, tiếp tục bước tiếp theo.
-2.  **HP Mitigation:** Sát Thương dư trừ vào `sucLuc.value` (Sức Lực hiện tại).
-3.  **Core Damage (Tổn thương Ngũ Hành):** Nếu Sức Lực cạn (0), sát thương tác động trực tiếp lên Ngũ Hành. Tổn thương Hành sẽ kích hoạt debuff cho Hành đó (+2 ĐK) và buff Hành bị khắc (-1 ĐK).
+1.  **Armor Mitigation:** `Sát Lực` - `khangLuc.value` (tổng Kháng Lực từ giáp + buff tạm). Giá trị này luôn được tính lại từ item, không lưu DB. Giá trị Sát Lực sau khi trừ Kháng Lực > 0, tiếp tục bước tiếp theo.
+2.  **HP Mitigation:** Sát Lực dư trừ vào `sucLuc.value` (Sức Lực hiện tại).
+3.  **Core Damage (Tổn thương Ngũ Hành):** Nếu Sức Lực cạn (0), Sát Lực tác động trực tiếp lên Ngũ Hành. Tổn thương Hành sẽ kích hoạt debuff cho Hành đó (+2 ĐK) và buff Hành bị khắc (-1 ĐK).
 
-Tuy nhiên, ở version hiện tại, người chơi tự tính mức sát thương mà Nhân vật (Character) nhận vào, và tự trừ vào Sức Lực (HP) thông qua UI.
+Tuy nhiên, ở version hiện tại, người chơi tự tính mức Sát Lực mà Nhân vật (Character) nhận vào, và tự trừ vào Sức Lực (HP) thông qua UI.
 
-### 5.4. Tổn Thương khi nhận Sát Thương
+### 5.4. Tổn Thương khi nhận Sát Lực
 
-Khi nhận sát thương vượt mức Sức Lực (Khí Lực) Khi lượng Sức Lực của nhân vật bị cạn kiệt (về 0), nhân vật sẽ không thể vận sức để chống đỡ hay né tránh các mối nguy hiểm. Lượng sát thương dư thừa lúc này sẽ trực tiếp gây **Tổn thương lên bản thể của nhân vật** thông qua các bước xử lý sau:
-- **Tổn thương Ngũ Hành**:  Sát thương sẽ đâm thẳng vào cơ thể, gây tổn thương trực tiếp lên chỉ số Hành tương ứng với Hành Thế mà nhân vật đang sử dụng ở thời điểm đó
-- **Hy sinh Giáp trụ** (Cơ hội cứu vãn): Trước khi chịu tổn thương Hành, nhân vật có thể chọn hy sinh giáp trụ đang mặc để giảm bớt sát thương (bằng với chỉ số Kháng Lực của giáp). Tuy nhiên, việc này sẽ khiến giáp trụ rơi vào trạng thái "Hư hại" và vĩnh viễn bị giảm -2 Kháng Lực cho tới khi được sửa chữa
+Khi nhận Sát Lực vượt mức Sức Lực (Khí Lực) Khi lượng Sức Lực của nhân vật bị cạn kiệt (về 0), nhân vật sẽ không thể vận sức để chống đỡ hay né tránh các mối nguy hiểm. Lượng Sát Lực dư thừa lúc này sẽ trực tiếp gây **Tổn thương lên bản thể của nhân vật** thông qua các bước xử lý sau:
+- **Tổn thương Ngũ Hành**:  Sát Lực sẽ đâm thẳng vào cơ thể, gây tổn thương trực tiếp lên chỉ số Hành tương ứng với Hành Thế mà nhân vật đang sử dụng ở thời điểm đó
+- **Hy sinh Giáp trụ** (Cơ hội cứu vãn): Trước khi chịu tổn thương Hành, nhân vật có thể chọn hy sinh giáp trụ đang mặc để giảm bớt Sát Lực (bằng với chỉ số Kháng Lực của giáp). Tuy nhiên, việc này sẽ khiến giáp trụ rơi vào trạng thái "Hư hại" và vĩnh viễn bị giảm -2 Kháng Lực cho tới khi được sửa chữa
 - **Hệ quả của Tổn thương Hành**: Do Ngũ Hành có tính sinh khắc, một Hành bị thương sẽ làm mất cân bằng cơ thể. Cụ thể, Độ Khó (ĐK) của tất cả các bài xét năng lực dùng Hành bị thương sẽ bị tăng thêm +2. Bù lại, Hành bị khắc bởi nó sẽ trở nên mạnh hơn 1 cấp bậc.
-- **Cửa tử (Thập Tử Nhất Sinh)**: Nếu nhân vật nhận quá nhiều sát thương đến mức cả 5 Hành đều bị tổn thương, nhân vật sẽ lập tức rơi vào thời khắc sinh tử. Khi đó, nhân vật phải đối mặt với cái chết (Vinh quang cuối cùng), tiêu hao điểm Ngũ Hợp để giữ mạng sống nhưng mang thương tật vĩnh viễn, hoặc đổ xúc xắc đánh cược với số mệnh
+- **Cửa tử (Thập Tử Nhất Sinh)**: Nếu nhân vật nhận quá nhiều Sát Lực đến mức cả 5 Hành đều bị tổn thương, nhân vật sẽ lập tức rơi vào thời khắc sinh tử. Khi đó, nhân vật phải đối mặt với cái chết (Vinh quang cuối cùng), tiêu hao điểm Ngũ Hợp để giữ mạng sống nhưng mang thương tật vĩnh viễn, hoặc đổ xúc xắc đánh cược với số mệnh
 
 ## 6. CƠ CHẾ KHÁC
 ### 6.1. Tiền tệ
@@ -228,7 +228,7 @@ Chi tiết ở các trạng thái hiệu ứng và thông tin kỹ thuật sẽ 
 *(Ghi chú cho AI: Các spec file chi tiết sẽ được cung cấp ở các bước tiếp theo)*
 1.  `Spec_Character_Creation`: Quy trình 8 bước tạo nhân vật (Bối Cảnh, Gia Cảnh, Môn Phái...).
 2.  `SPEC_THUAT_THUC` trong file `spec_thuat_thuc.md`: Thuật Thức (Võ Kỹ, Tâm Thuật, Linh Thuật, Nghi Thức, Khí Thuật, Ma Thuật, Ám Kỹ) — data model, acquisition flow, usage tracking, UI contract.
-3.  `Spec_Equipment`: Hệ thống Item, Giáp Trụ (Kháng lực), Vũ Khí (Sát thương, Tính trạng vũ khí).
+3.  `Spec_Equipment`: Hệ thống Item, Giáp Trụ (Kháng lực), Vũ Khí (Sát Lực, Tính trạng vũ khí).
 4.  `Spec_Status_Effects`: Các trạng thái bất lợi (Choáng váng, Xuất huyết, Loạn tâm, Định thân...).
 5.  `Spec_Equipment` trong file `spec_equipment.md`: Hệ thống trang bị và vật phẩm (Vũ khí, giáp trụ, phòng cụ...).
 6.  `SPEC_SECTS_AND_FACTIONS` trong file `spec_sects_and_factions.md`: Hệ thống về Hệ Phái và Môn Phái (thông tin môn phái, cơ chế khởi tạo, cơ chế thăng cấp...).

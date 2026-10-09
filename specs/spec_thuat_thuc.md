@@ -5,7 +5,7 @@
 **Thuật Thức** là tên gọi chung của các chiêu thức, phép thuật, nghi lễ và kỹ thuật đặc biệt mà nhân vật có được thông qua quá trình học tập và huấn luyện. Trong hệ thống của game, Thuật Thức là một subsystem độc lập, tách rời khỏi các thuộc tính thụ động của trang bị (Vũ Khí, Giáp Trụ, Trang Bị).
 
 ### 1.1. Triết lý thiết kế (DM-driven)
-Engine **KHÔNG tự động giải quyết hiệu ứng** của Thuật Thức (không tự trừ sát thương, không tự áp trạng thái). Thay vào đó, engine:
+Engine **KHÔNG tự động giải quyết hiệu ứng** của Thuật Thức (không tự trừ Sát Lực, không tự áp trạng thái). Thay vào đó, engine:
 - Lưu trữ metadata (tên, phân hệ, tính trạng, mô tả hiệu quả) dưới dạng đọc-được.
 - Theo dõi mechanical state: số lần còn lại (`usesRemaining`) theo tần số sử dụng.
 - Cung cấp chat card để DM đọc nguyên văn luật và narrate hiệu ứng trong bàn chơi.
@@ -66,7 +66,7 @@ Mỗi Thuật Thức có 0+ tính trạng (trait tags) mô tả cách kích ho�
 - `nguHop` — Ngũ Hợp: tiêu hao điểm Ngũ Hợp để kích hoạt.
 
 ### 3.5. Trait thuộc tính siêu nhiên
-- `hoaTinh`, `thoTinh`, `kimTinh`, `thuyTinh`, `mocTinh` — Sát thương / hiệu ứng mang tính chất siêu nhiên Hành đó.
+- `hoaTinh`, `thoTinh`, `kimTinh`, `thuyTinh`, `mocTinh` — Sát Lực / hiệu ứng mang tính chất siêu nhiên Hành đó.
 - `hoaKhi` — Hóa Khí: biểu hiện dưới dạng khí (Linh Thuật).
 - `hoaThe` — Hóa Thể: biểu hiện dưới dạng vật thể (Linh Thuật).
 - `nguyenChu` — Nguyền Chú: ma thuật nguyền rủa.
@@ -323,7 +323,7 @@ Implementation đầu tiên seed 8 entries đại diện cho 7 phân hệ (Võ K
 - **usage**: `{ frequency: 'unlimited', maxUses: 1 }`
 - **prerequisites**: `{ elements: { hoa: 1 }, skills: { voThuat: 1 } }`
 - **sincerityEffects**:
-  - `1+ Hỏa chí thành`: Với mỗi điểm chí thành (tối đa bằng cấp bậc Hỏa), tăng lượng sát thương kế tiếp mà đối tượng phải nhận thêm 2 điểm, tới kết thúc lượt sau của nhân vật.
+  - `1+ Hỏa chí thành`: Với mỗi điểm chí thành (tối đa bằng cấp bậc Hỏa), tăng lượng Sát Lực kế tiếp mà đối tượng phải nhận thêm 2 điểm, tới kết thúc lượt sau của nhân vật.
 
 ### 11.2. `phiKhiThuc` — Phi Khí Thức
 - **traits**: `hanhDong`, `congKich`
@@ -332,7 +332,7 @@ Implementation đầu tiên seed 8 entries đại diện cho 7 phân hệ (Võ K
 - **range**: 6-bộ, 1 đối tượng
 - **usage**: `{ frequency: 'unlimited', maxUses: 1 }`
 - **prerequisites**: `{ skills: { voThuat: 1 } }`
-- **primaryEffect**: Thành công → gây sát thương của vũ khí. Thất bại → vũ khí rơi ở vị trí tối đa 6-bộ trên quỹ đạo ném.
+- **primaryEffect**: Thành công → gây Sát Lực của vũ khí. Thất bại → vũ khí rơi ở vị trí tối đa 6-bộ trên quỹ đạo ném.
 - **sincerityEffects**:
   - `1+ chí thành`: Mỗi điểm chí thành tăng phạm vi tối đa thêm 1-bộ.
 
@@ -366,7 +366,7 @@ Implementation đầu tiên seed 8 entries đại diện cho 7 phân hệ (Võ K
 - **duration**: Lập tức
 - **usage**: `{ frequency: 'unlimited', maxUses: 1 }`
 - **prerequisites**: `{ elements: { hoa: 1 }, skills: { thanHoc: 1 } }`
-- **primaryEffect**: Mỗi đối tượng nhận sát thương siêu nhiên Hỏa tính bằng cấp bậc Hỏa hành (+1/chí thành).
+- **primaryEffect**: Mỗi đối tượng nhận Sát Lực siêu nhiên Hỏa tính bằng cấp bậc Hỏa hành (+1/chí thành).
 - **sincerityEffects**:
   - `1+ Hỏa chí thành`: Tăng phạm vi tối đa thêm +2-bộ mỗi chí thành.
 
@@ -379,8 +379,8 @@ Implementation đầu tiên seed 8 entries đại diện cho 7 phân hệ (Võ K
 - **usage**: `{ frequency: 'unlimited', maxUses: 1 }`  *(Khí Thuật Tĩnh: duy trì đến khi đổi khí thuật — không cần counter)*
 - **prerequisites**: `{ elements: { hoa: 1 }, skills: { voThuat: 1 } }`
 - **primaryEffect**:
-  - *Nội Lưu*: Cường hóa quyền cước với Hỏa khí. Võ thuật Hình thể bằng tay/chân có sát thương chuyển thành siêu nhiên và tăng bằng cấp bậc Hỏa hành.
-  - *Ngoại Phá*: tiêu hao 3 Hỏa chí thành → gây sát thương vật lý bằng cấp bậc Hỏa hành lên đối tượng 1-bộ; đối tượng kiểm tra Thể thuật ĐK 4 (Kim 5, Thủy 2) để không rơi "Hoa mắt".
+  - *Nội Lưu*: Cường hóa quyền cước với Hỏa khí. Võ thuật Hình thể bằng tay/chân có Sát Lực chuyển thành siêu nhiên và tăng bằng cấp bậc Hỏa hành.
+  - *Ngoại Phá*: tiêu hao 3 Hỏa chí thành → gây Sát Lực vật lý bằng cấp bậc Hỏa hành lên đối tượng 1-bộ; đối tượng kiểm tra Thể thuật ĐK 4 (Kim 5, Thủy 2) để không rơi "Hoa mắt".
 
 ### 11.7. `maLinhNguyenChu` — Ma Linh Nguyền Chú
 - **traits**: `hanhDong`, `congKich`, `muuKe`, `nguHanh`, `maThuat`, `nguyenChu`

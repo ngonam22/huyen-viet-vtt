@@ -406,17 +406,17 @@
     "hoaKhiThuc": {
       "name": "Hỏa Khí Thức",
       "condition": "Kỹ năng Võ Thuật (Hỏa hành) phù hợp với vũ khí.",
-      "desc": "Chiêu thức vận Hỏa khí vào vũ khí, tăng sát thương trong đòn kế tiếp.",
+      "desc": "Chiêu thức vận Hỏa khí vào vũ khí, tăng Sát Lực trong đòn kế tiếp.",
       "sincerity": {
-        "1": "Với mỗi điểm chí thành (tối đa bằng cấp bậc Hỏa), tăng lượng sát thương kế tiếp mà đối tượng phải nhận thêm 2 điểm, tới kết thúc lượt sau của nhân vật."
+        "1": "Với mỗi điểm chí thành (tối đa bằng cấp bậc Hỏa), tăng lượng Sát Lực kế tiếp mà đối tượng phải nhận thêm 2 điểm, tới kết thúc lượt sau của nhân vật."
       }
     },
     "thuyKhiThuc": {
       "name": "Hỏa Khí Thức",
       "condition": "Kỹ năng Võ Thuật (Hỏa hành) phù hợp với vũ khí.",
-      "desc": "Chiêu thức vận Hỏa khí vào vũ khí, tăng sát thương trong đòn kế tiếp.",
+      "desc": "Chiêu thức vận Hỏa khí vào vũ khí, tăng Sát Lực trong đòn kế tiếp.",
       "sincerity": {
-        "1": "Với mỗi điểm chí thành (tối đa bằng cấp bậc Hỏa), tăng lượng sát thương kế tiếp mà đối tượng phải nhận thêm 2 điểm, tới kết thúc lượt sau của nhân vật."
+        "1": "Với mỗi điểm chí thành (tối đa bằng cấp bậc Hỏa), tăng lượng Sát Lực kế tiếp mà đối tượng phải nhận thêm 2 điểm, tới kết thúc lượt sau của nhân vật."
       }
     },
     "phiKhiThuc": {
@@ -424,7 +424,7 @@
       "skillCheck": "Võ Thuật",
       "range": "6-bộ, 1 đối tượng",
       "desc": "Ném vũ khí về phía đối tượng.",
-      "primaryEffect": "Thành công → gây sát thương của vũ khí. Thất bại → vũ khí rơi ở vị trí tối đa 6-bộ trên quỹ đạo ném.",
+      "primaryEffect": "Thành công → gây Sát Lực của vũ khí. Thất bại → vũ khí rơi ở vị trí tối đa 6-bộ trên quỹ đạo ném.",
       "sincerity": {
         "1": "Mỗi điểm chí thành tăng phạm vi tối đa thêm 1-bộ."
       }
@@ -455,8 +455,8 @@
       "skillCheck": "Thần Học (Hỏa hành)",
       "range": "6-bộ, số lượng tối đa = Hỏa hành",
       "duration": "Lập tức",
-      "desc": "Phóng điểm lửa siêu nhiên gây sát thương từ xa.",
-      "primaryEffect": "Mỗi đối tượng nhận sát thương siêu nhiên Hỏa tính bằng cấp bậc Hỏa hành (+1/chí thành).",
+      "desc": "Phóng điểm lửa siêu nhiên gây Sát Lực từ xa.",
+      "primaryEffect": "Mỗi đối tượng nhận Sát Lực siêu nhiên Hỏa tính bằng cấp bậc Hỏa hành (+1/chí thành).",
       "sincerity": {
         "1": "Tăng phạm vi tối đa thêm +2-bộ mỗi chí thành."
       }
@@ -467,7 +467,7 @@
       "range": "1-bộ, 1 đối tượng",
       "duration": "Kết thúc cảnh hiện tại (hoặc kích hoạt Khí thuật khác)",
       "desc": "Công pháp nội khí Hỏa hành cường hóa quyền cước.",
-      "primaryEffect": "<em>Nội Lưu</em>: Cường hóa quyền cước với Hỏa khí. Võ thuật Hình thể bằng tay/chân có sát thương chuyển thành siêu nhiên và tăng bằng cấp bậc Hỏa hành. <em>Ngoại Phá</em>: tiêu hao 3 Hỏa chí thành → gây sát thương vật lý bằng cấp bậc Hỏa hành lên đối tượng 1-bộ; đối tượng kiểm tra Thể thuật ĐK 4 (Kim 5, Thủy 2) để không rơi \"Hoa mắt\"."
+      "primaryEffect": "<em>Nội Lưu</em>: Cường hóa quyền cước với Hỏa khí. Võ thuật Hình thể bằng tay/chân có Sát Lực chuyển thành siêu nhiên và tăng bằng cấp bậc Hỏa hành. <em>Ngoại Phá</em>: tiêu hao 3 Hỏa chí thành → gây Sát Lực vật lý bằng cấp bậc Hỏa hành lên đối tượng 1-bộ; đối tượng kiểm tra Thể thuật ĐK 4 (Kim 5, Thủy 2) để không rơi \"Hoa mắt\"."
     },
     "maLinhNguyenChu": {
       "name": "Ma Linh Nguyền Chú",

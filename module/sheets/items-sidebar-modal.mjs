@@ -213,7 +213,7 @@ export class ItemsSidebarModal extends HandlebarsApplicationMixin(ApplicationV2)
   }
 
   _statLabel(row) {
-    if (row.type === 'vuKhi') return `Sát thương ${row.system.baseDamage}`;
+    if (row.type === 'vuKhi') return `Sát Lực ${row.system.baseDamage}`;
     if (row.type === 'giapTru') return `Kháng lực ${row.system.baseResistance}`;
     return `Số lượng ${row.system.quantity ?? 1}`;
   }

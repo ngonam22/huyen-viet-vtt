@@ -16,7 +16,7 @@
       "id": "sac-ben",
       "label": "Sắc Bén",
       "category": "combat",
-      "description": "Nếu đòn đánh xuyên Kháng Lực, gây thêm +2 Sát thương. Nếu bị chặn hoàn toàn, mất tính trạng này đến khi mài lại."
+      "description": "Nếu đòn đánh xuyên Kháng Lực, gây thêm +2 Sát Lực. Nếu bị chặn hoàn toàn, mất tính trạng này đến khi mài lại."
     },
     {
       "id": "le-trong",
@@ -28,7 +28,7 @@
       "id": "hai-tay",
       "label": "Hai Tay",
       "category": "utility",
-      "description": "Có thể dùng hai tay để nhận hiệu ứng Hai-tay (+2 Sát thương)."
+      "description": "Có thể dùng hai tay để nhận hiệu ứng Hai-tay (+2 Sát Lực)."
     },
     {
       "id": "tu-dap",
@@ -58,7 +58,7 @@
       "id": "ben-bi",
       "label": "Bền Bỉ",
       "category": "utility",
-      "description": "Khi chịu sát thương phá hủy, chỉ bị Hư hại thay vì Phá hủy."
+      "description": "Khi chịu Sát Lực phá hủy, chỉ bị Hư hại thay vì Phá hủy."
     }
   ]
 }

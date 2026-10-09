@@ -8,7 +8,7 @@ export const CONDITIONS = [
         id: 'xuatHuyet',
         label: 'Xuất Huyết',
         faIcon: 'fa-droplet',
-        description: 'Mất 3 Tâm Lực mỗi khi đổ xúc xắc. Cuối lượt nhận 3 sát thương vật lý (bỏ qua Kháng Lực). Sát thương cộng dồn +3 sau mỗi vòng.',
+        description: 'Mất 3 Tâm Lực mỗi khi đổ xúc xắc. Cuối lượt nhận 3 Sát Lực vật lý (bỏ qua Kháng Lực). Sát Lực cộng dồn +3 sau mỗi vòng.',
         hasSideEffect: false,
     },
     {
@@ -22,7 +22,7 @@ export const CONDITIONS = [
         id: 'batTinh',
         label: 'Bất Tỉnh',
         faIcon: 'fa-person-falling',
-        description: 'Không thể dùng khí lực để đỡ đòn. Sát thương nhận vào nhân đôi.',
+        description: 'Không thể dùng khí lực để đỡ đòn. Sát Lực nhận vào nhân đôi.',
         hasSideEffect: false,
     },
     {
@@ -43,7 +43,7 @@ export const CONDITIONS = [
         id: 'cuongNo',
         label: 'Cuồng Nộ',
         faIcon: 'fa-fire-flame-curved',
-        description: 'Sát thương gây ra và nhận phải đều được cộng thêm +2.',
+        description: 'Sát Lực gây ra và nhận phải đều được cộng thêm +2.',
         hasSideEffect: false,
     },
     {
