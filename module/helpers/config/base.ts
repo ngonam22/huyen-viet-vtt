@@ -172,7 +172,7 @@ export interface HvAbilities {
     canhGiac: HvAbilityField;
     chuTam: HvAbilityField;
     tocDo: HvAbilityField;
-    nguHop: HvAbilityField;
+    nguHop: HvAbilityField & { current: number | null };
 }
 
 export interface HvCharacterSystemData {

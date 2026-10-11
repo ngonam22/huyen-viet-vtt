@@ -63,6 +63,8 @@ Tất cả các chỉ số này đều **không lưu trong database** — chúng
 *   `chuTam` — Chú Tâm (Initiative): `value` = `kim + thuy + moc`.
 *   `tocDo` — Tốc Độ (Speed, tính bằng "bộ"): `value` = `(thuy + moc + hoa) / 2`.
 *   `nguHop` — Ngũ Hợp (Meta Currency/Fate): `value` = `min(sucLuc.base, tamLuc.base, canhGiac, chuTam, tocDo)`. Dùng giá trị **tối đa** của sucLuc và tamLuc.
+    - `value` là **max** Ngũ Hợp. Số điểm còn lại lưu ở `current` (**lưu DB**, `null` = đầy). `prepareDerivedData()` gán `current = min(current ?? value, value)`, min là 0.
+    - Sheet hiển thị `current/value` ở giữa sơ đồ Ngũ Hành (`#ngu-hop-svg-text`); click mở tab Ngũ Hợp trong `ResourceModal` (Hồi Phục / Sử Dụng).
 *   `khangLuc` — Khang Lực (Defense / Damage Reduction): `value` = tổng `resistance` của tất cả item `giapTru` đang được trang bị (`isEquipped = true`), cộng thêm các buff tạm từ ActiveEffect. **Không lưu DB** — luôn tính lại trong `applyEquippedItemEffects()`.
 
 #### Damage Pipeline (xem §5.3)
@@ -100,7 +102,7 @@ system: {
     canhGiac: { value: int }              // derived only
     chuTam:   { value: int }              // derived only
     tocDo:    { value: int }              // derived only
-    nguHop:   { value: int }              // derived only
+    nguHop:   { value: int, current: int | null }  // value = max (derived); current = còn lại (stored, null = đầy, clamp 0..value)
     khangLuc: { value: int }              // derived only — sum of equipped armor resistance
   }
   attributes: {

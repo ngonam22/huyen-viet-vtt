@@ -137,6 +137,10 @@ export class huyenvietvttActor extends Actor {
             system.abilities.canhGiac.value = 1;
         }
 
+        // 6) Ngũ Hợp hiện tại: null = đầy; không vượt max (value) nếu max giảm
+        const nguHop = system.abilities.nguHop;
+        nguHop.current = Math.min(nguHop.current ?? nguHop.value, nguHop.value);
+
         console.log('____ recalculated')
     }
 

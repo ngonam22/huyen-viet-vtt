@@ -48,7 +48,7 @@ export interface CharacterAbilities {
     canhGiac: { value: number };
     chuTam: { value: number };
     tocDo: { value: number };
-    nguHop: { value: number };
+    nguHop: { value: number; current: number | null }; // value = max, current null = đầy
     khangLuc: { value: number };
 }
 

@@ -2,6 +2,19 @@ import { applyNextElementalWound } from '../helpers/conditions.js';
 
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 
+const LABELS = { sucLuc: 'Sức Lực', tamLuc: 'Tâm Lực', nguHop: 'Ngũ Hợp' };
+
+/**
+ * Đọc tài nguyên theo cùng shape { current, base, path }.
+ * Sức/Tâm Lực: value = hiện tại, base = max. Ngũ Hợp: value = max, current = hiện tại.
+ */
+function readResource(actor, type) {
+    const a = actor.system.abilities[type];
+    return type === 'nguHop'
+        ? { current: a.current, base: a.value, path: 'system.abilities.nguHop.current' }
+        : { current: a.value, base: a.base, path: `system.abilities.${type}.value` };
+}
+
 export class ResourceModal extends HandlebarsApplicationMixin(ApplicationV2) {
     static DEFAULT_OPTIONS = {
         id: "hv-resource-modal",
@@ -24,7 +37,7 @@ export class ResourceModal extends HandlebarsApplicationMixin(ApplicationV2) {
 
     /**
      * @param {Actor} actor
-     * @param {'sucLuc'|'tamLuc'} type
+     * @param {'sucLuc'|'tamLuc'|'nguHop'} type
      */
     constructor(actor, type, options = {}) {
         super(options);
@@ -35,7 +48,7 @@ export class ResourceModal extends HandlebarsApplicationMixin(ApplicationV2) {
     }
 
     get title() {
-        return this.type === 'sucLuc' ? 'Quản Lý Sức Lực' : 'Quản Lý Tâm Lực';
+        return `Quản Lý ${LABELS[this.type]}`;
     }
 
     static show(actor, type) {
@@ -43,20 +56,17 @@ export class ResourceModal extends HandlebarsApplicationMixin(ApplicationV2) {
     }
 
     async _prepareContext(_options) {
-        const sl = this.actor.system.abilities.sucLuc;
-        const tl = this.actor.system.abilities.tamLuc;
-        const ability = this.actor.system.abilities[this.type];
+        const { current, base } = readResource(this.actor, this.type);
         return {
             type: this.type,
             isSucLuc: this.type === 'sucLuc',
             isTamLuc: this.type === 'tamLuc',
-            label: this.type === 'sucLuc' ? 'Sức Lực' : 'Tâm Lực',
-            current: ability.value,
-            base: ability.base,
+            isNguHop: this.type === 'nguHop',
+            label: LABELS[this.type],
+            current,
+            base,
             amount: this._amount,
             damageElement: this._damageElement,
-            sucLuc: { current: sl.value, base: sl.base },
-            tamLuc: { current: tl.value, base: tl.base },
         };
     }
 
@@ -176,14 +186,12 @@ export class ResourceModal extends HandlebarsApplicationMixin(ApplicationV2) {
 
         if (action !== 'heal' && action !== 'damage') return;
 
-        const ability  = this.actor.system.abilities[this.type];
+        const { current, base, path } = readResource(this.actor, this.type);
         const newValue = action === 'heal'
-            ? Math.min(ability.value + this._amount, ability.base)
-            : Math.max(ability.value - this._amount, 0);
+            ? Math.min(current + this._amount, base)
+            : Math.max(current - this._amount, 0);
 
-        await this.actor.update({
-            [`system.abilities.${this.type}.value`]: newValue,
-        });
+        await this.actor.update({ [path]: newValue });
 
         if (action === 'damage' && this._damageElement && this.type === 'sucLuc') {
             await applyNextElementalWound(this.actor);

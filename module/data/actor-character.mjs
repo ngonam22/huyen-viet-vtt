@@ -145,7 +145,9 @@ export default class BoilerplateCharacter extends BoilerplateActorBase {
           value: intField()
         }),
         nguHop: new fields.SchemaField({
-          value: intField()
+          value: intField(), // max (derived)
+          // Số Ngũ Hợp còn lại; null = đầy (bằng value). Clamp 0..value trong prepareDerivedData
+          current: new fields.NumberField({ integer: true, min: 0, nullable: true, initial: null })
         }),
         khangLuc: new fields.SchemaField({
           value: intField()

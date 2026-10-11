@@ -14,6 +14,12 @@
                 data-tab="tamLuc">
             <span class="hv-resource-modal__tab-name">Tâm Lực</span>
         </button>
+        <button type="button"
+                class="hv-resource-modal__tab{{#if isNguHop}} is-active{{/if}}"
+                data-action="switch-resource"
+                data-tab="nguHop">
+            <span class="hv-resource-modal__tab-name">Ngũ Hợp</span>
+        </button>
     </div>
 
     {{! Row 1: current / max display }}
@@ -40,7 +46,7 @@
             />
 
             <button type="button" class="hv-resource-modal__btn hv-resource-modal__btn--damage" data-action="damage">
-                Chịu Đòn
+                {{#if isNguHop}}Sử Dụng{{else}}Chịu Đòn{{/if}}
             </button>
         </div>
 

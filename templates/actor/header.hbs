@@ -74,7 +74,8 @@
                                 <label for="hv-tai-phu-select">
                                     Tài Phú:
                                 </label>
-                                <select id="hv-tai-phu-select" name="system.taiPhu" {{#unless editable}}disabled{{/unless}}>
+                                <select id="hv-tai-phu-select" name="system.taiPhu" {{#unless
+                                    editable}}disabled{{/unless}}>
                                     {{#each taiPhuOptions as |option|}}
                                     <option value="{{option.value}}" {{#if option.selected}}selected{{/if}}>
                                         {{option.value}}
@@ -393,8 +394,11 @@
                                                 system.elements.tho.value}}</text>
                                         </g>
 
-                                        <text x="231" y="195" text-anchor="middle" font-family="'Crimson Pro',serif"
-                                            font-size="40" font-weight="700" fill="#c49a5a">{{
+                                        <text id="ngu-hop-svg-text" x="231" y="195" text-anchor="middle"
+                                            font-family="'Crimson Pro',serif" font-size="40" font-weight="700"
+                                            fill="#c49a5a" data-action="open-resource-modal" data-type="nguHop"
+                                            role="button" data-tooltip="Quản lý Ngũ Hợp" style="cursor: pointer;">{{
+                                            system.abilities.nguHop.current}}/{{
                                             system.abilities.nguHop.value}}</text>
                                         {{!-- {{#if (eq hanhThe "tho")}}
                                         <image href="/systems/huyen-viet-vtt/assets/icons/tho-tablet-icon.webp" x="210"
