@@ -59,6 +59,18 @@
       "label": "Bền Bỉ",
       "category": "utility",
       "description": "Khi chịu Sát Lực phá hủy, chỉ bị Hư hại thay vì Phá hủy."
+    },
+    {
+      "id": "nem",
+      "label": "Ném",
+      "category": "combat",
+      "description": "Có thể ném vũ khí. (Chưa có mô tả luật — cần bổ sung.)"
+    },
+    {
+      "id": "tram-ma",
+      "label": "Trảm Mã",
+      "category": "combat",
+      "description": "(Chưa có mô tả luật — cần bổ sung.)"
     }
   ]
 }

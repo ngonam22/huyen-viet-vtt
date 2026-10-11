@@ -12,6 +12,10 @@ Vũ khí đại diện cho công cụ tấn công của nhân vật, được ch
 *   **`Phạm vi` (Range):** Khoảng cách tác dụng của vũ khí. Cận chiến thường là `1-bộ` hoặc `2-bộ`. Xạ chiến tính bằng khoảng cách bắn xa.
 *   **`Sát Lực` (Base Damage, trước đây gọi là "Sát thương"):** Chỉ số Sát Lực cơ bản vũ khí gây ra khi tấn công thành công (Dao: 3, Kiếm: 6, Đại Kiếm: 9).
 *   **`Tính trạng` (Traits):** Mảng (Array) chứa các Tag đặc biệt định hình cách vũ khí hoạt động cơ học (Xem mục 3).
+*   **`Phổ dụng` (`common`, int):** Độ phổ biến trên thị trường; ĐK của bài xét Thương Nghiệp khi tìm nguồn cung/cầu. Hiện chỉ lưu trong catalog `lib/items-config.json`.
+*   **`Giá trị` (`price`, string):** Giá trung bình, lưu nguyên văn (VD: `"5 tiền"`, `"20 đồng"`). Có trong catalog và schema `vuKhi`, hiển thị ở Detail Modal.
+*   **Phân loại (`weaponClass`):** `melee` (Cận Chiến: Kiếm, Đao, Phủ, Chùy, Thương, Vũ Khí Tay), `unarmed` (Hình Thể: Quyền, Cước, Cắn), `ranged` (Xạ Chiến: Cung, Nỏ, Ám Khí).
+*   **Catalog:** toàn bộ vũ khí nằm ở `lib/items-config.json` → `weapons` (64 mục). Ô trống trong bảng rulebook được nhập là `0` (hoặc `"0"` với Giá trị) và chờ bổ sung.
 
 ## 2. DATA MODEL: GIÁP TRỤ & PHÒNG CỤ (Armor/Defense - VD: Áo xích, Giáp sắt...)
 *(Lưu ý: Các vật phẩm phòng thủ như Khiên/Giáp được gộp chung vào hệ thống Giáp Trụ)*.
@@ -34,6 +38,8 @@ Các `Tính trạng` (Traits) là cốt lõi để vật phẩm tương tác v�
 ### 3.2. Tính Trạng Tương Tác Chiến Đấu (Combat Mechanics)
 *   **`Sắc bén` (Sharp):** Đặc trưng của Kiếm, Đao. Nếu đòn đánh xuyên qua được Kháng Lực của giáp địch (không bị chặn hoàn toàn), đòn đánh đó sẽ gây thêm `+2 Sát Lực`. Tuy nhiên, nếu bị chặn hoàn toàn bởi Kháng Lực, vũ khí có thể mất tính trạng này cho đến khi được mài lại.
 *   **`Tù / Đập` (Blunt):** Đặc trưng của Chùy, Búa. Nếu người dùng tiêu hao `2 điểm Chí thành` (Critical points) khi tấn công, có thể ép giáp trụ của đối phương rơi vào trạng thái "Hư hại".
+*   **`Ném` (Throwable):** Vũ khí có thể ném (Rìu, Rìu Chiến). *Chưa có mô tả luật chi tiết — cần bổ sung.*
+*   **`Trảm Mã`:** Tính trạng riêng của Trảm Mã Đao. *Chưa có mô tả luật — cần bổ sung.*
 *   **`Cầm nã` (Grappling/Catching):** Đặc trưng của Giáo, Kích, Thiết Chỉ. Người dùng có thể tiêu hao `1+ điểm Chí thành` để khiến mục tiêu dính hiệu ứng bất lợi "Định thân" (Immobilized), với điều kiện Độ Cảnh Giác của mục tiêu bằng hoặc thấp hơn số điểm Chí thành đã dùng.
 
 ### 3.3. Tính Trạng Độ Bền & Hoàn Cảnh (Utility & Durability)

@@ -58,6 +58,7 @@ export default class HvVuKhi extends BoilerplateItemBase {
         schema.weaponClass = new f.StringField({ initial: 'melee' }); // "melee" | "ranged" | "unarmed"
         schema.baseDamage  = intField(3, 0);
         schema.range       = intField(1, 0);  // in "bộ"
+        schema.price       = new f.StringField({ initial: '' }); // Giá trị, nguyên văn (VD: "5 tiền", "20 đồng")
 
         // ── Durability ──────────────────────────────────────────────────────
         // normal → hu-hai (damaged, -2 damage) → vo-nat (broken, unusable)

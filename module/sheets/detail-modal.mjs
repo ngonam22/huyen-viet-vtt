@@ -98,6 +98,7 @@ export class DetailModal extends HandlebarsApplicationMixin(ApplicationV2) {
             baseDamage: s.baseDamage,
             effectiveDamage: s.effectiveDamage ?? s.baseDamage,
             range: s.range,
+            price: s.price,
             condition: s.condition,
             isEquipped: s.isEquipped,
             isTwoHanded: s.isTwoHanded,

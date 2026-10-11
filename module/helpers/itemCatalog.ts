@@ -31,6 +31,8 @@ export interface WeaponEntry {
     weaponClass: 'melee' | 'ranged' | 'unarmed';
     baseDamage: number;
     range: number;
+    common?: number;  // Phổ dụng
+    price?: string;   // Giá trị, nguyên văn
     condition: string;
     isTwoHanded: boolean;
     passiveEffects: UpgradeRuleEntry[];

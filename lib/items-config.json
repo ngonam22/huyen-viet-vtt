@@ -10,15 +10,1161 @@
       "range": 1,
       "condition": "normal",
       "common": 2,
+      "price": "10 đồng",
       "isTwoHanded": true,
       "passiveEffects": [],
       "twoHandedEffects": [
         { "target": "damage", "mode": "add", "effects": [{ "name": "baseDamage", "value": 2 }] }
       ],
       "traits": [
-        { "id": "hai-tay" }
+        { "id": "hai-tay" },
+        { "id": "thuong-dung" }
       ],
       "img": "/systems/huyen-viet-vtt/assets/vu-khi/truong-kiem-hero.png"
+    },
+    {
+      "id": "kiem",
+      "name": "Kiếm",
+      "description": "",
+      "flavorText": "",
+      "weaponClass": "melee",
+      "baseDamage": 6,
+      "range": 1,
+      "condition": "normal",
+      "common": 5,
+      "price": "5 tiền",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "sac-ben" },
+        { "id": "le-trong" }
+      ]
+    },
+    {
+      "id": "doan-kiem",
+      "name": "Đoản Kiếm",
+      "description": "",
+      "flavorText": "Kiếm hai lưỡi cân bằng giữa tấn công và phòng thủ.",
+      "weaponClass": "melee",
+      "baseDamage": 4,
+      "range": 1,
+      "condition": "normal",
+      "common": 5,
+      "price": "4 tiền",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "sac-ben" },
+        { "id": "le-trong" }
+      ]
+    },
+    {
+      "id": "lieu-kiem",
+      "name": "Liễu Kiếm",
+      "description": "",
+      "flavorText": "Kiếm hai lưỡi cân bằng giữa tấn công và phòng thủ.",
+      "weaponClass": "melee",
+      "baseDamage": 5,
+      "range": 1,
+      "condition": "normal",
+      "common": 7,
+      "price": "4 tiền",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": []
+    },
+    {
+      "id": "truc-dao",
+      "name": "Trực Đao",
+      "description": "",
+      "flavorText": "",
+      "weaponClass": "melee",
+      "baseDamage": 6,
+      "range": 1,
+      "condition": "normal",
+      "common": 3,
+      "price": "3 tiền",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "sac-ben" },
+        { "id": "le-trong" }
+      ]
+    },
+    {
+      "id": "truong-kiem",
+      "name": "Trường Kiếm",
+      "description": "Kiếm dài uy nghi, có thể dùng một hoặc hai tay.",
+      "flavorText": "Quân tử hành kiếm, chính đạo độc tôn",
+      "weaponClass": "melee",
+      "baseDamage": 7,
+      "range": 1,
+      "condition": "normal",
+      "common": 5,
+      "price": "7 tiền",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [
+        { "target": "damage", "mode": "add", "effects": [{ "name": "baseDamage", "value": 2 }] }
+      ],
+      "traits": [
+        { "id": "hai-tay" },
+        { "id": "sac-ben" },
+        { "id": "le-trong" }
+      ],
+      "img": "/systems/huyen-viet-vtt/assets/vu-khi/truong-kiem-hero.png"
+    },
+    {
+      "id": "dai-kiem",
+      "name": "Đại Kiếm",
+      "description": "",
+      "flavorText": "Thanh kiếm khổng lồ đòi hỏi sức mạnh và không gian chiến đấu rộng.",
+      "weaponClass": "melee",
+      "baseDamage": 9,
+      "range": 1,
+      "condition": "normal",
+      "common": 5,
+      "price": "8 tiền",
+      "isTwoHanded": true,
+      "passiveEffects": [
+        { "target": "ability", "mode": "add", "effects": [{ "name": "tocDo", "value": -1 }] }
+      ],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "hai-tay", "description": "Bắt buộc dùng hai tay." },
+        { "id": "cong-kenh" },
+        { "id": "sac-ben" },
+        { "id": "chien-nhu" }
+      ]
+    },
+    {
+      "id": "doan-dao",
+      "name": "Đoản Đao",
+      "description": "",
+      "flavorText": "",
+      "weaponClass": "melee",
+      "baseDamage": 4,
+      "range": 1,
+      "condition": "normal",
+      "common": 3,
+      "price": "1 tiền",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "sac-ben" }
+      ]
+    },
+    {
+      "id": "khoai-dao",
+      "name": "Khoái Đao",
+      "description": "",
+      "flavorText": "",
+      "weaponClass": "melee",
+      "baseDamage": 3,
+      "range": 1,
+      "condition": "normal",
+      "common": 2,
+      "price": "1 tiền",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "kin-dao" }
+      ]
+    },
+    {
+      "id": "loan-dao",
+      "name": "Loan Đao",
+      "description": "",
+      "flavorText": "",
+      "weaponClass": "melee",
+      "baseDamage": 5,
+      "range": 1,
+      "condition": "normal",
+      "common": 4,
+      "price": "2 tiền",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "sac-ben" },
+        { "id": "ben-bi" }
+      ]
+    },
+    {
+      "id": "dao-chuan",
+      "name": "Đao",
+      "description": "",
+      "flavorText": "",
+      "weaponClass": "melee",
+      "baseDamage": 6,
+      "range": 1,
+      "condition": "normal",
+      "common": 2,
+      "price": "2 tiền",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "sac-ben" }
+      ]
+    },
+    {
+      "id": "mieu-dao",
+      "name": "Miêu Đao",
+      "description": "",
+      "flavorText": "",
+      "weaponClass": "melee",
+      "baseDamage": 5,
+      "range": 1,
+      "condition": "normal",
+      "common": 5,
+      "price": "5 tiền",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [
+        { "target": "damage", "mode": "add", "effects": [{ "name": "baseDamage", "value": 2 }] }
+      ],
+      "traits": [
+        { "id": "hai-tay" },
+        { "id": "sac-ben" },
+        { "id": "le-trong" }
+      ]
+    },
+    {
+      "id": "truong-dao",
+      "name": "Trường Đao",
+      "description": "",
+      "flavorText": "",
+      "weaponClass": "melee",
+      "baseDamage": 6,
+      "range": 1,
+      "condition": "normal",
+      "common": 4,
+      "price": "6 tiền",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [
+        { "target": "damage", "mode": "add", "effects": [{ "name": "baseDamage", "value": 2 }] }
+      ],
+      "traits": [
+        { "id": "hai-tay" }
+      ]
+    },
+    {
+      "id": "dai-dao",
+      "name": "Đại Đao",
+      "description": "",
+      "flavorText": "",
+      "weaponClass": "melee",
+      "baseDamage": 6,
+      "range": 1,
+      "condition": "normal",
+      "common": 4,
+      "price": "3 tiền",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "sac-ben" }
+      ]
+    },
+    {
+      "id": "tram-ma-dao",
+      "name": "Trảm Mã Đao",
+      "description": "",
+      "flavorText": "",
+      "weaponClass": "melee",
+      "baseDamage": 9,
+      "range": 2,
+      "condition": "normal",
+      "common": 4,
+      "price": "5 tiền",
+      "isTwoHanded": false,
+      "passiveEffects": [
+        { "target": "ability", "mode": "add", "effects": [{ "name": "tocDo", "value": -1 }] }
+      ],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "cong-kenh" },
+        { "id": "chien-nhu" },
+        { "id": "tram-ma" }
+      ]
+    },
+    {
+      "id": "sieu-dao",
+      "name": "Siêu Đao",
+      "description": "",
+      "flavorText": "",
+      "weaponClass": "melee",
+      "baseDamage": 8,
+      "range": 2,
+      "condition": "normal",
+      "common": 7,
+      "price": "8 tiền",
+      "isTwoHanded": false,
+      "passiveEffects": [
+        { "target": "ability", "mode": "add", "effects": [{ "name": "tocDo", "value": -1 }] }
+      ],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "cong-kenh" },
+        { "id": "sac-ben" },
+        { "id": "chien-nhu" }
+      ]
+    },
+    {
+      "id": "ke-dao-liem",
+      "name": "Kê Đao Liêm",
+      "description": "",
+      "flavorText": "",
+      "weaponClass": "melee",
+      "baseDamage": 7,
+      "range": 1,
+      "condition": "normal",
+      "common": 6,
+      "price": "5 tiền",
+      "isTwoHanded": false,
+      "passiveEffects": [
+        { "target": "ability", "mode": "add", "effects": [{ "name": "tocDo", "value": -1 }] }
+      ],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "cong-kenh" },
+        { "id": "sac-ben" }
+      ]
+    },
+    {
+      "id": "riu",
+      "name": "Rìu",
+      "description": "",
+      "flavorText": "",
+      "weaponClass": "melee",
+      "baseDamage": 4,
+      "range": 1,
+      "condition": "normal",
+      "common": 1,
+      "price": "20 đồng",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "thuong-dung" },
+        { "id": "nem" }
+      ]
+    },
+    {
+      "id": "liem",
+      "name": "Liềm",
+      "description": "",
+      "flavorText": "",
+      "weaponClass": "melee",
+      "baseDamage": 4,
+      "range": 1,
+      "condition": "normal",
+      "common": 1,
+      "price": "10 đồng",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "thuong-dung" },
+        { "id": "kin-dao" }
+      ]
+    },
+    {
+      "id": "ban-phu",
+      "name": "Bản Phủ",
+      "description": "",
+      "flavorText": "",
+      "weaponClass": "melee",
+      "baseDamage": 6,
+      "range": 1,
+      "condition": "normal",
+      "common": 3,
+      "price": "50 đồng",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": []
+    },
+    {
+      "id": "riu-chien",
+      "name": "Rìu Chiến",
+      "description": "",
+      "flavorText": "",
+      "weaponClass": "melee",
+      "baseDamage": 6,
+      "range": 1,
+      "condition": "normal",
+      "common": 2,
+      "price": "2 tiền",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [
+        { "target": "damage", "mode": "add", "effects": [{ "name": "baseDamage", "value": 2 }] }
+      ],
+      "traits": [
+        { "id": "hai-tay" },
+        { "id": "chien-nhu" },
+        { "id": "nem" }
+      ]
+    },
+    {
+      "id": "dai-phu",
+      "name": "Đại Phủ (Việt)",
+      "description": "",
+      "flavorText": "",
+      "weaponClass": "melee",
+      "baseDamage": 10,
+      "range": 1,
+      "condition": "normal",
+      "common": 4,
+      "price": "6 tiền",
+      "isTwoHanded": false,
+      "passiveEffects": [
+        { "target": "ability", "mode": "add", "effects": [{ "name": "tocDo", "value": -1 }] }
+      ],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "chien-nhu" },
+        { "id": "cong-kenh" }
+      ]
+    },
+    {
+      "id": "chuy",
+      "name": "Chùy",
+      "description": "",
+      "flavorText": "Vũ khí đập nặng nề, chuyên phá giáp.",
+      "weaponClass": "melee",
+      "baseDamage": 5,
+      "range": 1,
+      "condition": "normal",
+      "common": 2,
+      "price": "1 tiền",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "tu-dap" }
+      ]
+    },
+    {
+      "id": "con",
+      "name": "Côn",
+      "description": "",
+      "flavorText": "",
+      "weaponClass": "melee",
+      "baseDamage": 5,
+      "range": 1,
+      "condition": "normal",
+      "common": 1,
+      "price": "20 đồng",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "hai-tay", "description": "Dùng hai tay: Phạm vi 2-bộ." },
+        { "id": "thuong-dung" }
+      ]
+    },
+    {
+      "id": "bua",
+      "name": "Búa",
+      "description": "",
+      "flavorText": "",
+      "weaponClass": "melee",
+      "baseDamage": 6,
+      "range": 1,
+      "condition": "normal",
+      "common": 1,
+      "price": "30 đồng",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "thuong-dung" },
+        { "id": "tu-dap" }
+      ]
+    },
+    {
+      "id": "dieu-cay",
+      "name": "Điếu Cày",
+      "description": "",
+      "flavorText": "",
+      "weaponClass": "melee",
+      "baseDamage": 2,
+      "range": 1,
+      "condition": "normal",
+      "common": 4,
+      "price": "1 tiền",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "thuong-dung" },
+        { "id": "kin-dao" }
+      ]
+    },
+    {
+      "id": "dai-chuy",
+      "name": "Đại Chùy",
+      "description": "",
+      "flavorText": "",
+      "weaponClass": "melee",
+      "baseDamage": 9,
+      "range": 1,
+      "condition": "normal",
+      "common": 4,
+      "price": "3 tiền",
+      "isTwoHanded": false,
+      "passiveEffects": [
+        { "target": "ability", "mode": "add", "effects": [{ "name": "tocDo", "value": -1 }] }
+      ],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "cong-kenh" },
+        { "id": "chien-nhu" },
+        { "id": "tu-dap" }
+      ]
+    },
+    {
+      "id": "kim-bong",
+      "name": "Kim Bổng",
+      "description": "",
+      "flavorText": "",
+      "weaponClass": "melee",
+      "baseDamage": 8,
+      "range": 2,
+      "condition": "normal",
+      "common": 6,
+      "price": "6 tiền",
+      "isTwoHanded": false,
+      "passiveEffects": [
+        { "target": "ability", "mode": "add", "effects": [{ "name": "tocDo", "value": -1 }] }
+      ],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "cong-kenh" },
+        { "id": "ben-bi" },
+        { "id": "chien-nhu" },
+        { "id": "tu-dap" }
+      ]
+    },
+    {
+      "id": "bong",
+      "name": "Bổng",
+      "description": "",
+      "flavorText": "",
+      "weaponClass": "melee",
+      "baseDamage": 5,
+      "range": 0,
+      "condition": "normal",
+      "common": 1,
+      "price": "20 đồng",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "thuong-dung" }
+      ]
+    },
+    {
+      "id": "thuong",
+      "name": "Thương",
+      "description": "",
+      "flavorText": "",
+      "weaponClass": "melee",
+      "baseDamage": 6,
+      "range": 2,
+      "condition": "normal",
+      "common": 2,
+      "price": "1 tiền",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": []
+    },
+    {
+      "id": "truong-thuong",
+      "name": "Trường Thương",
+      "description": "",
+      "flavorText": "",
+      "weaponClass": "melee",
+      "baseDamage": 7,
+      "range": 2,
+      "condition": "normal",
+      "common": 3,
+      "price": "3 tiền",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "chien-nhu" }
+      ]
+    },
+    {
+      "id": "giao",
+      "name": "Giáo",
+      "description": "",
+      "flavorText": "Vũ khí dài với đầu nhọn, lý tưởng để khống chế kẻ địch.",
+      "weaponClass": "melee",
+      "baseDamage": 6,
+      "range": 2,
+      "condition": "normal",
+      "common": 3,
+      "price": "2 tiền",
+      "isTwoHanded": true,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "hai-tay", "description": "Bắt buộc dùng hai tay." },
+        { "id": "chien-nhu" }
+      ],
+      "img": "/systems/huyen-viet-vtt/assets/vu-khi/giao-hero.png"
+    },
+    {
+      "id": "kich",
+      "name": "Kích",
+      "description": "",
+      "flavorText": "",
+      "weaponClass": "melee",
+      "baseDamage": 6,
+      "range": 2,
+      "condition": "normal",
+      "common": 4,
+      "price": "4 tiền",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "chien-nhu" },
+        { "id": "cam-na" }
+      ]
+    },
+    {
+      "id": "xa-mau",
+      "name": "Xà Mâu",
+      "description": "",
+      "flavorText": "",
+      "weaponClass": "melee",
+      "baseDamage": 0,
+      "range": 2,
+      "condition": "normal",
+      "common": 5,
+      "price": "4 tiền",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "chien-nhu" }
+      ]
+    },
+    {
+      "id": "dinh-ba",
+      "name": "Đinh Ba",
+      "description": "Tên khác: Trident, Tam Xoa Kích.",
+      "flavorText": "",
+      "weaponClass": "melee",
+      "baseDamage": 6,
+      "range": 2,
+      "condition": "normal",
+      "common": 4,
+      "price": "3 tiền",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "chien-nhu" },
+        { "id": "cam-na" }
+      ]
+    },
+    {
+      "id": "cau",
+      "name": "Câu",
+      "description": "",
+      "flavorText": "",
+      "weaponClass": "melee",
+      "baseDamage": 0,
+      "range": 2,
+      "condition": "normal",
+      "common": 4,
+      "price": "3 tiền",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "chien-nhu" },
+        { "id": "cam-na" }
+      ]
+    },
+    {
+      "id": "cau-liem-thuong",
+      "name": "Câu Liêm Thương",
+      "description": "",
+      "flavorText": "",
+      "weaponClass": "melee",
+      "baseDamage": 5,
+      "range": 2,
+      "condition": "normal",
+      "common": 4,
+      "price": "4 tiền",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "chien-nhu" },
+        { "id": "cam-na" }
+      ]
+    },
+    {
+      "id": "cau-liem-xich",
+      "name": "Câu Liêm Xích",
+      "description": "Tên khác: Kusagami.",
+      "flavorText": "",
+      "weaponClass": "melee",
+      "baseDamage": 5,
+      "range": 0,
+      "condition": "normal",
+      "common": 5,
+      "price": "1 tiền",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "chien-nhu" },
+        { "id": "kin-dao" },
+        { "id": "cam-na" }
+      ]
+    },
+    {
+      "id": "mi-tiem-dao",
+      "name": "Mi Tiêm Đao",
+      "description": "Tên khác: Bisento.",
+      "flavorText": "",
+      "weaponClass": "melee",
+      "baseDamage": 5,
+      "range": 2,
+      "condition": "normal",
+      "common": 5,
+      "price": "4 tiền",
+      "isTwoHanded": false,
+      "passiveEffects": [
+        { "target": "ability", "mode": "add", "effects": [{ "name": "tocDo", "value": -1 }] }
+      ],
+      "twoHandedEffects": [
+        { "target": "damage", "mode": "add", "effects": [{ "name": "baseDamage", "value": 2 }] }
+      ],
+      "traits": [
+        { "id": "hai-tay" },
+        { "id": "chien-nhu" },
+        { "id": "cong-kenh" },
+        { "id": "ben-bi" }
+      ]
+    },
+    {
+      "id": "thap-thu",
+      "name": "Thập Thủ (Thực Thủ)",
+      "description": "Tên khác: Jitte.",
+      "flavorText": "",
+      "weaponClass": "melee",
+      "baseDamage": 4,
+      "range": 1,
+      "condition": "normal",
+      "common": 5,
+      "price": "1 tiền",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "kin-dao" },
+        { "id": "cam-na" }
+      ]
+    },
+    {
+      "id": "thiet-chi",
+      "name": "Thiết Chỉ",
+      "description": "Tên khác: Sai, Parrying Dagger, Bút Giá Xoa.",
+      "flavorText": "Móng sắt bịt ngón tay, nhỏ gọn và đặc biệt.",
+      "weaponClass": "melee",
+      "baseDamage": 4,
+      "range": 1,
+      "condition": "normal",
+      "common": 6,
+      "price": "1 tiền",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "kin-dao" },
+        { "id": "cam-na" }
+      ]
+    },
+    {
+      "id": "but-phan-quan",
+      "name": "Bút Phán Quan",
+      "description": "Tên khác: Bút Trạng Nguyên.",
+      "flavorText": "",
+      "weaponClass": "melee",
+      "baseDamage": 0,
+      "range": 1,
+      "condition": "normal",
+      "common": 5,
+      "price": "2 tiền",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "kin-dao" }
+      ]
+    },
+    {
+      "id": "dao",
+      "name": "Dao",
+      "description": "",
+      "flavorText": "Lưỡi dao một lưỡi ngắn, dùng phổ biến trong dân gian.",
+      "weaponClass": "melee",
+      "baseDamage": 3,
+      "range": 1,
+      "condition": "normal",
+      "common": 1,
+      "price": "10 đồng",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "thuong-dung" },
+        { "id": "kin-dao" },
+        { "id": "sac-ben" }
+      ],
+      "img": "/systems/huyen-viet-vtt/assets/vu-khi/dao-hero.png"
+    },
+    {
+      "id": "truy-thu",
+      "name": "Trùy Thủ",
+      "description": "",
+      "flavorText": "",
+      "weaponClass": "melee",
+      "baseDamage": 4,
+      "range": 1,
+      "condition": "normal",
+      "common": 3,
+      "price": "50 đồng",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "kin-dao" },
+        { "id": "sac-ben" }
+      ]
+    },
+    {
+      "id": "nhi-khuc-con",
+      "name": "Nhị Khúc Côn",
+      "description": "",
+      "flavorText": "",
+      "weaponClass": "melee",
+      "baseDamage": 4,
+      "range": 1,
+      "condition": "normal",
+      "common": 3,
+      "price": "1 tiền",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "hai-tay", "description": "Dùng hai tay: nhận tính trạng Cầm Nã." }
+      ]
+    },
+    {
+      "id": "thiet-phien",
+      "name": "Thiết Phiến",
+      "description": "Tên khác: Quân Phiến.",
+      "flavorText": "",
+      "weaponClass": "melee",
+      "baseDamage": 4,
+      "range": 1,
+      "condition": "normal",
+      "common": 6,
+      "price": "5 tiền",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "kin-dao" },
+        { "id": "le-trong" }
+      ]
+    },
+    {
+      "id": "quyen",
+      "name": "Quyền (Đấm)",
+      "description": "",
+      "flavorText": "",
+      "weaponClass": "unarmed",
+      "baseDamage": 2,
+      "range": 1,
+      "condition": "normal",
+      "common": 0,
+      "price": "0",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [
+        { "target": "damage", "mode": "add", "effects": [{ "name": "baseDamage", "value": 1 }] }
+      ],
+      "traits": [
+        { "id": "hai-tay", "description": "Dùng hai tay: Sát Lực +1." },
+        { "id": "cam-na" }
+      ]
+    },
+    {
+      "id": "cuoc",
+      "name": "Cước (Đá)",
+      "description": "",
+      "flavorText": "",
+      "weaponClass": "unarmed",
+      "baseDamage": 3,
+      "range": 1,
+      "condition": "normal",
+      "common": 0,
+      "price": "0",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": []
+    },
+    {
+      "id": "can",
+      "name": "Cắn (Giảo)",
+      "description": "",
+      "flavorText": "",
+      "weaponClass": "unarmed",
+      "baseDamage": 2,
+      "range": 1,
+      "condition": "normal",
+      "common": 0,
+      "price": "0",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": []
+    },
+    {
+      "id": "cung",
+      "name": "Cung",
+      "description": "",
+      "flavorText": "Cung tên tầm xa, cần không gian và thời gian để giương.",
+      "weaponClass": "ranged",
+      "baseDamage": 6,
+      "range": 15,
+      "condition": "normal",
+      "common": 2,
+      "price": "50 đồng",
+      "isTwoHanded": true,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "hai-tay", "description": "Bắt buộc dùng hai tay." }
+      ]
+    },
+    {
+      "id": "ma-cung",
+      "name": "Mã Cung",
+      "description": "",
+      "flavorText": "",
+      "weaponClass": "ranged",
+      "baseDamage": 6,
+      "range": 0,
+      "condition": "normal",
+      "common": 4,
+      "price": "1 tiền",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "chien-nhu" }
+      ]
+    },
+    {
+      "id": "truong-cung",
+      "name": "Trường Cung",
+      "description": "",
+      "flavorText": "",
+      "weaponClass": "ranged",
+      "baseDamage": 7,
+      "range": 0,
+      "condition": "normal",
+      "common": 4,
+      "price": "2 tiền",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "chien-nhu" }
+      ]
+    },
+    {
+      "id": "dai-cung",
+      "name": "Đại Cung",
+      "description": "",
+      "flavorText": "",
+      "weaponClass": "ranged",
+      "baseDamage": 8,
+      "range": 0,
+      "condition": "normal",
+      "common": 5,
+      "price": "3 tiền",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "chien-nhu" }
+      ]
+    },
+    {
+      "id": "no-nho",
+      "name": "Nỏ Nhỏ",
+      "description": "",
+      "flavorText": "",
+      "weaponClass": "ranged",
+      "baseDamage": 7,
+      "range": 0,
+      "condition": "normal",
+      "common": 3,
+      "price": "1 tiền",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": []
+    },
+    {
+      "id": "no-tay",
+      "name": "Nỏ Tay",
+      "description": "",
+      "flavorText": "",
+      "weaponClass": "ranged",
+      "baseDamage": 5,
+      "range": 0,
+      "condition": "normal",
+      "common": 4,
+      "price": "2 tiền",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": []
+    },
+    {
+      "id": "no-lon",
+      "name": "Nỏ Lớn",
+      "description": "",
+      "flavorText": "",
+      "weaponClass": "ranged",
+      "baseDamage": 9,
+      "range": 0,
+      "condition": "normal",
+      "common": 5,
+      "price": "2 tiền",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": []
+    },
+    {
+      "id": "ong-tieu",
+      "name": "Ống Tiêu",
+      "description": "",
+      "flavorText": "",
+      "weaponClass": "ranged",
+      "baseDamage": 2,
+      "range": 0,
+      "condition": "normal",
+      "common": 2,
+      "price": "20 đồng",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "kin-dao" }
+      ]
+    },
+    {
+      "id": "phi-tieu",
+      "name": "Phi Tiêu",
+      "description": "Tên khác: Shuriken, Thủ Lý Kiếm.",
+      "flavorText": "",
+      "weaponClass": "ranged",
+      "baseDamage": 3,
+      "range": 0,
+      "condition": "normal",
+      "common": 3,
+      "price": "20 đồng",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "kin-dao" }
+      ]
+    },
+    {
+      "id": "phi-dao",
+      "name": "Phi Đao",
+      "description": "",
+      "flavorText": "",
+      "weaponClass": "ranged",
+      "baseDamage": 3,
+      "range": 0,
+      "condition": "normal",
+      "common": 4,
+      "price": "50 đồng",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "kin-dao" }
+      ]
+    },
+    {
+      "id": "liem-kama",
+      "name": "Liêm (Kama)",
+      "description": "Tên khác: Lưỡi Liềm, Kama.",
+      "flavorText": "",
+      "weaponClass": "ranged",
+      "baseDamage": 5,
+      "range": 0,
+      "condition": "normal",
+      "common": 1,
+      "price": "10 đồng",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "kin-dao" }
+      ]
+    },
+    {
+      "id": "toa-liem",
+      "name": "Tỏa Liêm",
+      "description": "Tên khác: Kusarigama.",
+      "flavorText": "",
+      "weaponClass": "ranged",
+      "baseDamage": 5,
+      "range": 0,
+      "condition": "normal",
+      "common": 4,
+      "price": "1 tiền",
+      "isTwoHanded": false,
+      "passiveEffects": [],
+      "twoHandedEffects": [],
+      "traits": [
+        { "id": "hai-tay", "description": "Dùng hai tay: Phạm vi +2-bộ." },
+        { "id": "kin-dao" },
+        { "id": "chien-nhu" },
+        { "id": "cam-na" }
+      ]
     },
     {
       "id": "dao-gam",
@@ -39,23 +1185,6 @@
       "img": "/systems/huyen-viet-vtt/assets/vu-khi/dao-gam-hero.png"
     },
     {
-      "id": "dao",
-      "name": "Dao",
-      "description": "",
-      "flavorText": "Lưỡi dao một lưỡi ngắn, dùng phổ biến trong dân gian.",
-      "weaponClass": "melee",
-      "baseDamage": 3,
-      "range": 1,
-      "condition": "normal",
-      "isTwoHanded": false,
-      "passiveEffects": [],
-      "twoHandedEffects": [],
-      "traits": [
-        { "id": "thuong-dung" }
-      ],
-      "img": "/systems/huyen-viet-vtt/assets/vu-khi/dao-hero.png"
-    },
-    {
       "id": "viet-kiem",
       "name": "Việt Kiếm",
       "description": "",
@@ -70,98 +1199,6 @@
       "traits": [
         { "id": "sac-ben" },
         { "id": "le-trong" }
-      ]
-    },
-    {
-      "id": "doan-kiem",
-      "name": "Đoản Kiếm",
-      "description": "",
-      "flavorText": "Kiếm hai lưỡi cân bằng giữa tấn công và phòng thủ.",
-      "weaponClass": "melee",
-      "baseDamage": 4,
-      "range": 1,
-      "common": 5,
-      "condition": "normal",
-      "isTwoHanded": false,
-      "passiveEffects": [],
-      "twoHandedEffects": [],
-      "traits": [
-        { "id": "sac-ben" },
-        { "id": "le-trong" }
-      ]
-    },
-    {
-      "id": "lieu-kiem",
-      "name": "Liễu Kiếm",
-      "description": "",
-      "flavorText": "Kiếm hai lưỡi cân bằng giữa tấn công và phòng thủ.",
-      "weaponClass": "melee",
-      "baseDamage": 5,
-      "range": 1,
-      "common": 7,
-      "condition": "normal",
-      "isTwoHanded": false,
-      "passiveEffects": [],
-      "twoHandedEffects": [],
-      "traits": []
-    },
-    {
-      "id": "truong-kiem",
-      "name": "Trường Kiếm",
-      "description": "Kiếm dài uy nghi, có thể dùng một hoặc hai tay.",
-      "flavorText": "Quân tử hành kiếm, chính đạo độc tôn",
-      "weaponClass": "melee",
-      "baseDamage": 7,
-      "range": 1,
-      "common": 5,
-      "condition": "normal",
-      "isTwoHanded": false,
-      "passiveEffects": [],
-      "twoHandedEffects": [
-        { "target": "damage", "mode": "add", "effects": [{ "name": "baseDamage", "value": 2 }] }
-      ],
-      "traits": [
-        { "id": "sac-ben" },
-        { "id": "hai-tay" },
-        { "id": "le-trong" }
-      ],
-      "img": "/systems/huyen-viet-vtt/assets/vu-khi/truong-kiem-hero.png"
-    },
-    {
-      "id": "dai-kiem",
-      "name": "Đại Kiếm",
-      "description": "",
-      "flavorText": "Thanh kiếm khổng lồ đòi hỏi sức mạnh và không gian chiến đấu rộng.",
-      "weaponClass": "melee",
-      "baseDamage": 9,
-      "range": 1,
-      "common": 5,
-      "condition": "normal",
-      "isTwoHanded": true,
-      "passiveEffects": [
-        { "target": "ability", "mode": "add", "effects": [{ "name": "tocDo", "value": -1 }] }
-      ],
-      "twoHandedEffects": [],
-      "traits": [
-        { "id": "sac-ben" },
-        { "id": "cong-kenh" },
-        { "id": "hai-tay", "description": "Bắt buộc dùng hai tay." }
-      ]
-    },
-    {
-      "id": "chuy",
-      "name": "Chùy",
-      "description": "",
-      "flavorText": "Vũ khí đập nặng nề, chuyên phá giáp.",
-      "weaponClass": "melee",
-      "baseDamage": 5,
-      "range": 1,
-      "condition": "normal",
-      "isTwoHanded": false,
-      "passiveEffects": [],
-      "twoHandedEffects": [],
-      "traits": [
-        { "id": "tu-dap" }
       ]
     },
     {
@@ -182,59 +1219,6 @@
         { "id": "tu-dap" },
         { "id": "chien-nhu", "description": "Vật phẩm chuyên dụng quân đội, phù hợp chiến trường." },
         { "id": "hai-tay" }
-      ]
-    },
-    {
-      "id": "giao",
-      "name": "Giáo",
-      "description": "",
-      "flavorText": "Vũ khí dài với đầu nhọn, lý tưởng để khống chế kẻ địch.",
-      "weaponClass": "melee",
-      "baseDamage": 6,
-      "range": 2,
-      "condition": "normal",
-      "isTwoHanded": true,
-      "passiveEffects": [],
-      "twoHandedEffects": [],
-      "traits": [
-        { "id": "cam-na" },
-        { "id": "chien-nhu" },
-        { "id": "hai-tay", "description": "Bắt buộc dùng hai tay." }
-      ],
-      "img": "/systems/huyen-viet-vtt/assets/vu-khi/giao-hero.png"
-    },
-    {
-      "id": "thiet-chi",
-      "name": "Thiết Chỉ",
-      "description": "",
-      "flavorText": "Móng sắt bịt ngón tay, nhỏ gọn và đặc biệt.",
-      "weaponClass": "melee",
-      "baseDamage": 3,
-      "range": 1,
-      "condition": "normal",
-      "isTwoHanded": false,
-      "passiveEffects": [],
-      "twoHandedEffects": [],
-      "traits": [
-        { "id": "cam-na" },
-        { "id": "kin-dao" }
-      ]
-    },
-    {
-      "id": "cung",
-      "name": "Cung",
-      "description": "",
-      "flavorText": "Cung tên tầm xa, cần không gian và thời gian để giương.",
-      "weaponClass": "ranged",
-      "baseDamage": 6,
-      "range": 15,
-      "condition": "normal",
-      "isTwoHanded": true,
-      "passiveEffects": [],
-      "twoHandedEffects": [],
-      "traits": [
-        { "id": "chien-nhu" },
-        { "id": "hai-tay", "description": "Bắt buộc dùng hai tay." }
       ]
     }
   ],

@@ -83,6 +83,10 @@
                         <dd>{{effectiveDamage}}</dd>
                         <dt>Tầm Xa</dt>
                         <dd>{{range}} bộ</dd>
+                        {{#if price}}
+                        <dt>Giá Trị</dt>
+                        <dd>{{price}}</dd>
+                        {{/if}}
                         <dt>Tình Trạng</dt>
                         <dd>
                             {{#if (eq condition "normal")}}Bình thường{{/if}}

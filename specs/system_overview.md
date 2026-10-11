@@ -109,7 +109,7 @@ Three item types represent physical gear on a character:
 
 | Type       | DataModel    | Purpose                                          |
 |------------|--------------|--------------------------------------------------|
-| `vuKhi`    | `HvVuKhi`    | Weapons — carries `baseDamage`, `range`, `passiveEffects`, `twoHandedEffects`, `traits` |
+| `vuKhi`    | `HvVuKhi`    | Weapons — carries `baseDamage`, `range`, `price`, `passiveEffects`, `twoHandedEffects`, `traits` |
 | `giapTru`  | `HvGiapTru`  | Armor — carries `baseResistance`, `resistance` (computed from condition), `passiveEffects`, `traits` |
 | `trangBi`  | `HvTrangBi`  | Accessories / tools — carries `quantity`, `passiveEffects` |
 
