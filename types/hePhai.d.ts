@@ -2,22 +2,22 @@ import type { HvSkillKey } from "../module/helpers/config";
 import {UpgradeRule} from "./upgrade";
 
 /**
- * Định nghĩa cấu trúc yêu cầu của một cấp Đặc Kỹ Môn Phái.
+ * Định nghĩa cấu trúc yêu cầu của một cấp Đặc Kỹ Hệ Phái.
  * Key là mã ID của kỹ năng (VD: yDuoc, theThuat), Value là cấp độ kỹ năng tối thiểu yêu cầu.
  */
-export type MonPhaiLevelRequirement = Partial<Record<HvSkillKey, number>>;
+export type HePhaiLevelRequirement = Partial<Record<HvSkillKey, number>>;
 
-export type MonPhaiInitItem = {
+export type HePhaiInitItem = {
     /** ID string của vật phẩm **/
     id: string,
     quantity: number
 }
 /**
- * Định nghĩa cấu trúc thông tin của một Môn Phái
+ * Định nghĩa cấu trúc thông tin của một Hệ Phái
  */
-export interface MonPhai {
+export interface HePhai {
     /**
-     * ID của môn phái (Ví dụ: tinhLyYSu)
+     * ID của hệ phái (Ví dụ: tinhLyYSu)
      */
     id: string;
 
@@ -32,7 +32,7 @@ export interface MonPhai {
     category: 'thapNhiHocVien' | 'giangHoBachDao';
 
     /**
-     * Các bonus được áp dụng lên nhân vật khi chọn Môn Phái này ở bước Khởi Tạo.
+     * Các bonus được áp dụng lên nhân vật khi chọn Hệ Phái này ở bước Khởi Tạo.
      * Dùng cùng interface UpgradeRule với ThiToc và BoiCanh.
      */
     upgrade: UpgradeRule[];
@@ -43,14 +43,14 @@ export interface MonPhai {
     bonusSkills: HvSkillKey[];
 
     /**
-     * Bảng yêu cầu kỹ năng để Đặc Kỹ Môn Phái tự thăng cấp.
+     * Bảng yêu cầu kỹ năng để Đặc Kỹ Hệ Phái tự thăng cấp.
      * Key của Record là cấp độ mục tiêu (VD: 2, 3, 4, 5, 6).
      * Khi hệ thống check TotalXP đạt ngưỡng cho Cấp N, nó sẽ gọi progressionReqs[N] để check kỹ năng.
      */
-    progressionReqs: Record<number, MonPhaiLevelRequirement>;
+    progressionReqs: Record<number, HePhaiLevelRequirement>;
 
     /**
-     * Danh sách các vật phẩm được thưởng khi lần đầu chọn môn phái này
+     * Danh sách các vật phẩm được thưởng khi lần đầu chọn hệ phái này
      */
-    initItems: MonPhaiInitItem[];
+    initItems: HePhaiInitItem[];
 }

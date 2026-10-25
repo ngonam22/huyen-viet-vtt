@@ -59,7 +59,7 @@ export interface CharacterAttributes {
 export interface CharacterProgression {
     /** Spendable XP — decreases on upgrade */
     currentXp: number;
-    /** Cumulative XP — never decreases; drives Đặc Kỹ Môn Phái auto-leveling */
+    /** Cumulative XP — never decreases; drives Đặc Kỹ Hệ Phái auto-leveling */
     totalXp: number;
 }
 

@@ -16,42 +16,30 @@
   nghiaVuTitle: '{{draft.nghiaVuTitle}}',
   nghiaVuDesc: '{{draft.nghiaVuDesc}}'
 })" x-init="initMaps($el)">
-    <div hidden data-cc-maps
-         data-boi-canh="{{boiCanhMap}}"
-         data-gia-canh="{{giaCanhMap}}"
-         data-thi-toc="{{thiTocMap}}"
-         data-mon-phai="{{monPhaiMap}}"
-         data-thien-tu="{{thienTuMap}}"
-         data-uu-diem-title="{{draft.uuDiemTitle}}"
-         data-uu-diem-desc="{{draft.uuDiemDesc}}"
-         data-khuyet-diem-title="{{draft.khuyetDiemTitle}}"
-         data-khuyet-diem-desc="{{draft.khuyetDiemDesc}}"
-         data-niem-vui-title="{{draft.niemVuiTitle}}"
-         data-niem-vui-desc="{{draft.niemVuiDesc}}"
-         data-noi-so-title="{{draft.noiSoTitle}}"
-         data-noi-so-desc="{{draft.noiSoDesc}}"
-         data-tam-nguyen-title="{{draft.tamNguyenTitle}}"
-         data-tam-nguyen-desc="{{draft.tamNguyenDesc}}"
-         data-nghia-vu-title="{{draft.nghiaVuTitle}}"
-         data-nghia-vu-desc="{{draft.nghiaVuDesc}}"
-         data-mon-phai-skill-keys="{{draft.monPhaiSkillKeys}}"
-         data-all-skills="{{allSkills}}"></div>
-    <div class="hv-cc__layout" :class="{ 'hv-cc__layout--full': activeStep === 'uuKhuyet' || activeStep === 'thienTu' || activeStep === 'niemVuiNoiSo' || activeStep === 'tamNguyenNghiaVu' || (activeStep === 'boiCanhThiToc' && !boiCanhThiTocMode) }">
+    <div hidden data-cc-maps data-boi-canh="{{boiCanhMap}}" data-gia-canh="{{giaCanhMap}}" data-thi-toc="{{thiTocMap}}"
+        data-mon-phai="{{monPhaiMap}}" data-thien-tu="{{thienTuMap}}" data-uu-diem-title="{{draft.uuDiemTitle}}"
+        data-uu-diem-desc="{{draft.uuDiemDesc}}" data-khuyet-diem-title="{{draft.khuyetDiemTitle}}"
+        data-khuyet-diem-desc="{{draft.khuyetDiemDesc}}" data-niem-vui-title="{{draft.niemVuiTitle}}"
+        data-niem-vui-desc="{{draft.niemVuiDesc}}" data-noi-so-title="{{draft.noiSoTitle}}"
+        data-noi-so-desc="{{draft.noiSoDesc}}" data-tam-nguyen-title="{{draft.tamNguyenTitle}}"
+        data-tam-nguyen-desc="{{draft.tamNguyenDesc}}" data-nghia-vu-title="{{draft.nghiaVuTitle}}"
+        data-nghia-vu-desc="{{draft.nghiaVuDesc}}" data-mon-phai-skill-keys="{{draft.monPhaiSkillKeys}}"
+        data-all-skills="{{allSkills}}"></div>
+    <div class="hv-cc__layout"
+        :class="{ 'hv-cc__layout--full': activeStep === 'uuKhuyet' || activeStep === 'thienTu' || activeStep === 'niemVuiNoiSo' || activeStep === 'tamNguyenNghiaVu' || (activeStep === 'boiCanhThiToc' && !boiCanhThiTocMode) }">
         <aside class="hv-cc__steps">
             <h2>BÁT BỘ THÀNH NHÂN</h2>
             <nav>
                 {{#each steps as |step|}}
-                    <button type="button"
-                            class="hv-cc-step {{#if step.isActive}}is-active{{/if}} {{#if
-                                    step.isComplete}}is-complete{{/if}}"
-                            data-action="select-step"
-                            data-step="{{step.id}}">
-                        <span class="hv-cc-step__number">{{step.number}}</span>
-                        <span class="hv-cc-step__text">
-              <strong>{{step.label}}</strong>
-              <small>{{step.subtitle}}</small>
-            </span>
-                    </button>
+                <button type="button" class="hv-cc-step {{#if step.isActive}}is-active{{/if}} {{#if
+                                    step.isComplete}}is-complete{{/if}}" data-action="select-step"
+                    data-step="{{step.id}}">
+                    <span class="hv-cc-step__number">{{step.number}}</span>
+                    <span class="hv-cc-step__text">
+                        <strong>{{step.label}}</strong>
+                        <small>{{step.subtitle}}</small>
+                    </span>
+                </button>
                 {{/each}}
             </nav>
 
@@ -62,248 +50,87 @@
 
         <main class="hv-cc__main">
             {{#if isBoiCanhThiTocStep}}
-                <section class="hv-cc-boi-canh-thi-toc">
+            <section class="hv-cc-boi-canh-thi-toc">
 
-                    <!-- Category Chooser -->
-                    <div class="hv-cc-category-chooser" x-show="!boiCanhThiTocMode">
-                        <header class="hv-cc__section-header">
-                            <p class="desc-text">Chọn một trong hai hướng sau để xác định cội nguồn của nhân vật <br /><strong>BỐI CẢNH</strong> hoặc <strong>THỊ TỘC</strong></p>
-                        </header>
-                        <div class="hv-cc-category-cards">
-                            <div
-                                 class="hv-cc-category-card"
-                                 id="boi-canh-category-card"
-                                 @click="selectBoiCanhThiTocMode('boiCanh')"
-                                 @keydown.enter.prevent="selectBoiCanhThiTocMode('boiCanh')"
-                                 tabindex="0"
-                                 role="button">
-                                <div class="hv-cc-category-card__txt-holder">
-                                    <img src="/systems/huyen-viet-vtt/assets/character-creation/boi-canh-title.png"
-                                         height="28" alt="Bối Cảnh"/>
-                                    <div class="hv-cc-category-card__desc">Nơi nhân vật trưởng thành</div>
-                                </div>
-                            </div>
-                            <div
-                                 id="thi-toc-category-card"
-                                 class="hv-cc-category-card"
-                                 @click="selectBoiCanhThiTocMode('thiToc')"
-                                 @keydown.enter.prevent="selectBoiCanhThiTocMode('thiToc')"
-                                 tabindex="0"
-                                 role="button">
-                                <div class="hv-cc-category-card__txt-holder">
-                                    <img src="/systems/huyen-viet-vtt/assets/character-creation/thi-toc-title.png"
-                                         height="28" alt="Thị Tộc"/>
-                                    <div class="hv-cc-category-card__desc">Dòng tộc linh giáp</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Bối Cảnh List -->
-                    <div class="hv-cc-boi-canh" x-show="boiCanhThiTocMode === 'boiCanh'">
-                        <header class="hv-cc__section-header">
-                            <button type="button" class="hv-cc__back-btn" @click="goBackToBoiCanhThiTocChooser()">
-                                <i class="fas fa-arrow-left"></i> Chọn Lại
-                            </button>
-                            <img
-                                height="25"
-                                class="tw:mx-auto tw:mb-3"
-                                src="/systems/huyen-viet-vtt/assets/character-creation/boi-canh-title.png" alt="Title" />
-                            <p class="desc-text">Bối cảnh miêu tả môi trường ngoại cảnh nơi nhân vật trưởng thành và sinh
-                                sống.<br/> Từ đó tôi luyện tính cách cũng như kỹ năng của nhân vật để sinh tồn trong môi
-                                trường đặc thù của mình</p>
-                        </header>
-
-                        <div class="hv-cc-table">
-                            <div class="hv-cc-table__scroll">
-                                <div class="hv-cc-table__head">
-                                    <span></span>
-                                    <span>Bối Cảnh</span>
-                                    <span>Sơ Lược</span>
-                                    <span>Ngũ Hành</span>
-                                    <span>Kỹ Năng</span>
-                                </div>
-
-                                <ol class="hv-cc-table__rows">
-                                    {{#each boiCanhRows as |row|}}
-                                        <li class="hv-cc-table__row"
-                                            :class="{ 'is-selected': boiCanh === '{{row.id}}' }"
-                                            @click="selectBoiCanh('{{row.id}}')"
-                                            @keydown.enter.prevent="selectBoiCanh('{{row.id}}')"
-                                            @keydown.space.prevent="selectBoiCanh('{{row.id}}')"
-                                            tabindex="0"
-                                            aria-label="Chọn {{row.name}}">
-                                            <span class="hv-cc-table__select" aria-hidden="true">
-                                                <span></span>
-                                            </span>
-                                            <div class="hv-cc-table__thumb"
-                                                 style="background-image: url('{{row.thumbnail}}');">
-                                                <strong>{{row.name}}</strong>
-                                            </div>
-                                            <p class="hv-cc-table__desc">{{row.description}}</p>
-                                            <div class="hv-cc-table__bonus hv-cc-table__bonus--{{row.element.class}}">
-                                                {{#if row.element}}
-                                                    <img src="{{row.element.icon}}" alt=""/>
-                                                    <div>+{{row.element.value}} {{row.element.label}} hành</div>
-                                                {{/if}}
-                                            </div>
-                                            <div class="hv-cc-table__bonus">
-                                                {{#if row.skill}}
-                                                    <img src="/systems/huyen-viet-vtt/assets/icons/ky-nang/{{row.skill.key}}.png"/>
-                                                    <div>+{{row.skill.value}} {{row.skill.label}}</div>
-                                                {{/if}}
-                                            </div>
-                                        </li>
-                                    {{/each}}
-                                </ol>
-                            </div>
-                        </div>
-
-                        <section class="hv-cc__effect">
-                            <h3 class="hv-cc__effect-title">HIỆU ỨNG</h3>
-                            <p>Chọn một Bối Cảnh để nhận:</p>
-                            <ul>
-                                <li>+1 chỉ số Ngũ Hành tương ứng</li>
-                                <li>+1 Kỹ Năng tương ứng</li>
-                            </ul>
-                        </section>
-                    </div>
-
-                    <!-- Thị Tộc List -->
-                    <div class="hv-cc-thi-toc" x-show="boiCanhThiTocMode === 'thiToc'">
-                        <header class="hv-cc__section-header">
-                            <button type="button" class="hv-cc__back-btn" @click="goBackToBoiCanhThiTocChooser()">
-                                <i class="fas fa-arrow-left"></i> Chọn Lại
-                            </button>
-                            <img
-                                height="25"
-                                class="tw:mx-auto tw:mb-3"
-                                src="/systems/huyen-viet-vtt/assets/character-creation/thi-toc-title.png" alt="Title" />
-                            <p class="desc-text">Thị Tộc là dòng tộc linh giáp của nhân vật, gắn liền với một trong mười hai con giáp.<br/>Mỗi thị tộc sở hữu bản năng và kỹ năng đặc thù riêng từ thuở khai sinh</p>
-                        </header>
-
-                        <div class="hv-cc-table">
-                            <div class="hv-cc-table__scroll">
-                                <div class="hv-cc-table__head">
-                                    <span></span>
-                                    <span>Thị Tộc</span>
-                                    <span>Đặc Tính</span>
-                                    <span>Ngũ Hành</span>
-                                    <span>Kỹ Năng</span>
-                                </div>
-
-                                <ol class="hv-cc-table__rows">
-                                    {{#each thiTocRows as |row|}}
-                                        <li class="hv-cc-table__row"
-                                            :class="{ 'is-selected': thiToc === '{{row.id}}' }"
-                                            @click="selectThiToc('{{row.id}}')"
-                                            @keydown.enter.prevent="selectThiToc('{{row.id}}')"
-                                            @keydown.space.prevent="selectThiToc('{{row.id}}')"
-                                            tabindex="0"
-                                            aria-label="Chọn {{row.name}}">
-                                            <span class="hv-cc-table__select" aria-hidden="true">
-                                                <span></span>
-                                            </span>
-                                            <div class="hv-cc-table__thumb"
-                                                 style="background-image: url('{{row.thumbnail}}');">
-                                                <strong>{{row.name}}</strong>
-                                            </div>
-                                            <p class="hv-cc-table__desc">{{row.description}}</p>
-                                            <div class="hv-cc-table__bonus hv-cc-table__bonus--{{row.element.class}}">
-                                                {{#if row.element}}
-                                                    <img src="{{row.element.icon}}" alt=""/>
-                                                    <div>+{{row.element.value}} {{row.element.label}} hành</div>
-                                                {{/if}}
-                                            </div>
-                                            <div class="hv-cc-table__bonus">
-                                                {{#if row.skill}}
-                                                    <img src="/systems/huyen-viet-vtt/assets/icons/ky-nang/{{row.skill.key}}.png"/>
-                                                    <div>+{{row.skill.value}} {{row.skill.label}}</div>
-                                                {{/if}}
-                                            </div>
-                                        </li>
-                                    {{/each}}
-                                </ol>
-                            </div>
-                        </div>
-
-                        <section class="hv-cc__effect">
-                            <h3 class="hv-cc__effect-title">HIỆU ỨNG</h3>
-                            <p>Chọn một Thị Tộc để nhận:</p>
-                            <ul>
-                                <li>+1 chỉ số Ngũ Hành tương ứng</li>
-                                <li>+1 Kỹ Năng tương ứng</li>
-                            </ul>
-                        </section>
-                    </div>
-
-                </section>
-            {{/if}}
-
-            {{#if isGiaCanhStep}}
-                <section class="hv-cc-gia-canh">
+                <!-- Category Chooser -->
+                <div class="hv-cc-category-chooser" x-show="!boiCanhThiTocMode">
                     <header class="hv-cc__section-header">
-                        <img
-                                height="23"
-                                class="tw:mx-auto tw:mb-3"
-                                src="/systems/huyen-viet-vtt/assets/character-creation/gia-canh-title.png" alt="Title" />
-                        <p class="desc-text">Gia Cảnh phản ánh xuất thân và công việc của nhân vật trước khi bước vào
-                            con đường tu luyện.<br/>Từ đó hình thành kỹ năng nghề nghiệp và ngũ hành cộng hưởng với cuộc
-                            sống thường nhật</p>
+                        <p class="desc-text">Chọn một trong hai hướng sau để xác định cội nguồn của nhân vật
+                            <br /><strong>BỐI CẢNH</strong> hoặc <strong>THỊ TỘC</strong>
+                        </p>
+                    </header>
+                    <div class="hv-cc-category-cards">
+                        <div class="hv-cc-category-card" id="boi-canh-category-card"
+                            @click="selectBoiCanhThiTocMode('boiCanh')"
+                            @keydown.enter.prevent="selectBoiCanhThiTocMode('boiCanh')" tabindex="0" role="button">
+                            <div class="hv-cc-category-card__txt-holder">
+                                <img src="/systems/huyen-viet-vtt/assets/character-creation/boi-canh-title.png"
+                                    height="28" alt="Bối Cảnh" />
+                                <div class="hv-cc-category-card__desc">Nơi nhân vật trưởng thành</div>
+                            </div>
+                        </div>
+                        <div id="thi-toc-category-card" class="hv-cc-category-card"
+                            @click="selectBoiCanhThiTocMode('thiToc')"
+                            @keydown.enter.prevent="selectBoiCanhThiTocMode('thiToc')" tabindex="0" role="button">
+                            <div class="hv-cc-category-card__txt-holder">
+                                <img src="/systems/huyen-viet-vtt/assets/character-creation/thi-toc-title.png"
+                                    height="28" alt="Thị Tộc" />
+                                <div class="hv-cc-category-card__desc">Dòng tộc linh giáp</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bối Cảnh List -->
+                <div class="hv-cc-boi-canh" x-show="boiCanhThiTocMode === 'boiCanh'">
+                    <header class="hv-cc__section-header">
+                        <button type="button" class="hv-cc__back-btn" @click="goBackToBoiCanhThiTocChooser()">
+                            <i class="fas fa-arrow-left"></i> Chọn Lại
+                        </button>
+                        <img height="25" class="tw:mx-auto tw:mb-3"
+                            src="/systems/huyen-viet-vtt/assets/character-creation/boi-canh-title.png" alt="Title" />
+                        <p class="desc-text">Bối cảnh miêu tả môi trường ngoại cảnh nơi nhân vật trưởng thành và sinh
+                            sống.<br /> Từ đó tôi luyện tính cách cũng như kỹ năng của nhân vật để sinh tồn trong môi
+                            trường đặc thù của mình</p>
                     </header>
 
-                    <div class="hv-cc-table hv-cc-table--gia-canh">
+                    <div class="hv-cc-table">
                         <div class="hv-cc-table__scroll">
                             <div class="hv-cc-table__head">
                                 <span></span>
-                                <span>Gia Cảnh</span>
+                                <span>Bối Cảnh</span>
                                 <span>Sơ Lược</span>
-                                <span>Ngũ Hành / Kỹ Năng</span>
+                                <span>Ngũ Hành</span>
+                                <span>Kỹ Năng</span>
                             </div>
 
                             <ol class="hv-cc-table__rows">
-                                {{#each giaCanhRows as |row|}}
-                                    <li class="hv-cc-table__row"
-                                        :class="{ 'is-selected': giaCanh === '{{row.id}}' }"
-                                        @click="selectGiaCanh('{{row.id}}')"
-                                        @keydown.enter.prevent="selectGiaCanh('{{row.id}}')"
-                                        @keydown.space.prevent="selectGiaCanh('{{row.id}}')"
-                                        tabindex="0"
-                                        aria-label="Chọn {{row.name}}">
-                    <span class="hv-cc-table__select" aria-hidden="true">
-                      <span></span>
-                    </span>
-                                        <div class="hv-cc-table__thumb"
-                                             style="background-image: url('{{row.thumbnail}}');">
-                                            <strong>{{row.name}}</strong>
-                                        </div>
-                                        <p class="hv-cc-table__desc">{{row.description}}</p>
-                                        <div class="hv-cc-table__bonuses">
-                                            <div class="hv-cc-element-choices">
-                                                {{#each row.elements as |el|}}
-                                                    <button type="button"
-                                                            class="hv-cc-element-choice hv-cc-element-choice--{{el.class}}"
-                                                            :class="{ 'is-chosen': giaCanh === '{{el.giaCanhId}}' && giaCanhElementIndex === {{el.index}} }"
-                                                            @click.stop="selectGiaCanhElement('{{el.giaCanhId}}', {{el.index}})"
-                                                            data-gia-canh-id="{{el.giaCanhId}}"
-                                                            data-element-index="{{el.index}}">
-                                                        <img src="{{el.icon}}" alt="{{el.label}}"/>
-                                                        <span>{{el.label}}</span>
-                                                    </button>
-                                                {{/each}}
-                                            </div>
-                                            <div class="hv-cc-table__bonus-sep"></div>
-                                            <div class="hv-cc-skill-list">
-                                                {{#each row.skills as |skill|}}
-                                                    <div class="hv-cc-table__bonus-item">
-                                                        <img src="/systems/huyen-viet-vtt/assets/icons/ky-nang/{{skill.key}}.png"
-                                                             alt=""/>
-                                                        <span>+{{skill.value}} {{skill.label}}</span>
-                                                    </div>
-                                                {{/each}}
-                                            </div>
-                                        </div>
-                                    </li>
+                                {{#each boiCanhRows as |row|}}
+                                <li class="hv-cc-table__row" :class="{ 'is-selected': boiCanh === '{{row.id}}' }"
+                                    @click="selectBoiCanh('{{row.id}}')"
+                                    @keydown.enter.prevent="selectBoiCanh('{{row.id}}')"
+                                    @keydown.space.prevent="selectBoiCanh('{{row.id}}')" tabindex="0"
+                                    aria-label="Chọn {{row.name}}">
+                                    <span class="hv-cc-table__select" aria-hidden="true">
+                                        <span></span>
+                                    </span>
+                                    <div class="hv-cc-table__thumb" style="background-image: url('{{row.thumbnail}}');">
+                                        <strong>{{row.name}}</strong>
+                                    </div>
+                                    <p class="hv-cc-table__desc">{{row.description}}</p>
+                                    <div class="hv-cc-table__bonus hv-cc-table__bonus--{{row.element.class}}">
+                                        {{#if row.element}}
+                                        <img src="{{row.element.icon}}" alt="" />
+                                        <div>+{{row.element.value}} {{row.element.label}} hành</div>
+                                        {{/if}}
+                                    </div>
+                                    <div class="hv-cc-table__bonus">
+                                        {{#if row.skill}}
+                                        <img src="/systems/huyen-viet-vtt/assets/icons/ky-nang/{{row.skill.key}}.png" />
+                                        <div>+{{row.skill.value}} {{row.skill.label}}</div>
+                                        {{/if}}
+                                    </div>
+                                </li>
                                 {{/each}}
                             </ol>
                         </div>
@@ -311,359 +138,473 @@
 
                     <section class="hv-cc__effect">
                         <h3 class="hv-cc__effect-title">HIỆU ỨNG</h3>
-                        <p>Chọn một Gia Cảnh để nhận:</p>
+                        <p>Chọn một Bối Cảnh để nhận:</p>
                         <ul>
-                            <li>+1 chỉ số Ngũ Hành (chọn 1 trong các hành được cho)</li>
-                            <li>+1 mỗi Kỹ Năng tương ứng</li>
+                            <li>+1 chỉ số Ngũ Hành tương ứng</li>
+                            <li>+1 Kỹ Năng tương ứng</li>
                         </ul>
                     </section>
-                </section>
-            {{/if}}
+                </div>
 
-            {{#if isThienTuStep}}
-                <section class="hv-cc-thien-tu">
+                <!-- Thị Tộc List -->
+                <div class="hv-cc-thi-toc" x-show="boiCanhThiTocMode === 'thiToc'">
                     <header class="hv-cc__section-header">
-                        <img
-                                height="25"
-                                class="tw:mx-auto tw:mb-3"
-                                src="/systems/huyen-viet-vtt/assets/character-creation/thien-tu-title.png" alt="Title" />
-                        <p class="desc-text">Thiên Tư là năng khiếu bẩm sinh về một hành trong Ngũ Hành.<br/>Chọn một hành để nhận thêm +1 điểm ngũ hành khởi đầu.</p>
+                        <button type="button" class="hv-cc__back-btn" @click="goBackToBoiCanhThiTocChooser()">
+                            <i class="fas fa-arrow-left"></i> Chọn Lại
+                        </button>
+                        <img height="25" class="tw:mx-auto tw:mb-3"
+                            src="/systems/huyen-viet-vtt/assets/character-creation/thi-toc-title.png" alt="Title" />
+                        <p class="desc-text">Thị Tộc là dòng tộc linh giáp của nhân vật, gắn liền với một trong mười hai
+                            con giáp.<br />Mỗi thị tộc sở hữu bản năng và kỹ năng đặc thù riêng từ thuở khai sinh</p>
                     </header>
 
-                    <div class="hv-cc-element-cards">
-                        <div class="hv-cc-element-cards__row">
-                            {{#each thienTuRow1 as |card|}}
-                                <div class="hv-cc-element-card hv-cc-element-card--{{card.class}}"
-                                     :class="{ 'is-selected': thienTu === '{{card.key}}' }"
-                                     @click="selectThienTu('{{card.key}}')"
-                                     @keydown.enter.prevent="selectThienTu('{{card.key}}')"
-                                     tabindex="0"
-                                     role="button"
-                                     aria-label="Chọn {{card.label}}">
-                                    <img src="{{card.icon}}" alt="{{card.label}}" />
-                                    <div class="hv-cc-element-card__name">{{card.label}}</div>
-                                    <div class="hv-cc-element-card__bonus">+1</div>
-                                </div>
-                            {{/each}}
-                        </div>
-                        <div class="hv-cc-element-cards__row hv-cc-element-cards__row--centered">
-                            {{#each thienTuRow2 as |card|}}
-                                <div class="hv-cc-element-card hv-cc-element-card--{{card.class}}"
-                                     :class="{ 'is-selected': thienTu === '{{card.key}}' }"
-                                     @click="selectThienTu('{{card.key}}')"
-                                     @keydown.enter.prevent="selectThienTu('{{card.key}}')"
-                                     tabindex="0"
-                                     role="button"
-                                     aria-label="Chọn {{card.label}}">
-                                    <img src="{{card.icon}}" alt="{{card.label}}" />
-                                    <div class="hv-cc-element-card__name">{{card.label}}</div>
-                                    <div class="hv-cc-element-card__bonus">+1</div>
-                                </div>
-                            {{/each}}
-                        </div>
-                    </div>
+                    <div class="hv-cc-table">
+                        <div class="hv-cc-table__scroll">
+                            <div class="hv-cc-table__head">
+                                <span></span>
+                                <span>Thị Tộc</span>
+                                <span>Đặc Tính</span>
+                                <span>Ngũ Hành</span>
+                                <span>Kỹ Năng</span>
+                            </div>
 
-                    <div class="hv-cc-thien-tu__desc" x-show="thienTu">
-                        <p x-text="thienTuMap[thienTu]?.description ?? ''"></p>
+                            <ol class="hv-cc-table__rows">
+                                {{#each thiTocRows as |row|}}
+                                <li class="hv-cc-table__row" :class="{ 'is-selected': thiToc === '{{row.id}}' }"
+                                    @click="selectThiToc('{{row.id}}')"
+                                    @keydown.enter.prevent="selectThiToc('{{row.id}}')"
+                                    @keydown.space.prevent="selectThiToc('{{row.id}}')" tabindex="0"
+                                    aria-label="Chọn {{row.name}}">
+                                    <span class="hv-cc-table__select" aria-hidden="true">
+                                        <span></span>
+                                    </span>
+                                    <div class="hv-cc-table__thumb" style="background-image: url('{{row.thumbnail}}');">
+                                        <strong>{{row.name}}</strong>
+                                    </div>
+                                    <p class="hv-cc-table__desc">{{row.description}}</p>
+                                    <div class="hv-cc-table__bonus hv-cc-table__bonus--{{row.element.class}}">
+                                        {{#if row.element}}
+                                        <img src="{{row.element.icon}}" alt="" />
+                                        <div>+{{row.element.value}} {{row.element.label}} hành</div>
+                                        {{/if}}
+                                    </div>
+                                    <div class="hv-cc-table__bonus">
+                                        {{#if row.skill}}
+                                        <img src="/systems/huyen-viet-vtt/assets/icons/ky-nang/{{row.skill.key}}.png" />
+                                        <div>+{{row.skill.value}} {{row.skill.label}}</div>
+                                        {{/if}}
+                                    </div>
+                                </li>
+                                {{/each}}
+                            </ol>
+                        </div>
                     </div>
 
                     <section class="hv-cc__effect">
                         <h3 class="hv-cc__effect-title">HIỆU ỨNG</h3>
-                        <p>Chọn một Ngũ Hành để nhận:</p>
+                        <p>Chọn một Thị Tộc để nhận:</p>
                         <ul>
                             <li>+1 chỉ số Ngũ Hành tương ứng</li>
+                            <li>+1 Kỹ Năng tương ứng</li>
                         </ul>
                     </section>
+                </div>
+
+            </section>
+            {{/if}}
+
+            {{#if isGiaCanhStep}}
+            <section class="hv-cc-gia-canh">
+                <header class="hv-cc__section-header">
+                    <img height="23" class="tw:mx-auto tw:mb-3"
+                        src="/systems/huyen-viet-vtt/assets/character-creation/gia-canh-title.png" alt="Title" />
+                    <p class="desc-text">Gia Cảnh phản ánh xuất thân và công việc của nhân vật trước khi bước vào
+                        con đường tu luyện.<br />Từ đó hình thành kỹ năng nghề nghiệp và ngũ hành cộng hưởng với cuộc
+                        sống thường nhật</p>
+                </header>
+
+                <div class="hv-cc-table hv-cc-table--gia-canh">
+                    <div class="hv-cc-table__scroll">
+                        <div class="hv-cc-table__head">
+                            <span></span>
+                            <span>Gia Cảnh</span>
+                            <span>Sơ Lược</span>
+                            <span>Ngũ Hành / Kỹ Năng</span>
+                        </div>
+
+                        <ol class="hv-cc-table__rows">
+                            {{#each giaCanhRows as |row|}}
+                            <li class="hv-cc-table__row" :class="{ 'is-selected': giaCanh === '{{row.id}}' }"
+                                @click="selectGiaCanh('{{row.id}}')"
+                                @keydown.enter.prevent="selectGiaCanh('{{row.id}}')"
+                                @keydown.space.prevent="selectGiaCanh('{{row.id}}')" tabindex="0"
+                                aria-label="Chọn {{row.name}}">
+                                <span class="hv-cc-table__select" aria-hidden="true">
+                                    <span></span>
+                                </span>
+                                <div class="hv-cc-table__thumb" style="background-image: url('{{row.thumbnail}}');">
+                                    <strong>{{row.name}}</strong>
+                                </div>
+                                <p class="hv-cc-table__desc">{{row.description}}</p>
+                                <div class="hv-cc-table__bonuses">
+                                    <div class="hv-cc-element-choices">
+                                        {{#each row.elements as |el|}}
+                                        <button type="button"
+                                            class="hv-cc-element-choice hv-cc-element-choice--{{el.class}}"
+                                            :class="{ 'is-chosen': giaCanh === '{{el.giaCanhId}}' && giaCanhElementIndex === {{el.index}} }"
+                                            @click.stop="selectGiaCanhElement('{{el.giaCanhId}}', {{el.index}})"
+                                            data-gia-canh-id="{{el.giaCanhId}}" data-element-index="{{el.index}}">
+                                            <img src="{{el.icon}}" alt="{{el.label}}" />
+                                            <span>{{el.label}}</span>
+                                        </button>
+                                        {{/each}}
+                                    </div>
+                                    <div class="hv-cc-table__bonus-sep"></div>
+                                    <div class="hv-cc-skill-list">
+                                        {{#each row.skills as |skill|}}
+                                        <div class="hv-cc-table__bonus-item">
+                                            <img src="/systems/huyen-viet-vtt/assets/icons/ky-nang/{{skill.key}}.png"
+                                                alt="" />
+                                            <span>+{{skill.value}} {{skill.label}}</span>
+                                        </div>
+                                        {{/each}}
+                                    </div>
+                                </div>
+                            </li>
+                            {{/each}}
+                        </ol>
+                    </div>
+                </div>
+
+                <section class="hv-cc__effect">
+                    <h3 class="hv-cc__effect-title">HIỆU ỨNG</h3>
+                    <p>Chọn một Gia Cảnh để nhận:</p>
+                    <ul>
+                        <li>+1 chỉ số Ngũ Hành (chọn 1 trong các hành được cho)</li>
+                        <li>+1 mỗi Kỹ Năng tương ứng</li>
+                    </ul>
                 </section>
+            </section>
+            {{/if}}
+
+            {{#if isThienTuStep}}
+            <section class="hv-cc-thien-tu">
+                <header class="hv-cc__section-header">
+                    <img height="25" class="tw:mx-auto tw:mb-3"
+                        src="/systems/huyen-viet-vtt/assets/character-creation/thien-tu-title.png" alt="Title" />
+                    <p class="desc-text">Thiên Tư là năng khiếu bẩm sinh về một hành trong Ngũ Hành.<br />Chọn một hành
+                        để nhận thêm +1 điểm ngũ hành khởi đầu.</p>
+                </header>
+
+                <div class="hv-cc-element-cards">
+                    <div class="hv-cc-element-cards__row">
+                        {{#each thienTuRow1 as |card|}}
+                        <div class="hv-cc-element-card hv-cc-element-card--{{card.class}}"
+                            :class="{ 'is-selected': thienTu === '{{card.key}}' }"
+                            @click="selectThienTu('{{card.key}}')"
+                            @keydown.enter.prevent="selectThienTu('{{card.key}}')" tabindex="0" role="button"
+                            aria-label="Chọn {{card.label}}">
+                            <img src="{{card.icon}}" alt="{{card.label}}" />
+                            <div class="hv-cc-element-card__name">{{card.label}}</div>
+                            <div class="hv-cc-element-card__bonus">+1</div>
+                        </div>
+                        {{/each}}
+                    </div>
+                    <div class="hv-cc-element-cards__row hv-cc-element-cards__row--centered">
+                        {{#each thienTuRow2 as |card|}}
+                        <div class="hv-cc-element-card hv-cc-element-card--{{card.class}}"
+                            :class="{ 'is-selected': thienTu === '{{card.key}}' }"
+                            @click="selectThienTu('{{card.key}}')"
+                            @keydown.enter.prevent="selectThienTu('{{card.key}}')" tabindex="0" role="button"
+                            aria-label="Chọn {{card.label}}">
+                            <img src="{{card.icon}}" alt="{{card.label}}" />
+                            <div class="hv-cc-element-card__name">{{card.label}}</div>
+                            <div class="hv-cc-element-card__bonus">+1</div>
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>
+
+                <div class="hv-cc-thien-tu__desc" x-show="thienTu">
+                    <p x-text="thienTuMap[thienTu]?.description ?? ''"></p>
+                </div>
+
+                <section class="hv-cc__effect">
+                    <h3 class="hv-cc__effect-title">HIỆU ỨNG</h3>
+                    <p>Chọn một Ngũ Hành để nhận:</p>
+                    <ul>
+                        <li>+1 chỉ số Ngũ Hành tương ứng</li>
+                    </ul>
+                </section>
+            </section>
             {{/if}}
 
             {{#if isUuKhuyetStep}}
-                <section class="hv-cc-uu-khuyet">
-                    <header class="hv-cc__section-header hv-cc__section-header--centered">
-                        <img
-                                height="25"
-                                class="tw:mx-auto tw:mb-3"
-                                src="/systems/huyen-viet-vtt/assets/character-creation/uu-diem-khuyet-diem-title.png" alt="Title" />
-                        <p class="desc-text">Ưu điểm và Khuyết điểm phản ánh tính cách cốt lõi của nhân vật.<br/>Chọn từ mẫu có sẵn hoặc tự mình viết để tạo nên một nhân vật độc đáo.</p>
-                    </header>
+            <section class="hv-cc-uu-khuyet">
+                <header class="hv-cc__section-header hv-cc__section-header--centered">
+                    <img height="25" class="tw:mx-auto tw:mb-3"
+                        src="/systems/huyen-viet-vtt/assets/character-creation/uu-diem-khuyet-diem-title.png"
+                        alt="Title" />
+                    <p class="desc-text">Ưu điểm và Khuyết điểm phản ánh tính cách cốt lõi của nhân vật.<br />Chọn từ
+                        mẫu có sẵn hoặc tự mình viết để tạo nên một nhân vật độc đáo.</p>
+                </header>
 
-                    <div class="hv-cc-uu-khuyet__cards">
+                <div class="hv-cc-uu-khuyet__cards">
 
-                        <!-- ƯU ĐIỂM -->
-                        <div class="hv-cc-uu-khuyet-card hv-cc-uu-khuyet-card--advantage">
-                            <div class="hv-cc-uu-khuyet-card__header">
-                                <i class="fa-solid fa-sun"></i>
-                                <h3>Ưu Điểm</h3>
-                                <p>Điểm mạnh và phẩm chất nổi bật của nhân vật</p>
+                    <!-- ƯU ĐIỂM -->
+                    <div class="hv-cc-uu-khuyet-card hv-cc-uu-khuyet-card--advantage">
+                        <div class="hv-cc-uu-khuyet-card__header">
+                            <i class="fa-solid fa-sun"></i>
+                            <h3>Ưu Điểm</h3>
+                            <p>Điểm mạnh và phẩm chất nổi bật của nhân vật</p>
+                        </div>
+                        <div class="hv-cc-uu-khuyet-card__body">
+                            <div class="hv-cc-uu-khuyet-card__field">
+                                <label>Chọn Mẫu Có Sẵn</label>
+                                <select class="hv-cc-uu-khuyet__select"
+                                    @change="selectUuDiemTemplate($event.target.value)">
+                                    <option value="">— Chọn mẫu hoặc tự viết —</option>
+                                    <template x-for="tpl in uuDiemTemplates" :key="tpl.id">
+                                        <option :value="tpl.id" x-text="tpl.title"></option>
+                                    </template>
+                                </select>
                             </div>
-                            <div class="hv-cc-uu-khuyet-card__body">
-                                <div class="hv-cc-uu-khuyet-card__field">
-                                    <label>Chọn Mẫu Có Sẵn</label>
-                                    <select class="hv-cc-uu-khuyet__select"
-                                            @change="selectUuDiemTemplate($event.target.value)">
-                                        <option value="">— Chọn mẫu hoặc tự viết —</option>
-                                        <template x-for="tpl in uuDiemTemplates" :key="tpl.id">
-                                            <option :value="tpl.id" x-text="tpl.title"></option>
-                                        </template>
-                                    </select>
-                                </div>
-                                <div class="hv-cc-uu-khuyet-card__field">
-                                    <label>Tên Ưu Điểm</label>
-                                    <input type="text"
-                                           class="hv-cc-uu-khuyet__input"
-                                           x-model="uuDiemTitle"
-                                           placeholder="Ví dụ: Dũng Cảm, Trung Thành..." />
-                                </div>
-                                <div class="hv-cc-uu-khuyet-card__field hv-cc-uu-khuyet-card__field--grow">
-                                    <label>Mô Tả</label>
-                                    <textarea class="hv-cc-uu-khuyet__textarea"
-                                              x-model="uuDiemDesc"
-                                              placeholder="Mô tả chi tiết ưu điểm của nhân vật..."></textarea>
-                                </div>
+                            <div class="hv-cc-uu-khuyet-card__field">
+                                <label>Tên Ưu Điểm</label>
+                                <input type="text" class="hv-cc-uu-khuyet__input" x-model="uuDiemTitle"
+                                    placeholder="Ví dụ: Dũng Cảm, Trung Thành..." />
+                            </div>
+                            <div class="hv-cc-uu-khuyet-card__field hv-cc-uu-khuyet-card__field--grow">
+                                <label>Mô Tả</label>
+                                <textarea class="hv-cc-uu-khuyet__textarea" x-model="uuDiemDesc"
+                                    placeholder="Mô tả chi tiết ưu điểm của nhân vật..."></textarea>
                             </div>
                         </div>
-
-                        <!-- KHUYẾT ĐIỂM -->
-                        <div class="hv-cc-uu-khuyet-card hv-cc-uu-khuyet-card--weakness">
-                            <div class="hv-cc-uu-khuyet-card__header">
-                                <i class="fa-solid fa-moon"></i>
-                                <h3>Khuyết Điểm</h3>
-                                <p>Điểm yếu và mặt tối trong tính cách của nhân vật</p>
-                            </div>
-                            <div class="hv-cc-uu-khuyet-card__body">
-                                <div class="hv-cc-uu-khuyet-card__field">
-                                    <label>Chọn Mẫu Có Sẵn</label>
-                                    <select class="hv-cc-uu-khuyet__select"
-                                            @change="selectKhuyetDiemTemplate($event.target.value)">
-                                        <option value="">— Chọn mẫu hoặc tự viết —</option>
-                                        <template x-for="tpl in khuyetDiemTemplates" :key="tpl.id">
-                                            <option :value="tpl.id" x-text="tpl.title"></option>
-                                        </template>
-                                    </select>
-                                </div>
-                                <div class="hv-cc-uu-khuyet-card__field">
-                                    <label>Tên Khuyết Điểm</label>
-                                    <input type="text"
-                                           class="hv-cc-uu-khuyet__input"
-                                           x-model="khuyetDiemTitle"
-                                           placeholder="Ví dụ: Tự Phụ, Nóng Nảy..." />
-                                </div>
-                                <div class="hv-cc-uu-khuyet-card__field hv-cc-uu-khuyet-card__field--grow">
-                                    <label>Mô Tả</label>
-                                    <textarea class="hv-cc-uu-khuyet__textarea"
-                                              x-model="khuyetDiemDesc"
-                                              placeholder="Mô tả chi tiết khuyết điểm của nhân vật..."></textarea>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
-                </section>
+
+                    <!-- KHUYẾT ĐIỂM -->
+                    <div class="hv-cc-uu-khuyet-card hv-cc-uu-khuyet-card--weakness">
+                        <div class="hv-cc-uu-khuyet-card__header">
+                            <i class="fa-solid fa-moon"></i>
+                            <h3>Khuyết Điểm</h3>
+                            <p>Điểm yếu và mặt tối trong tính cách của nhân vật</p>
+                        </div>
+                        <div class="hv-cc-uu-khuyet-card__body">
+                            <div class="hv-cc-uu-khuyet-card__field">
+                                <label>Chọn Mẫu Có Sẵn</label>
+                                <select class="hv-cc-uu-khuyet__select"
+                                    @change="selectKhuyetDiemTemplate($event.target.value)">
+                                    <option value="">— Chọn mẫu hoặc tự viết —</option>
+                                    <template x-for="tpl in khuyetDiemTemplates" :key="tpl.id">
+                                        <option :value="tpl.id" x-text="tpl.title"></option>
+                                    </template>
+                                </select>
+                            </div>
+                            <div class="hv-cc-uu-khuyet-card__field">
+                                <label>Tên Khuyết Điểm</label>
+                                <input type="text" class="hv-cc-uu-khuyet__input" x-model="khuyetDiemTitle"
+                                    placeholder="Ví dụ: Tự Phụ, Nóng Nảy..." />
+                            </div>
+                            <div class="hv-cc-uu-khuyet-card__field hv-cc-uu-khuyet-card__field--grow">
+                                <label>Mô Tả</label>
+                                <textarea class="hv-cc-uu-khuyet__textarea" x-model="khuyetDiemDesc"
+                                    placeholder="Mô tả chi tiết khuyết điểm của nhân vật..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
             {{/if}}
 
             {{#if isMonPhaiStep}}
-                <section class="hv-cc-mon-phai">
-                    <header class="hv-cc__section-header">
-                        <img
-                                height="25"
-                                class="tw:mx-auto tw:mb-3"
-                                src="/systems/huyen-viet-vtt/assets/character-creation/mon-phai-title.png" alt="Title" />
-                        <p class="desc-text">Môn Phái quyết định con đường tu luyện và đặc kỹ của nhân vật.<br/>Chọn Môn Phái và các chỉ số khởi đầu cho Nhân vật</p>
-                    </header>
+            <section class="hv-cc-mon-phai">
+                <header class="hv-cc__section-header">
+                    <img height="34" class="tw:mx-auto tw:mb-2"
+                        src="/systems/huyen-viet-vtt/assets/character-creation/he-phai-title.png" alt="Title" />
+                    <p class="desc-text">Hệ Phái quyết định con đường tu luyện và đặc kỹ của nhân vật.<br />Chọn Hệ Phái
+                        và các chỉ số khởi đầu cho Nhân vật</p>
+                </header>
 
-                    <div class="hv-cc-mon-phai-cards">
-                        {{#each monPhaiRows as |row|}}
-                            <div class="hv-cc-mon-phai-card"
-                                 :class="{ 'is-selected': monPhai === '{{row.id}}' }"
-                                 @click="selectMonPhai('{{row.id}}')"
-                                 @keydown.enter.prevent="selectMonPhai('{{row.id}}')"
-                                 @keydown.space.prevent="selectMonPhai('{{row.id}}')"
-                                 tabindex="0"
-                                 role="button"
-                                 aria-label="Chọn {{row.name}}">
-                                <div class="hv-cc-mon-phai-card__img"
-                                     style="background-image: url('{{row.thumbnail}}')"></div>
-                                <div class="hv-cc-mon-phai-card__name">{{row.name}}</div>
-                            </div>
-                        {{/each}}
+                <div class="hv-cc-mon-phai-cards">
+                    {{#each monPhaiRows as |row|}}
+                    <div class="hv-cc-mon-phai-card" :class="{ 'is-selected': monPhai === '{{row.id}}' }"
+                        @click="selectMonPhai('{{row.id}}')" @keydown.enter.prevent="selectMonPhai('{{row.id}}')"
+                        @keydown.space.prevent="selectMonPhai('{{row.id}}')" tabindex="0" role="button"
+                        aria-label="Chọn {{row.name}}">
+                        <div class="hv-cc-mon-phai-card__img" style="background-image: url('{{row.thumbnail}}')"></div>
+                        <div class="hv-cc-mon-phai-card__name">{{row.name}}</div>
                     </div>
-                </section>
+                    {{/each}}
+                </div>
+            </section>
             {{/if}}
 
             {{#if isNiemVuiNoiSoStep}}
-                <section class="hv-cc-uu-khuyet">
-                    <header class="hv-cc__section-header hv-cc__section-header--centered">
-                        <p class="desc-text">Niềm vui và nỗi sợ phản ánh những cảm xúc sâu thẳm nhất của nhân vật.<br/>Những yếu tố này có thể ảnh hưởng đến hành động và quyết định trong những tình huống then chốt.</p>
-                    </header>
+            <section class="hv-cc-uu-khuyet">
+                <header class="hv-cc__section-header hv-cc__section-header--centered">
+                    <p class="desc-text">Niềm vui và nỗi sợ phản ánh những cảm xúc sâu thẳm nhất của nhân
+                        vật.<br />Những yếu tố này có thể ảnh hưởng đến hành động và quyết định trong những tình huống
+                        then chốt.</p>
+                </header>
 
-                    <div class="hv-cc-uu-khuyet__cards">
+                <div class="hv-cc-uu-khuyet__cards">
 
-                        <!-- NIỀM VUI -->
-                        <div class="hv-cc-uu-khuyet-card hv-cc-uu-khuyet-card--advantage">
-                            <div class="hv-cc-uu-khuyet-card__header">
-                                <i class="fa-solid fa-heart"></i>
-                                <h3>Niềm Vui</h3>
-                                <p>Điều mang lại hạnh phúc và sinh lực cho nhân vật</p>
+                    <!-- NIỀM VUI -->
+                    <div class="hv-cc-uu-khuyet-card hv-cc-uu-khuyet-card--advantage">
+                        <div class="hv-cc-uu-khuyet-card__header">
+                            <i class="fa-solid fa-heart"></i>
+                            <h3>Niềm Vui</h3>
+                            <p>Điều mang lại hạnh phúc và sinh lực cho nhân vật</p>
+                        </div>
+                        <div class="hv-cc-uu-khuyet-card__body">
+                            <div class="hv-cc-uu-khuyet-card__field">
+                                <label>Chọn Mẫu Có Sẵn</label>
+                                <select class="hv-cc-uu-khuyet__select"
+                                    @change="selectNiemVuiTemplate($event.target.value)">
+                                    <option value="">— Chọn mẫu hoặc tự viết —</option>
+                                    <template x-for="tpl in niemVuiTemplates" :key="tpl.id">
+                                        <option :value="tpl.id" x-text="tpl.title"></option>
+                                    </template>
+                                </select>
                             </div>
-                            <div class="hv-cc-uu-khuyet-card__body">
-                                <div class="hv-cc-uu-khuyet-card__field">
-                                    <label>Chọn Mẫu Có Sẵn</label>
-                                    <select class="hv-cc-uu-khuyet__select"
-                                            @change="selectNiemVuiTemplate($event.target.value)">
-                                        <option value="">— Chọn mẫu hoặc tự viết —</option>
-                                        <template x-for="tpl in niemVuiTemplates" :key="tpl.id">
-                                            <option :value="tpl.id" x-text="tpl.title"></option>
-                                        </template>
-                                    </select>
-                                </div>
-                                <div class="hv-cc-uu-khuyet-card__field">
-                                    <label>Tên Niềm Vui</label>
-                                    <input type="text"
-                                           class="hv-cc-uu-khuyet__input"
-                                           x-model="niemVuiTitle"
-                                           placeholder="Ví dụ: Bình Yên, Đồng Hành..." />
-                                </div>
-                                <div class="hv-cc-uu-khuyet-card__field hv-cc-uu-khuyet-card__field--grow">
-                                    <label>Mô Tả</label>
-                                    <textarea class="hv-cc-uu-khuyet__textarea"
-                                              x-model="niemVuiDesc"
-                                              placeholder="Mô tả chi tiết niềm vui của nhân vật..."></textarea>
-                                </div>
+                            <div class="hv-cc-uu-khuyet-card__field">
+                                <label>Tên Niềm Vui</label>
+                                <input type="text" class="hv-cc-uu-khuyet__input" x-model="niemVuiTitle"
+                                    placeholder="Ví dụ: Bình Yên, Đồng Hành..." />
+                            </div>
+                            <div class="hv-cc-uu-khuyet-card__field hv-cc-uu-khuyet-card__field--grow">
+                                <label>Mô Tả</label>
+                                <textarea class="hv-cc-uu-khuyet__textarea" x-model="niemVuiDesc"
+                                    placeholder="Mô tả chi tiết niềm vui của nhân vật..."></textarea>
                             </div>
                         </div>
-
-                        <!-- NỖI SỢ -->
-                        <div class="hv-cc-uu-khuyet-card hv-cc-uu-khuyet-card--weakness">
-                            <div class="hv-cc-uu-khuyet-card__header">
-                                <i class="fa-solid fa-skull"></i>
-                                <h3>Nỗi Sợ</h3>
-                                <p>Điều nhân vật e ngại và muốn tránh né nhất</p>
-                            </div>
-                            <div class="hv-cc-uu-khuyet-card__body">
-                                <div class="hv-cc-uu-khuyet-card__field">
-                                    <label>Chọn Mẫu Có Sẵn</label>
-                                    <select class="hv-cc-uu-khuyet__select"
-                                            @change="selectNoiSoTemplate($event.target.value)">
-                                        <option value="">— Chọn mẫu hoặc tự viết —</option>
-                                        <template x-for="tpl in noiSoTemplates" :key="tpl.id">
-                                            <option :value="tpl.id" x-text="tpl.title"></option>
-                                        </template>
-                                    </select>
-                                </div>
-                                <div class="hv-cc-uu-khuyet-card__field">
-                                    <label>Tên Nỗi Sợ</label>
-                                    <input type="text"
-                                           class="hv-cc-uu-khuyet__input"
-                                           x-model="noiSoTitle"
-                                           placeholder="Ví dụ: Cô Đơn, Thất Bại..." />
-                                </div>
-                                <div class="hv-cc-uu-khuyet-card__field hv-cc-uu-khuyet-card__field--grow">
-                                    <label>Mô Tả</label>
-                                    <textarea class="hv-cc-uu-khuyet__textarea"
-                                              x-model="noiSoDesc"
-                                              placeholder="Mô tả chi tiết nỗi sợ của nhân vật..."></textarea>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
-                </section>
+
+                    <!-- NỖI SỢ -->
+                    <div class="hv-cc-uu-khuyet-card hv-cc-uu-khuyet-card--weakness">
+                        <div class="hv-cc-uu-khuyet-card__header">
+                            <i class="fa-solid fa-skull"></i>
+                            <h3>Nỗi Sợ</h3>
+                            <p>Điều nhân vật e ngại và muốn tránh né nhất</p>
+                        </div>
+                        <div class="hv-cc-uu-khuyet-card__body">
+                            <div class="hv-cc-uu-khuyet-card__field">
+                                <label>Chọn Mẫu Có Sẵn</label>
+                                <select class="hv-cc-uu-khuyet__select"
+                                    @change="selectNoiSoTemplate($event.target.value)">
+                                    <option value="">— Chọn mẫu hoặc tự viết —</option>
+                                    <template x-for="tpl in noiSoTemplates" :key="tpl.id">
+                                        <option :value="tpl.id" x-text="tpl.title"></option>
+                                    </template>
+                                </select>
+                            </div>
+                            <div class="hv-cc-uu-khuyet-card__field">
+                                <label>Tên Nỗi Sợ</label>
+                                <input type="text" class="hv-cc-uu-khuyet__input" x-model="noiSoTitle"
+                                    placeholder="Ví dụ: Cô Đơn, Thất Bại..." />
+                            </div>
+                            <div class="hv-cc-uu-khuyet-card__field hv-cc-uu-khuyet-card__field--grow">
+                                <label>Mô Tả</label>
+                                <textarea class="hv-cc-uu-khuyet__textarea" x-model="noiSoDesc"
+                                    placeholder="Mô tả chi tiết nỗi sợ của nhân vật..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
             {{/if}}
 
             {{#if isTamNguyenNghiaVuStep}}
-                <section class="hv-cc-uu-khuyet">
-                    <header class="hv-cc__section-header hv-cc__section-header--centered">
-                        <p class="desc-text">Tâm nguyện là điều nhân vật khao khát đạt được, nghĩa vụ là trách nhiệm họ mang trên vai.<br/>Cả hai cùng định hình con đường mà nhân vật lựa chọn.</p>
-                    </header>
+            <section class="hv-cc-uu-khuyet">
+                <header class="hv-cc__section-header hv-cc__section-header--centered">
+                    <p class="desc-text">Tâm nguyện là điều nhân vật khao khát đạt được, nghĩa vụ là trách nhiệm họ mang
+                        trên vai.<br />Cả hai cùng định hình con đường mà nhân vật lựa chọn.</p>
+                </header>
 
-                    <div class="hv-cc-uu-khuyet__cards">
+                <div class="hv-cc-uu-khuyet__cards">
 
-                        <!-- TÂM NGUYỆN -->
-                        <div class="hv-cc-uu-khuyet-card hv-cc-uu-khuyet-card--advantage">
-                            <div class="hv-cc-uu-khuyet-card__header">
-                                <i class="fa-solid fa-star"></i>
-                                <h3>Tâm Nguyện</h3>
-                                <p>Điều nhân vật khao khát và hướng tới trong cuộc đời</p>
+                    <!-- TÂM NGUYỆN -->
+                    <div class="hv-cc-uu-khuyet-card hv-cc-uu-khuyet-card--advantage">
+                        <div class="hv-cc-uu-khuyet-card__header">
+                            <i class="fa-solid fa-star"></i>
+                            <h3>Tâm Nguyện</h3>
+                            <p>Điều nhân vật khao khát và hướng tới trong cuộc đời</p>
+                        </div>
+                        <div class="hv-cc-uu-khuyet-card__body">
+                            <div class="hv-cc-uu-khuyet-card__field">
+                                <label>Chọn Mẫu Có Sẵn</label>
+                                <select class="hv-cc-uu-khuyet__select"
+                                    @change="selectTamNguyenTemplate($event.target.value)">
+                                    <option value="">— Chọn mẫu hoặc tự viết —</option>
+                                    <template x-for="tpl in tamNguyenTemplates" :key="tpl.id">
+                                        <option :value="tpl.id" x-text="tpl.title"></option>
+                                    </template>
+                                </select>
                             </div>
-                            <div class="hv-cc-uu-khuyet-card__body">
-                                <div class="hv-cc-uu-khuyet-card__field">
-                                    <label>Chọn Mẫu Có Sẵn</label>
-                                    <select class="hv-cc-uu-khuyet__select"
-                                            @change="selectTamNguyenTemplate($event.target.value)">
-                                        <option value="">— Chọn mẫu hoặc tự viết —</option>
-                                        <template x-for="tpl in tamNguyenTemplates" :key="tpl.id">
-                                            <option :value="tpl.id" x-text="tpl.title"></option>
-                                        </template>
-                                    </select>
-                                </div>
-                                <div class="hv-cc-uu-khuyet-card__field">
-                                    <label>Tên Tâm Nguyện</label>
-                                    <input type="text"
-                                           class="hv-cc-uu-khuyet__input"
-                                           x-model="tamNguyenTitle"
-                                           placeholder="Ví dụ: Bảo Vệ, Tìm Sự Thật..." />
-                                </div>
-                                <div class="hv-cc-uu-khuyet-card__field hv-cc-uu-khuyet-card__field--grow">
-                                    <label>Mô Tả</label>
-                                    <textarea class="hv-cc-uu-khuyet__textarea"
-                                              x-model="tamNguyenDesc"
-                                              placeholder="Mô tả chi tiết tâm nguyện của nhân vật..."></textarea>
-                                </div>
+                            <div class="hv-cc-uu-khuyet-card__field">
+                                <label>Tên Tâm Nguyện</label>
+                                <input type="text" class="hv-cc-uu-khuyet__input" x-model="tamNguyenTitle"
+                                    placeholder="Ví dụ: Bảo Vệ, Tìm Sự Thật..." />
+                            </div>
+                            <div class="hv-cc-uu-khuyet-card__field hv-cc-uu-khuyet-card__field--grow">
+                                <label>Mô Tả</label>
+                                <textarea class="hv-cc-uu-khuyet__textarea" x-model="tamNguyenDesc"
+                                    placeholder="Mô tả chi tiết tâm nguyện của nhân vật..."></textarea>
                             </div>
                         </div>
-
-                        <!-- NGHĨA VỤ -->
-                        <div class="hv-cc-uu-khuyet-card hv-cc-uu-khuyet-card--weakness">
-                            <div class="hv-cc-uu-khuyet-card__header">
-                                <i class="fa-solid fa-shield-halved"></i>
-                                <h3>Nghĩa Vụ</h3>
-                                <p>Trách nhiệm nhân vật mang trên vai và không thể bỏ qua</p>
-                            </div>
-                            <div class="hv-cc-uu-khuyet-card__body">
-                                <div class="hv-cc-uu-khuyet-card__field">
-                                    <label>Chọn Mẫu Có Sẵn</label>
-                                    <select class="hv-cc-uu-khuyet__select"
-                                            @change="selectNghiaVuTemplate($event.target.value)">
-                                        <option value="">— Chọn mẫu hoặc tự viết —</option>
-                                        <template x-for="tpl in nghiaVuTemplates" :key="tpl.id">
-                                            <option :value="tpl.id" x-text="tpl.title"></option>
-                                        </template>
-                                    </select>
-                                </div>
-                                <div class="hv-cc-uu-khuyet-card__field">
-                                    <label>Tên Nghĩa Vụ</label>
-                                    <input type="text"
-                                           class="hv-cc-uu-khuyet__input"
-                                           x-model="nghiaVuTitle"
-                                           placeholder="Ví dụ: Trả Ơn, Lời Thề..." />
-                                </div>
-                                <div class="hv-cc-uu-khuyet-card__field hv-cc-uu-khuyet-card__field--grow">
-                                    <label>Mô Tả</label>
-                                    <textarea class="hv-cc-uu-khuyet__textarea"
-                                              x-model="nghiaVuDesc"
-                                              placeholder="Mô tả chi tiết nghĩa vụ của nhân vật..."></textarea>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
-                </section>
+
+                    <!-- NGHĨA VỤ -->
+                    <div class="hv-cc-uu-khuyet-card hv-cc-uu-khuyet-card--weakness">
+                        <div class="hv-cc-uu-khuyet-card__header">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <h3>Nghĩa Vụ</h3>
+                            <p>Trách nhiệm nhân vật mang trên vai và không thể bỏ qua</p>
+                        </div>
+                        <div class="hv-cc-uu-khuyet-card__body">
+                            <div class="hv-cc-uu-khuyet-card__field">
+                                <label>Chọn Mẫu Có Sẵn</label>
+                                <select class="hv-cc-uu-khuyet__select"
+                                    @change="selectNghiaVuTemplate($event.target.value)">
+                                    <option value="">— Chọn mẫu hoặc tự viết —</option>
+                                    <template x-for="tpl in nghiaVuTemplates" :key="tpl.id">
+                                        <option :value="tpl.id" x-text="tpl.title"></option>
+                                    </template>
+                                </select>
+                            </div>
+                            <div class="hv-cc-uu-khuyet-card__field">
+                                <label>Tên Nghĩa Vụ</label>
+                                <input type="text" class="hv-cc-uu-khuyet__input" x-model="nghiaVuTitle"
+                                    placeholder="Ví dụ: Trả Ơn, Lời Thề..." />
+                            </div>
+                            <div class="hv-cc-uu-khuyet-card__field hv-cc-uu-khuyet-card__field--grow">
+                                <label>Mô Tả</label>
+                                <textarea class="hv-cc-uu-khuyet__textarea" x-model="nghiaVuDesc"
+                                    placeholder="Mô tả chi tiết nghĩa vụ của nhân vật..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
             {{/if}}
 
             {{#if isPlaceholderStep}}
-                <section class="hv-cc-placeholder">
-                    <span>Bước {{activeStepNumber}}</span>
-                    <h2>{{activeStepLabel}}</h2>
-                    <p>Nội dung bước này sẽ được triển khai trong phiên bản tiếp theo của bảng khởi tạo.</p>
-                </section>
+            <section class="hv-cc-placeholder">
+                <span>Bước {{activeStepNumber}}</span>
+                <h2>{{activeStepLabel}}</h2>
+                <p>Nội dung bước này sẽ được triển khai trong phiên bản tiếp theo của bảng khởi tạo.</p>
+            </section>
             {{/if}}
 
             <footer class="hv-cc__actions {{#if isFirstStep}}hv-cc__actions--first{{/if}}">
                 {{#unless isFirstStep}}
-                    <button type="button" class="hv-cc__nav-btn" data-action="creator-prev">
-                        <i class="fas fa-arrow-left"></i>
-                        Quay Lại
-                    </button>
+                <button type="button" class="hv-cc__nav-btn" data-action="creator-prev">
+                    <i class="fas fa-arrow-left"></i>
+                    Quay Lại
+                </button>
                 {{/unless}}
                 <button type="button" class="hv-cc__continue" data-action="creator-next" :disabled="!canContinue">
                     {{#if isLastStep}}Hoàn Thành{{else}}Tiếp Tục{{/if}}
@@ -672,52 +613,52 @@
             </footer>
         </main>
 
-        <aside class="hv-cc__summary" x-show="activeStep !== 'uuKhuyet' && activeStep !== 'thienTu' && activeStep !== 'niemVuiNoiSo' && activeStep !== 'tamNguyenNghiaVu' && !(activeStep === 'boiCanhThiToc' && !boiCanhThiTocMode)">
-            <img :src="summaryHeaderImg" alt=""/>
+        <aside class="hv-cc__summary"
+            x-show="activeStep !== 'uuKhuyet' && activeStep !== 'thienTu' && activeStep !== 'niemVuiNoiSo' && activeStep !== 'tamNguyenNghiaVu' && !(activeStep === 'boiCanhThiToc' && !boiCanhThiTocMode)">
+            <img :src="summaryHeaderImg" alt="" />
 
             <div class="hv-cc__portrait">
-                <img x-show="summaryEntry"
-                     :src="summaryEntry?.thumbnailLarge ?? ''"
-                     :alt="summaryEntry?.name ?? ''"/>
+                <img x-show="summaryEntry" :src="summaryEntry?.thumbnailLarge ?? ''" :alt="summaryEntry?.name ?? ''" />
                 <div class="hv-cc__portrait-name" x-show="summaryEntry" x-text="summaryEntry?.name ?? ''"></div>
             </div>
 
             <div class="hv-cc__info" x-show="summaryEntry">
-                <img src="systems/huyen-viet-vtt/assets/character-creation/so-luoc.png" width="75" alt=""/>
+                <img src="systems/huyen-viet-vtt/assets/character-creation/so-luoc.png" width="75" alt="" />
                 <p x-text="summaryEntry?.description ?? ''"></p>
 
-                <img src="systems/huyen-viet-vtt/assets/character-creation/hieu-ung-nhan-duoc.png"
-                     width="185"
-                     alt="Hiệu Ứng Nhận Được"
-                     class="tw:mt-4"/>
+                <img src="systems/huyen-viet-vtt/assets/character-creation/hieu-ung-nhan-duoc.png" width="185"
+                    alt="Hiệu Ứng Nhận Được" class="tw:mt-4" />
 
                 <!-- Bối Cảnh / Thị Tộc: element + skill -->
-                <div class="hv-cc__summary-effects" x-show="activeStep === 'boiCanhThiToc' && (boiCanhThiTocMode === 'boiCanh' || boiCanhThiTocMode === 'thiToc')">
-                    <div class="hv-cc__summary-bonus"
-                         x-show="summaryEntry?.element"
-                         :class="summaryEntry?.element ? 'hv-cc-element-choice--' + summaryEntry.element.class : ''">
-                        <img :src="summaryEntry?.element?.icon ?? ''" alt=""/>
-                        <span x-text="summaryEntry?.element ? '+' + summaryEntry.element.value + ' ' + summaryEntry.element.label + ' hành' : ''"></span>
+                <div class="hv-cc__summary-effects"
+                    x-show="activeStep === 'boiCanhThiToc' && (boiCanhThiTocMode === 'boiCanh' || boiCanhThiTocMode === 'thiToc')">
+                    <div class="hv-cc__summary-bonus" x-show="summaryEntry?.element"
+                        :class="summaryEntry?.element ? 'hv-cc-element-choice--' + summaryEntry.element.class : ''">
+                        <img :src="summaryEntry?.element?.icon ?? ''" alt="" />
+                        <span
+                            x-text="summaryEntry?.element ? '+' + summaryEntry.element.value + ' ' + summaryEntry.element.label + ' hành' : ''"></span>
                     </div>
                     <div class="hv-cc__summary-bonus" x-show="summaryEntry?.skill">
-                        <img :src="summaryEntry?.skill ? '/systems/huyen-viet-vtt/assets/icons/ky-nang/' + summaryEntry.skill.key + '.png' : ''" alt=""/>
-                        <span x-text="summaryEntry?.skill ? '+' + summaryEntry.skill.value + ' ' + summaryEntry.skill.label : ''"></span>
+                        <img :src="summaryEntry?.skill ? '/systems/huyen-viet-vtt/assets/icons/ky-nang/' + summaryEntry.skill.key + '.png' : ''"
+                            alt="" />
+                        <span
+                            x-text="summaryEntry?.skill ? '+' + summaryEntry.skill.value + ' ' + summaryEntry.skill.label : ''"></span>
                     </div>
                 </div>
 
                 <!-- Gia Cảnh: element select + gifted skills -->
                 <div class="hv-cc__summary-effects" x-show="activeStep === 'giaCanh'">
-                    <select class="hv-cc__element-select"
-                            x-show="summaryEntry?.elements?.length"
-                            @change="selectGiaCanhElement(giaCanh, parseInt($event.target.value))">
+                    <select class="hv-cc__element-select" x-show="summaryEntry?.elements?.length"
+                        @change="selectGiaCanhElement(giaCanh, parseInt($event.target.value))">
                         <option value="" :selected="giaCanhElementIndex === null">Chọn Ngũ Hành...</option>
                         <template x-for="el in (summaryEntry?.elements ?? [])" :key="el.index">
-                            <option :value="el.index" :selected="giaCanhElementIndex === el.index" x-text="'+' + el.value + ' ' + el.label + ' hành'"></option>
+                            <option :value="el.index" :selected="giaCanhElementIndex === el.index"
+                                x-text="'+' + el.value + ' ' + el.label + ' hành'"></option>
                         </template>
                     </select>
                     <template x-for="skill in (summaryEntry?.skills ?? [])" :key="skill.key">
                         <div class="hv-cc__summary-bonus">
-                            <img :src="'/systems/huyen-viet-vtt/assets/icons/ky-nang/' + skill.key + '.png'" alt=""/>
+                            <img :src="'/systems/huyen-viet-vtt/assets/icons/ky-nang/' + skill.key + '.png'" alt="" />
                             <span x-text="'+' + skill.value + ' ' + skill.label"></span>
                         </div>
                     </template>
@@ -725,70 +666,59 @@
 
                 <!-- Thiên Tư: selected element +1 -->
                 <div class="hv-cc__summary-effects" x-show="activeStep === 'thienTu'">
-                    <div class="hv-cc__summary-bonus"
-                         x-show="summaryEntry"
-                         :class="summaryEntry?.class ? 'hv-cc-element-choice--' + summaryEntry.class : ''">
-                        <img :src="summaryEntry?.icon ?? ''" alt=""/>
+                    <div class="hv-cc__summary-bonus" x-show="summaryEntry"
+                        :class="summaryEntry?.class ? 'hv-cc-element-choice--' + summaryEntry.class : ''">
+                        <img :src="summaryEntry?.icon ?? ''" alt="" />
                         <span x-text="summaryEntry ? '+1 ' + summaryEntry.label + ' hành' : ''"></span>
                     </div>
                 </div>
 
-                <!-- Môn Phái: 2 element selects (no duplicates) + fixed bonus skills + 3 skill selects (no duplicates, excluding bonus skills) -->
+                <!-- Hệ Phái: 2 element selects (no duplicates) + fixed bonus skills + 3 skill selects (no duplicates, excluding bonus skills) -->
                 <div class="hv-cc__summary-effects" x-show="activeStep === 'monPhai'">
-                    <select class="hv-cc__element-select"
-                            x-show="summaryEntry"
-                            @change="setMonPhaiElementAtPosition(0, $event.target.value)">
+                    <select class="hv-cc__element-select" x-show="summaryEntry"
+                        @change="setHePhaiElementAtPosition(0, $event.target.value)">
                         <option value="">Chọn Ngũ Hành 1...</option>
                         <template x-for="el in availableMonPhaiElements(0)" :key="'s0_' + el.index">
-                            <option :value="el.index"
-                                    :selected="monPhaiElementIndices[0] === el.index"
-                                    x-text="'+1 ' + el.label + ' hành'"></option>
+                            <option :value="el.index" :selected="monPhaiElementIndices[0] === el.index"
+                                x-text="'+1 ' + el.label + ' hành'"></option>
                         </template>
                     </select>
-                    <select class="hv-cc__element-select"
-                            x-show="summaryEntry"
-                            @change="setMonPhaiElementAtPosition(1, $event.target.value)">
+                    <select class="hv-cc__element-select" x-show="summaryEntry"
+                        @change="setHePhaiElementAtPosition(1, $event.target.value)">
                         <option value="">Chọn Ngũ Hành 2...</option>
                         <template x-for="el in availableMonPhaiElements(1)" :key="'s1_' + el.index">
-                            <option :value="el.index"
-                                    :selected="monPhaiElementIndices[1] === el.index"
-                                    x-text="'+1 ' + el.label + ' hành'"></option>
+                            <option :value="el.index" :selected="monPhaiElementIndices[1] === el.index"
+                                x-text="'+1 ' + el.label + ' hành'"></option>
                         </template>
                     </select>
                     <template x-for="skill in (summaryEntry?.bonusSkills ?? [])" :key="'bonus_' + skill.key">
                         <div class="hv-cc__summary-bonus">
-                            <img :src="'/systems/huyen-viet-vtt/assets/icons/ky-nang/' + skill.key + '.png'" alt=""/>
+                            <img :src="'/systems/huyen-viet-vtt/assets/icons/ky-nang/' + skill.key + '.png'" alt="" />
                             <span x-text="'+' + skill.value + ' ' + skill.label"></span>
                         </div>
                     </template>
-                    <select class="hv-cc__element-select"
-                            x-show="summaryEntry"
-                            @change="setMonPhaiSkillAtPosition(0, $event.target.value)">
+                    <select class="hv-cc__element-select" x-show="summaryEntry"
+                        @change="setHePhaiSkillAtPosition(0, $event.target.value)">
                         <option value="">Chọn Kỹ Năng 1...</option>
                         <template x-for="skill in availableMonPhaiSkills(0)" :key="'sk0_' + skill.key">
-                            <option :value="skill.key"
-                                    :selected="monPhaiSkillKeys[0] === skill.key"
-                                    x-text="'+1 ' + skill.label"></option>
+                            <option :value="skill.key" :selected="monPhaiSkillKeys[0] === skill.key"
+                                x-text="'+1 ' + skill.label"></option>
                         </template>
                     </select>
-                    <select class="hv-cc__element-select"
-                            x-show="summaryEntry"
-                            @change="setMonPhaiSkillAtPosition(1, $event.target.value)">
+                    <select class="hv-cc__element-select" x-show="summaryEntry"
+                        @change="setHePhaiSkillAtPosition(1, $event.target.value)">
                         <option value="">Chọn Kỹ Năng 2...</option>
                         <template x-for="skill in availableMonPhaiSkills(1)" :key="'sk1_' + skill.key">
-                            <option :value="skill.key"
-                                    :selected="monPhaiSkillKeys[1] === skill.key"
-                                    x-text="'+1 ' + skill.label"></option>
+                            <option :value="skill.key" :selected="monPhaiSkillKeys[1] === skill.key"
+                                x-text="'+1 ' + skill.label"></option>
                         </template>
                     </select>
-                    <select class="hv-cc__element-select"
-                            x-show="summaryEntry"
-                            @change="setMonPhaiSkillAtPosition(2, $event.target.value)">
+                    <select class="hv-cc__element-select" x-show="summaryEntry"
+                        @change="setHePhaiSkillAtPosition(2, $event.target.value)">
                         <option value="">Chọn Kỹ Năng 3...</option>
                         <template x-for="skill in availableMonPhaiSkills(2)" :key="'sk2_' + skill.key">
-                            <option :value="skill.key"
-                                    :selected="monPhaiSkillKeys[2] === skill.key"
-                                    x-text="'+1 ' + skill.label"></option>
+                            <option :value="skill.key" :selected="monPhaiSkillKeys[2] === skill.key"
+                                x-text="'+1 ' + skill.label"></option>
                         </template>
                     </select>
                 </div>

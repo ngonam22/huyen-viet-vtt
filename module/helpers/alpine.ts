@@ -286,7 +286,7 @@ Alpine.data('hvCharCreator', (draft: {
     return elements.filter((el: any) => el.index !== excluded);
   },
 
-  setMonPhaiElementAtPosition(position: number, valueStr: string) {
+  setHePhaiElementAtPosition(position: number, valueStr: string) {
     if (!this.monPhai) return;
     const index = parseInt(valueStr);
     const newIndices = [...(this.monPhaiElementIndices as number[])];
@@ -305,7 +305,7 @@ Alpine.data('hvCharCreator', (draft: {
     return (this.allSkillsList as { key: string; label: string }[]).filter(skill => !others.includes(skill.key));
   },
 
-  setMonPhaiSkillAtPosition(position: number, skillKey: string) {
+  setHePhaiSkillAtPosition(position: number, skillKey: string) {
     if (!this.monPhai) return;
     const newKeys = [...(this.monPhaiSkillKeys as string[])];
     if (!skillKey) {

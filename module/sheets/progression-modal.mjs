@@ -11,7 +11,7 @@ import {
     ELEMENT_MAX_LEVEL,
     SKILL_MAX_LEVEL,
     CHANGELOG_TYPES,
-    MON_PHAI,
+    HE_PHAI,
     getSectLevelFromTotalXp,
 } from '../helpers/config.ts';
 
@@ -117,7 +117,7 @@ export class ProgressionModal extends HandlebarsApplicationMixin(ApplicationV2) 
 
         // Sect info
         const monPhaiId = system.identity?.monPhai;
-        const sect = monPhaiId ? MON_PHAI[monPhaiId] : null;
+        const sect = monPhaiId ? HE_PHAI[monPhaiId] : null;
         const monPhaiLabel = sect ? game.i18n.localize(sect.ten) : '';
         const sectLevel = getSectLevelFromTotalXp(totalXp);
 

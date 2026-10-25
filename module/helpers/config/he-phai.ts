@@ -1,11 +1,11 @@
 /**
- * Cấu hình tham khảo cho 12 Môn Phái (Thập Nhị Học Viện).
+ * Cấu hình tham khảo cho 12 Hệ Phái (Thập Nhị Học Viện).
  * Lưu ý: Các field progressionReqs chứa data mẫu, dự kiến được điền đầy đủ
  * các yêu cầu theo đúng chuẩn của Rulebook sau này.
  */
-import { MonPhai } from "../../../types/monPhai";
+import { HePhai } from "../../../types/hePhai";
 
-export const MON_PHAI: Record<string, MonPhai> = {
+export const HE_PHAI: Record<string, HePhai> = {
     tinhLyYSu: {
         id: 'tinhLyYSu',
         ten: 'BOILERPLATE.MonPhai.tinhLyYSu.label',

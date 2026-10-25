@@ -12,5 +12,5 @@ export * from "./config/boi-canh";
 export * from "./config/thi-toc";
 export * from "./config/gia-canh";
 export * from "./config/thuat-thuc";
-export * from "./config/mon-phai";
+export * from "./config/he-phai";
 export * from "./config/progression";

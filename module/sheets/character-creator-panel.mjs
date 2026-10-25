@@ -1,9 +1,9 @@
 import {
-  BOI_CANH, GIA_CANH, MON_PHAI, THI_TOC, ELEMENTS, SKILL_LABELS, ELEMENT_CLASS, THIEN_TU_DESCRIPTIONS
+  BOI_CANH, GIA_CANH, HE_PHAI, THI_TOC, ELEMENTS, SKILL_LABELS, ELEMENT_CLASS, THIEN_TU_DESCRIPTIONS
 } from '../helpers/config.ts';
 import { setBoiCanhForActor } from '../helpers/boiCanh';
 import { setGiaCanhForActor } from '../helpers/giaCanh';
-import { setMonPhaiForActor, addMonPhaiInitItemsToActor } from '../helpers/monPhai';
+import { setHePhaiForActor, addHePhaiInitItemsToActor } from '../helpers/hePhai';
 import { setThiTocForActor } from '../helpers/thiToc';
 
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
@@ -22,7 +22,7 @@ const STEP_IDS = [
 const STEPS = [
   { id: 'boiCanhThiToc', label: 'Bối Cảnh / Thị Tộc', subtitle: 'Xuất thân của nhân vật' },
   { id: 'giaCanh', label: 'Gia Cảnh', subtitle: 'Thân thế và quá khứ' },
-  { id: 'monPhai', label: 'Môn Phái', subtitle: 'Con đường tu luyện' },
+  { id: 'monPhai', label: 'Hệ Phái', subtitle: 'Con đường tu luyện' },
   { id: 'thienTu', label: 'Thiên Tư', subtitle: 'Thiên bẩm ngũ hành' },
   { id: 'uuKhuyet', label: 'Tính Cách', subtitle: 'Ưu điểm & Khuyết điểm' },
   { id: 'niemVuiNoiSo', label: 'Niềm Vui & Nỗi Sợ', subtitle: 'Cảm xúc sâu thẳm' },
@@ -160,8 +160,8 @@ function getThienTuCards() {
   }));
 }
 
-function getMonPhaiRows(selectedId, selectedElementIndices) {
-  return Object.values(MON_PHAI).map((entry) => {
+function getHePhaiRows(selectedId, selectedElementIndices) {
+  return Object.values(HE_PHAI).map((entry) => {
     const elementRule = (entry.upgrade ?? []).find(r => r.target === 'element');
 
     const elements = (elementRule?.effects ?? []).map((eff, index) => ({
@@ -377,7 +377,7 @@ export class CharacterCreatorPanel extends HandlebarsApplicationMixin(Applicatio
     const thiTocRows = getThiTocRows(selectedThiTocId);
     const selectedThiToc = summarizeSelection(thiTocRows, selectedThiTocId);
 
-    const monPhaiRows = getMonPhaiRows(this._draft.monPhai, this._draft.monPhaiElementIndices);
+    const monPhaiRows = getHePhaiRows(this._draft.monPhai, this._draft.monPhaiElementIndices);
 
     const thienTuCards = getThienTuCards();
     const thienTuRow1 = thienTuCards.slice(0, 3);
@@ -631,10 +631,10 @@ export class CharacterCreatorPanel extends HandlebarsApplicationMixin(Applicatio
       this._draft.monPhaiSkillKeys.some((key, i) => key !== this._savedMonPhaiSkillKeys[i]);
     if (this._draft.monPhai && (monPhaiIdChanged || mpIndicesChanged)) {
       const indices = this._draft.monPhaiElementIndices;
-      await setMonPhaiForActor(this.actor, this._draft.monPhai, indices.length > 0 ? { 0: indices } : {});
+      await setHePhaiForActor(this.actor, this._draft.monPhai, indices.length > 0 ? { 0: indices } : {});
       this._savedMonPhaiElementIndices = [...indices];
       if (monPhaiIdChanged) {
-        await addMonPhaiInitItemsToActor(this.actor, this._draft.monPhai);
+        await addHePhaiInitItemsToActor(this.actor, this._draft.monPhai);
       }
     }
     if (this._draft.monPhai && (monPhaiIdChanged || mpSkillKeysChanged)) {

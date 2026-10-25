@@ -1,22 +1,22 @@
-import type { MonPhai } from "../../types/monPhai";
+import type { HePhai } from "../../types/hePhai";
 import type { AppliedUpgrade } from "../../types/upgrade";
-import { MON_PHAI } from "./config";
+import { HE_PHAI } from "./config";
 import { getWeaponById, getArmorById, getAccessoryById, addWeaponToActor, addArmorToActor, addAccessoryToActor } from "./itemCatalog";
 
-const MON_PHAI_ITEM_TYPE = "monPhai";
+const HE_PHAI_ITEM_TYPE = "monPhai";
 
-export function getMonPhaiById(id: string): MonPhai | undefined {
-  return MON_PHAI[id];
+export function getHePhaiById(id: string): HePhai | undefined {
+  return HE_PHAI[id];
 }
 
-export async function setMonPhaiForActor(
+export async function setHePhaiForActor(
   actor: Actor,
   monPhaiId: string,
   selectedIndicesByRule: Record<number, number[]> = {}
 ): Promise<void> {
-  const monPhai = getMonPhaiById(monPhaiId);
+  const monPhai = getHePhaiById(monPhaiId);
   if (!monPhai) {
-    throw new Error(`Không tìm thấy Môn Phái với id="${monPhaiId}"`);
+    throw new Error(`Không tìm thấy Hệ Phái với id="${monPhaiId}"`);
   }
 
   const appliedUpgrades: AppliedUpgrade[] = monPhai.upgrade.map((rule, ruleIndex) => ({
@@ -27,12 +27,12 @@ export async function setMonPhaiForActor(
       : undefined,
   }));
 
-  await removeMonPhaiFromActor(actor);
+  await removeHePhaiFromActor(actor);
 
   await actor.createEmbeddedDocuments("Item", [
     {
       name: monPhai.ten,
-      type: MON_PHAI_ITEM_TYPE,
+      type: HE_PHAI_ITEM_TYPE,
       system: { monPhaiId: monPhai.id, appliedUpgrades },
     },
   ]);
@@ -40,8 +40,8 @@ export async function setMonPhaiForActor(
   await actor.update({ "system.identity.monPhai": monPhai.id });
 }
 
-export async function addMonPhaiInitItemsToActor(actor: Actor, monPhaiId: string): Promise<void> {
-  const monPhai = getMonPhaiById(monPhaiId);
+export async function addHePhaiInitItemsToActor(actor: Actor, monPhaiId: string): Promise<void> {
+  const monPhai = getHePhaiById(monPhaiId);
   if (!monPhai?.initItems?.length) return;
 
   for (const { id } of monPhai.initItems) {
@@ -55,8 +55,8 @@ export async function addMonPhaiInitItemsToActor(actor: Actor, monPhaiId: string
   }
 }
 
-export async function removeMonPhaiFromActor(actor: Actor): Promise<void> {
-  const monPhaiItems = actor.items.filter((i) => i.type === MON_PHAI_ITEM_TYPE);
+export async function removeHePhaiFromActor(actor: Actor): Promise<void> {
+  const monPhaiItems = actor.items.filter((i) => i.type === HE_PHAI_ITEM_TYPE);
   const ids = monPhaiItems
     .map((i) => i.id)
     .filter((id): id is string => Boolean(id));

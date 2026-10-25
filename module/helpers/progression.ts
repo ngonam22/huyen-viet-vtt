@@ -6,7 +6,7 @@
  *  - Element upgrade (XP purchase)
  *  - Skill upgrade (XP purchase)
  *  - Technique purchase (XP + hard-check prerequisites)
- *  - Sect auto-leveling (Đặc Kỹ Môn Phái)
+ *  - Sect auto-leveling (Đặc Kỹ Hệ Phái)
  *  - Manual XP adjustment
  *  - Changelog management
  */
@@ -19,7 +19,7 @@ import {
     SKILL_UPGRADE_COST,
     ELEMENT_MAX_LEVEL,
     SKILL_MAX_LEVEL,
-    MON_PHAI,
+    HE_PHAI,
     getSectLevelFromTotalXp,
     THUAT_THUC_XP_COST_DEFAULT,
     isElementKey,
@@ -304,11 +304,11 @@ export async function learnThuatThucWithXp(
 }
 
 /* ------------------------------------------------------------------ */
-/*  Sect Auto-Leveling (Đặc Kỹ Môn Phái)                             */
+/*  Sect Auto-Leveling (Đặc Kỹ Hệ Phái)                             */
 /* ------------------------------------------------------------------ */
 
 /**
- * Kiểm tra và tự động thăng cấp Đặc Kỹ Môn Phái.
+ * Kiểm tra và tự động thăng cấp Đặc Kỹ Hệ Phái.
  *
  * Flow:
  * 1. Đọc monPhaiId từ identity
@@ -322,11 +322,11 @@ export async function checkSectUpgrade(actor: Actor): Promise<void> {
 
     // 1. Đọc monPhaiId
     const monPhaiId: string = system.identity?.monPhai;
-    if (!monPhaiId || !MON_PHAI[monPhaiId]) {
-        return; // Nhân vật chưa có Môn Phái hoặc Môn Phái không tồn tại trong config
+    if (!monPhaiId || !HE_PHAI[monPhaiId]) {
+        return; // Nhân vật chưa có Hệ Phái hoặc Hệ Phái không tồn tại trong config
     }
 
-    const sect = MON_PHAI[monPhaiId];
+    const sect = HE_PHAI[monPhaiId];
 
     // 2. Tính targetLevel từ totalXp
     const totalXp: number = system.progression?.totalXp ?? 0;
@@ -373,7 +373,7 @@ export async function checkSectUpgrade(actor: Actor): Promise<void> {
         xpCost: 0,
     });
 
-    ui.notifications?.info(`🏛️ Đặc Kỹ Môn Phái thăng cấp lên ${targetLevel}!`);
+    ui.notifications?.info(`🏛️ Đặc Kỹ Hệ Phái thăng cấp lên ${targetLevel}!`);
 }
 
 /* ------------------------------------------------------------------ */
@@ -413,7 +413,7 @@ export async function updateXpManual(actor: Actor, amount: number): Promise<void
         xpCost: 0,
     });
 
-    // Nếu thêm XP → totalXp tăng → có thể chạm ngưỡng Môn Phái mới
+    // Nếu thêm XP → totalXp tăng → có thể chạm ngưỡng Hệ Phái mới
     if (amount > 0) {
         await checkSectUpgrade(actor);
     }

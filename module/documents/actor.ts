@@ -6,7 +6,7 @@ import { AppliedUpgrade, UpgradeRule } from "../../types/upgrade";
 import { HvCharacterSystemData, HvComputedTotals, isElementKey, isSkillKey, SKILL_KEYS } from "../helpers/config";
 import { getBoiCanhById } from "../helpers/boiCanh";
 import { getGiaCanhById } from "../helpers/giaCanh";
-import { getMonPhaiById } from "../helpers/monPhai";
+import { getHePhaiById } from "../helpers/hePhai";
 import { hasCondition } from "../helpers/conditions";
 import { createHvRollCard } from "../chat/hv-roll-card";
 
@@ -308,7 +308,7 @@ export class huyenvietvttActor extends Actor {
         // + player-selected skill bonuses (+1 each) stored in identity, skipping duplicates of bonus skills
         if (monPhaiItems.length > 0) {
             const identity = (actor.system as any)?.identity;
-            const bonusSkills: string[] = getMonPhaiById(identity?.monPhai)?.bonusSkills ?? [];
+            const bonusSkills: string[] = getHePhaiById(identity?.monPhai)?.bonusSkills ?? [];
             for (const key of bonusSkills) {
                 if (!isSkillKey(key as any)) continue;
                 this.applyNumericModifier(totals.skills, key as any, "add", 1);

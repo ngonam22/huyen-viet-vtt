@@ -37,7 +37,7 @@ export const ELEMENT_MAX_LEVEL = 6;
 export const SKILL_MAX_LEVEL = 6;
 
 /**
- * Bảng ngưỡng XP → cấp Đặc Kỹ Môn Phái.
+ * Bảng ngưỡng XP → cấp Đặc Kỹ Hệ Phái.
  * Sắp xếp tăng dần theo minXp.
  */
 export const SECT_XP_LEVELS: { level: number; minXp: number }[] = [
@@ -50,7 +50,7 @@ export const SECT_XP_LEVELS: { level: number; minXp: number }[] = [
 ];
 
 /**
- * Tính cấp Đặc Kỹ Môn Phái dựa trên tổng XP tích lũy.
+ * Tính cấp Đặc Kỹ Hệ Phái dựa trên tổng XP tích lũy.
  */
 export function getSectLevelFromTotalXp(totalXp: number): number {
     for (let i = SECT_XP_LEVELS.length - 1; i >= 0; i--) {
