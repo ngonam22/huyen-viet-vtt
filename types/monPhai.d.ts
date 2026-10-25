@@ -38,6 +38,11 @@ export interface MonPhai {
     upgrade: UpgradeRule[];
 
     /**
+     * 2 Kỹ năng bổ sung cố định (+1 mỗi kỹ năng). 3 kỹ năng tự chọn của player không được trùng list này.
+     */
+    bonusSkills: HvSkillKey[];
+
+    /**
      * Bảng yêu cầu kỹ năng để Đặc Kỹ Môn Phái tự thăng cấp.
      * Key của Record là cấp độ mục tiêu (VD: 2, 3, 4, 5, 6).
      * Khi hệ thống check TotalXP đạt ngưỡng cho Cấp N, nó sẽ gọi progressionReqs[N] để check kỹ năng.

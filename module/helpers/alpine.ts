@@ -301,6 +301,7 @@ Alpine.data('hvCharCreator', (draft: {
 
   availableMonPhaiSkills(position: number): any[] {
     const others = (this.monPhaiSkillKeys as string[]).filter((_, i) => i !== position);
+    for (const s of ((this as any).summaryEntry?.bonusSkills ?? [])) others.push(s.key);
     return (this.allSkillsList as { key: string; label: string }[]).filter(skill => !others.includes(skill.key));
   },
 

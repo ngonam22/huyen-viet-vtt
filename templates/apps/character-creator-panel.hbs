@@ -733,7 +733,7 @@
                     </div>
                 </div>
 
-                <!-- Môn Phái: 2 element selects (no duplicates) + 3 skill selects (no duplicates) -->
+                <!-- Môn Phái: 2 element selects (no duplicates) + fixed bonus skills + 3 skill selects (no duplicates, excluding bonus skills) -->
                 <div class="hv-cc__summary-effects" x-show="activeStep === 'monPhai'">
                     <select class="hv-cc__element-select"
                             x-show="summaryEntry"
@@ -755,6 +755,12 @@
                                     x-text="'+1 ' + el.label + ' hành'"></option>
                         </template>
                     </select>
+                    <template x-for="skill in (summaryEntry?.bonusSkills ?? [])" :key="'bonus_' + skill.key">
+                        <div class="hv-cc__summary-bonus">
+                            <img :src="'/systems/huyen-viet-vtt/assets/icons/ky-nang/' + skill.key + '.png'" alt=""/>
+                            <span x-text="'+' + skill.value + ' ' + skill.label"></span>
+                        </div>
+                    </template>
                     <select class="hv-cc__element-select"
                             x-show="summaryEntry"
                             @change="setMonPhaiSkillAtPosition(0, $event.target.value)">

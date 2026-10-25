@@ -10,6 +10,7 @@ export const MON_PHAI: Record<string, MonPhai> = {
         id: 'tinhLyYSu',
         ten: 'BOILERPLATE.MonPhai.tinhLyYSu.label',
         category: 'thapNhiHocVien',
+        bonusSkills: ['yDuoc', 'voThuat'],
         upgrade: [
             {
                 target: 'element',
@@ -43,6 +44,7 @@ export const MON_PHAI: Record<string, MonPhai> = {
         id: 'sanhCuuLanhQuan',
         ten: 'BOILERPLATE.MonPhai.sanhCuuLanhQuan.label',
         category: 'thapNhiHocVien',
+        bonusSkills: ['binhPhap', 'lanhDao'],
         upgrade: [
             {
                 target: 'element',
@@ -78,6 +80,7 @@ export const MON_PHAI: Record<string, MonPhai> = {
         id: 'duongTanPhucMaSu',
         ten: 'BOILERPLATE.MonPhai.duongTanPhucMaSu.label',
         category: 'thapNhiHocVien',
+        bonusSkills: [], // TODO: chờ bổ sung
         upgrade: [
             {
                 target: 'element',
@@ -111,6 +114,7 @@ export const MON_PHAI: Record<string, MonPhai> = {
         id: 'minhHaoNgheSu',
         ten: 'BOILERPLATE.MonPhai.minhHaoNgheSu.label',
         category: 'thapNhiHocVien',
+        bonusSkills: ['renDuc', 'myThuat'],
         upgrade: [
             {
                 target: 'element',
@@ -144,6 +148,7 @@ export const MON_PHAI: Record<string, MonPhai> = {
         id: 'thuongLienLinhSi',
         ten: 'BOILERPLATE.MonPhai.thuongLienLinhSi.label',
         category: 'thapNhiHocVien',
+        bonusSkills: [], // TODO: chờ bổ sung
         upgrade: [
             {
                 target: 'element',
@@ -178,6 +183,7 @@ export const MON_PHAI: Record<string, MonPhai> = {
         id: 'tienViThuongSi',
         ten: 'BOILERPLATE.MonPhai.tienViThuongSi.label',
         category: 'thapNhiHocVien',
+        bonusSkills: ['leDao', 'thuongNghiep'],
         upgrade: [
             {
                 target: 'element',
@@ -213,6 +219,7 @@ export const MON_PHAI: Record<string, MonPhai> = {
         id: 'nghiVoKySi',
         ten: 'BOILERPLATE.MonPhai.nghiVoKySi.label',
         category: 'thapNhiHocVien',
+        bonusSkills: ['theThuat', 'sinhTon'],
         upgrade: [
             {
                 target: 'element',
@@ -248,6 +255,7 @@ export const MON_PHAI: Record<string, MonPhai> = {
         id: 'thuyMinhThietTuong',
         ten: 'BOILERPLATE.MonPhai.thuyMinhThietTuong.label',
         category: 'thapNhiHocVien',
+        bonusSkills: ['renDuc', 'theThuat'],
         upgrade: [
             {
                 target: 'element',
@@ -282,6 +290,7 @@ export const MON_PHAI: Record<string, MonPhai> = {
         id: 'thiHuanThamLamQuan',
         ten: 'BOILERPLATE.MonPhai.thiHuanThamLamQuan.label',
         category: 'thapNhiHocVien',
+        bonusSkills: [], // TODO: chờ bổ sung
         upgrade: [
             {
                 target: 'element',
@@ -317,6 +326,7 @@ export const MON_PHAI: Record<string, MonPhai> = {
         id: 'dienHauChinhSi',
         ten: 'BOILERPLATE.MonPhai.dienHauChinhSi.label',
         category: 'thapNhiHocVien',
+        bonusSkills: ['chinhTri', 'vanTu'],
         upgrade: [
             {
                 target: 'element',
@@ -351,6 +361,7 @@ export const MON_PHAI: Record<string, MonPhai> = {
         id: 'tuyetLuatThamTu',
         ten: 'BOILERPLATE.MonPhai.tuyetLuatThamTu.label',
         category: 'thapNhiHocVien',
+        bonusSkills: ['hacNghiep', 'tamY'],
         upgrade: [
             {
                 target: 'element',
@@ -382,10 +393,11 @@ export const MON_PHAI: Record<string, MonPhai> = {
             {id: 'bo-hanh-tau', quantity: 1},
         ]
     },
-    haoGioiHungBinh: {
+    haoGioiHungSi: {
         id: 'haoGioiHungSi',
         ten: 'BOILERPLATE.MonPhai.haoGioiHungSi.label',
         category: 'thapNhiHocVien',
+        bonusSkills: ['theThuat', 'sinhTon'],
         upgrade: [
             {
                 target: 'element',

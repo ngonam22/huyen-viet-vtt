@@ -179,6 +179,7 @@ function getMonPhaiRows(selectedId, selectedElementIndices) {
       Object.values(entry.progressionReqs ?? {}).flatMap(lvl => Object.keys(lvl))
     )];
     const skillPool = allSkillKeys.map(key => ({ key, label: SKILL_LABELS[key] ?? key }));
+    const bonusSkills = (entry.bonusSkills ?? []).map(key => ({ key, label: SKILL_LABELS[key] ?? key, value: 1 }));
 
     return {
       id: entry.id,
@@ -187,6 +188,7 @@ function getMonPhaiRows(selectedId, selectedElementIndices) {
       isSelected: entry.id === selectedId,
       elements,
       skillPool,
+      bonusSkills,
       chooseCount: elementRule?.choose ?? 1,
     };
   });
@@ -427,12 +429,13 @@ export class CharacterCreatorPanel extends HandlebarsApplicationMixin(Applicatio
     ));
 
     const monPhaiMap = JSON.stringify(Object.fromEntries(
-      monPhaiRows.map(({ id, name, thumbnail, elements, skillPool }) => [id, {
+      monPhaiRows.map(({ id, name, thumbnail, elements, skillPool, bonusSkills }) => [id, {
         name,
         thumbnailLarge: thumbnail,
         description: '',
         elements: elements.map(({ index, key, label, value, icon, class: cls }) => ({ index, key, label, value, icon, class: cls })),
         skillPool,
+        bonusSkills,
       }])
     ));
 
