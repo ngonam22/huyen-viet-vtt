@@ -96,6 +96,7 @@ Alpine.data('hvCharCreator', (draft: {
   monPhai: draft.monPhai || null as string | null,
   monPhaiElementIndices: draft.monPhaiElementIndices || [] as number[],
   monPhaiSkillKeys: [] as string[],
+  monPhaiBonusSkillKeys: [] as string[],
   activeStep: draft.activeStep || 'boiCanhThiToc',
   boiCanhThiTocMode: (draft.boiCanh ? 'boiCanh' : draft.thiToc ? 'thiToc' : null) as string | null,
   boiCanhMap: {} as Record<string, any>,
@@ -114,6 +115,7 @@ Alpine.data('hvCharCreator', (draft: {
     try { (this as any).monPhaiMap = JSON.parse(m.dataset.monPhai || '{}'); } catch {}
     try { (this as any).thienTuMap = JSON.parse(m.dataset.thienTu || '{}'); } catch {}
     try { (this as any).monPhaiSkillKeys = JSON.parse(m.dataset.monPhaiSkillKeys || '[]'); } catch {}
+    try { (this as any).monPhaiBonusSkillKeys = JSON.parse(m.dataset.monPhaiBonusSkillKeys || '[]'); } catch {}
     try { (this as any).allSkillsList = JSON.parse(m.dataset.allSkills || '[]'); } catch {}
     (this as any).uuDiemTitle = m.dataset.uuDiemTitle || '';
     (this as any).uuDiemDesc = m.dataset.uuDiemDesc || '';
@@ -273,6 +275,7 @@ Alpine.data('hvCharCreator', (draft: {
     if (this.monPhai !== id) {
       this.monPhaiElementIndices = [];
       this.monPhaiSkillKeys = [];
+      this.monPhaiBonusSkillKeys = [];
     }
     this.monPhai = id;
     this.$dispatch('hv:mon-phai-select', { id });
@@ -299,10 +302,45 @@ Alpine.data('hvCharCreator', (draft: {
     this.$dispatch('hv:mon-phai-indices-set', { monPhaiId: this.monPhai, indices: this.monPhaiElementIndices });
   },
 
+  /** Kỹ năng bổ sung đang có hiệu lực: list cố định, hoặc các kỹ năng player đã chọn nếu phái có bonusSkillsChoose */
+  activeMonPhaiBonusKeys(): string[] {
+    const entry = (this as any).summaryEntry;
+    return entry?.bonusSkillsChoose
+      ? (this.monPhaiBonusSkillKeys as string[])
+      : (entry?.bonusSkills ?? []).map((s: any) => s.key);
+  },
+
   availableMonPhaiSkills(position: number): any[] {
     const others = (this.monPhaiSkillKeys as string[]).filter((_, i) => i !== position);
-    for (const s of ((this as any).summaryEntry?.bonusSkills ?? [])) others.push(s.key);
+    others.push(...this.activeMonPhaiBonusKeys());
     return (this.allSkillsList as { key: string; label: string }[]).filter(skill => !others.includes(skill.key));
+  },
+
+  availableMonPhaiBonusSkills(position: number): any[] {
+    const others = (this.monPhaiBonusSkillKeys as string[]).filter((_, i) => i !== position);
+    return ((this as any).summaryEntry?.bonusSkills ?? []).filter((s: any) => !others.includes(s.key));
+  },
+
+  setHePhaiBonusSkillAtPosition(position: number, skillKey: string) {
+    if (!this.monPhai) return;
+    const newKeys = [...(this.monPhaiBonusSkillKeys as string[])];
+    if (!skillKey) {
+      newKeys.splice(position, 1);
+    } else {
+      newKeys[position] = skillKey;
+    }
+    this.monPhaiBonusSkillKeys = newKeys.filter(k => k);
+    // Kỹ năng vừa thành bonus thì bỏ khỏi 3 kỹ năng tự chọn
+    this.monPhaiSkillKeys = (this.monPhaiSkillKeys as string[]).filter(k => !this.monPhaiBonusSkillKeys.includes(k));
+    this.dispatchMonPhaiSkills();
+  },
+
+  dispatchMonPhaiSkills() {
+    this.$dispatch('hv:mon-phai-skills-set', {
+      monPhaiId: this.monPhai,
+      skillKeys: this.monPhaiSkillKeys,
+      bonusSkillKeys: this.monPhaiBonusSkillKeys,
+    });
   },
 
   setHePhaiSkillAtPosition(position: number, skillKey: string) {
@@ -314,7 +352,7 @@ Alpine.data('hvCharCreator', (draft: {
       newKeys[position] = skillKey;
     }
     this.monPhaiSkillKeys = newKeys.filter(k => k);
-    this.$dispatch('hv:mon-phai-skills-set', { monPhaiId: this.monPhai, skillKeys: this.monPhaiSkillKeys });
+    this.dispatchMonPhaiSkills();
   },
 
   selectMonPhaiElement(monPhaiId: string, index: number) {

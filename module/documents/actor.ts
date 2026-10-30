@@ -308,7 +308,12 @@ export class huyenvietvttActor extends Actor {
         // + player-selected skill bonuses (+1 each) stored in identity, skipping duplicates of bonus skills
         if (monPhaiItems.length > 0) {
             const identity = (actor.system as any)?.identity;
-            const bonusSkills: string[] = getHePhaiById(identity?.monPhai)?.bonusSkills ?? [];
+            const hePhai = getHePhaiById(identity?.monPhai);
+            const bonusSkills: string[] = hePhai?.bonusSkillsChoose
+                ? [...new Set((identity?.monPhaiBonusSkillKeys ?? []) as string[])]
+                    .filter((k) => hePhai.bonusSkills.includes(k as any))
+                    .slice(0, hePhai.bonusSkillsChoose)
+                : hePhai?.bonusSkills ?? [];
             for (const key of bonusSkills) {
                 if (!isSkillKey(key as any)) continue;
                 this.applyNumericModifier(totals.skills, key as any, "add", 1);

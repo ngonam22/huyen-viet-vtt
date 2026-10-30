@@ -180,6 +180,7 @@ function getHePhaiRows(selectedId, selectedElementIndices) {
     )];
     const skillPool = allSkillKeys.map(key => ({ key, label: SKILL_LABELS[key] ?? key }));
     const bonusSkills = (entry.bonusSkills ?? []).map(key => ({ key, label: SKILL_LABELS[key] ?? key, value: 1 }));
+    const bonusSkillsChoose = entry.bonusSkillsChoose ?? 0;
 
     return {
       id: entry.id,
@@ -189,6 +190,7 @@ function getHePhaiRows(selectedId, selectedElementIndices) {
       elements,
       skillPool,
       bonusSkills,
+      bonusSkillsChoose,
       chooseCount: elementRule?.choose ?? 1,
     };
   });
@@ -228,6 +230,7 @@ export class CharacterCreatorPanel extends HandlebarsApplicationMixin(Applicatio
     const savedMpIndices = monPhaiItem?.system?.appliedUpgrades?.[0]?.selectedIndices;
     const savedMonPhaiElementIndices = Array.isArray(savedMpIndices) ? [...savedMpIndices] : [];
     const savedMonPhaiSkillKeys = Array.isArray(actor.system.identity?.monPhaiSkillKeys) ? [...actor.system.identity.monPhaiSkillKeys] : [];
+    const savedMonPhaiBonusSkillKeys = Array.isArray(actor.system.identity?.monPhaiBonusSkillKeys) ? [...actor.system.identity.monPhaiBonusSkillKeys] : [];
 
     this._draft = {
       ...splitXuatThan(actor),
@@ -241,6 +244,7 @@ export class CharacterCreatorPanel extends HandlebarsApplicationMixin(Applicatio
       monPhai: actor.system.identity?.monPhai ?? '',
       monPhaiElementIndices: savedMonPhaiElementIndices,
       monPhaiSkillKeys: savedMonPhaiSkillKeys,
+      monPhaiBonusSkillKeys: savedMonPhaiBonusSkillKeys,
       niemVuiTitle: actor.system.identity?.niemVuiTitle ?? '',
       niemVuiDesc: actor.system.identity?.niemVuiDesc ?? '',
       noiSoTitle: actor.system.identity?.noiSoTitle ?? '',
@@ -253,6 +257,7 @@ export class CharacterCreatorPanel extends HandlebarsApplicationMixin(Applicatio
     this._savedGiaCanhElementIndex = savedElementIndex;
     this._savedMonPhaiElementIndices = savedMonPhaiElementIndices;
     this._savedMonPhaiSkillKeys = savedMonPhaiSkillKeys;
+    this._savedMonPhaiBonusSkillKeys = savedMonPhaiBonusSkillKeys;
     this._savedThienTu = actor.system.identity?.thienTu ?? '';
     this._forceClose = false;
   }
@@ -331,6 +336,7 @@ export class CharacterCreatorPanel extends HandlebarsApplicationMixin(Applicatio
       if (this._draft.monPhai !== e.detail.id) {
         this._draft.monPhaiElementIndices = [];
         this._draft.monPhaiSkillKeys = [];
+        this._draft.monPhaiBonusSkillKeys = [];
       }
       this._draft.monPhai = e.detail.id;
     }, { signal });
@@ -344,10 +350,11 @@ export class CharacterCreatorPanel extends HandlebarsApplicationMixin(Applicatio
     }, { signal });
 
     this.element.addEventListener('hv:mon-phai-skills-set', (e) => {
-      const { monPhaiId, skillKeys } = e.detail;
+      const { monPhaiId, skillKeys, bonusSkillKeys } = e.detail;
       if (monPhaiId) {
         this._draft.monPhai = monPhaiId;
         this._draft.monPhaiSkillKeys = [...skillKeys];
+        this._draft.monPhaiBonusSkillKeys = [...(bonusSkillKeys ?? [])];
       }
     }, { signal });
 
@@ -429,13 +436,14 @@ export class CharacterCreatorPanel extends HandlebarsApplicationMixin(Applicatio
     ));
 
     const monPhaiMap = JSON.stringify(Object.fromEntries(
-      monPhaiRows.map(({ id, name, thumbnail, elements, skillPool, bonusSkills }) => [id, {
+      monPhaiRows.map(({ id, name, thumbnail, elements, skillPool, bonusSkills, bonusSkillsChoose }) => [id, {
         name,
         thumbnailLarge: thumbnail,
         description: '',
         elements: elements.map(({ index, key, label, value, icon, class: cls }) => ({ index, key, label, value, icon, class: cls })),
         skillPool,
         bonusSkills,
+        bonusSkillsChoose,
       }])
     ));
 
@@ -456,6 +464,7 @@ export class CharacterCreatorPanel extends HandlebarsApplicationMixin(Applicatio
         monPhai: this._draft.monPhai || '',
         monPhaiElementIndices: JSON.stringify(this._draft.monPhaiElementIndices),
         monPhaiSkillKeys: JSON.stringify(this._draft.monPhaiSkillKeys || []),
+        monPhaiBonusSkillKeys: JSON.stringify(this._draft.monPhaiBonusSkillKeys || []),
         niemVuiTitle: this._draft.niemVuiTitle || '',
         niemVuiDesc: this._draft.niemVuiDesc || '',
         noiSoTitle: this._draft.noiSoTitle || '',
@@ -554,7 +563,8 @@ export class CharacterCreatorPanel extends HandlebarsApplicationMixin(Applicatio
 
     const mpSkillKeysChanged =
       this._draft.monPhaiSkillKeys.length !== this._savedMonPhaiSkillKeys.length ||
-      this._draft.monPhaiSkillKeys.some((key, i) => key !== this._savedMonPhaiSkillKeys[i]);
+      this._draft.monPhaiSkillKeys.some((key, i) => key !== this._savedMonPhaiSkillKeys[i]) ||
+      JSON.stringify(this._draft.monPhaiBonusSkillKeys) !== JSON.stringify(this._savedMonPhaiBonusSkillKeys);
 
     const saved = splitXuatThan(this.actor);
 
@@ -628,7 +638,8 @@ export class CharacterCreatorPanel extends HandlebarsApplicationMixin(Applicatio
       this._draft.monPhaiElementIndices.some((idx, i) => idx !== this._savedMonPhaiElementIndices[i]);
     const mpSkillKeysChanged =
       this._draft.monPhaiSkillKeys.length !== this._savedMonPhaiSkillKeys.length ||
-      this._draft.monPhaiSkillKeys.some((key, i) => key !== this._savedMonPhaiSkillKeys[i]);
+      this._draft.monPhaiSkillKeys.some((key, i) => key !== this._savedMonPhaiSkillKeys[i]) ||
+      JSON.stringify(this._draft.monPhaiBonusSkillKeys) !== JSON.stringify(this._savedMonPhaiBonusSkillKeys);
     if (this._draft.monPhai && (monPhaiIdChanged || mpIndicesChanged)) {
       const indices = this._draft.monPhaiElementIndices;
       await setHePhaiForActor(this.actor, this._draft.monPhai, indices.length > 0 ? { 0: indices } : {});
@@ -638,8 +649,12 @@ export class CharacterCreatorPanel extends HandlebarsApplicationMixin(Applicatio
       }
     }
     if (this._draft.monPhai && (monPhaiIdChanged || mpSkillKeysChanged)) {
-      await this.actor.update({ 'system.identity.monPhaiSkillKeys': this._draft.monPhaiSkillKeys });
+      await this.actor.update({
+        'system.identity.monPhaiSkillKeys': this._draft.monPhaiSkillKeys,
+        'system.identity.monPhaiBonusSkillKeys': this._draft.monPhaiBonusSkillKeys,
+      });
       this._savedMonPhaiSkillKeys = [...this._draft.monPhaiSkillKeys];
+      this._savedMonPhaiBonusSkillKeys = [...this._draft.monPhaiBonusSkillKeys];
     }
 
     const niemVuiNoiSoChanged =

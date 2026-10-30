@@ -24,6 +24,7 @@
         data-noi-so-desc="{{draft.noiSoDesc}}" data-tam-nguyen-title="{{draft.tamNguyenTitle}}"
         data-tam-nguyen-desc="{{draft.tamNguyenDesc}}" data-nghia-vu-title="{{draft.nghiaVuTitle}}"
         data-nghia-vu-desc="{{draft.nghiaVuDesc}}" data-mon-phai-skill-keys="{{draft.monPhaiSkillKeys}}"
+        data-mon-phai-bonus-skill-keys="{{draft.monPhaiBonusSkillKeys}}"
         data-all-skills="{{allSkills}}"></div>
     <div class="hv-cc__layout"
         :class="{ 'hv-cc__layout--full': activeStep === 'uuKhuyet' || activeStep === 'thienTu' || activeStep === 'niemVuiNoiSo' || activeStep === 'tamNguyenNghiaVu' || (activeStep === 'boiCanhThiToc' && !boiCanhThiTocMode) }">
@@ -673,7 +674,7 @@
                     </div>
                 </div>
 
-                <!-- Hệ Phái: 2 element selects (no duplicates) + fixed bonus skills + 3 skill selects (no duplicates, excluding bonus skills) -->
+                <!-- Hệ Phái: 2 element selects (no duplicates) + bonus skills (fixed or choose N) + 3 skill selects (no duplicates, excluding bonus skills) -->
                 <div class="hv-cc__summary-effects" x-show="activeStep === 'monPhai'">
                     <select class="hv-cc__element-select" x-show="summaryEntry"
                         @change="setHePhaiElementAtPosition(0, $event.target.value)">
@@ -691,11 +692,23 @@
                                 x-text="'+1 ' + el.label + ' hành'"></option>
                         </template>
                     </select>
-                    <template x-for="skill in (summaryEntry?.bonusSkills ?? [])" :key="'bonus_' + skill.key">
+                    <!-- Kỹ năng bổ sung: cố định, hoặc chọn N từ list nếu có bonusSkillsChoose -->
+                    <template x-for="skill in (summaryEntry?.bonusSkillsChoose ? [] : (summaryEntry?.bonusSkills ?? []))"
+                        :key="'bonus_' + skill.key">
                         <div class="hv-cc__summary-bonus">
                             <img :src="'/systems/huyen-viet-vtt/assets/icons/ky-nang/' + skill.key + '.png'" alt="" />
                             <span x-text="'+' + skill.value + ' ' + skill.label"></span>
                         </div>
+                    </template>
+                    <template x-for="pos in (summaryEntry?.bonusSkillsChoose || 0)" :key="'bp_' + pos">
+                        <select class="hv-cc__element-select"
+                            @change="setHePhaiBonusSkillAtPosition(pos - 1, $event.target.value)">
+                            <option value="" x-text="'Chọn Kỹ Năng Bổ Sung ' + pos + '...'"></option>
+                            <template x-for="skill in availableMonPhaiBonusSkills(pos - 1)" :key="'bs' + pos + '_' + skill.key">
+                                <option :value="skill.key" :selected="monPhaiBonusSkillKeys[pos - 1] === skill.key"
+                                    x-text="'+1 ' + skill.label"></option>
+                            </template>
+                        </select>
                     </template>
                     <select class="hv-cc__element-select" x-show="summaryEntry"
                         @change="setHePhaiSkillAtPosition(0, $event.target.value)">

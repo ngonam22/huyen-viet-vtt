@@ -43,6 +43,11 @@ export interface HePhai {
     bonusSkills: HvSkillKey[];
 
     /**
+     * Nếu có: player chọn N kỹ năng (không trùng) từ `bonusSkills` thay vì nhận cả list.
+     */
+    bonusSkillsChoose?: number;
+
+    /**
      * Bảng yêu cầu kỹ năng để Đặc Kỹ Hệ Phái tự thăng cấp.
      * Key của Record là cấp độ mục tiêu (VD: 2, 3, 4, 5, 6).
      * Khi hệ thống check TotalXP đạt ngưỡng cho Cấp N, nó sẽ gọi progressionReqs[N] để check kỹ năng.

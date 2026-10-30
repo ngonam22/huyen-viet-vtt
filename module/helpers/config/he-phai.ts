@@ -114,7 +114,8 @@ export const HE_PHAI: Record<string, HePhai> = {
         id: 'minhHaoNgheSu',
         ten: 'BOILERPLATE.MonPhai.minhHaoNgheSu.label',
         category: 'thapNhiHocVien',
-        bonusSkills: ['renDuc', 'myThuat'],
+        bonusSkills: ['myThuat', 'thoiTrang', 'bieuDien', 'renDuc'],
+        bonusSkillsChoose: 2,
         upgrade: [
             {
                 target: 'element',
