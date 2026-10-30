@@ -202,7 +202,7 @@ export async function postThuatThucChatCard(
     item: Item,
     entry: ThuatThuc
 ): Promise<void> {
-    const content = await renderTemplate(
+    const content = await foundry.applications.handlebars.renderTemplate(
         "systems/huyen-viet-vtt/templates/chat/thuat-thuc-card.hbs",
         { actor, item, entry }
     );

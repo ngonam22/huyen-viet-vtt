@@ -132,7 +132,7 @@ export class BoilerplateItemSheet extends api.HandlebarsApplicationMixin(
         context.tab = context.tabs[partId];
         // Enrich description info for display
         // Enrichment turns text like `[[/r 1d20]]` into buttons
-        context.enrichedDescription = await TextEditor.enrichHTML(
+        context.enrichedDescription = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
           this.item.system.description,
           {
             // Whether to show secret blocks in the finished html
@@ -249,7 +249,7 @@ export class BoilerplateItemSheet extends api.HandlebarsApplicationMixin(
     const { img } =
       this.document.constructor.getDefaultArtwork?.(this.document.toObject()) ??
       {};
-    const fp = new FilePicker({
+    const fp = new foundry.applications.apps.FilePicker.implementation({
       current,
       type: 'image',
       redirectToRoot: img ? [img] : [],
@@ -412,7 +412,7 @@ export class BoilerplateItemSheet extends api.HandlebarsApplicationMixin(
    * @protected
    */
   async _onDrop(event) {
-    const data = TextEditor.getDragEventData(event);
+    const data = foundry.applications.ux.TextEditor.implementation.getDragEventData(event);
     const item = this.item;
     const allowed = Hooks.call('dropItemSheetData', item, this, data);
     if (allowed === false) return;

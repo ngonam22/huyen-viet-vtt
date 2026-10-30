@@ -47,7 +47,7 @@ Hooks.once('init', function () {
 
   // Register shared UI component partials so they can be used as
   // {{> hv-toggle ...}} and {{> hv-checkbox ...}} in any template.
-  loadTemplates([
+  foundry.applications.handlebars.loadTemplates([
     'systems/huyen-viet-vtt/templates/components/hv-toggle.hbs',
     'systems/huyen-viet-vtt/templates/components/hv-checkbox.hbs',
     'systems/huyen-viet-vtt/templates/apps/condition-modal.hbs',

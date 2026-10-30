@@ -120,7 +120,6 @@ export async function addCondition(actor: Actor, conditionId: string): Promise<v
         name: def.label,
         disabled: false,
         transfer: false,
-        changes: [],
         flags: { [NS]: { conditionId } },
     }]);
 }
@@ -206,7 +205,6 @@ export async function toggleElementWound(actor: Actor, element: string): Promise
             name: `Tổn Thương — ${elemDef?.label ?? element}`,
             disabled: false,
             transfer: false,
-            changes: [],
             flags: { [NS]: { conditionId: 'tonThuongNguHanh', woundedElement: element } },
         }]);
     }

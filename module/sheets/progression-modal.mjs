@@ -302,8 +302,9 @@ export class ProgressionModal extends HandlebarsApplicationMixin(ApplicationV2) 
         const currentXp = this.actor.system.progression.currentXp;
         const remaining = currentXp - cost;
 
-        return Dialog.confirm({
-            title: '🔄 Xác Nhận Nâng Cấp',
+        return foundry.applications.api.DialogV2.confirm({
+            window: { title: '🔄 Xác Nhận Nâng Cấp' },
+            rejectClose: false,
             content: `
                 <div style="text-align:center; padding: 12px;">
                     <p style="font-size: 15px; margin-bottom: 8px;">
@@ -342,15 +343,17 @@ export class XpAdjustDialog {
             </div>
         `;
 
-        return Dialog.prompt({
-            title: '✏️ Chỉnh Tu Vi',
+        return foundry.applications.api.DialogV2.prompt({
+            window: { title: '✏️ Chỉnh Tu Vi' },
             content,
-            label: 'Xác nhận',
-            callback: async (html) => {
-                const amount = parseInt(html[0].querySelector('#hv-xp-amount')?.value) || 0;
-                if (amount !== 0) {
-                    await updateXpManual(actor, amount);
-                }
+            ok: {
+                label: 'Xác nhận',
+                callback: async (event, button) => {
+                    const amount = parseInt(button.form.querySelector('#hv-xp-amount')?.value) || 0;
+                    if (amount !== 0) {
+                        await updateXpManual(actor, amount);
+                    }
+                },
             },
             rejectClose: false,
         });

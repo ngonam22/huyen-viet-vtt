@@ -272,7 +272,6 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
                 name: game.i18n.localize(ELEMENTS[element]?.hanhTheLabel),
                 disabled: false,
                 transfer: false,
-                changes: [],
                 img: ELEMENTS[element]?.icon,
                 flags: {
                     "huyen-viet-vtt": {
@@ -482,8 +481,8 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
     }
 
     async _confirmResetUpgrades() {
-        const confirmed = await Dialog.confirm({
-            title: 'Reset nâng cấp',
+        const confirmed = await api.DialogV2.confirm({
+            window: { title: 'Reset nâng cấp' },
             content: `
                 <div style="padding: 12px;">
                     <p><strong>Bạn có chắc muốn reset toàn bộ nâng cấp?</strong></p>
@@ -491,9 +490,8 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
                     <p style="color: #c0392b; font-weight: 600;">Điểm kinh nghiệm đã dùng sẽ không được hoàn lại.</p>
                 </div>
             `,
-            yes: () => true,
-            no: () => false,
-            defaultYes: false,
+            no: { default: true },
+            rejectClose: false,
         });
 
         if (!confirmed) return;
@@ -686,7 +684,7 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
         const { img } =
         this.document.constructor.getDefaultArtwork?.(this.document.toObject()) ??
         {};
-        const fp = new FilePicker({
+        const fp = new foundry.applications.apps.FilePicker.implementation({
             current,
             type: 'image',
             redirectToRoot: img ? [img] : [],

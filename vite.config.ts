@@ -19,7 +19,6 @@ function copyStaticDirsPlugin() {
 
     const filesToCopy = [
         { src: path.resolve(__dirname, "system.json"),                    dest: path.resolve(BUILD_ROOT, "system.json") },
-        { src: path.resolve(__dirname, "template.json"),                  dest: path.resolve(BUILD_ROOT, "template.json") },
         { src: path.resolve(__dirname, "character-creation-config.json"), dest: path.resolve(BUILD_ROOT, "character-creation-config.json") },
     ];
 

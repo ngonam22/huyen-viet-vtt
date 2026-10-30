@@ -687,28 +687,18 @@ export class CharacterCreatorPanel extends HandlebarsApplicationMixin(Applicatio
   }
 
   async _confirmUnsavedChanges() {
-    return new Promise((resolve) => {
-      new Dialog({
-        title: 'Lưu thay đổi?',
-        content: `
-          <p>Bạn có thay đổi chưa được lưu trong bảng khởi tạo nhân vật.</p>
-          <p>Bạn muốn áp dụng thay đổi hay bỏ qua?</p>
-        `,
-        buttons: {
-          apply: {
-            icon: '<i class="fas fa-check"></i>',
-            label: 'Áp dụng',
-            callback: () => resolve(true),
-          },
-          discard: {
-            icon: '<i class="fas fa-xmark"></i>',
-            label: 'Bỏ qua',
-            callback: () => resolve(false),
-          },
-        },
-        close: () => resolve(null),
-        default: 'apply',
-      }).render(true);
+    // Resolves true (apply) / false (discard) / null (dialog dismissed)
+    return foundry.applications.api.DialogV2.wait({
+      window: { title: 'Lưu thay đổi?' },
+      content: `
+        <p>Bạn có thay đổi chưa được lưu trong bảng khởi tạo nhân vật.</p>
+        <p>Bạn muốn áp dụng thay đổi hay bỏ qua?</p>
+      `,
+      buttons: [
+        { action: 'apply', icon: 'fas fa-check', label: 'Áp dụng', default: true, callback: () => true },
+        { action: 'discard', icon: 'fas fa-xmark', label: 'Bỏ qua', callback: () => false },
+      ],
+      rejectClose: false,
     });
   }
 

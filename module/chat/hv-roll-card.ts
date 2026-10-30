@@ -81,7 +81,7 @@ export async function createHvRollCard(
     const skillLabel = skillKey ? (SKILL_LABELS[skillKey as keyof typeof SKILL_LABELS] ?? null) : null;
     const skillIcon = skillKey ? `/systems/huyen-viet-vtt/assets/icons/ky-nang/${skillKey}.png` : null;
 
-    const content = await renderTemplate(
+    const content = await foundry.applications.handlebars.renderTemplate(
         "systems/huyen-viet-vtt/templates/chat/hv-roll-card.hbs",
         {
             title: options.title ?? "Gieo Thiên Mệnh",

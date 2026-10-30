@@ -25,7 +25,7 @@ A single `npm run build` does all of the following:
 1. Compiles `module/boilerplate.ts` (and all imports) → `build/huyen-viet-vtt/module/huyen-viet-vtt.mjs`
 2. Processes `scss/` via Tailwind/PostCSS → `build/huyen-viet-vtt/css/huyen-viet-vtt.css`
 3. Copies static dirs: `templates/`, `lang/`, `assets/`, `packs/`, `lib/`
-4. Copies static files: `system.json`, `template.json`, `character-creation-config.json`
+4. Copies static files: `system.json`, `character-creation-config.json` (no `template.json` — all schemas are DataModels, deprecated in v14)
 
 **After any code change**, run `npm run build` to update the build output. Use `npm run watch` during active development so Foundry hot-reloads on each save.
 
