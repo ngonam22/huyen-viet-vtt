@@ -23,7 +23,7 @@ Mỗi entry có dạng:
 ```json
 {
   "id":        "<uuid>",
-  "type":      "element_upgrade | skill_upgrade | technique_learned | xp_gain | identity_change",
+  "type":      "element_upgrade | skill_upgrade | technique_learned | sect_upgrade | xp_gain | xp_adjust | identity_change",
   "timestamp": 1234567890,
   "label":     "Hỏa: 2 → 3",
   "field":     "elements.hoa",
@@ -38,7 +38,9 @@ Mỗi entry có dạng:
 | `element_upgrade` | Nâng cấp một Ngũ Hành bằng XP | 3 × cấp mới |
 | `skill_upgrade` | Nâng cấp một Kỹ Năng bằng XP | 2 × cấp mới |
 | `technique_learned` | Học một Thuật Thức mới | 3 |
+| `sect_upgrade` | Cấp Hệ Phái tự tăng (§4) | 0 |
 | `xp_gain` | GM trao XP | 0 |
+| `xp_adjust` | GM trừ / hiệu chỉnh XP | 0 |
 | `identity_change` | Đổi thiToc / boiCanh / monPhai / giaCanh / giaToc | 0 |
 
 ---
@@ -67,8 +69,9 @@ Nâng cấp các kỹ năng nghề nghiệp/chiến đấu như Thể Thuật, Y
 ### 3.3. Nhánh Học Luyện Thuật Thức
 Mua thêm các chiêu thức, phép thuật (Võ Kỹ, Linh Thuật, Khí Thuật, Tâm Thuật...).
 *   **Công thức chi phí:** Đồng giá **3 XP** cho mỗi Thuật Thức mới được học.
-*   **Điều kiện (Prerequisites check):** Khi mua Thuật Thức, hệ thống phải check xem nhân vật có đủ cấp độ Hành hoặc cấp độ Kỹ năng mà Thuật Thức đó yêu cầu hay không. Đây là **HARD CHECK** cho XP path (xem `spec_thuat_thuc.md` §7.2); clan auto-grant và manual picker bỏ qua hoặc chỉ warn.
-*   **Data model, usage tracking (Tần Số Sử Dụng), acquisition flow, UI contract:** tham chiếu `spec_thuat_thuc.md`. XP purchase UI hiện đang deferred (spec §8.3) — clan auto-grant (§8.1) và manual picker (§8.2) đã được implement trước.
+*   **Điều kiện mở (Hệ Phái gate — HARD CHECK):** Thuật Thức chỉ mua được khi đã được Hệ Phái mở: thuộc **Giáo Trình** của phái với cấp ≤ Cấp Hệ Phái, hoặc nằm trong **Đặc Quyền** của các bậc đã đạt (`isThuatThucUnlocked`, chi tiết `spec_thuat_thuc.md` §8.3).
+*   **Prerequisites check:** nếu catalog entry có `prerequisites` (Hành/Kỹ Năng), XP path **HARD CHECK** (xem `spec_thuat_thuc.md` §7.2). Catalog Cấp-1/2 hiện không có prerequisites.
+*   **Implement:** `learnThuatThucWithXp(actor, id)` trong `module/helpers/progression.ts`; nút `Học (3)` trong picker Thuật Thức. GM có thể thêm miễn phí (source `manual`), clan auto-grant bỏ qua mọi check.
 
 ---
 
@@ -85,11 +88,15 @@ Nhánh này **không tốn XP** để mua. Nó hoạt động như một hệ th
 *   **Cấp 6:** `totalXp` > 200
 
 ### 4.2. Logic Điều Kiện Kép (Two-Step Verification)
-Mỗi khi người chơi nhận thêm XP khiến `totalXp` chạm một Threshold mới (VD: Vừa chạm mốc 50 XP để xét lên Cấp 3), hệ thống sẽ chạy hàm `Check_Sect_Upgrade()`:
-1.  **Check Ngưỡng XP:** PASS.
-2.  **Check Chuyên Môn:** Query vào Database Môn Phái xem để lên Cấp 3, môn phái này yêu cầu nhân vật phải có kỹ năng gì ở mức bao nhiêu (VD: Yêu cầu Y Thuật = 4).
-    *   Nếu `Character.Skills["Y Thuật"] >= 4` -> **PASS**. Tự động nâng cấp Đặc Kỹ Môn Phái lên Cấp 3.
-    *   Nếu `Character.Skills["Y Thuật"] < 4` -> **FAIL**. Trạng thái Đặc Kỹ bị giữ ở Cấp 2 (Pending). Hệ thống sẽ auto-check lại điều kiện này mỗi khi người chơi upgrade Kỹ năng ở Mục 3.2.
+Hàm `checkSectUpgrade(actor)` (`module/helpers/progression.ts`). Hai điều kiện là **AND**:
+1.  **Check Ngưỡng XP:** `targetLevel = getSectLevelFromTotalXp(totalXp)` — cấp tối đa mà Tu Vi tổng cho phép.
+2.  **Check Chuyên Môn, lần lượt từng bậc:** từ `level.value + 1` tới `targetLevel`, mỗi bậc N đọc `HE_PHAI[monPhai].progressionReqs[N]` (VD Tịnh Lý lên Cấp 3: `{ yDuoc: 3 }`).
+    *   Đạt → lên bậc N, xét tiếp bậc N+1.
+    *   Không đạt → **dừng** (Pending) ở bậc hiện tại; không nhảy qua bậc thiếu điều kiện.
+    *   Bậc không có điều kiện (bậc 6) → chỉ cần XP. `progressionReqsMode: 'any'` (Minh Hạo) → chỉ cần một kỹ năng trong danh sách đạt.
+3.  Ghi `system.attributes.level.value`, changelog `sect_upgrade`, notification.
+
+**Trigger:** `updateXpManual` (khi `amount > 0`), `upgradeSkill`, `upgradeElement`. Cấp Hệ Phái **không tự giảm** (kể cả khi trừ XP hay đổi Hệ Phái).
 
 ---
 

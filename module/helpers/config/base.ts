@@ -320,3 +320,37 @@ export const DIA_VI = [
     { value: '09', label: 'Tiện dân' },
 ];
 export const DIA_VI_DEFAULT = '4049';
+
+/**
+ * Nhân Phẩm (thang -5..5). Người chơi chọn trên sheet, default 0 (Bình Phàm).
+ */
+export const NHAN_PHAM = [
+    { value: 5, label: 'Đại Đức' },
+    { value: 4, label: 'Đại Thiện' },
+    { value: 3, label: 'Thiện Thân' },
+    { value: 2, label: 'Thiện Tâm' },
+    { value: 1, label: 'Hướng Thiện' },
+    { value: 0, label: 'Bình Phàm' },
+    { value: -1, label: 'Hướng Tà' },
+    { value: -2, label: 'Tà Tâm' },
+    { value: -3, label: 'Ác Nhân' },
+    { value: -4, label: 'Đại Ác' },
+    { value: -5, label: 'Đại Nghịch' },
+];
+
+/**
+ * Danh Tiếng (thang -5..5). Người chơi chọn trên sheet, default 0 (Bình Phàm).
+ */
+export const DANH_TIENG = [
+    { value: 5, label: 'Huyền Thoại' },
+    { value: 4, label: 'Truyền Kỳ' },
+    { value: 3, label: 'Đại Danh' },
+    { value: 2, label: 'Hảo Danh' },
+    { value: 1, label: 'Tiềm Năng' },
+    { value: 0, label: 'Bình Phàm' },
+    { value: -1, label: 'Thất Vọng' },
+    { value: -2, label: 'Bất Hảo' },
+    { value: -3, label: 'Hung Danh' },
+    { value: -4, label: 'Ma Đầu' },
+    { value: -5, label: 'Đại Ma Đầu' },
+];

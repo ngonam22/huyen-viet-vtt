@@ -1,6 +1,6 @@
 import { prepareActiveEffectCategories } from '../helpers/effects.mjs';
 import { upgrade, applyUpgradeRule, removeUpgradeSource } from "../helpers/upgrade.ts";
-import {BOI_CANH, DIA_VI, ELEMENT_CLASS, ELEMENTS, GIA_CANH, THI_TOC, THIEN_TU_DESCRIPTIONS} from "../helpers/config.ts";
+import {BOI_CANH, DANH_TIENG, DIA_VI, ELEMENT_CLASS, NHAN_PHAM, ELEMENTS, GIA_CANH, THI_TOC, THIEN_TU_DESCRIPTIONS} from "../helpers/config.ts";
 import { ElementModal } from './element-modal.mjs'
 import { ResourceModal } from './resource-modal.mjs'
 import {removeThiTocFromActor, setThiTocForActor} from "../helpers/thiToc";
@@ -53,6 +53,7 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
             restScene: this._onRestScene,
             restSession: this._onRestSession,
             restLong: this._onRestLong,
+            setTick: this._onSetTick,
         },
         window: {
             resizable: true,
@@ -351,6 +352,26 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
             })),
 
             diaViOptions: DIA_VI,
+
+            // Nhân Phẩm / Danh Tiếng -5..5, hiển thị "Label (value)"
+            nhanPhamOptions: NHAN_PHAM.map(({ value, label }) => ({
+                value,
+                label: `${label} (${value})`,
+                selected: value === (this.actor.system.nhanPham ?? 0)
+            })),
+            nhanPhamTicks: [1, 2, 3, 4].map((value) => ({
+                value,
+                filled: value <= (this.actor.system.nhanPhamTick ?? 0)
+            })),
+            danhTiengTicks: [1, 2, 3, 4].map((value) => ({
+                value,
+                filled: value <= (this.actor.system.danhTiengTick ?? 0)
+            })),
+            danhTiengOptions: DANH_TIENG.map(({ value, label }) => ({
+                value,
+                label: `${label} (${value})`,
+                selected: value === (this.actor.system.danhTieng ?? 0)
+            })),
 
             // Bậc Tài Phú 0–9
             taiPhuOptions: Array.from({ length: 10 }, (_, i) => ({
@@ -678,6 +699,18 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
      * @returns {Promise}
      * @protected
      */
+    /**
+     * Rating-style tick: click tick N → value N; click the current highest tick again → N-1.
+     * Expects data-field (system path) and data-value on the target.
+     */
+    static async _onSetTick(event, target) {
+        event.preventDefault();
+        const field = target.dataset.field;
+        const clicked = Number(target.dataset.value);
+        const current = foundry.utils.getProperty(this.document, field) ?? 0;
+        await this.document.update({ [field]: clicked === current ? clicked - 1 : clicked });
+    }
+
     static async _onEditImage(event, target) {
         const attr = target.dataset.edit;
         const current = foundry.utils.getProperty(this.document, attr);

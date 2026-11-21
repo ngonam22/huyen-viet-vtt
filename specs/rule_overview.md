@@ -112,6 +112,15 @@ system: {
                     // "99" Hoàng đế | "7098" Quý tộc | "6069" Thượng sĩ | "5059" Trung sĩ | "4049" Hạ sĩ
                     // "3039" Nông dân | "2029" Công nhân | "1019" Thương nhân | "09" Tiện dân
   taiPhu: int 0–9   // Bậc Tài Phú: chi trả thoải mái vật phẩm/dịch vụ có cấp ≤ taiPhu (chọn trên sheet, thay cho hiển thị Túi tiền)
+  nhanPham: int -5..5   // Nhân Phẩm (ref → NHAN_PHAM config), default 0; người chơi chọn trên sheet, hiển thị "Label (value)"
+                        // 5 Đại Đức | 4 Đại Thiện | 3 Thiện Thân | 2 Thiện Tâm | 1 Hướng Thiện | 0 Bình Phàm
+                        // -1 Hướng Tà | -2 Tà Tâm | -3 Ác Nhân | -4 Đại Ác | -5 Đại Nghịch
+  nhanPhamTick: int 0–4 // Tick tiến độ Nhân Phẩm, default 0; hiển thị 4 ô dạng rating cạnh label Nhân Phẩm
+                        // (click ô N → N; click lại ô đang là mức cao nhất → N-1)
+  danhTieng: int -5..5  // Danh Tiếng (ref → DANH_TIENG config), default 0; người chơi chọn trên sheet, hiển thị "Label (value)"
+                        // 5 Huyền Thoại | 4 Truyền Kỳ | 3 Đại Danh | 2 Hảo Danh | 1 Tiềm Năng | 0 Bình Phàm
+                        // -1 Thất Vọng | -2 Bất Hảo | -3 Hung Danh | -4 Ma Đầu | -5 Đại Ma Đầu
+  danhTiengTick: int 0–4 // Tick tiến độ Danh Tiếng, default 0; cùng cơ chế với nhanPhamTick
   currency: {
     quan: int   // 1 quan = 10 tiền
     tien: int   // 1 tiền = 100 đồng
@@ -229,7 +238,7 @@ Chi tiết ở các trạng thái hiệu ứng và thông tin kỹ thuật sẽ 
 ## 10. KIẾN TRÚC SỮ LIỆU ĐÍNH KÈM SẮP TỚI (Upcoming Detailed Specs)
 *(Ghi chú cho AI: Các spec file chi tiết sẽ được cung cấp ở các bước tiếp theo)*
 1.  `Spec_Character_Creation`: Quy trình 8 bước tạo nhân vật (Bối Cảnh, Gia Cảnh, Môn Phái...).
-2.  `SPEC_THUAT_THUC` trong file `spec_thuat_thuc.md`: Thuật Thức (Võ Kỹ, Tâm Thuật, Linh Thuật, Nghi Thức, Khí Thuật, Ma Thuật, Ám Kỹ) — data model, acquisition flow, usage tracking, UI contract.
+2.  `SPEC_THUAT_THUC` trong file `spec_thuat_thuc.md`: Thuật Thức (Võ Kỹ, Tâm Thuật, Kỳ Nghệ, Linh Thuật, Nghi Thức, Khí Thuật, Ma Thuật, Ám Kỹ) — data model, catalog Cấp-1/2, Giáo Trình/Đặc Quyền gate, acquisition flow, usage tracking, UI contract.
 3.  `Spec_Equipment`: Hệ thống Item, Giáp Trụ (Kháng lực), Vũ Khí (Sát Lực, Tính trạng vũ khí).
 4.  `Spec_Status_Effects`: Các trạng thái bất lợi (Choáng váng, Xuất huyết, Loạn tâm, Định thân...).
 5.  `Spec_Equipment` trong file `spec_equipment.md`: Hệ thống trang bị và vật phẩm (Vũ khí, giáp trụ, phòng cụ...).

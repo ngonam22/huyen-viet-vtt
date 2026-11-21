@@ -1,5 +1,5 @@
 import {
-  BOI_CANH, GIA_CANH, HE_PHAI, THI_TOC, ELEMENTS, SKILL_LABELS, ELEMENT_CLASS, THIEN_TU_DESCRIPTIONS
+  BOI_CANH, GIA_CANH, HE_PHAI, THI_TOC, ELEMENTS, SKILL_KEYS, SKILL_LABELS, ELEMENT_CLASS, THIEN_TU_DESCRIPTIONS
 } from '../helpers/config.ts';
 import { setBoiCanhForActor } from '../helpers/boiCanh';
 import { setGiaCanhForActor } from '../helpers/giaCanh';
@@ -175,10 +175,8 @@ function getHePhaiRows(selectedId, selectedElementIndices) {
       isChosen: entry.id === selectedId && selectedElementIndices.includes(index),
     }));
 
-    const allSkillKeys = [...new Set(
-      Object.values(entry.progressionReqs ?? {}).flatMap(lvl => Object.keys(lvl))
-    )];
-    const skillPool = allSkillKeys.map(key => ({ key, label: SKILL_LABELS[key] ?? key }));
+    // Rulebook: +1 cho 3 Kỹ Năng khác biệt (bất kỳ), không trùng Kỹ Năng Bổ Sung
+    const skillPool = SKILL_KEYS.filter(key => !(entry.bonusSkills ?? []).includes(key)).map(key => ({ key, label: SKILL_LABELS[key] ?? key }));
     const bonusSkills = (entry.bonusSkills ?? []).map(key => ({ key, label: SKILL_LABELS[key] ?? key, value: 1 }));
     const bonusSkillsChoose = entry.bonusSkillsChoose ?? 0;
 

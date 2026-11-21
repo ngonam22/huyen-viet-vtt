@@ -1,5 +1,5 @@
 import type { ThuatThuc, ThuatThucSource, UsageFrequency } from "../../types/thuatThuc";
-import { THUAT_THUC, THUAT_THUC_BY_ID } from "./config";
+import { HE_PHAI, THUAT_THUC, THUAT_THUC_BY_ID } from "./config";
 import { getThiTocById } from "./thiToc";
 
 const THUAT_THUC_ITEM_TYPE = "thuatThuc";
@@ -12,6 +12,26 @@ export function getThuatThucById(id: string): ThuatThuc | undefined {
 /** All catalog entries (for picker / filters). */
 export function getAllThuatThuc(): ThuatThuc[] {
     return THUAT_THUC;
+}
+
+/**
+ * Thuật Thức đã được mở cho actor theo Hệ Phái chưa (spec_thuat_thuc §8.3):
+ * - Giáo Trình: phân hệ thuộc `curriculum` và cấp thuật thức ≤ cấp Hệ Phái, hoặc
+ * - Đặc Quyền: khớp một mục `privileges[b]` với b ≤ cấp Hệ Phái (bỏ qua giới hạn cấp/Giáo Trình).
+ */
+export function isThuatThucUnlocked(actor: Actor, entry: ThuatThuc): boolean {
+    const system = (actor as any).system;
+    const sect = HE_PHAI[system?.identity?.monPhai];
+    if (!sect) return false;
+    const sectLevel: number = system.attributes?.level?.value ?? 1;
+
+    if (sect.curriculum.includes(entry.category) && entry.level <= sectLevel) return true;
+
+    return Object.entries(sect.privileges ?? {})
+        .filter(([bac]) => Number(bac) <= sectLevel)
+        .some(([, unlocks]) => unlocks.some((u) =>
+            "id" in u ? u.id === entry.id : u.category === entry.category && entry.level <= u.maxLevel
+        ));
 }
 
 /**

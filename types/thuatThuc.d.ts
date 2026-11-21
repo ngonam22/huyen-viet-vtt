@@ -3,6 +3,7 @@ import type { HvElementKey, HvSkillKey } from "../module/helpers/config";
 export type ThuatThucCategory =
     | "voKy"
     | "tamThuat"
+    | "kyNghe"
     | "linhThuat"
     | "nghiThuc"
     | "khiThuat"
@@ -43,6 +44,12 @@ export type ThuatThucTrait =
     | "hoaThe"
     | "nguyenChu"
     | "maThuat"
+    | "loiTinh"
+    | "thienDien"
+    | "thienHoan"
+    | "thinhGiac"
+    | "ngonNgu"
+    | "phucHoi"
     // Catch-all
     | "dacBiet";
 

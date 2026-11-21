@@ -2,6 +2,70 @@
   font-weight: bold;
 }
 
+// Rating-style ticks (e.g. Nhân Phẩm tick 0..4)
+.hv-ticks {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 4px;
+  vertical-align: middle;
+
+  // Both images are always rendered (selected layer toggled via opacity) so hover never
+  // swaps background-image → no flash while the image loads/decodes.
+  .hv-tick {
+    position: relative;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    // spacing as padding (not gap) so the pointer never falls between ticks while hovering
+    padding-right: 2px;
+    box-sizing: content-box;
+
+    &:last-child {
+      padding-right: 0;
+    }
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 15px;
+      height: 15px;
+      background: center / contain no-repeat;
+    }
+
+    &::before {
+      background-image: url("/systems/huyen-viet-vtt/assets/radio-btn.png");
+    }
+
+    &::after {
+      background-image: url("/systems/huyen-viet-vtt/assets/radio-btn-selected.png");
+      opacity: 0;
+    }
+
+    &.is-filled::after {
+      opacity: 1;
+    }
+  }
+
+  // Hover preview: ticks up to (and including) the hovered one show as selected, the rest as empty
+  &.is-editable {
+    .hv-tick {
+      cursor: pointer;
+    }
+
+    &:has(.hv-tick:hover) .hv-tick::after {
+      opacity: 0;
+    }
+
+    &:has(.hv-tick:hover) .hv-tick:hover::after,
+    &:has(.hv-tick:hover) .hv-tick:has(~ .hv-tick:hover)::after {
+      opacity: 1;
+    }
+  }
+}
+
 .ability {
   margin-bottom: 2px;
 }

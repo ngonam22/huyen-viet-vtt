@@ -10,10 +10,19 @@ import type {
     UsageFrequency,
 } from "../../../types/thuatThuc";
 import { BOILERPLATE } from "./base";
+import { VO_KY } from "./thuat-thuc/vo-ky";
+import { TAM_THUAT } from "./thuat-thuc/tam-thuat";
+import { KY_NGHE } from "./thuat-thuc/ky-nghe";
+import { NGHI_THUC } from "./thuat-thuc/nghi-thuc";
+import { LINH_THUAT } from "./thuat-thuc/linh-thuat";
+import { KHI_THUAT } from "./thuat-thuc/khi-thuat";
+import { MA_THUAT } from "./thuat-thuc/ma-thuat";
+import { AM_KY } from "./thuat-thuc/am-ky";
 
 export const THUAT_THUC_CATEGORIES = [
     "voKy",
     "tamThuat",
+    "kyNghe",
     "linhThuat",
     "nghiThuc",
     "khiThuat",
@@ -55,6 +64,12 @@ export const THUAT_THUC_TRAITS = [
     "hoaThe",
     "nguyenChu",
     "maThuat",
+    "loiTinh",
+    "thienDien",
+    "thienHoan",
+    "thinhGiac",
+    "ngonNgu",
+    "phucHoi",
     "dacBiet",
 ] as const satisfies readonly ThuatThucTrait[];
 
@@ -73,246 +88,18 @@ export const THUAT_THUC_USAGE_FREQUENCIES = [
 export const THUAT_THUC_XP_COST_DEFAULT = 3;
 
 /**
- * Seed catalog — Level 1 samples (one per phân hệ; two for Võ Kỹ).
- * Full Level-1 catalog transcription is deferred — see spec §13.
+ * Catalog Thuật Thức Cấp-1 và Cấp-2 theo rulebook v0.8.4 (Chương 5).
+ * Text viết thẳng tiếng Việt (localize() trả nguyên chuỗi). Cấp-3+ chưa transcribe.
  */
 export const THUAT_THUC: ThuatThuc[] = [
-    {
-        id: "hoaKhiThuc",
-        name: "BOILERPLATE.ThuatThuc.hoaKhiThuc.name",
-        category: "voKy",
-        subcategory: "toanDung",
-        level: 1,
-        element: "hoa",
-        traits: ["chiThanh", "hoaHanh"],
-        condition: "BOILERPLATE.ThuatThuc.hoaKhiThuc.condition",
-        usage: { frequency: "unlimited", maxUses: 1 },
-        prerequisites: { elements: { hoa: 1 }, skills: { voThuat: 1 } },
-        xpCost: THUAT_THUC_XP_COST_DEFAULT,
-        sincerityEffects: [
-            {
-                cost: "1+ Hỏa",
-                element: "hoa",
-                text: "BOILERPLATE.ThuatThuc.hoaKhiThuc.sincerity.1",
-            },
-        ],
-        description: "BOILERPLATE.ThuatThuc.hoaKhiThuc.desc",
-        img: "/systems/huyen-viet-vtt/assets/thuat-thuc/hoaKhiThuc.png",
-    },
-    {
-        id: "thuyKhiThuc",
-        name: "BOILERPLATE.ThuatThuc.thuyKhiThuc.name",
-        category: "voKy",
-        subcategory: "toanDung",
-        level: 1,
-        element: "thuy",
-        traits: ["chiThanh", "thuyHanh"],
-        condition: "BOILERPLATE.ThuatThuc.thuyKhiThuc.condition",
-        usage: { frequency: "unlimited", maxUses: 1 },
-        prerequisites: { elements: { thuy: 1 }, skills: { voThuat: 1 } },
-        xpCost: THUAT_THUC_XP_COST_DEFAULT,
-        sincerityEffects: [
-            {
-                cost: "1+ Thủy",
-                element: "thuy",
-                text: "BOILERPLATE.ThuatThuc.thuyKhiThuc.sincerity.1",
-            },
-        ],
-        description: "BOILERPLATE.ThuatThuc.thuyKhiThuc.desc",
-        img: "/systems/huyen-viet-vtt/assets/thuat-thuc/thuyKhiThuc.png",
-    },
-    {
-        id: "mocKhiThuc",
-        name: "BOILERPLATE.ThuatThuc.mocKhiThuc.name",
-        category: "voKy",
-        subcategory: "toanDung",
-        level: 1,
-        element: "moc",
-        traits: ["chiThanh", "mocHanh"],
-        condition: "BOILERPLATE.ThuatThuc.mocKhiThuc.condition",
-        usage: { frequency: "unlimited", maxUses: 1 },
-        prerequisites: { elements: { moc: 1 }, skills: { voThuat: 1 } },
-        xpCost: THUAT_THUC_XP_COST_DEFAULT,
-        sincerityEffects: [
-            {
-                cost: "1+ Mộc",
-                element: "moc",
-                text: "BOILERPLATE.ThuatThuc.mocKhiThuc.sincerity.1",
-            },
-        ],
-        description: "BOILERPLATE.ThuatThuc.mocKhiThuc.desc",
-        img: "/systems/huyen-viet-vtt/assets/thuat-thuc/mocKhiThuc.png",
-    },
-    {
-        id: "kimKhiThuc",
-        name: "BOILERPLATE.ThuatThuc.kimKhiThuc.name",
-        category: "voKy",
-        subcategory: "toanDung",
-        level: 1,
-        element: "kim",
-        traits: ["chiThanh", "kimHanh"],
-        condition: "BOILERPLATE.ThuatThuc.kimKhiThuc.condition",
-        usage: { frequency: "unlimited", maxUses: 1 },
-        prerequisites: { elements: { kim: 1 }, skills: { voThuat: 1 } },
-        xpCost: THUAT_THUC_XP_COST_DEFAULT,
-        sincerityEffects: [
-            {
-                cost: "1+ Kim",
-                element: "kim",
-                text: "BOILERPLATE.ThuatThuc.kimKhiThuc.sincerity.1",
-            },
-        ],
-        description: "BOILERPLATE.ThuatThuc.kimKhiThuc.desc",
-        img: "/systems/huyen-viet-vtt/assets/thuat-thuc/kimKhiThuc.png",
-    },
-    {
-        id: "phiKhiThuc",
-        name: "BOILERPLATE.ThuatThuc.phiKhiThuc.name",
-        category: "voKy",
-        subcategory: "toanDung",
-        level: 1,
-        traits: ["hanhDong", "congKich"],
-        skillCheck: "BOILERPLATE.ThuatThuc.phiKhiThuc.skillCheck",
-        difficulty: "2",
-        range: "BOILERPLATE.ThuatThuc.phiKhiThuc.range",
-        usage: { frequency: "unlimited", maxUses: 1 },
-        prerequisites: { skills: { voThuat: 1 } },
-        xpCost: THUAT_THUC_XP_COST_DEFAULT,
-        primaryEffect: "BOILERPLATE.ThuatThuc.phiKhiThuc.primaryEffect",
-        sincerityEffects: [
-            {
-                cost: "1+",
-                text: "BOILERPLATE.ThuatThuc.phiKhiThuc.sincerity.1",
-            },
-        ],
-        description: "BOILERPLATE.ThuatThuc.phiKhiThuc.desc",
-    },
-    {
-        id: "themDoanNangLuc",
-        name: "BOILERPLATE.ThuatThuc.themDoanNangLuc.name",
-        category: "tamThuat",
-        level: 1,
-        element: "kim",
-        traits: ["chiThanh", "kimHanh"],
-        condition: "BOILERPLATE.ThuatThuc.themDoanNangLuc.condition",
-        usage: { frequency: "unlimited", maxUses: 1 },
-        prerequisites: { elements: { kim: 1 } },
-        xpCost: THUAT_THUC_XP_COST_DEFAULT,
-        sincerityEffects: [
-            {
-                cost: "1+ Kim",
-                element: "kim",
-                text: "BOILERPLATE.ThuatThuc.themDoanNangLuc.sincerity.1",
-            },
-            {
-                cost: "2 Kim",
-                element: "kim",
-                text: "BOILERPLATE.ThuatThuc.themDoanNangLuc.sincerity.2",
-            },
-        ],
-        description: "BOILERPLATE.ThuatThuc.themDoanNangLuc.desc",
-    },
-    {
-        id: "nghiThucTruTa",
-        name: "BOILERPLATE.ThuatThuc.nghiThucTruTa.name",
-        category: "nghiThuc",
-        level: 1,
-        traits: ["hanhDong", "dinhKy", "nguHanh"],
-        skillCheck: "BOILERPLATE.ThuatThuc.nghiThucTruTa.skillCheck",
-        difficulty: "4",
-        range: "BOILERPLATE.ThuatThuc.nghiThucTruTa.range",
-        usage: { frequency: "unlimited", maxUses: 1 },
-        prerequisites: { skills: { thanHoc: 1 } },
-        xpCost: THUAT_THUC_XP_COST_DEFAULT,
-        primaryEffect: "BOILERPLATE.ThuatThuc.nghiThucTruTa.primaryEffect",
-        sincerityEffects: [
-            { cost: "1", text: "BOILERPLATE.ThuatThuc.nghiThucTruTa.sincerity.1" },
-            { cost: "1+", text: "BOILERPLATE.ThuatThuc.nghiThucTruTa.sincerity.2" },
-            { cost: "1+", text: "BOILERPLATE.ThuatThuc.nghiThucTruTa.sincerity.3" },
-        ],
-        description: "BOILERPLATE.ThuatThuc.nghiThucTruTa.desc",
-    },
-    {
-        id: "hoaDiemChiThuat",
-        name: "BOILERPLATE.ThuatThuc.hoaDiemChiThuat.name",
-        category: "linhThuat",
-        level: 1,
-        element: "hoa",
-        traits: ["hanhDong", "congKich", "hoaHanh", "hoaKhi", "hoaTinh"],
-        skillCheck: "BOILERPLATE.ThuatThuc.hoaDiemChiThuat.skillCheck",
-        difficulty: "3",
-        range: "BOILERPLATE.ThuatThuc.hoaDiemChiThuat.range",
-        duration: "BOILERPLATE.ThuatThuc.hoaDiemChiThuat.duration",
-        usage: { frequency: "unlimited", maxUses: 1 },
-        prerequisites: { elements: { hoa: 1 }, skills: { thanHoc: 1 } },
-        xpCost: THUAT_THUC_XP_COST_DEFAULT,
-        primaryEffect: "BOILERPLATE.ThuatThuc.hoaDiemChiThuat.primaryEffect",
-        sincerityEffects: [
-            {
-                cost: "1+ Hỏa",
-                element: "hoa",
-                text: "BOILERPLATE.ThuatThuc.hoaDiemChiThuat.sincerity.1",
-            },
-        ],
-        description: "BOILERPLATE.ThuatThuc.hoaDiemChiThuat.desc",
-    },
-    {
-        id: "hoaKhiQuyen",
-        name: "BOILERPLATE.ThuatThuc.hoaKhiQuyen.name",
-        category: "khiThuat",
-        level: 1,
-        element: "hoa",
-        traits: ["hanhDong", "congKich", "hoTro", "hoaHanh", "hoaTinh"],
-        skillCheck: "BOILERPLATE.ThuatThuc.hoaKhiQuyen.skillCheck",
-        difficulty: "2",
-        range: "BOILERPLATE.ThuatThuc.hoaKhiQuyen.range",
-        duration: "BOILERPLATE.ThuatThuc.hoaKhiQuyen.duration",
-        usage: { frequency: "unlimited", maxUses: 1 },
-        prerequisites: { elements: { hoa: 1 }, skills: { voThuat: 1 } },
-        xpCost: THUAT_THUC_XP_COST_DEFAULT,
-        primaryEffect: "BOILERPLATE.ThuatThuc.hoaKhiQuyen.primaryEffect",
-        description: "BOILERPLATE.ThuatThuc.hoaKhiQuyen.desc",
-    },
-    {
-        id: "maLinhNguyenChu",
-        name: "BOILERPLATE.ThuatThuc.maLinhNguyenChu.name",
-        category: "maThuat",
-        level: 1,
-        maHoa: true,
-        traits: ["hanhDong", "congKich", "muuKe", "nguHanh", "maThuat", "nguyenChu"],
-        skillCheck: "BOILERPLATE.ThuatThuc.maLinhNguyenChu.skillCheck",
-        difficulty: "BOILERPLATE.ThuatThuc.maLinhNguyenChu.difficulty",
-        range: "BOILERPLATE.ThuatThuc.maLinhNguyenChu.range",
-        usage: { frequency: "unlimited", maxUses: 1 },
-        prerequisites: { skills: { thanHoc: 1 } },
-        xpCost: THUAT_THUC_XP_COST_DEFAULT,
-        primaryEffect: "BOILERPLATE.ThuatThuc.maLinhNguyenChu.primaryEffect",
-        sincerityEffects: [
-            { cost: "1+", text: "BOILERPLATE.ThuatThuc.maLinhNguyenChu.sincerity.1" },
-            { cost: "1+", text: "BOILERPLATE.ThuatThuc.maLinhNguyenChu.sincerity.2" },
-        ],
-        description: "BOILERPLATE.ThuatThuc.maLinhNguyenChu.desc",
-    },
-    {
-        id: "tiemHanhBo",
-        name: "BOILERPLATE.ThuatThuc.tiemHanhBo.name",
-        category: "amKy",
-        level: 1,
-        element: "kim",
-        traits: ["chiThanh", "kimHanh"],
-        condition: "BOILERPLATE.ThuatThuc.tiemHanhBo.condition",
-        usage: { frequency: "unlimited", maxUses: 1 },
-        prerequisites: { elements: { kim: 1 }, skills: { hacNghiep: 1 } },
-        xpCost: THUAT_THUC_XP_COST_DEFAULT,
-        sincerityEffects: [
-            {
-                cost: "1 Kim",
-                element: "kim",
-                text: "BOILERPLATE.ThuatThuc.tiemHanhBo.sincerity.1",
-            },
-        ],
-        description: "BOILERPLATE.ThuatThuc.tiemHanhBo.desc",
-    },
+    ...VO_KY,
+    ...TAM_THUAT,
+    ...KY_NGHE,
+    ...NGHI_THUC,
+    ...LINH_THUAT,
+    ...KHI_THUAT,
+    ...MA_THUAT,
+    ...AM_KY,
 ];
 
 /**

@@ -13,18 +13,19 @@ Engine **KHÔNG tự động giải quyết hiệu ứng** của Thuật Thức 
 Điều này giữ linh hoạt cho DM tùy biến narrative mà không bị engine gò bó, đồng thời vẫn hỗ trợ mechanical bookkeeping (usage counters, reset, prerequisites).
 
 ### 1.2. Phạm vi spec này
-Spec này định nghĩa **toàn bộ** data model, mechanical behavior, acquisition flow, và UI contract của Thuật Thức. Spec áp dụng cho tất cả cấp bậc (1–6), nhưng implementation đầu tiên sẽ chỉ seed Level-1 sample (§11).
+Spec này định nghĩa **toàn bộ** data model, mechanical behavior, acquisition flow, và UI contract của Thuật Thức. Spec áp dụng cho tất cả cấp bậc (1–6). Catalog hiện tại chứa toàn bộ Thuật Thức **Cấp-1 và Cấp-2** của rulebook v0.8.4 (132 entries, xem §11); Cấp-3+ transcribe ở pass sau.
 
 ---
 
 ## 2. PHÂN HỆ (Categories)
 
-Thuật Thức được chia thành 7 phân hệ đỉnh. Mỗi Thuật Thức thuộc đúng 1 phân hệ.
+Thuật Thức được chia thành 8 phân hệ đỉnh. Mỗi Thuật Thức thuộc đúng 1 phân hệ. Phân hệ là đơn vị mà Giáo Trình Hệ Phái mở khóa (§8.3).
 
 | Key | Tên | Mô tả | Sub-categories |
 |---|---|---|---|
 | `voKy` | Võ Kỹ | Chiêu thức võ thuật dùng vũ khí/cơ thể | `toanDung`, `canChien`, `xaChien`, `thanPhap` |
 | `tamThuat` | Tâm Thuật (Chủ Thuật) | Kỹ năng xã hội, ngôn ngữ, tâm lý | — |
+| `kyNghe` | Kỳ Nghệ | Kỹ thuật nghề nghiệp: chế tác, chữa trị, thương phẩm, phê bình | — |
 | `linhThuat` | Linh Thuật | Niệm linh ngữ giao tiếp Khí Linh (yêu cầu Linh Căn) | — |
 | `nghiThuc` | Nghi Thức | Điển lễ tôn giáo, hiệu quả đơn giản nhưng cast time dài | — |
 | `khiThuat` | Khí Thuật | Công pháp nội khí, có hai phần: Tĩnh thuật (Nội Lưu) + Động thuật (Ngoại Phá) | — |
@@ -67,6 +68,10 @@ Mỗi Thuật Thức có 0+ tính trạng (trait tags) mô tả cách kích ho�
 
 ### 3.5. Trait thuộc tính siêu nhiên
 - `hoaTinh`, `thoTinh`, `kimTinh`, `thuyTinh`, `mocTinh` — Sát Lực / hiệu ứng mang tính chất siêu nhiên Hành đó.
+- `loiTinh` — Lôi Tính: Sát Lực / hiệu ứng siêu nhiên tính Lôi.
+- `thienDien` — Thiên Diễn; `thienHoan` — Thiên Hoán: tag Linh Thuật theo rulebook.
+- `thinhGiac` — Thính Giác; `ngonNgu` — Ngôn Ngữ: hiệu ứng tác động qua âm thanh / lời nói.
+- `phucHoi` — Phục Hồi: hồi phục Sức Lực / Tâm Lực / trạng thái.
 - `hoaKhi` — Hóa Khí: biểu hiện dưới dạng khí (Linh Thuật).
 - `hoaThe` — Hóa Thể: biểu hiện dưới dạng vật thể (Linh Thuật).
 - `nguyenChu` — Nguyền Chú: ma thuật nguyền rủa.
@@ -75,7 +80,7 @@ Mỗi Thuật Thức có 0+ tính trạng (trait tags) mô tả cách kích ho�
 ### 3.6. Trait Catch-all
 - `dacBiet` — Đặc Biệt: cách kích hoạt tùy mô tả riêng.
 
-*Note:* danh sách trait là open-ended. Khi transcribe full catalog nếu gặp tính trạng mới, thêm vào enum `THUAT_THUC_TRAITS` trong `config.ts` và localization keys.
+*Note:* danh sách trait là open-ended. Khi transcribe full catalog nếu gặp tính trạng mới, thêm vào enum `THUAT_THUC_TRAITS` trong `config/thuat-thuc.ts`, type `TraitKey` trong `types/thuatThuc.d.ts` và label trong `lang/en.json`. Tag rulebook không có trait tương ứng (ví dụ `[Kỳ Nghệ]`, `[Thất Bại]`) hiện bị bỏ qua.
 
 ---
 
@@ -83,8 +88,7 @@ Mỗi Thuật Thức có 0+ tính trạng (trait tags) mô tả cách kích ho�
 
 ### 4.1. Level
 Integer 1–6. Cấp bậc Thuật Thức quyết định:
-- Yêu cầu Hành/Kỹ năng prerequisite (thường ngang cấp, xem §7).
-- Vai trò gating cho cấp bậc Môn Phái (theo `spec_sects_and_factions.md`).
+- Gating học: Thuật Thức trong Giáo Trình chỉ mở khi cấp Thuật Thức ≤ cấp Hệ Phái (§8.3).
 - (Không ảnh hưởng XP cost — xem §8.3.)
 
 ### 4.2. Element affinity
@@ -100,8 +104,8 @@ Optional: `hoa` / `tho` / `kim` / `thuy` / `moc` / `null`.
 
 ```ts
 export interface ThuatThuc {
-  id: string;                          // stable key, camelCase, e.g. "hoaKhiThuc"
-  name: string;                        // i18n key → BOILERPLATE.ThuatThuc.<id>.name
+  id: string;                          // stable key, camelCase theo tên rulebook (bỏ dấu), e.g. "hoaVoThuc"
+  name: string;                        // tên tiếng Việt viết thẳng, e.g. "Hỏa Võ Thức"
   category: ThuatThucCategory;         // §2
   subcategory?: VoKySubcategory;       // §2 (chỉ cho Võ Kỹ)
   level: 1 | 2 | 3 | 4 | 5 | 6;
@@ -109,7 +113,8 @@ export interface ThuatThuc {
   maHoa?: boolean;                     // Ma-hóa flag (Ma Thuật)
   traits: TraitKey[];                  // §3
 
-  // Display text — all i18n keys
+  // Display text — chuỗi tiếng Việt viết thẳng (KHÔNG dùng i18n key);
+  // template vẫn gọi {{localize}} nên chuỗi thường được trả về nguyên văn
   condition?: string;                  // Điều kiện kích hoạt
   skillCheck?: string;                 // Kiểm tra kỹ năng (ví dụ: "Võ Thuật (Hỏa hành)")
   difficulty?: string;                 // Độ Khó (ví dụ: "2", "Cảnh Giác của đối tượng")
@@ -125,13 +130,13 @@ export interface ThuatThuc {
   xpCost: number;                      // default 3 (progression §3.3)
 
   // Narrative
-  description?: string;                // i18n key, flavor text
+  description?: string;                // flavor text tiếng Việt
 }
 
 export interface SincerityEffect {
   cost: string;          // "1+", "2", "3 Hỏa", etc.
   element?: HvElementKey;  // element tied to the cost (optional)
-  text: string;          // i18n key
+  text: string;          // chuỗi tiếng Việt
 }
 
 export interface UsageSpec {
@@ -209,10 +214,10 @@ prerequisites?: {
 ### 7.2. Enforcement
 - **Clan auto-grant (§8.1):** không kiểm tra prerequisite. Clan grant bỏ qua.
 - **Manual add (§8.2):** không chặn; nhưng UI hiển thị warning "⚠ Không đủ yêu cầu" nếu actor chưa đạt.
-- **XP purchase (§8.3, deferred):** **HARD CHECK** — không cho mua nếu thiếu.
+- **XP purchase (§8.3):** **HARD CHECK** — không cho mua nếu thiếu.
 
-### 7.3. Level-1 prerequisite convention
-Phần lớn Thuật Thức Cấp-1 có element affinity yêu cầu Hành tương ứng ≥ 1 (mặc định ai cũng có ≥ 1). Thuật Thức không có element affinity thường không có prerequisite.
+### 7.3. Catalog hiện tại không khai báo prerequisites
+Rulebook v0.8.4 không ghi yêu cầu Hành/Kỹ Năng riêng cho từng Thuật Thức — điều kiện học là **Giáo Trình / Đặc Quyền Hệ Phái** (§8.3). Vì vậy các entry Cấp-1/2 trong catalog **không có** `prerequisites`. Field và HARD CHECK vẫn giữ để dùng khi rulebook bổ sung yêu cầu riêng.
 
 ---
 
@@ -229,17 +234,20 @@ Cả 3 path đều tạo ra item type `thuatThuc` trên actor, phân biệt bằ
 
 **Note về rulebook wording:** sách ghi "3 Thuật Thức trong giáo trình của Môn Phái". Codebase hiện tại đi qua `identity.thiToc`. Mỗi Thị Tộc có Môn Phái canonical 1:1 ở cấp nhập môn → attach `starterTechniques` vào clan acceptable. Nếu tách sect khỏi clan sau này, field có thể move mà không đổi item schema.
 
-### 8.2. Manual Add/Remove (always available)
+### 8.2. Manual Add/Remove (GM)
 - Trên tab Thuật Thức: nút `+ Add Technique` → mở picker dialog (§9.4).
-- Picker list tất cả catalog entries, filter theo category/level/element/trait.
-- Khi pick: `learnThuatThuc(actor, id, 'manual')`, không tốn XP, không check prerequisite.
+- GM thấy nút `Thêm` (miễn phí) trên mỗi row: `learnThuatThuc(actor, id, 'manual')`, không tốn XP, không check Hệ Phái/prerequisite.
 - Nút trash trên mỗi row → xóa item khỏi actor.
 
-### 8.3. XP Purchase (deferred — spec stub only)
-Khi feature này được build (theo `spec_character_progression.md` §3.3):
-- Cost: 3 XP/Thuật Thức.
-- Flow: trừ `progression.currentXp`, enforce §7.3 HARD CHECK, tạo item với `source='xp'`, append changelog entry `type: 'technique_learned'`.
-- Nút `Buy with XP` sẽ được thêm vào picker khi feature sẵn sàng.
+### 8.3. XP Purchase (Giáo Trình / Đặc Quyền Hệ Phái)
+Implement tại `learnThuatThucWithXp(actor, id)` (`module/helpers/progression.ts`), theo `spec_character_progression.md` §3.3:
+- **Cost:** 3 Tu Vi/Thuật Thức, bất kể cấp (`xpCost`, default `THUAT_THUC_XP_COST_DEFAULT = 3`). Trừ `progression.currentXp`; `totalXp` không đổi.
+- **Gate — `isThuatThucUnlocked(actor, entry)`** (`module/helpers/thuatThuc.ts`). Thuật Thức được mở nếu thỏa **một trong hai**:
+  1. **Giáo Trình:** `entry.category ∈ HE_PHAI[monPhai].curriculum` **và** `entry.level ≤` cấp Hệ Phái (`system.attributes.level.value`).
+  2. **Đặc Quyền:** khớp một mục trong `HE_PHAI[monPhai].privileges[b]` với `b ≤` cấp Hệ Phái. Mục là `{ id }` (một Thuật Thức cụ thể) hoặc `{ category, maxLevel }` (cả phân hệ tới cấp `maxLevel`). Đặc Quyền **cộng dồn** qua các bậc và **bỏ qua** giới hạn cấp lẫn Giáo Trình.
+  - Nhân vật chưa có Hệ Phái → không mở gì.
+- **Flow:** check gate → check đủ `currentXp` → HARD CHECK prerequisites (§7.2) → chặn trùng `techniqueId` → trừ XP → tạo item `source='xp'` → changelog `technique_learned`.
+- Cấp Hệ Phái tăng (§`spec_character_progression.md` §4) → các Thuật Thức mới tự hiện là "mở" trong picker; không auto-grant.
 
 ---
 
@@ -286,9 +294,13 @@ Khi click `Chat`:
 ### 9.4. Picker dialog
 - ApplicationV2 modal.
 - Filters: category, level, element, trait, search text.
+- Header: Tu Vi hiện có (`currentXp`); checkbox `Hiện tất cả` (chỉ GM).
+- Player (và GM khi tắt `Hiện tất cả`) chỉ thấy Thuật Thức đã mở theo §8.3. GM bật `Hiện tất cả` → thấy cả entry bị khóa, có badge 🔒.
 - List view: tên, cấp badge, element badge, short description (first 100 chars of `primaryEffect`).
-- Click row → confirm → `learnThuatThuc(actor, id, 'manual')`.
-- Prerequisite warning badge (không chặn).
+- Row đã học → badge `Đã học`, không có nút.
+- Row đã mở, chưa học → nút `Học (3)` gọi `learnThuatThucWithXp`; disabled khi `currentXp < xpCost`.
+- GM → thêm nút `Thêm` miễn phí (§8.2).
+- Sau khi học/thêm, picker re-render (không đóng) để học tiếp.
 
 ---
 
@@ -302,108 +314,30 @@ Thêm 2 type mới vào `changelog` của character:
 
 ---
 
-## 11. SEED CATALOG — LEVEL 1 (8 samples)
+## 11. CATALOG — LEVEL 1–2 (rulebook v0.8.4)
 
-Implementation đầu tiên seed 8 entries đại diện cho 7 phân hệ (Võ Kỹ có 2 để cover cả với-element và không-element). Các entries khác ở cấp 1 (~65 entries còn lại) transcribe ở pass sau.
+Catalog chia file theo phân hệ trong `module/helpers/config/thuat-thuc/`:
+`vo-ky.ts`, `tam-thuat.ts`, `ky-nghe.ts`, `nghi-thuc.ts`, `linh-thuat.ts`, `khi-thuat.ts`, `ma-thuat.ts`, `am-ky.ts`.
+`module/helpers/config/thuat-thuc.ts` gộp tất cả thành `THUAT_THUC` (+ `THUAT_THUC_BY_ID`).
 
-| ID | Category | Sub | Element | maHoa | Rulebook reference |
-|---|---|---|---|---|---|
-| `hoaKhiThuc` | voKy | toanDung | hoa | — | Hỏa Khí Thức (Cấp-1) |
-| `phiKhiThuc` | voKy | toanDung | — | — | Phi Khí Thức (Cấp-1) |
-| `themDoanNangLuc` | tamThuat | — | kim | — | Thẩm Đoán Năng Lực (Cấp-1) |
-| `nghiThucTruTa` | nghiThuc | — | — | — | Nghi Thức Trừ Tà (Cấp-1) |
-| `hoaDiemChiThuat` | linhThuat | — | hoa | — | Hỏa Điểm Chỉ Thuật (Cấp-1) |
-| `hoaKhiQuyen` | khiThuat | — | hoa | — | Hỏa Khí Quyền (Cấp-1) |
-| `maLinhNguyenChu` | maThuat | — | — | true | Ma Linh Nguyền Chú (Cấp-1) |
-| `tiemHanhBo` | amKy | — | kim | — | Tiềm Hành Bộ (Cấp-1) |
+| Phân hệ | Cấp-1 | Cấp-2 |
+|---|---|---|
+| Võ Kỹ | 7 | 15 |
+| Tâm Thuật | 15 | 9 |
+| Kỳ Nghệ | 4 | 5 |
+| Nghi Thức | 5 | 5 |
+| Linh Thuật | 28 | 10 |
+| Khí Thuật | 11 | 11 |
+| Ma Thuật | 5 | 0 |
+| Ám Kỹ | 1 | 1 |
+| **Tổng** | **76** | **56** |
 
-### 11.1. `hoaKhiThuc` — Hỏa Khí Thức
-- **traits**: `chiThanh`, `hoaHanh`
-- **condition**: Kỹ năng Võ Thuật (Hỏa hành) phù hợp với vũ khí.
-- **usage**: `{ frequency: 'unlimited', maxUses: 1 }`
-- **prerequisites**: `{ elements: { hoa: 1 }, skills: { voThuat: 1 } }`
-- **sincerityEffects**:
-  - `1+ Hỏa chí thành`: Với mỗi điểm chí thành (tối đa bằng cấp bậc Hỏa), tăng lượng Sát Lực kế tiếp mà đối tượng phải nhận thêm 2 điểm, tới kết thúc lượt sau của nhân vật.
-
-### 11.2. `phiKhiThuc` — Phi Khí Thức
-- **traits**: `hanhDong`, `congKich`
-- **skillCheck**: Võ Thuật
-- **difficulty**: 2
-- **range**: 6-bộ, 1 đối tượng
-- **usage**: `{ frequency: 'unlimited', maxUses: 1 }`
-- **prerequisites**: `{ skills: { voThuat: 1 } }`
-- **primaryEffect**: Thành công → gây Sát Lực của vũ khí. Thất bại → vũ khí rơi ở vị trí tối đa 6-bộ trên quỹ đạo ném.
-- **sincerityEffects**:
-  - `1+ chí thành`: Mỗi điểm chí thành tăng phạm vi tối đa thêm 1-bộ.
-
-### 11.3. `themDoanNangLuc` — Thẩm Đoán Năng Lực
-- **traits**: `chiThanh`, `kimHanh`
-- **condition**: Tâm Ý, hoặc kỹ năng để thi đấu với một hoặc nhiều đối tượng.
-- **usage**: `{ frequency: 'unlimited', maxUses: 1 }`
-- **prerequisites**: `{ elements: { kim: 1 } }`
-- **sincerityEffects**:
-  - `1+ Kim chí thành`: Chọn một đối tượng; với mỗi điểm chí thành, nhân vật nhận biết cấp bậc Binh Pháp, Võ Thuật, hoặc kỹ năng đối tượng dùng để thi đấu.
-  - `2 Kim chí thành`: Chọn một đối tượng; nhận biết tất cả Đặc Điểm tinh thần của đối tượng.
-
-### 11.4. `nghiThucTruTa` — Nghi Thức Trừ Tà
-- **traits**: `hanhDong`, `dinhKy`, `nguHanh`
-- **skillCheck**: Thần Học
-- **difficulty**: 4
-- **range**: Số lượng cá thể tối đa bằng cấp bậc Hành sử dụng, phạm vi tiếp xúc.
-- **usage**: `{ frequency: 'unlimited', maxUses: 1 }`
-- **prerequisites**: `{ skills: { thanHoc: 1 } }`
-- **primaryEffect**: Nhân vật giải trừ trạng thái "Nhiễm Ma" trên cơ thể của đối tượng.
-- **sincerityEffects**:
-  - `1 chí thành`: Nếu một trong các đối tượng là thực thể "Ngoại giới", nhân vật nhận ra (nhưng không biết cụ thể ai).
-  - `1+ chí thành`: +1 số lượng đối tượng mỗi chí thành.
-  - `1+ chí thành`: Chuyển phạm vi thành hình cầu bán kính 2-bộ. +2-bộ mỗi chí thành. Loại bỏ "Nhiễm Tà" của địa hình trong phạm vi 1 ngày (+1 ngày mỗi chí thành).
-
-### 11.5. `hoaDiemChiThuat` — Hỏa Điểm Chỉ Thuật
-- **traits**: `hanhDong`, `congKich`, `hoaHanh`, `hoaKhi`, `hoaTinh`
-- **skillCheck**: Thần Học (Hỏa hành)
-- **difficulty**: 3
-- **range**: 6-bộ, số lượng tối đa = Hỏa hành
-- **duration**: Lập tức
-- **usage**: `{ frequency: 'unlimited', maxUses: 1 }`
-- **prerequisites**: `{ elements: { hoa: 1 }, skills: { thanHoc: 1 } }`
-- **primaryEffect**: Mỗi đối tượng nhận Sát Lực siêu nhiên Hỏa tính bằng cấp bậc Hỏa hành (+1/chí thành).
-- **sincerityEffects**:
-  - `1+ Hỏa chí thành`: Tăng phạm vi tối đa thêm +2-bộ mỗi chí thành.
-
-### 11.6. `hoaKhiQuyen` — Hỏa Khí Quyền
-- **traits**: `hanhDong`, `congKich`, `hoTro`, `hoaHanh`, `hoaTinh`
-- **skillCheck**: Võ Thuật
-- **difficulty**: 2
-- **range**: 1-bộ, 1 đối tượng
-- **duration**: Kết thúc cảnh hiện tại (hoặc kích hoạt Khí thuật khác)
-- **usage**: `{ frequency: 'unlimited', maxUses: 1 }`  *(Khí Thuật Tĩnh: duy trì đến khi đổi khí thuật — không cần counter)*
-- **prerequisites**: `{ elements: { hoa: 1 }, skills: { voThuat: 1 } }`
-- **primaryEffect**:
-  - *Nội Lưu*: Cường hóa quyền cước với Hỏa khí. Võ thuật Hình thể bằng tay/chân có Sát Lực chuyển thành siêu nhiên và tăng bằng cấp bậc Hỏa hành.
-  - *Ngoại Phá*: tiêu hao 3 Hỏa chí thành → gây Sát Lực vật lý bằng cấp bậc Hỏa hành lên đối tượng 1-bộ; đối tượng kiểm tra Thể thuật ĐK 4 (Kim 5, Thủy 2) để không rơi "Hoa mắt".
-
-### 11.7. `maLinhNguyenChu` — Ma Linh Nguyền Chú
-- **traits**: `hanhDong`, `congKich`, `muuKe`, `nguHanh`, `maThuat`, `nguyenChu`
-- **maHoa**: true
-- **skillCheck**: Thần Học (Hành phương bất kỳ)
-- **difficulty**: Cảnh Giác của đối tượng
-- **range**: 1 đối tượng, phạm vi tiếp xúc
-- **usage**: `{ frequency: 'unlimited', maxUses: 1 }`
-- **prerequisites**: `{ skills: { thanHoc: 1 } }`
-- **primaryEffect**: Đối tượng có Hành khắc xuất với Hành của bài xét rơi vào trạng thái "Nhiễm ma". *(Ví dụ: Ma Linh Nguyền Chú (Kim) sẽ khiến Hành Mộc của đối phương "Nhiễm ma".)*
-- **sincerityEffects**:
-  - `1+ chí thành`: Tăng phạm vi lên +1-bộ.
-  - `1+ chí thành`: Ảnh hưởng thêm một đối tượng có Cảnh Giác ≤ đối tượng chính.
-
-### 11.8. `tiemHanhBo` — Tiềm Hành Bộ (Vô Ảnh Bộ)
-- **traits**: `chiThanh`, `kimHanh`
-- **condition**: Nhân vật trong địa hình "Che Phủ", nơi đông người, hoặc các trường hợp khác hỗ trợ khả năng ẩn tránh.
-- **usage**: `{ frequency: 'unlimited', maxUses: 1 }`
-- **prerequisites**: `{ elements: { kim: 1 }, skills: { hacNghiep: 1 } }`
-- **sincerityEffects**:
-  - `1 Kim chí thành`: Nhân vật trở nên "ẩn thân" đối với một đối tượng có Cảnh Giác ≤ cấp độ Hắc Nghiệp của bản thân.
-
----
+**Quy ước:**
+- `id` = tên rulebook bỏ dấu, camelCase, bỏ tiền tố chung khi rõ nghĩa (ví dụ "Hỏa Võ Thức" → `hoaVoThuc`, "Nghi Thức Trừ Tà" → `nghiThucTruTa`). Đổi id = item cũ trên actor mất liên kết catalog → cần migration.
+- Mọi text là tiếng Việt viết thẳng; `xpCost: 3`; không có `prerequisites` (§7.3).
+- Khí Thuật: phần Nội Lưu + Ngoại Phá cùng nằm trong `primaryEffect` (xem §12.1).
+- Entry rulebook chỉ có tiêu đề (chưa có nội dung) vẫn được đưa vào với tên + cấp; entry không có cấp (ví dụ "Nước Động Dưới Ao") hoặc đánh dấu nháp `XXX` bị bỏ qua.
+- Lỗi chính tả / câu cụt trong rulebook được giữ nguyên văn — sửa ở rulebook trước rồi đồng bộ catalog.
 
 ## 12. OPEN QUESTIONS (tracked, not resolved this pass)
 
@@ -418,10 +352,8 @@ Implementation đầu tiên seed 8 entries đại diện cho 7 phân hệ (Võ K
 
 ## 13. OUT OF SCOPE (this pass)
 
-- Full Level-1 catalog transcription (~65 entries còn lại).
-- Levels 2–6 catalog.
-- XP purchase UI + buy flow.
-- Prerequisite HARD enforcement.
+- Levels 3–6 catalog (và các Đặc Quyền trỏ tới Thuật Thức cấp ≥3 — xem `spec_sects_and_factions.md` §5.3).
+- Starter techniques của Hệ Phái lúc tạo nhân vật (bước "Thuật Thức" của Bát Bộ Thành Nhân chưa có logic).
 - Effect auto-resolution (damage/condition application).
 - `choose N` starter clauses.
 - Compendium pack creation / sharing.
@@ -433,5 +365,5 @@ Implementation đầu tiên seed 8 entries đại diện cho 7 phân hệ (Võ K
 
 - `specs/rule_overview.md` §10 — danh sách spec.
 - `specs/spec_character_progression.md` §3.3 — XP cost cho Thuật Thức.
-- `specs/spec_sects_and_factions.md` — Giáo Trình (clan starter curriculum).
+- `specs/spec_sects_and_factions.md` §5.3 — Giáo Trình / Đặc Quyền theo Hệ Phái.
 - `CLAUDE.md` §Architecture — Thuật Thức pipeline entry.

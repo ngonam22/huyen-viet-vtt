@@ -1,4 +1,5 @@
 import type { HvSkillKey } from "../module/helpers/config";
+import type { ThuatThucCategory } from "./thuatThuc";
 import {UpgradeRule} from "./upgrade";
 
 /**
@@ -6,6 +7,13 @@ import {UpgradeRule} from "./upgrade";
  * Key là mã ID của kỹ năng (VD: yDuoc, theThuat), Value là cấp độ kỹ năng tối thiểu yêu cầu.
  */
 export type HePhaiLevelRequirement = Partial<Record<HvSkillKey, number>>;
+
+/**
+ * Một mục Thuật Thức Đặc Quyền: mở 1 thuật thức cụ thể, hoặc cả phân hệ tới cấp `maxLevel`.
+ */
+export type HePhaiPrivilege =
+    | { id: string }
+    | { category: ThuatThucCategory; maxLevel: number };
 
 export type HePhaiInitItem = {
     /** ID string của vật phẩm **/
@@ -53,6 +61,22 @@ export interface HePhai {
      * Khi hệ thống check TotalXP đạt ngưỡng cho Cấp N, nó sẽ gọi progressionReqs[N] để check kỹ năng.
      */
     progressionReqs: Record<number, HePhaiLevelRequirement>;
+
+    /**
+     * 'all' (mặc định): mọi kỹ năng trong progressionReqs[N] phải đạt.
+     * 'any': chỉ cần 1 kỹ năng đạt (vd "Nghệ Đạo bậc N" = kỹ năng bất kỳ nhóm Nghệ Đạo).
+     */
+    progressionReqsMode?: 'all' | 'any';
+
+    /**
+     * Giáo Trình: các phân hệ Thuật Thức được học, cấp thuật thức ≤ cấp Hệ Phái.
+     */
+    curriculum: ThuatThucCategory[];
+
+    /**
+     * Thuật Thức Đặc Quyền theo bậc Hệ Phái (cộng dồn). Bỏ qua giới hạn cấp và Giáo Trình.
+     */
+    privileges?: Record<number, HePhaiPrivilege[]>;
 
     /**
      * Danh sách các vật phẩm được thưởng khi lần đầu chọn hệ phái này

@@ -1,7 +1,7 @@
 /**
  * Cấu hình tham khảo cho 12 Hệ Phái (Thập Nhị Học Viện).
- * Lưu ý: Các field progressionReqs chứa data mẫu, dự kiến được điền đầy đủ
- * các yêu cầu theo đúng chuẩn của Rulebook sau này.
+ * progressionReqs / curriculum / privileges theo rulebook v0.8.4 (Chương 4).
+ * Bậc-6 không có điều kiện kỹ năng — chỉ cần đủ Tu Vi.
  */
 import { HePhai } from "../../../types/hePhai";
 
@@ -26,11 +26,17 @@ export const HE_PHAI: Record<string, HePhai> = {
             }
         ],
         progressionReqs: {
-            2: { yDuoc: 3, theThuat: 1 },
-            3: { yDuoc: 4, theThuat: 2, thanHoc: 1 },
-            4: { yDuoc: 5, theThuat: 3, thanHoc: 2 },
-            5: { yDuoc: 5, theThuat: 4, thanHoc: 4, tamY: 2 },
-            6: { yDuoc: 5, theThuat: 5, thanHoc: 5, tamY: 4 }
+            2: { yDuoc: 2 },
+            3: { yDuoc: 3 },
+            4: { yDuoc: 4 },
+            5: { yDuoc: 5 },
+        },
+        curriculum: ['voKy', 'kyNghe', 'nghiThuc'],
+        privileges: {
+            1: [{ category: 'tamThuat', maxLevel: 1 }, { id: 'dieuDuong' }],
+            // 2: Cường Thể (Cấp-3), Trí Dụng Chi Minh (Cấp-3) — chờ catalog cấp 3
+            3: [{ category: 'tamThuat', maxLevel: 3 }],
+            // 4: Phục Thể (Cấp-5) — chờ catalog cấp 5
         },
         initItems: [
             {id: 'hanh-phuc', quantity: 1},
@@ -60,11 +66,17 @@ export const HE_PHAI: Record<string, HePhai> = {
             }
         ],
         progressionReqs: {
-            2: { binhPhap: 2, lanhDao: 1 },
-            3: { binhPhap: 3, lanhDao: 2, theThuat: 1 },
-            4: { binhPhap: 4, lanhDao: 3, theThuat: 2 },
-            5: { binhPhap: 5, lanhDao: 4, theThuat: 4, renDuc: 2 },
-            6: { binhPhap: 5, lanhDao: 5, theThuat: 5, renDuc: 4 }
+            2: { binhPhap: 2 },
+            3: { binhPhap: 3 },
+            4: { binhPhap: 4 },
+            5: { binhPhap: 5 },
+        },
+        curriculum: ['voKy', 'tamThuat', 'nghiThuc'],
+        privileges: {
+            1: [{ category: 'tamThuat', maxLevel: 2 }],
+            2: [{ category: 'tamThuat', maxLevel: 3 }],
+            3: [{ category: 'tamThuat', maxLevel: 4 }],
+            4: [{ category: 'tamThuat', maxLevel: 5 }],
         },
         initItems: [
             {id: 'hanh-phuc', quantity: 1},
@@ -96,11 +108,18 @@ export const HE_PHAI: Record<string, HePhai> = {
             }
         ],
         progressionReqs: {
-            2: { thanHoc: 2, voThuat: 1 },
-            3: { thanHoc: 3, voThuat: 2, tamY: 1 },
-            4: { thanHoc: 4, voThuat: 3, tamY: 2 },
-            5: { thanHoc: 5, voThuat: 4, tamY: 4, sinhTon: 2 },
-            6: { thanHoc: 5, voThuat: 5, tamY: 5, sinhTon: 4 }
+            2: { thanHoc: 2 },
+            3: { thanHoc: 3 },
+            4: { thanHoc: 4 },
+            5: { thanHoc: 5 },
+        },
+        curriculum: ['voKy', 'linhThuat', 'nghiThuc'],
+        privileges: {
+            1: [{ id: 'phoQuangHoaGiapThuat' }, { id: 'tranMaPhongTaThuat' }],
+            2: [{ category: 'tamThuat', maxLevel: 1 }],
+            // 3: Xích Lôi Thuật (Cấp-4) — chờ catalog cấp 4
+            // 4: Xích Lôi Thiên Hỏa Hóa Khí Đại Thuật (Cấp-5) — chờ catalog cấp 5
+            4: [{ category: 'tamThuat', maxLevel: 2 }],
         },
         initItems: [
             {id: 'giao-bao', quantity: 1},
@@ -130,13 +149,15 @@ export const HE_PHAI: Record<string, HePhai> = {
                 ]
             }
         ],
+        // Rulebook: "Nghệ Đạo bậc N" — chỉ cần 1 kỹ năng nhóm Nghệ Đạo đạt
         progressionReqs: {
-            2: { myThuat: 2, thoiTrang: 1 },
-            3: { myThuat: 3, thoiTrang: 2, bieuDien: 1 },
-            4: { myThuat: 4, thoiTrang: 3, bieuDien: 2 },
-            5: { myThuat: 5, thoiTrang: 4, bieuDien: 4, leDao: 2 },
-            6: { myThuat: 5, thoiTrang: 5, bieuDien: 5, leDao: 4 }
+            2: { myThuat: 2, thoiTrang: 2, bieuDien: 2, renDuc: 2 },
+            3: { myThuat: 3, thoiTrang: 3, bieuDien: 3, renDuc: 3 },
+            4: { myThuat: 4, thoiTrang: 4, bieuDien: 4, renDuc: 4 },
+            5: { myThuat: 5, thoiTrang: 5, bieuDien: 5, renDuc: 5 },
         },
+        progressionReqsMode: 'any',
+        curriculum: ['kyNghe', 'tamThuat', 'nghiThuc'],
         initItems: [
             {id: 'hanh-phuc', quantity: 1},
             {id: 'le-phuc', quantity: 1},
@@ -165,12 +186,12 @@ export const HE_PHAI: Record<string, HePhai> = {
             }
         ],
         progressionReqs: {
-            2: { thienDinh: 2, thanHoc: 1 },
-            3: { thienDinh: 3, thanHoc: 2, tamY: 1 },
-            4: { thienDinh: 4, thanHoc: 3, tamY: 2 },
-            5: { thienDinh: 5, thanHoc: 4, tamY: 4, yDuoc: 2 },
-            6: { thienDinh: 5, thanHoc: 5, tamY: 5, yDuoc: 4 }
+            2: { thanHoc: 2 },
+            3: { thanHoc: 3 },
+            4: { thanHoc: 4 },
+            5: { thanHoc: 5 },
         },
+        curriculum: ['linhThuat', 'tamThuat', 'nghiThuc'],
         initItems: [
             {id: 'hanh-phuc', quantity: 1},
             {id: 'giao-phuc', quantity: 1},
@@ -200,12 +221,12 @@ export const HE_PHAI: Record<string, HePhai> = {
             }
         ],
         progressionReqs: {
-            2: { thuongNghiep: 2, leDao: 1 },
-            3: { thuongNghiep: 3, leDao: 2, xaHoi: 1 },
-            4: { thuongNghiep: 4, leDao: 3, xaHoi: 2 },
-            5: { thuongNghiep: 5, leDao: 4, xaHoi: 4, vanTu: 2 },
-            6: { thuongNghiep: 5, leDao: 5, xaHoi: 5, vanTu: 4 }
+            2: { thuongNghiep: 2 },
+            3: { thuongNghiep: 3 },
+            4: { thuongNghiep: 4 },
+            5: { thuongNghiep: 5 },
         },
+        curriculum: ['voKy', 'tamThuat', 'nghiThuc'],
         initItems: [
             {id: 'hanh-phuc', quantity: 1},
             {id: 'le-phuc', quantity: 1},
@@ -236,12 +257,12 @@ export const HE_PHAI: Record<string, HePhai> = {
             }
         ],
         progressionReqs: {
-            2: { theThuat: 2, sinhTon: 1 },
-            3: { theThuat: 3, sinhTon: 2, voThuat: 1 },
-            4: { theThuat: 4, sinhTon: 3, voThuat: 2 },
-            5: { theThuat: 5, sinhTon: 4, voThuat: 4, binhPhap: 2 },
-            6: { theThuat: 5, sinhTon: 5, voThuat: 5, binhPhap: 4 }
+            2: { sinhTon: 2 },
+            3: { sinhTon: 3 },
+            4: { sinhTon: 4 },
+            5: { sinhTon: 5 },
         },
+        curriculum: ['voKy', 'tamThuat'],
         initItems: [
             {id: 'hanh-phuc', quantity: 1},
             {id: 'viet-kiem', quantity: 1},
@@ -272,12 +293,12 @@ export const HE_PHAI: Record<string, HePhai> = {
             }
         ],
         progressionReqs: {
-            2: { renDuc: 2, theThuat: 1 },
-            3: { renDuc: 3, theThuat: 2, laoDong: 1 },
-            4: { renDuc: 4, theThuat: 3, laoDong: 2 },
-            5: { renDuc: 5, theThuat: 4, laoDong: 4, thuongNghiep: 2 },
-            6: { renDuc: 5, theThuat: 5, laoDong: 5, thuongNghiep: 4 }
+            2: { renDuc: 2 },
+            3: { renDuc: 3 },
+            4: { renDuc: 4 },
+            5: { renDuc: 5 },
         },
+        curriculum: ['kyNghe', 'voKy', 'nghiThuc'],
         initItems: [
             {id: 'hanh-phuc', quantity: 1},
             {id: 'viet-kiem', quantity: 1},
@@ -307,12 +328,12 @@ export const HE_PHAI: Record<string, HePhai> = {
             }
         ],
         progressionReqs: {
-            2: { sinhTon: 2, theThuat: 1 },
-            3: { sinhTon: 3, theThuat: 2, voThuat: 1 },
-            4: { sinhTon: 4, theThuat: 3, voThuat: 2 },
-            5: { sinhTon: 5, theThuat: 4, voThuat: 4, thienDinh: 2 },
-            6: { sinhTon: 5, theThuat: 5, voThuat: 5, thienDinh: 4 }
+            2: { thanHoc: 2 },
+            3: { thanHoc: 3 },
+            4: { thanHoc: 4 },
+            5: { thanHoc: 5 },
         },
+        curriculum: ['linhThuat', 'tamThuat', 'nghiThuc'],
         initItems: [
             {id: 'hanh-phuc', quantity: 1},
             {id: 'viet-kiem', quantity: 1},
@@ -343,12 +364,12 @@ export const HE_PHAI: Record<string, HePhai> = {
             }
         ],
         progressionReqs: {
-            2: { chinhTri: 2, vanTu: 1 },
-            3: { chinhTri: 3, vanTu: 2, lanhDao: 1 },
-            4: { chinhTri: 4, vanTu: 3, lanhDao: 2 },
-            5: { chinhTri: 5, vanTu: 4, lanhDao: 4, leDao: 2 },
-            6: { chinhTri: 5, vanTu: 5, lanhDao: 5, leDao: 4 }
+            2: { chinhTri: 2 },
+            3: { chinhTri: 3 },
+            4: { chinhTri: 4 },
+            5: { chinhTri: 5 },
         },
+        curriculum: ['tamThuat', 'voKy', 'nghiThuc'],
         initItems: [
             {id: 'hanh-phuc', quantity: 1},
             {id: 'le-phuc', quantity: 1},
@@ -378,12 +399,12 @@ export const HE_PHAI: Record<string, HePhai> = {
             }
         ],
         progressionReqs: {
-            2: { hacNghiep: 2, tamY: 1 },
-            3: { hacNghiep: 3, tamY: 2, chinhTri: 1 },
-            4: { hacNghiep: 4, tamY: 3, chinhTri: 2 },
-            5: { hacNghiep: 5, tamY: 4, chinhTri: 4, voThuat: 2 },
-            6: { hacNghiep: 5, tamY: 5, chinhTri: 5, voThuat: 4 }
+            2: { vanTu: 2 },
+            3: { vanTu: 3 },
+            4: { vanTu: 4 },
+            5: { vanTu: 5 },
         },
+        curriculum: ['voKy', 'tamThuat'],
         initItems: [
             {id: 'hanh-phuc', quantity: 1},
             {id: 'le-phuc', quantity: 1},
@@ -414,12 +435,12 @@ export const HE_PHAI: Record<string, HePhai> = {
             }
         ],
         progressionReqs: {
-            2: { voThuat: 2, theThuat: 1 },
-            3: { voThuat: 3, theThuat: 2, sinhTon: 1 },
-            4: { voThuat: 4, theThuat: 3, sinhTon: 2 },
-            5: { voThuat: 5, theThuat: 4, sinhTon: 4, lanhDao: 2 },
-            6: { voThuat: 5, theThuat: 5, sinhTon: 5, lanhDao: 4 }
+            2: { theThuat: 2 },
+            3: { theThuat: 3 },
+            4: { theThuat: 4 },
+            5: { theThuat: 5 },
         },
+        curriculum: ['voKy', 'tamThuat'],
         initItems: [
             {id: 'hanh-phuc', quantity: 1},
             {id: 'viet-kiem', quantity: 1},

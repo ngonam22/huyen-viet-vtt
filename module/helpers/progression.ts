@@ -25,7 +25,7 @@ import {
     isElementKey,
     isSkillKey,
 } from "./config";
-import { getThuatThucById, learnThuatThuc } from "./thuatThuc";
+import { getThuatThucById, isThuatThucUnlocked, learnThuatThuc } from "./thuatThuc";
 
 function appendXpUpgrade(
     upgrades: AppliedUpgrade[] | undefined,
@@ -220,7 +220,7 @@ export async function upgradeSkill(actor: Actor, skillKey: HvSkillKey): Promise<
 /**
  * Mua Thuật Thức bằng XP (HARD CHECK prerequisites).
  *
- * - Kiểm tra prerequisites (element + skill requirements).
+ * - Kiểm tra Giáo Trình / Đặc Quyền Hệ Phái + prerequisites (element + skill requirements).
  * - Trừ 3 XP → tạo item `source='xp'`.
  * - Ghi changelog.
  */
@@ -235,6 +235,12 @@ export async function learnThuatThucWithXp(
 
     const system = (actor as any).system;
     const cost = entry.xpCost ?? THUAT_THUC_XP_COST_DEFAULT;
+
+    // HARD CHECK: Giáo Trình / Đặc Quyền của Hệ Phái
+    if (!isThuatThucUnlocked(actor, entry)) {
+        ui.notifications?.warn(`Hệ Phái chưa mở Thuật Thức "${entry.name}" ở cấp hiện tại.`);
+        return false;
+    }
 
     // Validate XP
     const currentXp: number = system.progression.currentXp;
@@ -313,9 +319,8 @@ export async function learnThuatThucWithXp(
  * Flow:
  * 1. Đọc monPhaiId từ identity
  * 2. Tính targetLevel từ totalXp
- * 3. So sánh với currentSectLevel
- * 4. Check progressionReqs (kỹ năng requirements)
- * 5. Auto-upgrade nếu đủ
+ * 3. Lên từng bậc từ currentSectLevel tới targetLevel, mỗi bậc check progressionReqs
+ * 4. Auto-upgrade tới bậc cao nhất đạt được
  */
 export async function checkSectUpgrade(actor: Actor): Promise<void> {
     const system = (actor as any).system;
@@ -334,46 +339,41 @@ export async function checkSectUpgrade(actor: Actor): Promise<void> {
 
     // 3. Đọc currentSectLevel
     const currentSectLevel: number = system.attributes?.level?.value ?? 1;
-    if (targetLevel <= currentSectLevel) {
-        return; // Chưa đủ XP để lên cấp mới
-    }
 
-    // 4. Lấy requirements cho targetLevel
-    const requirements = sect.progressionReqs[targetLevel];
-    if (!requirements) {
-        return; // Không có yêu cầu cho cấp này
-    }
-
-    // 5. Kiểm tra từng kỹ năng
-    for (const [skillKey, requiredLevel] of Object.entries(requirements)) {
-        const actorSkillLevel: number = system.skills[skillKey] ?? 0;
-        if (actorSkillLevel < (requiredLevel as number)) {
-            // FAIL — Pending. Sẽ re-check khi player nâng kỹ năng hoặc nhận XP
-            console.log(
-                `[HuyenViet] Sect upgrade pending: ${monPhaiId} cấp ${targetLevel} — ` +
-                `${skillKey} cần ${requiredLevel}, hiện có ${actorSkillLevel}`
-            );
-            return;
+    // 4. Lên từng bậc một: bậc N cần đủ Tu Vi AND đạt progressionReqs[N].
+    //    Dừng ở bậc đầu tiên chưa đạt (Pending — re-check khi nâng kỹ năng hoặc nhận XP).
+    let newLevel = currentSectLevel;
+    while (newLevel < targetLevel) {
+        const requirements = Object.entries(sect.progressionReqs[newLevel + 1] ?? {});
+        const meets = ([skillKey, requiredLevel]: [string, unknown]) =>
+            (system.skills[skillKey] ?? 0) >= (requiredLevel as number);
+        const passed = requirements.length === 0 ||
+            (sect.progressionReqsMode === "any" ? requirements.some(meets) : requirements.every(meets));
+        if (!passed) {
+            console.log(`[HuyenViet] Sect upgrade pending: ${monPhaiId} cấp ${newLevel + 1}`, requirements);
+            break;
         }
+        newLevel++;
     }
+    if (newLevel === currentSectLevel) return;
 
-    // 6. TẤT CẢ kỹ năng ĐỦ → Auto-upgrade
+    // 5. Auto-upgrade
     const oldLevel = currentSectLevel;
     await actor.update({
-        "system.attributes.level.value": targetLevel,
+        "system.attributes.level.value": newLevel,
     });
 
     // Log
     await addChangelogEntry(actor, {
         type: "sect_upgrade",
-        label: `Đặc Kỹ ${sect.ten}: ${oldLevel} → ${targetLevel}`,
+        label: `Đặc Kỹ ${sect.ten}: ${oldLevel} → ${newLevel}`,
         field: "attributes.level",
         from: oldLevel,
-        to: targetLevel,
+        to: newLevel,
         xpCost: 0,
     });
 
-    ui.notifications?.info(`🏛️ Đặc Kỹ Hệ Phái thăng cấp lên ${targetLevel}!`);
+    ui.notifications?.info(`🏛️ Đặc Kỹ Hệ Phái thăng cấp lên ${newLevel}!`);
 }
 
 /* ------------------------------------------------------------------ */

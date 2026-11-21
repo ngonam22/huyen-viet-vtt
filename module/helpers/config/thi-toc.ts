@@ -90,7 +90,7 @@ export const THI_TOC: ThiToc[] = [
                 ]
             }
         ],
-        starterTechniques: ['tiemHanhBo', 'themDoanNangLuc']
+        starterTechniques: ['tiemHanhBo', 'thamDoanNangLuc']
     },
     {
         ten: 'BOILERPLATE.ThiToc.meo.label',
@@ -207,7 +207,7 @@ export const THI_TOC: ThiToc[] = [
                 ]
             }
         ],
-        starterTechniques: ['hoaKhiThuc', 'hoaKhiQuyen']
+        starterTechniques: ['hoaVoThuc', 'hoaKhiQuyen']
     },
     {
         ten: 'BOILERPLATE.ThiToc.de.label',

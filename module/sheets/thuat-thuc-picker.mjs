@@ -3,14 +3,15 @@ import {
     THUAT_THUC_CATEGORIES,
     ELEMENT_KEYS,
 } from '../helpers/config.ts';
-import { learnThuatThuc } from '../helpers/thuatThuc.ts';
+import { learnThuatThuc, isThuatThucUnlocked } from '../helpers/thuatThuc.ts';
+import { learnThuatThucWithXp } from '../helpers/progression.ts';
 
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 
 /**
  * Thuật Thức picker — see specs/spec_thuat_thuc.md §9.4.
- * Lists catalog entries with live filters; selecting one adds it to the actor
- * as a manual-source item (no XP cost, no prerequisite block).
+ * Lists catalog entries unlocked by the actor's Hệ Phái (Giáo Trình + Đặc Quyền);
+ * "Học" spends Tu Vi (source='xp'). GM may show all and add free (source='manual').
  */
 export class ThuatThucPicker extends HandlebarsApplicationMixin(ApplicationV2) {
     static DEFAULT_OPTIONS = {
@@ -40,6 +41,7 @@ export class ThuatThucPicker extends HandlebarsApplicationMixin(ApplicationV2) {
             category: '',
             level: '',
             element: '',
+            showAll: false,
         };
     }
 
@@ -55,7 +57,12 @@ export class ThuatThucPicker extends HandlebarsApplicationMixin(ApplicationV2) {
         const levels = [1, 2, 3, 4, 5, 6];
 
         const q = this.filters.q?.toLowerCase() ?? '';
+        const isGM = game.user.isGM;
+        const learned = new Set(
+            this.actor.items.filter((i) => i.type === 'thuatThuc').map((i) => i.system.techniqueId)
+        );
         const filtered = THUAT_THUC.filter((entry) => {
+            if (!(isGM && this.filters.showAll) && !isThuatThucUnlocked(this.actor, entry)) return false;
             if (this.filters.category && entry.category !== this.filters.category) return false;
             if (this.filters.level && entry.level !== Number(this.filters.level)) return false;
             if (this.filters.element && entry.element !== this.filters.element) return false;
@@ -82,7 +89,12 @@ export class ThuatThucPicker extends HandlebarsApplicationMixin(ApplicationV2) {
                     if ((actorSkills[k] ?? 0) < v) { prereqWarning = true; break; }
                 }
             }
-            return { entry, prereqWarning };
+            return {
+                entry,
+                prereqWarning,
+                locked: !isThuatThucUnlocked(this.actor, entry),
+                learned: learned.has(entry.id),
+            };
         });
 
         return {
@@ -91,6 +103,8 @@ export class ThuatThucPicker extends HandlebarsApplicationMixin(ApplicationV2) {
             levels,
             elements: ELEMENT_KEYS,
             results,
+            isGM,
+            currentXp: this.actor.system?.progression?.currentXp ?? 0,
         };
     }
 
@@ -99,12 +113,12 @@ export class ThuatThucPicker extends HandlebarsApplicationMixin(ApplicationV2) {
 
         const el = this.element;
 
-        for (const name of ['q', 'category', 'level', 'element']) {
+        for (const name of ['q', 'category', 'level', 'element', 'showAll']) {
             const input = el.querySelector(`[name="${name}"]`);
             if (!input) continue;
-            const evt = input.tagName === 'SELECT' ? 'change' : 'input';
+            const evt = input.tagName === 'SELECT' || input.type === 'checkbox' ? 'change' : 'input';
             input.addEventListener(evt, () => {
-                this.filters[name] = input.value;
+                this.filters[name] = input.type === 'checkbox' ? input.checked : input.value;
                 this.render();
             });
         }
@@ -115,7 +129,17 @@ export class ThuatThucPicker extends HandlebarsApplicationMixin(ApplicationV2) {
                 const id = btn.dataset.techniqueId;
                 if (!id) return;
                 await learnThuatThuc(this.actor, id, 'manual');
-                this.close();
+                this.render();
+            });
+        });
+
+        el.querySelectorAll('[data-action="learnThuatThucXp"]').forEach((btn) => {
+            btn.addEventListener('click', async (e) => {
+                e.preventDefault();
+                const id = btn.dataset.techniqueId;
+                if (!id) return;
+                await learnThuatThucWithXp(this.actor, id);
+                this.render();
             });
         });
     }

@@ -29,6 +29,13 @@
         </option>
       {{/each}}
     </select>
+    <span class='picker-xp'>{{localize 'BOILERPLATE.ThuatThuc.currentXp'}}: {{currentXp}}</span>
+    {{#if isGM}}
+      <label class='picker-show-all'>
+        <input type='checkbox' name='showAll' {{#if filters.showAll}}checked{{/if}} />
+        {{localize 'BOILERPLATE.ThuatThuc.showAll'}}
+      </label>
+    {{/if}}
   </header>
 
   <ol class='picker-list'>
@@ -42,15 +49,31 @@
             {{#if row.entry.element}}
               <span class='badge badge-{{row.entry.element}}'>{{localize (concat 'BOILERPLATE.Element.' row.entry.element '.label')}}</span>
             {{/if}}
+            {{#if row.locked}}
+              <span class='badge badge-warn' data-tooltip='{{localize "BOILERPLATE.ThuatThuc.locked"}}'>🔒</span>
+            {{/if}}
             {{#if row.prereqWarning}}
               <span class='badge badge-warn' data-tooltip='{{localize "BOILERPLATE.ThuatThuc.prereqWarning"}}'>⚠</span>
             {{/if}}
           </div>
         </div>
         <div class='picker-actions'>
-          <button type='button' data-action='pickThuatThuc' data-technique-id='{{row.entry.id}}'>
-            {{localize 'BOILERPLATE.ThuatThuc.add'}}
-          </button>
+          {{#if row.learned}}
+            <span class='badge'>{{localize 'BOILERPLATE.ThuatThuc.learned'}}</span>
+          {{else}}
+            {{#unless row.locked}}
+              <button type='button' data-action='learnThuatThucXp' data-technique-id='{{row.entry.id}}'
+                {{#if (lt ../currentXp row.entry.xpCost)}}disabled{{/if}}>
+                {{localize 'BOILERPLATE.ThuatThuc.learnXp'}} ({{row.entry.xpCost}})
+              </button>
+            {{/unless}}
+            {{#if ../isGM}}
+              <button type='button' data-action='pickThuatThuc' data-technique-id='{{row.entry.id}}'
+                data-tooltip='{{localize "BOILERPLATE.ThuatThuc.addFreeHint"}}'>
+                {{localize 'BOILERPLATE.ThuatThuc.add'}}
+              </button>
+            {{/if}}
+          {{/if}}
         </div>
       </li>
     {{else}}

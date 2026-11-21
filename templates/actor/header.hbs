@@ -65,7 +65,7 @@
 
                 <div class='sheet-panel__content resources grid-span-2 self-start'>
 
-                    <div class="tw:grid tw:grid-cols-3 tw:items-start">
+                    <div class="tw:grid tw:grid-cols-3 tw:items-start tw:gap-x-3">
                         <div class="resource tw:text-center">
                             <img class='profile-img tw:mx-auto' src='{{actor.img}}' data-edit='img'
                                 data-action='onEditImage' data-tooltip='{{actor.name}}' height='160' width='160' />
@@ -182,6 +182,52 @@
                                         {{#each giaCanhOptions as |option|}}
                                         <option value="{{option.id}}" {{#if option.selected}}selected{{/if}}>
                                             {{localize option.ten }}
+                                        </option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class='resource'>
+                                <label for='hv-nhan-pham-select' class='resource-label'>
+                                    Nhân Phẩm
+                                    <span class="hv-ticks {{#if editable}}is-editable{{/if}}">
+                                        {{#each nhanPhamTicks as |tick|}}
+                                        <a class="hv-tick {{#if tick.filled}}is-filled{{/if}}"
+                                            {{#if ../editable}}data-action="setTick"{{/if}}
+                                            data-field="system.nhanPhamTick" data-value="{{tick.value}}"></a>
+                                        {{/each}}
+                                    </span>
+                                </label>
+                                <div class='resource-content flexrow flex-center flex-between'>
+                                    <select id="hv-nhan-pham-select" name="system.nhanPham" data-dtype="Number"
+                                        {{#unless editable}}disabled{{/unless}}>
+                                        {{#each nhanPhamOptions as |option|}}
+                                        <option value="{{option.value}}" {{#if option.selected}}selected{{/if}}>
+                                            {{option.label}}
+                                        </option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class='resource'>
+                                <label for='hv-danh-tieng-select' class='resource-label'>
+                                    Danh Tiếng
+                                    <span class="hv-ticks {{#if editable}}is-editable{{/if}}">
+                                        {{#each danhTiengTicks as |tick|}}
+                                        <a class="hv-tick {{#if tick.filled}}is-filled{{/if}}"
+                                            {{#if ../editable}}data-action="setTick"{{/if}}
+                                            data-field="system.danhTiengTick" data-value="{{tick.value}}"></a>
+                                        {{/each}}
+                                    </span>
+                                </label>
+                                <div class='resource-content flexrow flex-center flex-between'>
+                                    <select id="hv-danh-tieng-select" name="system.danhTieng" data-dtype="Number"
+                                        {{#unless editable}}disabled{{/unless}}>
+                                        {{#each danhTiengOptions as |option|}}
+                                        <option value="{{option.value}}" {{#if option.selected}}selected{{/if}}>
+                                            {{option.label}}
                                         </option>
                                         {{/each}}
                                     </select>

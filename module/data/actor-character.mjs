@@ -171,6 +171,14 @@ export default class BoilerplateCharacter extends BoilerplateActorBase {
       // Bậc Tài Phú (tài lực trừu tượng) 0–9
       taiPhu: intField(0, 0, 9),
 
+      // Nhân Phẩm / Danh Tiếng -5..5, xem NHAN_PHAM / DANH_TIENG trong config
+      nhanPham: intField(0, -5, 5),
+      // Số tick tiến độ Nhân Phẩm 0..4 (hiển thị dạng rating cạnh label)
+      nhanPhamTick: intField(0, 0, 4),
+      danhTieng: intField(0, -5, 5),
+      // Số tick tiến độ Danh Tiếng 0..4 (hiển thị dạng rating cạnh label)
+      danhTiengTick: intField(0, 0, 4),
+
       currency: new fields.SchemaField({
         quan: intField(0, 0, 999999),
         tien: intField(0, 0, 999999),
