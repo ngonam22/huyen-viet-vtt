@@ -25,7 +25,13 @@ import {
     isElementKey,
     isSkillKey,
 } from "./config";
-import { getThuatThucById, isThuatThucUnlocked, learnThuatThuc } from "./thuatThuc";
+import {
+    getSectStarterRemaining,
+    getThuatThucById,
+    isSectStarterEligible,
+    isThuatThucUnlocked,
+    learnThuatThuc,
+} from "./thuatThuc";
 
 function appendXpUpgrade(
     upgrades: AppliedUpgrade[] | undefined,
@@ -306,6 +312,43 @@ export async function learnThuatThucWithXp(
         xpCost: cost,
     });
 
+    return true;
+}
+
+/**
+ * Chọn 1 Thuật Thức Nhập Môn (miễn phí): cấp-1 trong Giáo Trình, tối đa SECT_STARTER_SLOTS.
+ * Tạo item `source='sect'` + changelog (xpCost 0).
+ */
+export async function learnSectStarterTechnique(actor: Actor, techniqueId: string): Promise<boolean> {
+    const entry = getThuatThucById(techniqueId);
+    if (!entry) {
+        throw new Error(`Không tìm thấy Thuật Thức với id="${techniqueId}"`);
+    }
+    if (getSectStarterRemaining(actor) <= 0) {
+        ui.notifications?.warn("Đã dùng hết lượt chọn Thuật Thức Nhập Môn.");
+        return false;
+    }
+    if (!isSectStarterEligible(actor, entry)) {
+        ui.notifications?.warn(`"${entry.name}" không thuộc Thuật Thức cấp-1 trong Giáo Trình.`);
+        return false;
+    }
+    const existing = actor.items.find(
+        (i) => (i.type as string) === "thuatThuc" && (i as any).system?.techniqueId === techniqueId
+    );
+    if (existing) {
+        ui.notifications?.warn(`Nhân vật đã có Thuật Thức "${entry.name}".`);
+        return false;
+    }
+
+    await learnThuatThuc(actor, techniqueId, "sect");
+    await addChangelogEntry(actor, {
+        type: "technique_learned",
+        label: `Nhập Môn: ${entry.name}`,
+        field: `thuatThuc.${techniqueId}`,
+        from: null,
+        to: techniqueId,
+        xpCost: 0,
+    });
     return true;
 }
 

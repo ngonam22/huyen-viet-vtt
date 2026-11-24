@@ -64,7 +64,7 @@ export type UsageFrequency =
     | "perCampaign"
     | "perOpportunity";
 
-export type ThuatThucSource = "clan" | "xp" | "manual";
+export type ThuatThucSource = "clan" | "sect" | "xp" | "manual";
 
 export interface UsageSpec {
     frequency: UsageFrequency;

@@ -1,0 +1,588 @@
+/* ================================================
+ *  Thuật Thức Picker — "Tàng Kinh Các"
+ *  Parchment board + technique cards (spec_thuat_thuc §9.4)
+ * ================================================ */
+
+.hv-tt-picker {
+  $ink: #1a1209;
+  $ink-soft: #5b4a35;
+  $bronze: #ad9c83;
+  $gold: #d4a843;
+  $bordeaux: #7b1b38;
+
+  .window-content {
+    padding: 0;
+    overflow: hidden;
+    background: transparent url("/systems/huyen-viet-vtt/assets/thang-cap/content-bar.png") no-repeat top left;
+    background-size: 100% 100%;
+  }
+
+  .tt-picker {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    color: $ink;
+    font-family: $font-serif;
+  }
+
+  /* ── Head ── */
+  .tt-picker__head {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 24px 10px;
+    border-bottom: 1px solid rgba($bronze, 0.7);
+  }
+
+  .tt-picker__titles {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .tt-picker__title {
+    margin: 0;
+    border: none;
+    font-family: $font-heading;
+    font-size: 34px;
+    font-weight: 400;
+    letter-spacing: 1.5px;
+    color: #36312a;
+  }
+
+  .tt-picker__subtitle {
+    margin: 2px 0 0;
+    font-size: 15px;
+    color: $ink-soft;
+  }
+
+  // Ví Tu Vi: icon + nhãn/số in trên nền giấy, ngăn với tiêu đề bằng 1 nét bronze
+  .tt-picker__purse {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 0 0 auto;
+    padding: 2px 0 2px 18px;
+    border-left: 1px solid rgba($bronze, 0.8);
+  }
+
+  .tt-picker__purse-icon {
+    width: 34px;
+    height: 34px;
+    border: none;
+    object-fit: contain;
+  }
+
+  .tt-picker__purse-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+
+  .tt-picker__purse-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: $ink-soft;
+  }
+
+  .tt-picker__purse-value {
+    margin-top: 3px;
+    font-family: $font-serif;
+    font-size: 26px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: $ink;
+
+    small {
+      margin-left: 1px;
+      font-size: 15px;
+      font-weight: 600;
+      color: $ink-soft;
+    }
+  }
+
+  /* ── Filters ──
+     Shape rule: chip / search / select trigger = pill; card / button / menu = 4px. */
+  .tt-picker__filters {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px 24px;
+    border-bottom: 1px solid rgba($bronze, 0.5);
+  }
+
+  .tt-picker__filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 12px;
+    min-height: 30px;
+  }
+
+  // Độ rộng cố định → chip / checkbox đổi số lượng không kéo giãn ô tìm kiếm
+  .tt-picker__search {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex: 0 0 240px;
+    height: 30px;
+    padding: 0 12px;
+    border: 1px solid $bronze;
+    border-radius: 999px;
+    background: rgba(255, 252, 240, 0.55);
+    color: $ink-soft;
+
+    &:focus-within {
+      border-color: $bordeaux;
+    }
+
+    input {
+      flex: 1;
+      min-width: 0;
+      height: 28px;
+      padding: 0;
+      border: none;
+      background: transparent;
+      color: $ink;
+      font-family: $font-serif;
+      font-size: 15px;
+      box-shadow: none;
+
+      &:focus {
+        outline: none;
+        box-shadow: none;
+      }
+    }
+  }
+
+  .tt-picker__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .tt-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    width: auto;
+    height: 28px;
+    margin: 0;
+    padding: 0 12px;
+    border: 1px solid $bronze;
+    border-radius: 999px;
+    background: rgba(255, 252, 240, 0.4);
+    color: $ink-soft;
+    font-family: $font-serif;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1;
+    cursor: pointer;
+    transition: border-color 0.15s, background-color 0.15s, color 0.15s;
+
+    &:hover {
+      border-color: $ink-soft;
+      color: $ink;
+      box-shadow: none;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $bordeaux;
+      outline-offset: 1px;
+    }
+
+    &.is-active {
+      border-color: $bordeaux;
+      background: $bordeaux;
+      color: #fbf3df;
+    }
+
+    &--element {
+      padding-left: 6px;
+
+      img {
+        width: 18px;
+        height: 18px;
+        border: none;
+        object-fit: contain;
+      }
+    }
+  }
+
+  /* Multi-select cấp (details/summary) */
+  .tt-select {
+    position: relative;
+
+    // Rộng cố định → đổi lựa chọn ("Mọi cấp" ↔ "1, 2") không đẩy layout
+    &__trigger {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      width: 140px;
+      height: 28px;
+      padding: 0 12px;
+      border: 1px solid $bronze;
+      border-radius: 999px;
+      background: rgba(255, 252, 240, 0.4);
+      color: $ink-soft;
+      font-size: 13px;
+      font-weight: 600;
+      white-space: nowrap;
+      list-style: none;
+      cursor: pointer;
+
+      &::-webkit-details-marker {
+        display: none;
+      }
+
+      &:hover {
+        border-color: $ink-soft;
+        color: $ink;
+      }
+
+      &.is-active {
+        border-color: $bordeaux;
+        color: $bordeaux;
+      }
+
+      span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      i {
+        flex: 0 0 auto;
+        font-size: 10px;
+        transition: transform 0.15s;
+      }
+    }
+
+    &[open] &__trigger i {
+      transform: rotate(180deg);
+    }
+
+    &__menu {
+      position: absolute;
+      top: calc(100% + 4px);
+      right: 0;
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+      width: 140px;
+      padding: 4px;
+      border: 1px solid $bronze;
+      border-radius: 4px;
+      background: #f3ead6;
+      box-shadow: 0 6px 18px rgba(40, 25, 10, 0.3);
+    }
+
+    &__option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 8px;
+      border-radius: 4px;
+      font-size: 14px;
+      color: $ink;
+      cursor: pointer;
+
+      &:hover {
+        background: rgba($bronze, 0.25);
+      }
+
+      input {
+        margin: 0;
+        accent-color: $bordeaux;
+      }
+    }
+
+    &__clear {
+      width: auto;
+      height: 26px;
+      margin: 4px 0 0;
+      border: none;
+      border-top: 1px solid rgba($bronze, 0.6);
+      border-radius: 0;
+      background: transparent;
+      color: $bordeaux;
+      font-size: 13px;
+      cursor: pointer;
+
+      &:hover {
+        box-shadow: none;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .tt-picker__showall {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
+    font-size: 13px;
+    color: $ink-soft;
+    cursor: pointer;
+
+    input {
+      margin: 0;
+      accent-color: $bordeaux;
+    }
+  }
+
+  /* ── Grid ── */
+  .tt-picker__grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    align-content: start;
+    gap: 14px;
+    padding: 16px 24px 24px;
+    overflow-y: auto;
+    margin-bottom: 15px;
+  }
+
+  .tt-picker__empty {
+    grid-column: 1 / -1;
+    padding: 40px 0;
+    text-align: center;
+    font-style: italic;
+    color: $ink-soft;
+  }
+
+  /* ── Card ── */
+  .tt-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 14px 16px 12px;
+    background: transparent url("/systems/huyen-viet-vtt/assets/thang-cap/card-bg.png") no-repeat top left;
+    background-size: 100% 100%;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(40, 25, 10, 0.25);
+    transition: transform 0.15s, box-shadow 0.15s;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(40, 25, 10, 0.35);
+    }
+
+    &[hidden] {
+      display: none;
+    }
+
+    &.is-locked {
+      filter: grayscale(0.8);
+      opacity: 0.6;
+    }
+
+    &.is-learned {
+      opacity: 0.75;
+    }
+  }
+
+  .tt-card__head {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .tt-card__level {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    margin-top: 1px;
+    border: 1px solid rgba($gold, 0.9);
+    border-radius: 50%;
+    background: $bordeaux;
+    color: #fbe9b7;
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .tt-card__name {
+    flex: 1;
+    min-width: 0;
+
+    h3 {
+      margin: 0 0 2px;
+      border: none;
+      font-family: $font-serif;
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1.2;
+      color: $ink;
+    }
+  }
+
+  .tt-card__kind {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: $ink-soft;
+  }
+
+  .tt-card__element {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+
+    img {
+      width: 15px;
+      height: 15px;
+      border: none;
+      object-fit: contain;
+    }
+  }
+
+  .tt-card__mahoa {
+    color: $bordeaux;
+  }
+
+  .tt-card__traits {
+    margin: 0;
+    font-size: 13px;
+    font-style: italic;
+    color: $ink-soft;
+  }
+
+  .tt-card__meta {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 2px 10px;
+    margin: 0;
+    padding: 6px 0;
+    border-top: 1px solid rgba($bronze, 0.5);
+    border-bottom: 1px solid rgba($bronze, 0.5);
+    font-size: 13px;
+
+    &:empty {
+      display: none;
+    }
+
+    dt {
+      font-weight: 700;
+      color: $ink-soft;
+    }
+
+    dd {
+      margin: 0;
+      color: $ink;
+    }
+  }
+
+  .tt-card__summary {
+    display: -webkit-box;
+    margin: 0;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #2e2418;
+  }
+
+  .tt-card__detail {
+    font-size: 13px;
+
+    summary {
+      color: $bordeaux;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    h4 {
+      margin: 6px 0 2px;
+      border: none;
+      font-size: 13px;
+      color: $ink-soft;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 16px;
+    }
+  }
+
+  .tt-card__foot {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+    margin-top: auto;
+    padding-top: 4px;
+  }
+
+  .tt-card__lock {
+    font-size: 12px;
+    font-style: italic;
+    color: $ink-soft;
+  }
+
+  .tt-btn-seal {
+    width: auto;
+    height: 30px;
+    margin: 0;
+    padding: 0 14px;
+    border: 1px solid rgba($gold, 0.7);
+    border-radius: 4px;
+    background: linear-gradient(180deg, #932846, $bordeaux);
+    color: #fbf0d4;
+    font-family: $font-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    transition: all 0.15s;
+
+    &:hover:not(:disabled) {
+      box-shadow: 0 0 10px rgba($gold, 0.45);
+      transform: translateY(-1px);
+    }
+
+    &:disabled {
+      filter: grayscale(0.9);
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  .tt-btn-ghost {
+    width: 30px;
+    height: 30px;
+    margin: 0;
+    padding: 0;
+    border: 1px dashed $ink-soft;
+    border-radius: 4px;
+    background: transparent;
+    color: $ink-soft;
+    cursor: pointer;
+
+    &:hover {
+      border-style: solid;
+      color: $ink;
+      box-shadow: none;
+    }
+  }
+
+  .tt-stamp {
+    padding: 2px 10px;
+    border: 2px solid $bordeaux;
+    border-radius: 4px;
+    color: $bordeaux;
+    font-family: $font-heading;
+    font-size: 15px;
+    letter-spacing: 1px;
+    transform: rotate(-6deg);
+    opacity: 0.85;
+  }
+}

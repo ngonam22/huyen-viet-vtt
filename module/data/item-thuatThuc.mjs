@@ -23,7 +23,7 @@ export default class HvThuatThuc extends BoilerplateItemBase {
 
         schema.source = new f.StringField({
             required: true,
-            choices: ['clan', 'xp', 'manual'],
+            choices: ['clan', 'sect', 'xp', 'manual'],
             initial: 'manual',
         });
 

@@ -32,6 +32,105 @@
     }
   }
 
+  /* Hệ Phái: 1 dòng định danh + nhóm "Chờ Lĩnh Ngộ" dùng chung row với Thuật Thức đã học
+     (spec_thuat_thuc §9.1) */
+  .tt-sect-line {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 2px 10px;
+    margin: 0 0 0.6rem;
+    padding: 0 2px 6px;
+    border-bottom: 1px solid rgba(173, 156, 131, 0.45);
+
+    &__name {
+      font-family: $font-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+
+    &__level {
+      font-family: $font-serif;
+      font-weight: 600;
+      color: #b8892f;
+    }
+
+    &__curriculum {
+      margin-left: auto;
+      font-size: 0.85rem;
+      opacity: 0.75;
+    }
+  }
+
+  .tt-slot-row {
+    .item-image img {
+      filter: grayscale(0.6) brightness(0.8);
+      opacity: 0.7;
+    }
+
+    .tt-slot-row__count {
+      margin-left: 4px;
+      font-size: 0.85rem;
+      opacity: 0.6;
+    }
+
+    .tt-slot-row__hint {
+      margin-top: 2px;
+      font-size: 0.85rem;
+      opacity: 0.7;
+    }
+
+    .tt-slot-row__cost {
+      flex: 0 0 auto;
+      font-size: 0.85rem;
+      color: #d4a843;
+    }
+
+    .tt-slot-row__cta {
+      flex: 0 0 auto;
+      width: auto;
+      min-width: 64px;
+      height: 28px;
+      margin: 0;
+      padding: 0 14px;
+      border: 1px solid rgba(212, 168, 67, 0.7);
+      border-radius: 4px;
+      background: linear-gradient(180deg, #932846, #7b1b38);
+      color: #fbf0d4;
+      font-family: $font-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: box-shadow 0.15s;
+
+      &:hover {
+        box-shadow: 0 0 8px rgba(212, 168, 67, 0.45);
+      }
+
+      &:focus-visible {
+        outline: 2px solid #d4a843;
+        outline-offset: 2px;
+      }
+    }
+  }
+
+  .tt-upcoming {
+    margin: 4px 0 0;
+    padding: 4px 15px 6px;
+    list-style: none;
+    font-size: 0.85rem;
+    opacity: 0.6;
+
+    li + li {
+      margin-top: 2px;
+    }
+
+    i {
+      width: 14px;
+      font-size: 0.75rem;
+    }
+  }
+
   .hint {
     font-style: italic;
     color: var(--button-text-color);
@@ -304,72 +403,5 @@
       margin: 0.15rem 0 0;
       padding-left: 1rem;
     }
-  }
-}
-
-// Picker dialog
-.hv-thuat-thuc-picker {
-  padding: 0.5rem;
-
-  .picker-filters {
-    display: flex;
-    gap: 0.35rem;
-    margin-bottom: 0.5rem;
-
-    input[type='search'] {
-      flex: 1 1 auto;
-      min-width: 0;
-    }
-
-    select {
-      flex: 0 0 auto;
-    }
-  }
-
-  .picker-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    max-height: 480px;
-    overflow-y: auto;
-  }
-
-  .picker-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.35rem 0.5rem;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
-
-    .picker-name strong {
-      display: block;
-    }
-
-    .row-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.2rem;
-      margin-top: 0.15rem;
-    }
-
-    .picker-actions button {
-      padding: 0.2rem 0.6rem;
-      border: 1px solid rgba(0, 0, 0, 0.2);
-      border-radius: 4px;
-      background: rgba(255, 255, 255, 0.7);
-      cursor: pointer;
-
-      &:hover {
-        background: rgba(255, 255, 255, 1);
-      }
-    }
-  }
-
-  .picker-empty {
-    padding: 0.75rem;
-    text-align: center;
-    color: rgba(0, 0, 0, 0.55);
-    font-style: italic;
   }
 }

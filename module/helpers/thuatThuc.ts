@@ -1,4 +1,5 @@
 import type { ThuatThuc, ThuatThucSource, UsageFrequency } from "../../types/thuatThuc";
+import type { HePhaiPrivilege } from "../../types/hePhai";
 import { HE_PHAI, THUAT_THUC, THUAT_THUC_BY_ID } from "./config";
 import { getThiTocById } from "./thiToc";
 
@@ -29,9 +30,32 @@ export function isThuatThucUnlocked(actor: Actor, entry: ThuatThuc): boolean {
 
     return Object.entries(sect.privileges ?? {})
         .filter(([bac]) => Number(bac) <= sectLevel)
-        .some(([, unlocks]) => unlocks.some((u) =>
-            "id" in u ? u.id === entry.id : u.category === entry.category && entry.level <= u.maxLevel
-        ));
+        .some(([, unlocks]) => unlocks.some((u) => matchesPrivilege(entry, u)));
+}
+
+/** Một mục Đặc Quyền khớp Thuật Thức: `{ id }` hoặc `{ category, maxLevel }`. */
+export function matchesPrivilege(entry: ThuatThuc, privilege: HePhaiPrivilege): boolean {
+    return "id" in privilege
+        ? privilege.id === entry.id
+        : privilege.category === entry.category && entry.level <= privilege.maxLevel;
+}
+
+/** Rulebook (Bát Bộ Thành Nhân): 3 Thuật Thức cấp-1 trong Giáo Trình, học miễn phí. */
+export const SECT_STARTER_SLOTS = 3;
+
+/** Thuật Thức có thể chọn vào lượt Nhập Môn: phân hệ thuộc Giáo Trình, cấp 1. */
+export function isSectStarterEligible(actor: Actor, entry: ThuatThuc): boolean {
+    const sect = HE_PHAI[(actor as any).system?.identity?.monPhai];
+    return !!sect && sect.curriculum.includes(entry.category) && entry.level === 1;
+}
+
+/** Số lượt chọn Nhập Môn còn lại (0 nếu chưa có Hệ Phái). */
+export function getSectStarterRemaining(actor: Actor): number {
+    if (!HE_PHAI[(actor as any).system?.identity?.monPhai]) return 0;
+    const used = actor.items.filter(
+        (i) => (i.type as string) === THUAT_THUC_ITEM_TYPE && (i as any).system?.source === "sect"
+    ).length;
+    return Math.max(0, SECT_STARTER_SLOTS - used);
 }
 
 /**
@@ -111,11 +135,16 @@ export async function grantClanStarterTechniques(
 
 /** Remove every clan-granted Thuật Thức from the actor (called on clan change/removal). */
 export async function removeClanGrantedTechniques(actor: Actor): Promise<void> {
+    await removeTechniquesBySource(actor, "clan");
+}
+
+/** Remove every Thuật Thức with the given source (e.g. 'sect' on Hệ Phái change/removal). */
+export async function removeTechniquesBySource(actor: Actor, source: ThuatThucSource): Promise<void> {
     const ids = actor.items
         .filter(
             (i) =>
                 i.type === THUAT_THUC_ITEM_TYPE &&
-                (i as any).system?.source === "clan"
+                (i as any).system?.source === source
         )
         .map((i) => i.id)
         .filter((id): id is string => !!id);

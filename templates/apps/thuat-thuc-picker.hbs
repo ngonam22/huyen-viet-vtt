@@ -1,83 +1,156 @@
 {{! Thuật Thức Picker — see specs/spec_thuat_thuc.md §9.4 }}
-<div class='thuat-thuc-picker'>
-  <header class='picker-filters'>
-    <input
-      type='search'
-      name='q'
-      placeholder='{{localize "BOILERPLATE.ThuatThuc.searchPlaceholder"}}'
-      value='{{filters.q}}'
-    />
-    <select name='category'>
-      <option value=''>{{localize 'BOILERPLATE.ThuatThuc.allCategories'}}</option>
-      {{#each categories as |cat|}}
-        <option value='{{cat}}' {{#if (eq ../filters.category cat)}}selected{{/if}}>
-          {{localize (concat 'BOILERPLATE.ThuatThucCategory.' cat)}}
-        </option>
-      {{/each}}
-    </select>
-    <select name='level'>
-      <option value=''>{{localize 'BOILERPLATE.ThuatThuc.allLevels'}}</option>
-      {{#each levels as |lvl|}}
-        <option value='{{lvl}}' {{#if (eq ../filters.level lvl)}}selected{{/if}}>C{{lvl}}</option>
-      {{/each}}
-    </select>
-    <select name='element'>
-      <option value=''>{{localize 'BOILERPLATE.ThuatThuc.allElements'}}</option>
-      {{#each elements as |el|}}
-        <option value='{{el}}' {{#if (eq ../filters.element el)}}selected{{/if}}>
-          {{localize (concat 'BOILERPLATE.Element.' el '.label')}}
-        </option>
-      {{/each}}
-    </select>
-    <span class='picker-xp'>{{localize 'BOILERPLATE.ThuatThuc.currentXp'}}: {{currentXp}}</span>
-    {{#if isGM}}
-      <label class='picker-show-all'>
-        <input type='checkbox' name='showAll' {{#if filters.showAll}}checked{{/if}} />
-        {{localize 'BOILERPLATE.ThuatThuc.showAll'}}
-      </label>
-    {{/if}}
+<div class='tt-picker tt-picker--{{mode}}'>
+  <header class='tt-picker__head'>
+    <div class='tt-picker__titles'>
+      <h2 class='tt-picker__title'>{{heading.title}}</h2>
+      <p class='tt-picker__subtitle'>{{heading.subtitle}}</p>
+    </div>
+    <div class='tt-picker__purse'>
+      {{#if isStarter}}
+        <img class='tt-picker__purse-icon' src='systems/huyen-viet-vtt/assets/icons/thuatThuc.png' alt='' />
+        <div class='tt-picker__purse-text'>
+          <span class='tt-picker__purse-label'>{{localize 'BOILERPLATE.ThuatThuc.starterLeft'}}</span>
+          <span class='tt-picker__purse-value'>{{starterRemaining}}<small>/{{starterTotal}}</small></span>
+        </div>
+      {{else}}
+        <img class='tt-picker__purse-icon' src='systems/huyen-viet-vtt/assets/icons/tuVi.png' alt='' />
+        <div class='tt-picker__purse-text'>
+          <span class='tt-picker__purse-label'>{{localize 'BOILERPLATE.ThuatThuc.currentXp'}}</span>
+          <span class='tt-picker__purse-value'>{{currentXp}}</span>
+        </div>
+      {{/if}}
+    </div>
   </header>
 
-  <ol class='picker-list'>
-    {{#each results as |row|}}
-      <li class='picker-row' data-technique-id='{{row.entry.id}}'>
-        <div class='picker-name'>
-          <strong>{{localize row.entry.name}}</strong>
-          <div class='row-badges'>
-            <span class='badge'>C{{row.entry.level}}</span>
-            <span class='badge'>{{localize (concat 'BOILERPLATE.ThuatThucCategory.' row.entry.category)}}</span>
-            {{#if row.entry.element}}
-              <span class='badge badge-{{row.entry.element}}'>{{localize (concat 'BOILERPLATE.Element.' row.entry.element '.label')}}</span>
-            {{/if}}
-            {{#if row.locked}}
-              <span class='badge badge-warn' data-tooltip='{{localize "BOILERPLATE.ThuatThuc.locked"}}'>🔒</span>
-            {{/if}}
-            {{#if row.prereqWarning}}
-              <span class='badge badge-warn' data-tooltip='{{localize "BOILERPLATE.ThuatThuc.prereqWarning"}}'>⚠</span>
+  <div class='tt-picker__filters'>
+    <div class='tt-picker__filter-row'>
+      <label class='tt-picker__search'>
+        <i class='fas fa-search'></i>
+        <input type='search' name='q' value='{{filters.q}}' placeholder='{{localize "BOILERPLATE.ThuatThuc.searchPlaceholder"}}' />
+      </label>
+      {{#if (gt chips.category.length 1)}}
+        <div class='tt-picker__chips'>
+          {{#each chips.category as |c|}}
+            <button type='button' class='tt-chip {{#if c.active}}is-active{{/if}}'
+              data-action='toggleFilter' data-group='category' data-value='{{c.value}}'>{{c.label}}</button>
+          {{/each}}
+        </div>
+      {{/if}}
+      {{#if (gt levelOptions.length 1)}}
+        <details class='tt-select' {{#if levelMenuOpen}}open{{/if}}>
+          <summary class='tt-select__trigger {{#if filters.levels.length}}is-active{{/if}}'>
+            <span>{{localize 'BOILERPLATE.ThuatThuc.level'}}: {{levelSummary}}</span>
+            <i class='fas fa-chevron-down'></i>
+          </summary>
+          <div class='tt-select__menu'>
+            {{#each levelOptions as |o|}}
+              <label class='tt-select__option'>
+                <input type='checkbox' name='level' value='{{o.value}}' {{#if o.checked}}checked{{/if}} />
+                {{localize 'BOILERPLATE.ThuatThuc.level'}} {{o.value}}
+              </label>
+            {{/each}}
+            {{#if filters.levels.length}}
+              <button type='button' class='tt-select__clear' data-action='clearLevels'>{{localize 'BOILERPLATE.ThuatThuc.clearFilter'}}</button>
             {{/if}}
           </div>
-        </div>
-        <div class='picker-actions'>
-          {{#if row.learned}}
-            <span class='badge'>{{localize 'BOILERPLATE.ThuatThuc.learned'}}</span>
-          {{else}}
-            {{#unless row.locked}}
-              <button type='button' data-action='learnThuatThucXp' data-technique-id='{{row.entry.id}}'
-                {{#if (lt ../currentXp row.entry.xpCost)}}disabled{{/if}}>
-                {{localize 'BOILERPLATE.ThuatThuc.learnXp'}} ({{row.entry.xpCost}})
+        </details>
+      {{/if}}
+    </div>
+    {{#if showSecondRow}}
+      <div class='tt-picker__filter-row'>
+        {{#if (gt chips.element.length 1)}}
+          <div class='tt-picker__chips'>
+            {{#each chips.element as |c|}}
+              <button type='button' class='tt-chip tt-chip--element {{#if c.active}}is-active{{/if}}'
+                data-action='toggleFilter' data-group='element' data-value='{{c.value}}'>
+                <img src='{{c.icon}}' alt='' />{{c.label}}
               </button>
-            {{/unless}}
-            {{#if ../isGM}}
-              <button type='button' data-action='pickThuatThuc' data-technique-id='{{row.entry.id}}'
-                data-tooltip='{{localize "BOILERPLATE.ThuatThuc.addFreeHint"}}'>
-                {{localize 'BOILERPLATE.ThuatThuc.add'}}
+            {{/each}}
+          </div>
+        {{/if}}
+        {{#if (and isGM isLearn)}}
+          <label class='tt-picker__showall'>
+            <input type='checkbox' name='showAll' {{#if filters.showAll}}checked{{/if}} />
+            {{localize 'BOILERPLATE.ThuatThuc.showAll'}}
+          </label>
+        {{/if}}
+      </div>
+    {{/if}}
+  </div>
+
+  <div class='tt-picker__grid'>
+    {{#each cards as |c|}}
+      <article class='tt-card {{#if c.learned}}is-learned{{/if}} {{#if c.locked}}is-locked{{/if}}'
+        data-search='{{c.searchKey}}'>
+        <header class='tt-card__head'>
+          <span class='tt-card__level' data-tooltip='{{localize "BOILERPLATE.ThuatThuc.level"}} {{c.entry.level}}'>{{c.entry.level}}</span>
+          <div class='tt-card__name'>
+            <h3>{{c.entry.name}}</h3>
+            <div class='tt-card__kind'>
+              <span>{{c.categoryLabel}}</span>
+              {{#if c.elementLabel}}
+                <span class='tt-card__element'><img src='{{c.elementIcon}}' alt='' />{{c.elementLabel}}</span>
+              {{/if}}
+              {{#if c.entry.maHoa}}<span class='tt-card__mahoa'>{{localize 'BOILERPLATE.ThuatThuc.maHoa'}}</span>{{/if}}
+            </div>
+          </div>
+        </header>
+
+        {{#if c.traits}}<p class='tt-card__traits'>{{c.traits}}</p>{{/if}}
+
+        <dl class='tt-card__meta'>
+          {{#if c.entry.skillCheck}}<dt>{{localize 'BOILERPLATE.ThuatThuc.skillCheck'}}</dt><dd>{{c.entry.skillCheck}}</dd>{{/if}}
+          {{#if c.entry.difficulty}}<dt>{{localize 'BOILERPLATE.ThuatThuc.difficulty'}}</dt><dd>{{c.entry.difficulty}}</dd>{{/if}}
+          {{#if c.entry.range}}<dt>{{localize 'BOILERPLATE.ThuatThuc.range'}}</dt><dd>{{c.entry.range}}</dd>{{/if}}
+          {{#if c.entry.condition}}<dt>{{localize 'BOILERPLATE.ThuatThuc.condition'}}</dt><dd>{{c.entry.condition}}</dd>{{/if}}
+        </dl>
+
+        {{#if c.summary}}<p class='tt-card__summary'>{{c.summary}}</p>{{/if}}
+
+        {{#if c.hasDetail}}
+          <details class='tt-card__detail'>
+            <summary>{{localize 'BOILERPLATE.ThuatThuc.viewDetail'}}</summary>
+            {{#if c.entry.primaryEffect}}
+              <h4>{{localize 'BOILERPLATE.ThuatThuc.primaryEffect'}}</h4>
+              <div>{{{c.entry.primaryEffect}}}</div>
+            {{/if}}
+            {{#if c.entry.sincerityEffects.length}}
+              <h4>{{localize 'BOILERPLATE.ThuatThuc.sincerityEffects'}}</h4>
+              <ul>
+                {{#each c.entry.sincerityEffects as |s|}}
+                  <li><b>{{s.cost}}</b> {{{s.text}}}</li>
+                {{/each}}
+              </ul>
+            {{/if}}
+          </details>
+        {{/if}}
+
+        <footer class='tt-card__foot'>
+          {{#if c.learned}}
+            <span class='tt-stamp'>{{localize 'BOILERPLATE.ThuatThuc.learned'}}</span>
+          {{else if ../isStarter}}
+            <button type='button' class='tt-btn-seal' data-action='pickStarter' data-technique-id='{{c.entry.id}}'>
+              {{localize 'BOILERPLATE.ThuatThuc.pick'}} · {{localize 'BOILERPLATE.ThuatThuc.free'}}
+            </button>
+          {{else}}
+            {{#if c.locked}}
+              <span class='tt-card__lock'><i class='fas fa-lock'></i> {{localize 'BOILERPLATE.ThuatThuc.locked'}}</span>
+            {{else}}
+              <button type='button' class='tt-btn-seal' data-action='learnXp' data-technique-id='{{c.entry.id}}'
+                {{#unless c.canAfford}}disabled data-tooltip='{{localize "BOILERPLATE.ThuatThuc.notEnoughXp"}}'{{/unless}}>
+                {{localize 'BOILERPLATE.ThuatThuc.learnXp'}} · {{c.entry.xpCost}} {{localize 'BOILERPLATE.ThuatThuc.currentXp'}}
               </button>
             {{/if}}
+            {{#if (and ../isGM ../isLearn)}}
+              <button type='button' class='tt-btn-ghost' data-action='addFree' data-technique-id='{{c.entry.id}}'
+                data-tooltip='{{localize "BOILERPLATE.ThuatThuc.addFreeHint"}}'><i class='fas fa-plus'></i></button>
+            {{/if}}
           {{/if}}
-        </div>
-      </li>
+        </footer>
+      </article>
     {{else}}
-      <li class='picker-empty'>{{localize 'BOILERPLATE.ThuatThuc.noResults'}}</li>
+      <p class='tt-picker__empty'>{{localize 'BOILERPLATE.ThuatThuc.noResults'}}</p>
     {{/each}}
-  </ol>
+    <p class='tt-picker__empty tt-picker__empty--search' hidden>{{localize 'BOILERPLATE.ThuatThuc.noResults'}}</p>
+  </div>
 </div>

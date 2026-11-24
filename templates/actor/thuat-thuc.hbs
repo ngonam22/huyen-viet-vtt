@@ -7,7 +7,7 @@
   <header class='thuat-thuc-bar'>
     {{#if @root.editable}}
       <button type='button' class='tt-btn' data-action='addThuatThuc'>
-        <i class='fas fa-plus'></i>
+        <i class='fas fa-book-open'></i>
         {{localize 'BOILERPLATE.ThuatThuc.addTechnique'}}
       </button>
     {{/if}}
@@ -17,6 +17,71 @@
       <button type='button' class='tt-btn' data-action='restLong'>{{localize 'BOILERPLATE.ThuatThuc.restLong'}}</button>
     </div>
   </header>
+
+  {{#if sectPanel}}
+    <div class='tt-sect-line'>
+      <span class='tt-sect-line__name'>{{localize sectPanel.name}}</span>
+      <span class='tt-sect-line__level'>{{localize 'BOILERPLATE.ThuatThuc.sectLevel'}} {{sectPanel.sectLevel}}</span>
+      <span class='tt-sect-line__curriculum'>{{localize 'BOILERPLATE.ThuatThuc.curriculum'}}: {{sectPanel.curriculumLabel}}</span>
+    </div>
+
+    {{#if (or sectPanel.pendingCount sectPanel.upcoming.length)}}
+      <details class='thuat-thuc-category tt-pending' open>
+        <summary>{{localize 'BOILERPLATE.ThuatThuc.pendingGroup'}} ({{sectPanel.pendingCount}})</summary>
+        <ol class='thuat-thuc-item-list'>
+          {{#each sectPanel.starterSlots as |slot|}}
+            <li class='item thuat-thuc-row tt-slot-row'>
+              <div class='item-image'>
+                <img src='systems/huyen-viet-vtt/assets/icons/thuatThuc.png' width='50' height='50' alt='' />
+              </div>
+              <div class='item-name'>
+                <div>
+                  <span class='tw:font-semibold tw:text-lg'>{{localize 'BOILERPLATE.ThuatThuc.starterGroup'}}</span>
+                  <span class='tt-slot-row__count'>{{slot.index}}/{{../sectPanel.starterTotal}}</span>
+                </div>
+                <div class='tt-slot-row__hint'>{{localize 'BOILERPLATE.ThuatThuc.level'}} 1 · {{../sectPanel.curriculumLabel}}</div>
+              </div>
+              <span class='tt-slot-row__cost'>{{localize 'BOILERPLATE.ThuatThuc.free'}}</span>
+              {{#if @root.editable}}
+                <button type='button' class='tt-slot-row__cta' data-action='openThuatThucSlot' data-mode='starter'>
+                  {{localize 'BOILERPLATE.ThuatThuc.pick'}}
+                </button>
+              {{/if}}
+            </li>
+          {{/each}}
+          {{#each sectPanel.privileges as |p|}}
+            <li class='item thuat-thuc-row tt-slot-row'>
+              <div class='item-image'>
+                <img src='systems/huyen-viet-vtt/assets/icons/thuatThuc.png' width='50' height='50' alt='' />
+              </div>
+              <div class='item-name'>
+                <div>
+                  <span class='tw:font-semibold tw:text-lg'>{{p.label}}</span>
+                </div>
+                <div class='tt-slot-row__hint'>
+                  {{localize 'BOILERPLATE.ThuatThuc.privilegeShort'}} {{localize 'BOILERPLATE.ThuatThuc.sectLevel'}} {{p.bac}}{{#unless p.single}} · {{p.available}} {{localize 'BOILERPLATE.ThuatThuc.availableCount'}}{{/unless}}
+                </div>
+              </div>
+              <span class='tt-slot-row__cost'>3 {{localize 'BOILERPLATE.ThuatThuc.currentXp'}}</span>
+              {{#if @root.editable}}
+                <button type='button' class='tt-slot-row__cta' data-action='openThuatThucSlot' data-mode='privilege'
+                  data-bac='{{p.bac}}' data-index='{{p.index}}'>
+                  {{localize 'BOILERPLATE.ThuatThuc.learnXp'}}
+                </button>
+              {{/if}}
+            </li>
+          {{/each}}
+        </ol>
+        {{#if sectPanel.upcoming.length}}
+          <ul class='tt-upcoming'>
+            {{#each sectPanel.upcoming as |u|}}
+              <li><i class='fas fa-lock'></i> {{localize 'BOILERPLATE.ThuatThuc.sectLevel'}} {{u.bac}}: {{u.text}}</li>
+            {{/each}}
+          </ul>
+        {{/if}}
+      </details>
+    {{/if}}
+  {{/if}}
 
   {{#if thuatThucIsEmpty}}
     <p class='hint'>{{localize 'BOILERPLATE.ThuatThuc.empty'}}</p>

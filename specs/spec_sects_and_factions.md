@@ -20,14 +20,14 @@ Một Object `Môn Phái` trong Database sẽ bao gồm các trường dữ li�
 *   **`Kỹ Năng Cộng Thêm` (Bonus Skills):** Danh sách 3 đến 5 Kỹ năng được +1 điểm.
 *   **`Giáo Trình` (Curriculum):** Danh sách **phân hệ** Thuật Thức (VD: Võ Kỹ, Kỳ Nghệ, Nghi Thức) mà Hệ Phái mở cho thành viên học bằng Tu Vi, giới hạn cấp Thuật Thức ≤ Cấp Bậc Hệ Phái. Engine: field `curriculum` (xem §5.3, `spec_thuat_thuc.md` §8.3).
 *   **`Thuật Thức Đặc Quyền` (Privileges):** Thuật Thức / phân hệ mở thêm theo từng bậc, cộng dồn, bỏ qua Giáo Trình và giới hạn cấp. Engine: field `privileges`.
-*   **`Thuật Thức Nhập Môn` (Starter):** Thuật Thức miễn phí lúc tạo nhân vật. Hiện engine chỉ gắn lên Thị Tộc (`starterTechniques: string[]` trong `THI_TOC`), chưa có cho Hệ Phái — chi tiết `spec_thuat_thuc.md` §8.1.
+*   **`Thuật Thức Nhập Môn` (Starter):** Thuật Thức miễn phí lúc tạo nhân vật: **3 Thuật Thức cấp-1 tự chọn trong Giáo Trình** (engine: 3 lượt chọn trên tab Thuật Thức, item `source='sect'` — `spec_thuat_thuc.md` §8.4) + danh sách Nhập Môn cố định riêng từng phái (chưa implement). Thị Tộc vẫn có `starterTechniques` riêng (§8.1).
 *   **`Đặc Kỹ Môn Phái` (Sect Special Technique - ĐKMP):** Kỹ năng nội tại/Kích hoạt độc quyền của phái. Cơ chế của ĐKMP luôn scale (tăng tiến) theo `Cấp Bậc Môn Phái` do đó từ `Cấp Bậc Môn Phái` có thể suy ra cấp Đặc kỹ Môn Phái, về mặt hệ thống có thể coi chúng là một. 
 
 ## 3. GAME RULES: CƠ CHẾ KHỞI TẠO (Character Creation Affect)
 Khi Player chọn Môn Phái ở Bước 4 của quá trình Khởi Tạo Nhân Vật, hệ thống sẽ apply các thay đổi sau lên Character Entity:
 1.  Player chọn `+1` vào 2 chỉ số Ngũ Hành khác nhau.
 2.  Player chọn 3 Kỹ Năng khác biệt **bất kỳ** (không trùng Kỹ Năng Bổ Sung của phái) để `+1`.
-3.  Player nhận các Thuật Thức nhập môn (miễn phí, không tốn XP). *(Chưa implement cho Hệ Phái — bước "Thuật Thức" của Bát Bộ Thành Nhân chưa có logic.)*
+3.  Player chọn 3 Thuật Thức cấp-1 trong Giáo Trình (miễn phí) + nhận Thuật Thức Nhập Môn của phái. *(Engine: 3 lượt chọn trên tab Thuật Thức; danh sách Nhập Môn cố định chưa implement.)*
 4.  Nhân vật nhận được **Đặc Kỹ Môn Phái** khởi điểm ở **Cấp 1** tương đương với **Cấp Bậc Môn Phái** là 1
 5.  Cấp phát **Trang bị khởi đầu** tương ứng với môn phái.
 

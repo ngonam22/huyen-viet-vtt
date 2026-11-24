@@ -175,7 +175,7 @@ export interface Prerequisites {
 ```ts
 {
   techniqueId: string;          // ref vào THUAT_THUC catalog
-  source: 'clan' | 'xp' | 'manual';
+  source: 'clan' | 'sect' | 'xp' | 'manual';   // 'sect' = Nhập Môn Hệ Phái (§8.4)
   usesRemaining: number;        // giảm khi dùng, reset theo trigger
   lastResetAt: number | null;   // timestamp (ms) của reset gần nhất, cho audit
   notes: string;                // HTML — per-character DM notes
@@ -251,6 +251,15 @@ Implement tại `learnThuatThucWithXp(actor, id)` (`module/helpers/progression.t
 
 ---
 
+### 8.4. Nhập Môn Hệ Phái (3 lượt chọn miễn phí)
+Rulebook (Bát Bộ Thành Nhân, bước Hệ Phái): nhân vật học **3 Thuật Thức cấp-1 trong Giáo Trình** của Hệ Phái, miễn phí.
+- `SECT_STARTER_SLOTS = 3`. Lượt còn lại = 3 − số item `source === 'sect'` (`getSectStarterRemaining`).
+- Ứng viên: `isSectStarterEligible` — phân hệ ∈ `curriculum` **và** `level === 1` (Đặc Quyền không tính).
+- `learnSectStarterTechnique(actor, id)` (`progression.ts`): check còn lượt → ứng viên hợp lệ → chưa học → tạo item `source='sect'`, changelog `technique_learned` (`xpCost: 0`).
+- Đổi / xóa Hệ Phái (`removeHePhaiFromActor`) xóa mọi item `source === 'sect'` → lượt chọn được hoàn lại cho Hệ Phái mới.
+- Chọn được bất kỳ lúc nào còn lượt (không khóa sau khi tạo nhân vật).
+- **Chưa có:** danh sách "Thuật Thức Nhập Môn" cố định theo từng phái trong rulebook (vd. Tịnh Lý: Cầm Nã Đấu Pháp, Nghi Thức Thanh Tẩy) — chờ map tên với catalog.
+
 ## 9. UI CONTRACT
 
 ### 9.1. Character sheet tab `Thuật Thức`
@@ -258,14 +267,19 @@ Tab riêng trên actor sheet, bên cạnh Inventory/Features/Effects.
 
 **Layout:**
 - Header bar:
-  - `+ Add Technique` button
+  - `Học Thuật Thức` button → picker mode `learn` (§9.4)
   - `Rest: Scene` / `Rest: Session` / `Rest: Long` buttons (3 nút riêng)
-  - Search box (filter by name)
+- **Dòng Hệ Phái** (chỉ khi có Hệ Phái): tên phái · Bậc · Giáo Trình — 1 dòng, không phải card.
+- **Nhóm "Chờ Lĩnh Ngộ"** (accordion như nhóm phân hệ, dùng chung row `.thuat-thuc-row` với Thuật Thức đã học; icon mờ = chưa có):
+  - Mỗi lượt Nhập Môn còn trống (§8.4): "Thuật Thức Nhập Môn n/3 — Cấp 1 · <Giáo Trình>", giá "Miễn phí", nút `Chọn` → picker mode `starter`.
+  - Mỗi mục Đặc Quyền ở bậc đã đạt còn Thuật Thức chưa học: tên mục, "Đặc Quyền Bậc N · còn X Thuật Thức", giá "3 Tu Vi", nút `Học` → picker mode `privilege`.
+  - Đặc Quyền ở bậc chưa đạt: gom thành dòng chữ mờ "🔒 Bậc N: <các mục>" cuối nhóm (không phải row).
+  - Lượt Nhập Môn đã chọn nằm trong danh sách phân hệ bên dưới, badge `Nhập Môn`.
 - Body: accordion sections theo phân hệ (§2), collapse được, chỉ hiển thị phân hệ có technique.
 - Mỗi row:
   - Image/icon
   - Tên (click → mở item sheet)
-  - Badge: Cấp-1, Hỏa (màu theo element), source badge ('clan'|'xp'|'manual' qua tooltip)
+  - Badge: Cấp-1, Hỏa (màu theo element), source badge ('clan'|'sect'|'xp'|'manual' qua tooltip)
   - Trait chips (compact, localized)
   - Counter: `usesRemaining / maxUses` (ẩn nếu `unlimited`)
   - `Use` button (disabled khi hết uses)
@@ -291,16 +305,22 @@ Khi click `Chat`:
 - Nội dung: tên, phân hệ, cấp, element, trait chips, điều kiện, kiểm tra, độ khó, phạm vi, thời hạn, hiệu quả chính, sincerity effects — full.
 - Styled riêng, visible cho cả party và DM.
 
-### 9.4. Picker dialog
-- ApplicationV2 modal.
-- Filters: category, level, element, trait, search text.
-- Header: Tu Vi hiện có (`currentXp`); checkbox `Hiện tất cả` (chỉ GM).
-- Player (và GM khi tắt `Hiện tất cả`) chỉ thấy Thuật Thức đã mở theo §8.3. GM bật `Hiện tất cả` → thấy cả entry bị khóa, có badge 🔒.
-- List view: tên, cấp badge, element badge, short description (first 100 chars of `primaryEffect`).
-- Row đã học → badge `Đã học`, không có nút.
-- Row đã mở, chưa học → nút `Học (3)` gọi `learnThuatThucWithXp`; disabled khi `currentXp < xpCost`.
-- GM → thêm nút `Thêm` miễn phí (§8.2).
-- Sau khi học/thêm, picker re-render (không đóng) để học tiếp.
+### 9.4. Picker dialog ("Tàng Kinh Các")
+`ThuatThucPicker.show(actor, { mode, bac, index })` — ApplicationV2, chỉ 1 instance mở tại một thời điểm. Style: `scss/components/_thuat-thuc-picker.scss` (nền giấy `content-bar.png`, card `card-bg.png`).
+
+| Mode | Mở từ | Danh sách | Hành động | Sau khi chọn |
+|---|---|---|---|---|
+| `learn` | nút `Học Thuật Thức`, modal Thăng Cấp | Đã mở theo §8.3 (GM `Hiện tất cả` → toàn catalog, entry khóa có 🔒) | `Học · 3 Tu Vi` (`learnThuatThucWithXp`); GM thêm `+` miễn phí (§8.2) | Re-render, học tiếp |
+| `starter` | row Nhập Môn | Cấp-1 trong Giáo Trình (§8.4) | `Chọn · Miễn phí` (`learnSectStarterTechnique`) | Đóng |
+| `privilege` | row Đặc Quyền | Khớp `privileges[bac][index]` | `Học · 3 Tu Vi` | Đóng |
+
+- Header: tiêu đề + phụ đề theo mode; bên phải là icon + số Tu Vi (mode `starter`: "Lượt chọn n/3"), ngăn với tiêu đề bằng 1 nét bronze.
+- Filter, 2 dòng cố định (bật/tắt `Hiện tất cả` không làm giãn layout):
+  - Dòng 1: ô tìm kiếm (rộng cố định, không phân biệt dấu, lọc trên DOM — không re-render) · chip Phân Hệ · dropdown chọn nhiều Cấp (rộng cố định 140px).
+  - Dòng 2: chip Hành (có icon `assets/icons/<hanh>-tablet-icon.webp`) · checkbox `Hiện tất cả` (GM, mode `learn`) căn phải.
+  - Chip/dropdown chỉ hiện giá trị có trong danh sách của mode; nhóm chỉ có 1 giá trị thì ẩn.
+- Card (nền `card-bg.png`): vòng cấp, tên, dòng phân hệ · hành (icon) · Ma-hóa, trait dạng chữ nghiêng, Kiểm tra / Độ Khó / Phạm vi / Điều kiện, tóm tắt hiệu quả (cắt 3 dòng), `Xem chi tiết` (Hiệu Quả Chính + Chí Thành). Một màu nhấn duy nhất (đỏ bordeaux) cho cấp, nút, chip đang chọn.
+- Đã học → dấu triện `Đã học`, không có nút. Không đủ Tu Vi → nút disabled.
 
 ---
 
@@ -353,7 +373,7 @@ Catalog chia file theo phân hệ trong `module/helpers/config/thuat-thuc/`:
 ## 13. OUT OF SCOPE (this pass)
 
 - Levels 3–6 catalog (và các Đặc Quyền trỏ tới Thuật Thức cấp ≥3 — xem `spec_sects_and_factions.md` §5.3).
-- Starter techniques của Hệ Phái lúc tạo nhân vật (bước "Thuật Thức" của Bát Bộ Thành Nhân chưa có logic).
+- Thuật Thức Nhập Môn cố định theo từng Hệ Phái (§8.4) và bước "Thuật Thức" trong Bát Bộ Thành Nhân (hiện chọn trên tab Thuật Thức).
 - Effect auto-resolution (damage/condition application).
 - `choose N` starter clauses.
 - Compendium pack creation / sharing.

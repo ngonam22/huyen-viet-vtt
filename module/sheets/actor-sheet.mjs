@@ -1,6 +1,6 @@
 import { prepareActiveEffectCategories } from '../helpers/effects.mjs';
 import { upgrade, applyUpgradeRule, removeUpgradeSource } from "../helpers/upgrade.ts";
-import {BOI_CANH, DANH_TIENG, DIA_VI, ELEMENT_CLASS, NHAN_PHAM, ELEMENTS, GIA_CANH, THI_TOC, THIEN_TU_DESCRIPTIONS} from "../helpers/config.ts";
+import {BOI_CANH, DANH_TIENG, DIA_VI, ELEMENT_CLASS, NHAN_PHAM, ELEMENTS, GIA_CANH, HE_PHAI, THI_TOC, THIEN_TU_DESCRIPTIONS, THUAT_THUC} from "../helpers/config.ts";
 import { ElementModal } from './element-modal.mjs'
 import { ResourceModal } from './resource-modal.mjs'
 import {removeThiTocFromActor, setThiTocForActor} from "../helpers/thiToc";
@@ -16,6 +16,9 @@ import { DetailModal } from './detail-modal.mjs';
 import { CharacterCreatorPanel } from './character-creator-panel.mjs';
 import {
     getThuatThucById,
+    getSectStarterRemaining,
+    matchesPrivilege,
+    SECT_STARTER_SLOTS,
     useThuatThuc,
     postThuatThucChatCard,
     restScene as restSceneFn,
@@ -48,6 +51,7 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
             toggleEffect: this._toggleEffect,
             roll: this._onRoll,
             addThuatThuc: this._onAddThuatThuc,
+            openThuatThucSlot: this._onOpenThuatThucSlot,
             useThuatThuc: this._onUseThuatThuc,
             chatThuatThuc: this._onChatThuatThuc,
             restScene: this._onRestScene,
@@ -499,6 +503,55 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
         }
         context.thuatThucByCategory = grouped;
         context.thuatThucIsEmpty = count === 0;
+        context.sectPanel = this._prepareSectTechniquePanel();
+    }
+
+    /**
+     * Hệ Phái panel trên tab Thuật Thức: lượt chọn Nhập Môn còn trống + Đặc Quyền theo bậc.
+     * Mỗi row mở ThuatThucPicker với filter tương ứng (spec_thuat_thuc §9.1).
+     */
+    _prepareSectTechniquePanel() {
+        const sect = HE_PHAI[this.actor.system.identity?.monPhai];
+        if (!sect) return null;
+        const sectLevel = this.actor.system.attributes?.level?.value ?? 1;
+        const learned = new Set(
+            this.actor.items.filter((i) => i.type === 'thuatThuc').map((i) => i.system.techniqueId)
+        );
+        const catLabel = (cat) => game.i18n.localize(`BOILERPLATE.ThuatThucCategory.${cat}`);
+
+        const starterRemaining = getSectStarterRemaining(this.actor);
+        const starterSlots = Array.from({ length: starterRemaining }, (_, i) => ({
+            index: SECT_STARTER_SLOTS - starterRemaining + i + 1,
+        }));
+
+        // Đặc Quyền: bậc đã đạt → row học được; bậc chưa đạt → 1 dòng "sắp mở" theo bậc
+        const privileges = [];
+        const upcoming = {};
+        for (const [bac, unlocks] of Object.entries(sect.privileges ?? {})) {
+            unlocks.forEach((u, index) => {
+                const label = 'id' in u
+                    ? getThuatThucById(u.id)?.name ?? u.id
+                    : `${catLabel(u.category)} cấp ${u.maxLevel === 1 ? '1' : `1–${u.maxLevel}`}`;
+                if (Number(bac) > sectLevel) {
+                    (upcoming[bac] ??= []).push(label);
+                    return;
+                }
+                const available = THUAT_THUC.filter((e) => matchesPrivilege(e, u) && !learned.has(e.id)).length;
+                if (available === 0) return; // đã học hết
+                privileges.push({ bac: Number(bac), index, label, available, single: 'id' in u });
+            });
+        }
+
+        return {
+            name: sect.ten,
+            sectLevel,
+            curriculumLabel: sect.curriculum.map(catLabel).join(' · '),
+            starterSlots,
+            starterTotal: SECT_STARTER_SLOTS,
+            privileges,
+            upcoming: Object.entries(upcoming).map(([bac, labels]) => ({ bac, text: labels.join(', ') })),
+            pendingCount: starterSlots.length + privileges.length,
+        };
     }
 
     async _confirmResetUpgrades() {
@@ -846,6 +899,17 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
     static async _onAddThuatThuc(event, target) {
         event.preventDefault();
         ThuatThucPicker.show(this.actor);
+    }
+
+    /**
+     * Mở picker theo slot trên Hệ Phái panel: `data-mode` = 'starter' | 'privilege'
+     * (+ `data-bac`, `data-index` cho Đặc Quyền).
+     * @this BoilerplateActorSheet
+     */
+    static async _onOpenThuatThucSlot(event, target) {
+        event.preventDefault();
+        const { mode, bac, index } = target.dataset;
+        ThuatThucPicker.show(this.actor, { mode, bac: Number(bac), index: Number(index) });
     }
 
     /**

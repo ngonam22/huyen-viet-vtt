@@ -1,6 +1,7 @@
 import type { HePhai } from "../../types/hePhai";
 import type { AppliedUpgrade } from "../../types/upgrade";
 import { HE_PHAI } from "./config";
+import { removeTechniquesBySource } from "./thuatThuc";
 import { getWeaponById, getArmorById, getAccessoryById, addWeaponToActor, addArmorToActor, addAccessoryToActor } from "./itemCatalog";
 
 const HE_PHAI_ITEM_TYPE = "monPhai";
@@ -62,6 +63,8 @@ export async function removeHePhaiFromActor(actor: Actor): Promise<void> {
     .filter((id): id is string => Boolean(id));
 
   await actor.update({ "system.identity.monPhai": "" });
+  // Thuật Thức Nhập Môn gắn với Hệ Phái cũ → bỏ khi đổi/xóa Hệ Phái
+  await removeTechniquesBySource(actor, "sect");
 
   if (ids.length === 0) return;
   await actor.deleteEmbeddedDocuments("Item", ids);
