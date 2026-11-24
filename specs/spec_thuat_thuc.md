@@ -247,6 +247,7 @@ Implement tại `learnThuatThucWithXp(actor, id)` (`module/helpers/progression.t
   2. **Đặc Quyền:** khớp một mục trong `HE_PHAI[monPhai].privileges[b]` với `b ≤` cấp Hệ Phái. Mục là `{ id }` (một Thuật Thức cụ thể) hoặc `{ category, maxLevel }` (cả phân hệ tới cấp `maxLevel`). Đặc Quyền **cộng dồn** qua các bậc và **bỏ qua** giới hạn cấp lẫn Giáo Trình.
   - Nhân vật chưa có Hệ Phái → không mở gì.
 - **Flow:** check gate → check đủ `currentXp` → HARD CHECK prerequisites (§7.2) → chặn trùng `techniqueId` → trừ XP → tạo item `source='xp'` → changelog `technique_learned`.
+- **Reset nâng cấp** (`resetUpgrades`, xem spec_character_progression §1 `upgrade_reset`) xóa mọi item `source='xp'`; giữ `clan` / `sect` / `manual`.
 - Cấp Hệ Phái tăng (§`spec_character_progression.md` §4) → các Thuật Thức mới tự hiện là "mở" trong picker; không auto-grant.
 
 ---

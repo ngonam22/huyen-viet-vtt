@@ -19,6 +19,9 @@
                 {{#if monPhaiLabel}}
                     <span class="hv-progression-modal__sect-name">{{monPhaiLabel}}</span>
                     <span class="hv-progression-modal__sect-level">Cấp {{sectLevel}}</span>
+                    {{#if sectPendingHint}}
+                        <span class="hv-progression-modal__sect-pending"><i class="fas fa-hourglass-half"></i> {{sectPendingHint}}</span>
+                    {{/if}}
                 {{else}}
                     <span class="hv-progression-modal__sect-none">Chưa có Hệ Phái</span>
                 {{/if}}

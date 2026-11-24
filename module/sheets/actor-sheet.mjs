@@ -25,6 +25,7 @@ import {
     restSession as restSessionFn,
     restLong as restLongFn,
 } from '../helpers/thuatThuc.ts';
+import { resetUpgrades } from '../helpers/progression.ts';
 
 const { api, sheets } = foundry.applications;
 
@@ -560,7 +561,7 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
             content: `
                 <div style="padding: 12px;">
                     <p><strong>Bạn có chắc muốn reset toàn bộ nâng cấp?</strong></p>
-                    <p>Thao tác này sẽ xóa toàn bộ dữ liệu trong <code>system.upgrades</code>.</p>
+                    <p>Thao tác này xóa toàn bộ nâng cấp Ngũ Hành / Kỹ Năng, các Thuật Thức học bằng Tu Vi, và tính lại Bậc Hệ Phái.</p>
                     <p style="color: #c0392b; font-weight: 600;">Điểm kinh nghiệm đã dùng sẽ không được hoàn lại.</p>
                 </div>
             `,
@@ -570,7 +571,7 @@ export class BoilerplateActorSheet extends api.HandlebarsApplicationMixin(
 
         if (!confirmed) return;
 
-        await this.actor.update({ 'system.upgrades': [], 'system.changelog': [] });
+        await resetUpgrades(this.actor);
         ui.notifications?.info('Đã reset toàn bộ nâng cấp. XP đã dùng không được hoàn lại.');
         this.render();
     }

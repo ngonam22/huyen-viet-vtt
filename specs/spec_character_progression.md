@@ -23,7 +23,7 @@ Mỗi entry có dạng:
 ```json
 {
   "id":        "<uuid>",
-  "type":      "element_upgrade | skill_upgrade | technique_learned | sect_upgrade | xp_gain | xp_adjust | identity_change",
+  "type":      "element_upgrade | skill_upgrade | technique_learned | sect_upgrade | xp_gain | xp_adjust | identity_change | upgrade_reset",
   "timestamp": 1234567890,
   "label":     "Hỏa: 2 → 3",
   "field":     "elements.hoa",
@@ -42,6 +42,7 @@ Mỗi entry có dạng:
 | `xp_gain` | GM trao XP | 0 |
 | `xp_adjust` | GM trừ / hiệu chỉnh XP | 0 |
 | `identity_change` | Đổi thiToc / boiCanh / monPhai / giaCanh / giaToc | 0 |
+| `upgrade_reset` | Nút "Reset nâng cấp": xóa `upgrades` + Thuật Thức `source='xp'`, Bậc về 1 rồi chạy lại `checkSectUpgrade`. Xóa changelog cũ, chỉ để 1 dòng tóm tắt (Bậc cũ, số nâng cấp, tên Thuật Thức bị xóa). **Không hoàn XP.** `resetUpgrades()` trong `progression.ts` | 0 |
 
 ---
 
@@ -97,6 +98,8 @@ Hàm `checkSectUpgrade(actor)` (`module/helpers/progression.ts`). Hai điều ki
 3.  Ghi `system.attributes.level.value`, changelog `sect_upgrade`, notification.
 
 **Trigger:** `updateXpManual` (khi `amount > 0`), `upgradeSkill`, `upgradeElement`. Cấp Hệ Phái **không tự giảm** (kể cả khi trừ XP hay đổi Hệ Phái).
+
+**Hiển thị:** mọi UI (sheet, modal Thăng Cấp, picker) đọc cấp từ `attributes.level.value`, **không** suy từ `totalXp`. Khi Pending, modal Thăng Cấp hiện dòng "Đủ Tu Vi lên Cấp N — cần <kỹ năng> <cấp>" (nối "hoặc" nếu `progressionReqsMode: 'any'`).
 
 ---
 

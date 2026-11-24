@@ -196,6 +196,12 @@
         font-weight: 600;
     }
 
+    &__sect-pending {
+        font-size: 12px;
+        color: rgba(230, 160, 120, 0.85);
+        font-style: italic;
+    }
+
     &__sect-none {
         font-size: 12px;
         color: rgba(150, 150, 150, 0.6);

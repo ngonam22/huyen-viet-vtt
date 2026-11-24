@@ -71,6 +71,7 @@ export const CHANGELOG_TYPES = {
     xp_gain:            { label: 'Nhận Tu Vi',       color: '#2ecc71', icon: '✨' },
     xp_adjust:          { label: 'Hiệu Chỉnh XP',   color: '#95a5a6', icon: '🔧' },
     identity_change:    { label: 'Thay Đổi Danh',   color: '#1abc9c', icon: '🔄' },
+    upgrade_reset:      { label: 'Reset Nâng Cấp',  color: '#c0392b', icon: '♻️' },
 } as const;
 
 export type ChangelogType = keyof typeof CHANGELOG_TYPES;

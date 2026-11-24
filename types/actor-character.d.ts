@@ -70,7 +70,8 @@ export type ChangelogEventType =
     | "sect_upgrade"
     | "xp_gain"
     | "xp_adjust"
-    | "identity_change";
+    | "identity_change"
+    | "upgrade_reset";
 
 export interface ChangelogEntry {
     id: string;

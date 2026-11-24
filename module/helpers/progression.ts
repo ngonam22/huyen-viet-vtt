@@ -31,6 +31,7 @@ import {
     isSectStarterEligible,
     isThuatThucUnlocked,
     learnThuatThuc,
+    removeTechniquesBySource,
 } from "./thuatThuc";
 
 function appendXpUpgrade(
@@ -409,7 +410,7 @@ export async function checkSectUpgrade(actor: Actor): Promise<void> {
     // Log
     await addChangelogEntry(actor, {
         type: "sect_upgrade",
-        label: `Đặc Kỹ ${sect.ten}: ${oldLevel} → ${newLevel}`,
+        label: `Đặc Kỹ ${game.i18n?.localize(sect.ten) ?? sect.ten}: ${oldLevel} → ${newLevel}`,
         field: "attributes.level",
         from: oldLevel,
         to: newLevel,
@@ -417,6 +418,45 @@ export async function checkSectUpgrade(actor: Actor): Promise<void> {
     });
 
     ui.notifications?.info(`🏛️ Đặc Kỹ Hệ Phái thăng cấp lên ${newLevel}!`);
+}
+
+/* ------------------------------------------------------------------ */
+/*  Reset Upgrades                                                    */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Reset toàn bộ nâng cấp bằng Tu Vi (không hoàn XP):
+ * xóa `upgrades`, Thuật Thức `source='xp'`, đưa Bậc Hệ Phái về 1 rồi chạy lại
+ * `checkSectUpgrade` (Bậc chỉ được giữ nếu chỉ số gốc vẫn đạt điều kiện).
+ * Changelog bị xóa, chỉ để lại 1 dòng `upgrade_reset` tóm tắt để debug.
+ */
+export async function resetUpgrades(actor: Actor): Promise<void> {
+    const system = (actor as any).system;
+    const oldLevel: number = system.attributes?.level?.value ?? 1;
+    const upgradeCount: number = system.upgrades?.length ?? 0;
+    const xpTechniques = actor.items.filter(
+        (i) => (i.type as string) === "thuatThuc" && (i as any).system?.source === "xp"
+    );
+
+    await actor.update({
+        "system.upgrades": [],
+        "system.changelog": [],
+        "system.attributes.level.value": 1,
+    });
+    await removeTechniquesBySource(actor, "xp");
+
+    const names = xpTechniques.map((i) => i.name).join(", ");
+    await addChangelogEntry(actor, {
+        type: "upgrade_reset",
+        label: `Reset: Bậc ${oldLevel} → 1, xóa ${upgradeCount} nâng cấp, ${xpTechniques.length} Thuật Thức${names ? ` (${names})` : ""}`,
+        field: "upgrades",
+        from: { level: oldLevel, upgrades: upgradeCount, techniques: xpTechniques.map((i) => (i as any).system?.techniqueId) },
+        to: { level: 1, upgrades: 0, techniques: [] },
+        xpCost: 0,
+    });
+
+    // Chỉ số đã về gốc → xét lại Bậc theo totalXp + kỹ năng gốc
+    await checkSectUpgrade(actor);
 }
 
 /* ------------------------------------------------------------------ */

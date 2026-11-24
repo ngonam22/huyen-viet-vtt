@@ -119,7 +119,18 @@ export class ProgressionModal extends HandlebarsApplicationMixin(ApplicationV2) 
         const monPhaiId = system.identity?.monPhai;
         const sect = monPhaiId ? HE_PHAI[monPhaiId] : null;
         const monPhaiLabel = sect ? game.i18n.localize(sect.ten) : '';
-        const sectLevel = getSectLevelFromTotalXp(totalXp);
+        // Cấp thật (đã qua điều kiện tiến cấp) — không suy từ totalXp
+        const sectLevel = system.attributes?.level?.value ?? 1;
+        // Đủ Tu Vi cho bậc kế nhưng chưa đạt kỹ năng → báo điều kiện còn thiếu
+        let sectPendingHint = '';
+        if (sect && getSectLevelFromTotalXp(totalXp) > sectLevel) {
+            const reqs = Object.entries(sect.progressionReqs?.[sectLevel + 1] ?? {})
+                .map(([k, lv]) => `${SKILL_LABELS[k] ?? k} ${lv}`);
+            if (reqs.length) {
+                const joiner = sect.progressionReqsMode === 'any' ? ' hoặc ' : ', ';
+                sectPendingHint = `Đủ Tu Vi lên Cấp ${sectLevel + 1} — cần ${reqs.join(joiner)}`;
+            }
+        }
 
         // Build element upgrade rows
         const elementUpgrades = Object.entries(ELEMENT_LABELS).map(([key, label]) => {
@@ -193,7 +204,7 @@ export class ProgressionModal extends HandlebarsApplicationMixin(ApplicationV2) 
 
         return {
             currentXp, totalXp,
-            monPhaiLabel, sectLevel,
+            monPhaiLabel, sectLevel, sectPendingHint,
             activeTab: this._activeTab,
             shopView: this._shopView,
             elementUpgrades,
